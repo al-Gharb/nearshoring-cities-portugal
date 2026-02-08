@@ -1,0 +1,620 @@
+{
+  "_meta": {
+    "schema": "3.1",
+    "database": "WEBSITE_CONTENT",
+    "lastUpdated": "2026-02-07T00:00:00Z",
+    "version": "1.1.0",
+    "sourceRegistry": "../sources.json",
+    "note": "All meta.sourceRef values point to IDs in sources.json for centralized URL management"
+  },
+
+  "national": {
+    "connectivity": {
+      "fiveG": {
+        "value": "Nationwide 5G coverage from MEO, NOS, Vodafone; on track for 100% population coverage",
+        "meta": {
+          "source": { "type": "official", "provider": "EC Digital Decade 2024", "url": "https://digital-strategy.ec.europa.eu/" },
+          "sourceRef": "ec-digital-decade-2024",
+          "verifiedDate": "2026-02-07",
+          "expiresAfter": "12M",
+          "note": "Changed from '98%' (unverifiable) to qualitative description per fact-check"
+        }
+      },
+      "subseaCables": {
+        "value": ["EllaLink (Brazil)", "2Africa (Africa)"],
+        "meta": {
+          "source": { "type": "official", "provider": "Telegeography", "url": "https://www.submarinecablemap.com/" },
+          "sourceRef": "telegeography-2024",
+          "verifiedDate": "2026-02-07",
+          "expiresAfter": "6M"
+        }
+      },
+      "sinesHub": {
+        "value": "Deep-water port designated as future interconnection hub for next-gen cables",
+        "meta": { "source": { "type": "official", "provider": "Sines Data Centre" } }
+      },
+      "latency": {
+        "frankfurt": { "value": 25, "unit": "ms" },
+        "sao_paulo": { "value": 45, "unit": "ms" },
+        "new_york": { "value": 80, "unit": "ms" },
+        "meta": { "source": { "type": "survey", "provider": "AWS CloudPing" } }
+      },
+      "geostrategic": {
+        "uniquePosition": "Only country with direct submarine cables to all continents (except Antarctica)",
+        "reach": [
+          "North-South Atlantic: Africa & South America",
+          "East-West: North America & Europe",
+          "Mediterranean Basin: Middle East & Asia"
+        ],
+        "latencyAdvantage": "Fortaleza (Brazil) closer to Lisbon than Miami — same-level EU connectivity for LATAM as North America"
+      }
+    },
+
+    "taxIncentives": {
+      "sifideII": {
+        "value": "32.5% base credit + 50% incremental credit on increased R&D spend (up to €1.5M)",
+        "eligibleCosts": "Salaries, equipment, software, and contracted R&D",
+        "application": "Annual via ANI",
+        "meta": {
+          "source": { "type": "official", "provider": "ANI" },
+          "sourceRef": "ani-sifide",
+          "verifiedDate": "2026-02-07",
+          "expiresAfter": "12M"
+        }
+      },
+      "techVisa": {
+        "value": "Fast-track work and residence permits for highly qualified non-EU tech professionals hired by certified companies",
+        "detail": "Includes pathways tailored for innovation and startups. Managed by IAPMEI + AIMA/SEF.",
+        "meta": {
+          "source": { "type": "official", "provider": "IAPMEI" },
+          "sourceRef": "iapmei-techvisa",
+          "verifiedDate": "2026-02-07",
+          "expiresAfter": "12M"
+        }
+      },
+      "ifici": {
+        "value": "10-year regime offering a 20% flat IRS rate on eligible employment/self-employment income",
+        "detail": "For qualifying research and innovation professionals. Replaces the older NHR for new entrants from 2024.",
+        "meta": {
+          "source": { "type": "official", "provider": "PwC Portugal" },
+          "sourceRef": "pwc-ifici",
+          "verifiedDate": "2026-02-07",
+          "expiresAfter": "12M"
+        }
+      },
+      "corporateTax": {
+        "standard": 21,
+        "smeRate": 16,
+        "smeThreshold": "€50,000",
+        "surtaxes": "Municipal surtax: up to 1.5%; State surtax: 3–9% on higher profit brackets",
+        "unit": "%",
+        "meta": {
+          "source": { "type": "official", "provider": "AICEP Portugal Global" },
+          "sourceRef": "aicep-irc",
+          "verifiedDate": "2026-02-07",
+          "expiresAfter": "12M"
+        }
+      }
+    },
+
+    "laborMarket": {
+      "shortages": {
+        "value": ["Senior engineers", "AI/ML specialists"],
+        "meta": {
+          "source": { "type": "survey", "provider": "EU Education Monitor 2025" },
+          "sourceRef": "eu-education-monitor-2025",
+          "verifiedDate": "2026-02-07",
+          "expiresAfter": "12M"
+        }
+      },
+      "competition": {
+        "value": "Lisbon & Porto have active competition from multinationals, scale-ups, consultancies. International companies hire Portuguese talent remotely at higher rates.",
+        "meta": { "source": { "type": "estimate" } }
+      },
+      "retention": {
+        "medianTenure": { "value": "18-24", "unit": "months" },
+        "meta": {
+          "source": { "type": "survey", "provider": "Startup Portugal" },
+          "sourceRef": "startup-portugal",
+          "verifiedDate": "2026-02-07",
+          "expiresAfter": "12M"
+        }
+      },
+      "salaryTrends": {
+        "value": "Senior developer compensation grown steadily since 2021",
+        "meta": { "source": { "type": "survey", "provider": "Portugal Tech Salary Report" } }
+      }
+    },
+
+    "graduateFlow": {
+      "clusters": {
+        "value": [
+          { "name": "North", "cities": "Braga, Guimarães + Porto", "sharing": "High", "note": "Daily commuting via A3/A7 + urban rail, UMinho + FEUP feed same pool" },
+          { "name": "Central", "cities": "Aveiro, Coimbra", "sharing": "Moderate", "note": "Aveiro leans Porto (~45 min), Coimbra exports to Lisbon/Porto" },
+          { "name": "Capital", "cities": "Lisbon + Évora", "sharing": "Low-Moderate", "note": "Évora (~1h15) hybrid-only, mostly brain drain to Lisbon" },
+          { "name": "Interior", "cities": "Covilhã", "sharing": "Low", "note": "UBI produces quality engineers but geographic isolation causes high relocation" },
+          { "name": "Algarve", "cities": "Faro", "sharing": "Minimal", "note": "Expat/nomad hub, tourism-tech niche" }
+        ],
+        "meta": {
+          "source": { "type": "derived", "provider": "DGEEC aggregation" },
+          "sourceRef": "dgeec-infocursos-2324",
+          "verifiedDate": "2026-02-07",
+          "expiresAfter": "12M"
+        }
+      },
+      "lisbonPorto": {
+        "value": "No daily commute (3+ hrs). Alfa Pendular enables weekly splits for senior roles.",
+        "meta": { "source": { "type": "estimate" } }
+      }
+    },
+
+    "macroeconomicScorecard": {
+      "_description": "Executive summary metrics from CFP Economic and Fiscal Outlook 2025-2029",
+
+      "heroMetrics": {
+        "gdpNominal": {
+          "value": 264.6, "unit": "EUR billion", "year": 2024,
+          "meta": { "source": { "type": "official", "provider": "Eurostat" } }
+        },
+        "population": {
+          "value": 10.5, "unit": "million", "year": 2024,
+          "meta": { "source": { "type": "official", "provider": "Eurostat" } }
+        },
+        "gdpPerCapita": {
+          "value": 25200, "unit": "EUR", "year": 2024,
+          "meta": { "source": { "type": "official", "provider": "Eurostat" } }
+        },
+        "publicDebt": {
+          "value": 275.0, "unit": "EUR billion", "pctGdp": 94.9, "year": 2024,
+          "meta": { "source": { "type": "official", "provider": "CFP/Statistics Portugal" } }
+        },
+        "tradeSurplus": {
+          "value": 1.8, "unit": "% GDP", "year": 2024,
+          "note": "Goods + services balance (tourism surplus offsets goods deficit)",
+          "meta": { "source": { "type": "official", "provider": "CFP" } }
+        }
+      },
+
+      "economicActivity": {
+        "realGdpGrowth": {
+          "values": [
+            { "year": 2024, "value": 1.9, "type": "actual" },
+            { "year": 2025, "value": 1.9, "type": "forecast" },
+            { "year": 2026, "value": 2.2, "type": "forecast" },
+            { "year": 2027, "value": 2.1, "type": "forecast" }
+          ],
+          "unit": "%",
+          "meta": {
+            "source": { "type": "official", "provider": "European Commission", "url": "https://economy-finance.ec.europa.eu/economic-forecast-and-surveys/economic-forecasts_en" },
+            "sourceRef": "ec-autumn-2025",
+            "verifiedDate": "2026-02-07",
+            "expiresAfter": "3M",
+            "lifecycle": { "updateFrequency": "quarterly" },
+            "note": "Updated from CFP (1.8%/1.6%) to EC Autumn 2025 forecast (2.2%/2.1%) per fact-check"
+          }
+        },
+        "grossFixedCapitalFormation": {
+          "values": [
+            { "year": 2024, "value": 3.1, "type": "actual" },
+            { "year": 2025, "value": 3.6, "type": "forecast" },
+            { "year": 2026, "value": 5.5, "type": "forecast" },
+            { "year": 2027, "value": -1.1, "type": "forecast" }
+          ],
+          "unit": "%",
+          "meta": { "source": { "type": "official", "provider": "CFP" } }
+        },
+        "privateConsumption": {
+          "values": [
+            { "year": 2024, "value": 3.2, "type": "actual" },
+            { "year": 2025, "value": 3.3, "type": "forecast" },
+            { "year": 2026, "value": 2.3, "type": "forecast" },
+            { "year": 2027, "value": 2.3, "type": "forecast" }
+          ],
+          "unit": "%",
+          "meta": { "source": { "type": "official", "provider": "CFP" } }
+        },
+        "tradeBalance": {
+          "values": [
+            { "year": 2024, "value": 1.8, "type": "actual" },
+            { "year": 2025, "value": 0.8, "type": "forecast" },
+            { "year": 2026, "value": 0.1, "type": "forecast" },
+            { "year": 2027, "value": 0.5, "type": "forecast" }
+          ],
+          "unit": "% GDP",
+          "meta": { "source": { "type": "official", "provider": "CFP" } }
+        }
+      },
+
+      "labourAndCosts": {
+        "unemploymentRate": {
+          "values": [
+            { "year": 2024, "value": 6.5, "type": "actual" },
+            { "year": 2025, "value": 6.1, "type": "forecast" },
+            { "year": 2026, "value": 6.0, "type": "forecast" },
+            { "year": 2027, "value": 5.9, "type": "forecast" }
+          ],
+          "unit": "%",
+          "note": "Below EU average",
+          "meta": { "source": { "type": "official", "provider": "CFP" }, "lifecycle": { "updateFrequency": "quarterly" } }
+        },
+        "employmentRate20to64": {
+          "values": [
+            { "year": 2024, "value": 76.3, "type": "actual" },
+            { "year": 2025, "value": 76.9, "type": "forecast" },
+            { "year": 2026, "value": 77.4, "type": "forecast" },
+            { "year": 2027, "value": 77.8, "type": "forecast" }
+          ],
+          "unit": "%",
+          "meta": { "source": { "type": "official", "provider": "Eurostat" } }
+        },
+        "gdpDeflator": {
+          "values": [
+            { "year": 2024, "value": 4.4, "type": "actual" },
+            { "year": 2025, "value": 3.6, "type": "forecast" },
+            { "year": 2026, "value": 2.4, "type": "forecast" },
+            { "year": 2027, "value": 2.2, "type": "forecast" }
+          ],
+          "unit": "%",
+          "note": "Moderating",
+          "meta": { "source": { "type": "official", "provider": "CFP" } }
+        },
+        "tertiaryAttainment25to34": {
+          "value": 43.2, "unit": "%", "year": 2024,
+          "note": "Nearing EU-27 average",
+          "meta": { "source": { "type": "official", "provider": "Eurostat" } }
+        }
+      },
+
+      "fiscalPricesMarkets": {
+        "netLending": {
+          "values": [
+            { "year": 2024, "value": 2.8, "type": "actual" },
+            { "year": 2025, "value": 2.1, "type": "forecast" },
+            { "year": 2026, "value": 1.5, "type": "forecast" },
+            { "year": 2027, "value": 1.7, "type": "forecast" }
+          ],
+          "unit": "% GDP",
+          "note": "Primary balance surplus",
+          "meta": { "source": { "type": "official", "provider": "CFP" } }
+        },
+        "publicDebtToGdp": {
+          "values": [
+            { "year": 2024, "value": 94.9, "type": "actual" },
+            { "year": 2025, "value": 91.2, "type": "forecast" },
+            { "year": 2026, "value": 89.4, "type": "forecast" },
+            { "year": 2027, "value": 88.1, "type": "forecast" }
+          ],
+          "unit": "%",
+          "note": "Declining trend",
+          "meta": { "source": { "type": "official", "provider": "CFP" } }
+        },
+        "hicpInflation": {
+          "values": [
+            { "year": 2024, "value": 2.7, "type": "actual" },
+            { "year": 2025, "value": 2.3, "type": "forecast" },
+            { "year": 2026, "value": 2.1, "type": "forecast" },
+            { "year": 2027, "value": 2.0, "type": "forecast" }
+          ],
+          "unit": "%",
+          "note": "At ECB target",
+          "meta": { "source": { "type": "official", "provider": "CFP" } }
+        },
+        "sovereignYield10Y": {
+          "values": [
+            { "year": 2024, "value": 3.0, "type": "actual" },
+            { "year": 2025, "value": 2.8, "type": "forecast" },
+            { "year": 2026, "value": 2.7, "type": "forecast" },
+            { "year": 2027, "value": 2.7, "type": "forecast" }
+          ],
+          "unit": "%",
+          "note": "Stable",
+          "meta": { "source": { "type": "official", "provider": "ECB" } }
+        }
+      },
+
+      "meta": {
+        "source": { "type": "official", "provider": "CFP Economic and Fiscal Outlook 2025-2029, Eurostat, ECB" },
+        "confidence": 80,
+        "lifecycle": { "updateFrequency": "quarterly" }
+      }
+    },
+
+    "digitalInfrastructure": {
+      "ftthPenetration": {
+        "coverage": { "value": 94.1, "unit": "%", "description": "Network coverage of dwellings", "note": "Updated from 95.3% per Perplexity fact-check citing ANACOM Q4 2024" },
+        "takeUp": { "value": 55.3, "unit": "%", "description": "Households in covered areas using FTTH" },
+        "fiberShare": { "value": 68.9, "unit": "%", "description": "FTTH as % of total broadband connections" },
+        "lisbonMetroCoverage": { "value": 99.3, "unit": "%", "description": "Near-universal coverage in Lisbon Metropolitan Area" },
+        "dataDate": "Q4 2024",
+        "meta": { "source": { "type": "official", "provider": "ANACOM Q4 2024" } }
+      },
+      "fiveGCoverage": {
+        "populationCoverage": 98,
+        "unit": "%",
+        "year": 2024,
+        "operators": ["MEO (Altice)", "NOS", "Vodafone"],
+        "meta": { "source": { "type": "official", "provider": "ANACOM", "url": "https://www.anacom.pt/render.jsp?categoryId=377333" } }
+      },
+      "fixedBroadband": {
+        "averageTraffic": { "value": 319, "unit": "GB/month", "period": "Q4 2024" },
+        "businessGrade": { "value": "1-10", "unit": "Gbps symmetric" },
+        "consumerFiber500Mbps": { "value": "30-45", "unit": "EUR/month" },
+        "euRanking": "4th highest proportion of 100+ Mbps connections in EU",
+        "euRankingSource": "ANACOM 2024",
+        "meta": { "source": { "type": "official", "provider": "ANACOM Q4 2024" } }
+      },
+      "latency": {
+        "toFrankfurt": { "value": 25, "unit": "ms", "qualifier": "under" },
+        "toAmsterdam": { "value": 25, "unit": "ms", "qualifier": "under" },
+        "toSaoPaulo": { "value": 45, "unit": "ms" },
+        "toNewYork": { "value": 80, "unit": "ms" },
+        "meta": { "source": { "type": "survey", "provider": "AWS CloudPing" } }
+      },
+      "terrestrialConnectivity": {
+        "value": "Terrestrial fiber networks connect Portugal to France and Spain, providing redundant European connectivity",
+        "meta": { "source": { "type": "official", "provider": "ANACOM", "url": "https://www.anacom.pt/render.jsp?categoryId=377333" } }
+      },
+      "subseaCables": {
+        "summary": {
+          "operational": 9,
+          "planned": 6,
+          "totalProjected": 15,
+          "dataDate": "2024",
+          "landingPoints": ["Carcavelos", "Sines", "Sesimbra", "Seixal", "Burgau"],
+          "emergingHub": "Sines",
+          "note": "9 operational submarine cables with 6+ additional cables planned through 2024-2025"
+        },
+        "cables": [
+          { "name": "ACE", "landingPoint": "Carcavelos", "status": "Active", "destinations": "West Africa, South Africa" },
+          { "name": "EllaLink", "landingPoint": "Sines", "status": "Active", "destinations": "Brazil (Fortaleza), Cape Verde", "capacity": "100 Tbps (theoretical)", "year": 2021, "technology": "ICE6" },
+          { "name": "Equiano", "landingPoint": "Sesimbra", "status": "Active", "destinations": "South Africa, Namibia, Nigeria" },
+          { "name": "2Africa", "landingPoint": "Carcavelos", "status": "Active", "destinations": "Africa ring, Middle East, Asia", "capacity": "180 Tbps (theoretical)", "year": 2024 },
+          { "name": "MainOne", "landingPoint": "Seixal", "status": "Active", "destinations": "West Africa (Nigeria, Ghana)" },
+          { "name": "Medusa", "landingPoint": "Carcavelos", "status": "Planned 2026", "destinations": "Mediterranean, N. Africa" },
+          { "name": "Nuvem", "landingPoint": "Sines", "status": "Planned 2026", "destinations": "Bermuda, USA" },
+          { "name": "WACS", "landingPoint": "Seixal", "status": "Active", "destinations": "West Africa, South Africa" },
+          { "name": "SAT-3/WASC", "landingPoint": "Sesimbra", "status": "Active", "destinations": "West Africa, South Africa" },
+          { "name": "SEA-ME-WE-3", "landingPoint": "Sesimbra", "status": "Active", "destinations": "SE Asia, Middle East" },
+          { "name": "Europe India Gateway", "landingPoint": "Sesimbra", "status": "Active", "destinations": "India via Mediterranean" },
+          { "name": "Tata TGN-W. Europe", "landingPoint": "Carcavelos", "status": "Active", "destinations": "UK, Spain, Europe" },
+          { "name": "BUGIO", "landingPoint": "Sesimbra-Carcavelos", "status": "Active", "destinations": "Domestic interconnector" },
+          { "name": "Sagres", "landingPoint": "Sesimbra-Burgau", "status": "Legacy", "destinations": "Domestic connector" },
+          { "name": "SAT-2", "landingPoint": "Sesimbra", "status": "Decommissioned", "destinations": "Historic (1993-2013)" },
+          { "name": "Columbus-III", "landingPoint": "Carcavelos", "status": "Decommissioned", "destinations": "Transatlantic" },
+          { "name": "Atlantis-2", "landingPoint": "Carcavelos", "status": "Decommissioned", "destinations": "Brazil-Africa (legacy)" }
+        ],
+        "meta": { "source": { "type": "official", "provider": "Telegeography", "url": "https://www.submarinecablemap.com/" } }
+      },
+      "dataCenters": {
+        "microsoft": {
+          "value": "Major AI data center investment announced in Sines",
+          "investment": "$10 billion (~€8.6B)",
+          "announcementDate": "November 2025",
+          "details": "Leveraging renewable energy, submarine cable connectivity, and strategic Atlantic position. Hyperscale Azure AI facility.",
+          "sources": [
+            "Bloomberg (Nov 11, 2025)",
+            "TechRepublic (Nov 11, 2025)",
+            "DCD (Nov 11, 2025)"
+          ]
+        },
+        "alticeCovilha": {
+          "value": "Altice facility in Covilhã"
+        },
+        "meta": { "source": { "type": "official", "provider": "Microsoft Portugal / Altice" } }
+      },
+      "sinesTechHub": {
+        "designation": "Neutral digital port",
+        "description": "Open-access cable landing services at Portugal's Atlantic deep-sea port",
+        "badge": "EMERGING HUB",
+        "services": "Comprehensive protected fiber backhaul solution integrated with Southern Europe data centers, plus lowest-latency routes to West Africa, USA, and South America",
+        "infrastructure": {
+          "borePipes": "Multiple HDD bore pipes at the beach ready for future cable systems",
+          "fronthaul": "Protected fronthaul route (~2,230m to CLS) free from construction interference",
+          "backhaul": "Diverse backhaul routes to Lisbon and Madrid via gas pipes and power lines",
+          "capacity": "100+ Tbps theoretical capacity enabled by EllaLink ICE6 technology",
+          "startCampus": {
+            "description": "Hyperscaler data center at ZILS",
+            "capacity": "up to 450MW"
+          }
+        },
+        "technology": {
+          "ellalink": "ICE6 technology supporting 100+ Tbps theoretical capacity between Portugal and Brazil in a single hop between data centers",
+          "terrestrialNetwork": "Sines-Lisbon-Madrid-Marseille low-latency corridor for direct Europe-LATAM services"
+        },
+        "meta": { "source": { "type": "official", "provider": "Sines Data Centre" } }
+      },
+      "confidenceScore": 80,
+      "meta": { "source": { "type": "official", "provider": "ANACOM / Telegeography / DESI" } }
+    },
+
+    "euContext": {
+      "portugalsPosition": {
+        "ictSpecialistsPctEmployment": {
+          "value": 4.5, "unit": "%", "year": 2024,
+          "euAvg": 4.8,
+          "meta": { "source": { "type": "official", "provider": "Eurostat" } }
+        },
+        "ictGraduatesPctAllGraduates": {
+          "value": 3.8, "unit": "%",
+          "euAvg": 4.2,
+          "meta": { "source": { "type": "official", "provider": "Eurostat" } }
+        },
+        "femaleIctSpecialists": {
+          "value": 21.3, "unit": "%",
+          "euAvg": 19.1,
+          "meta": { "source": { "type": "official", "provider": "Eurostat" } }
+        },
+        "trend": {
+          "value": "+12% since 2020",
+          "note": "Growing faster than EU average",
+          "meta": { "source": { "type": "official", "provider": "Eurostat" } }
+        }
+      },
+      "competitiveBenchmarks": {
+        "romania": { "value": "Similar costs, larger pool, higher attrition" },
+        "poland": { "value": "Larger pool (~500k), 30-40% higher salaries" },
+        "spain": { "value": "~3× larger pool, similar salaries" },
+        "portugalAdvantage": { "value": "Time zone, cultural fit, stability, strong English proficiency in tech sector" }
+      },
+      "meta": {
+        "source": { "type": "official", "provider": "Eurostat" },
+        "note": "EU comparison metrics for ICT workforce positioning"
+      }
+    },
+
+    "workforceStatistics": {
+      "ictEmployment": { "value": 5.1, "unit": "% of total employment", "year": 2023 },
+      "techWorkforceTotal": {
+        "linkedin": 165000,
+        "official": 250000,
+        "officialSource": "Eurostat 5.1% × 4.9M employed (INE 2024)",
+        "linkedinCoverage": "~66% of formal ICT workforce"
+      },
+      "cityBreakdown": [
+        { "city": "Lisbon", "linkedin": 85000, "official": 129000 },
+        { "city": "Porto", "linkedin": 45000, "official": 68000 },
+        { "city": "Coimbra", "linkedin": 12000, "official": 18000 },
+        { "city": "Braga", "linkedin": 8000, "official": 12000 },
+        { "city": "Aveiro", "linkedin": 6500, "official": 10000 },
+        { "city": "Others", "linkedin": 8500, "official": 13000 }
+      ],
+      "concentration": "79% in Lisbon + Porto",
+      "femaleGrowth": { "value": 26.9, "unit": "% female ICT", "trend": "growing" },
+      "tertiaryEducation": { "value": 68, "unit": "% of ICT workers", "note": "up 18pp since 2014" },
+      "meta": {
+        "source": { "type": "survey", "provider": "Eurostat / LinkedIn" },
+        "lifecycle": { "updateFrequency": "annual" }
+      }
+    },
+
+    "hiringInsights": {
+      "timeToHire": {
+        "value": "Average 4-6 weeks for mid-level roles. Senior/niche roles: 8-12 weeks. Lisbon most competitive.",
+        "midLevel": { "value": "4-6", "unit": "weeks" },
+        "seniorNiche": { "value": "8-12", "unit": "weeks" },
+        "meta": { "source": { "type": "survey", "provider": "Landing.jobs" } }
+      },
+      "educationLevel": {
+        "value": "78% of IT workforce holds bachelor's or higher. 15% have master's/PhD. CTeSP growing as entry path.",
+        "bachelorsOrHigher": { "value": 78, "unit": "%" },
+        "mastersPhd": { "value": 15, "unit": "%" },
+        "meta": { "source": { "type": "survey", "provider": "Eurostat / INE" } }
+      },
+      "ageDistribution": {
+        "value": "Median age 32. Under-35 segment: 58% of IT workforce. Fresh graduate pipeline: strong.",
+        "medianAge": 32,
+        "under35Pct": { "value": 58, "unit": "%" },
+        "meta": { "source": { "type": "survey", "provider": "Eurostat / INE" } }
+      },
+      "retention": {
+        "value": "Average tenure: 2.1 years (Lisbon), 2.8 years (Porto), 3.5+ years (secondary cities). Remote offers increasing churn.",
+        "tenure": {
+          "lisbon": { "value": 2.1, "unit": "years" },
+          "porto": { "value": 2.8, "unit": "years" },
+          "secondaryCities": { "value": "3.5+", "unit": "years" }
+        },
+        "meta": { "source": { "type": "survey", "provider": "Landing.jobs" } }
+      },
+      "languageSkills": {
+        "note": "High English proficiency reported in tech sector. German proficiency higher in Porto due to BMW/Bosch presence."
+      },
+      "meta": { "source": { "type": "estimate", "note": "Specific percentages removed - requires EF EPI or similar authoritative source" } }
+    },
+
+    "salaryByRegion": {
+      "source": "INE/MTSSS Personnel Tables 2023",
+      "indicator": "0012653",
+      "url": "https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_indicadores&contecto=pi&indOcorrCod=0012653&selTab=tab0",
+      "note": "Original INE data is 14× monthly. Values stored here are converted to 12× equivalent (×14/12) for international comparability.",
+      "format": "12× monthly equivalent",
+      "regions": [
+        { "nuts": "G. Lisboa", "total": 2120.03, "primary": 1152.60, "bachelor": 2948.99, "master": 3166.25, "index": 100.0 },
+        { "nuts": "P. Setúbal", "total": 1671.96, "primary": 1111.90, "bachelor": 2410.64, "master": 2496.48, "index": 78.9 },
+        { "nuts": "Norte", "total": 1573.44, "primary": 1109.66, "bachelor": 2272.18, "master": 2515.89, "index": 74.2 },
+        { "nuts": "Alentejo", "total": 1547.15, "primary": 1135.84, "bachelor": 2193.80, "master": 2666.63, "index": 73.0 },
+        { "nuts": "Centro", "total": 1523.34, "primary": 1127.70, "bachelor": 2049.25, "master": 2293.48, "index": 71.9 },
+        { "nuts": "Oeste/Tejo", "total": 1458.07, "primary": 1161.21, "bachelor": 2057.24, "master": 2307.67, "index": 68.8 },
+        { "nuts": "Algarve", "total": 1445.13, "primary": 1113.99, "bachelor": 2009.78, "master": 2281.50, "index": 68.2 }
+      ],
+      "meta": { "source": { "type": "official", "provider": "INE/MTSSS" }, "lifecycle": { "updateFrequency": "annual" } }
+    },
+
+    "costOfLiving": {
+      "monthlyEssentials": { "value": "600-700", "unit": "EUR", "note": "Excluding rent" },
+      "utilities": { "value": "100-135", "unit": "EUR/month", "includes": "Electricity, water, internet" },
+      "meta": { "source": { "type": "survey", "provider": "Numbeo" } }
+    },
+
+    "ictDefinitionNote": "ICT in workforce sections = Eurostat occupation-based (employed ICT specialists). Differs from 'Core ICT' graduate metric which uses education-based CNAEF code 06.",
+
+    "operationalConsiderations": {
+      "employerCosts": {
+        "_note": "CRITICAL: Employer costs live in COMPENSATION_DATA.json, NOT here.",
+        "crossRef": "COMPENSATION_DATA.json → employerCosts"
+      }
+    },
+
+    "publicationMeta": {
+      "version": "4.8.1",
+      "lastUpdated": "2026-02-06",
+      "authors": ["Claude AI"],
+      "coAuthors": ["Claude Opus 4.5"],
+      "research": ["Perplexity AI", "Gemini Deep Research", "GPT-5"],
+      "_note": "Single source of truth for version in cover page and AI simulator"
+    }
+  },
+
+  "sectionScores": {
+    "_note": "Confidence scores (0-100) for main content sections, displayed in H2 headers",
+    "cityDatabase": {
+      "checkScore": 94,
+      "checkDate": "2026-02-07",
+      "label": "City Database",
+      "methodology": "Graduate data from DGEEC, costs from Numbeo/JLL"
+    },
+    "macroeconomic": {
+      "checkScore": 88,
+      "checkDate": "2026-02-07",
+      "label": "Macroeconomic Scorecard",
+      "methodology": "CFP, Eurostat, Statistics Portugal",
+      "note": "Debt ratio corrected from 99.1% to 94.9% per CFP 2025-2029"
+    },
+    "digitalInfra": {
+      "checkScore": 90,
+      "checkDate": "2026-02-06",
+      "label": "Digital Infrastructure",
+      "methodology": "ANACOM, Telegeography, AWS CloudPing"
+    },
+    "strategic": {
+      "checkScore": 78,
+      "checkDate": "2026-02-06",
+      "label": "Strategic Considerations",
+      "methodology": "Industry reports, analyst interviews, AI synthesis"
+    },
+    "universityTalent": {
+      "checkScore": 95,
+      "checkDate": "2026-02-06",
+      "label": "University Talent Flow",
+      "methodology": "DGEEC InfoCursos official graduate statistics"
+    },
+    "workforce": {
+      "checkScore": 82,
+      "checkDate": "2026-02-06",
+      "label": "Workforce Pools",
+      "methodology": "LinkedIn Talent Insights, Eurostat LFS"
+    },
+    "cityProfiles": {
+      "checkScore": 86,
+      "checkDate": "2026-02-06",
+      "label": "City Profiles",
+      "methodology": "Weighted average of 10 city verification scores"
+    }
+  },
+
+  "verification": {
+    "checkScore": 88,
+    "checkDate": "2026-02-06",
+    "checkedBy": "Claude Opus 4",
+    "note": "National-level data verified against official sources (INE, DGEEC, ANACOM)"
+  }
+}

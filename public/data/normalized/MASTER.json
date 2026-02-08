@@ -1,0 +1,4857 @@
+{
+  "_meta": {
+    "schema": "3.0",
+    "database": "MASTER",
+    "lastUpdated": "2026-02-08T09:11:03Z",
+    "version": "1.0.0",
+    "recordCount": 20
+  },
+  "config": {
+    "regionOrder": [
+      "Norte",
+      "Centro",
+      "Oeste and Vale do Tejo",
+      "Lisbon Metropolitan Area",
+      "Península de Setúbal",
+      "Alentejo",
+      "Algarve"
+    ],
+    "displayOrder": [
+      "porto",
+      "braga",
+      "guimaraes",
+      "vilareal",
+      "vianacastelo",
+      "braganca",
+      "coimbra",
+      "aveiro",
+      "covilha",
+      "viseu",
+      "castelobranco",
+      "leiria",
+      "santarem",
+      "tomar",
+      "lisbon",
+      "setubal",
+      "evora",
+      "beja",
+      "portalegre",
+      "faro"
+    ],
+    "salaryBaseline": {
+      "city": "Lisbon",
+      "index": 100,
+      "emc_mid_level": 5200,
+      "unit": "EUR/month"
+    },
+    "salaryFormula": {
+      "description": "Regional baseline adjusted by cost-of-living pressure",
+      "formula": "baseline × (1 + (COL - 30) × 1.33 / 100)",
+      "cappedAt": 100,
+      "parameters": {
+        "COL_FLOOR": 30,
+        "COL_SENSITIVITY": 1.33
+      }
+    },
+    "graduateMethodology": {
+      "_verificationNote": "Regional totals (officialStem, coreICT) are official DGEEC NUTS II figures (2023/24). City-level officialStem and coreICT values are proportional estimates derived from these regional totals, distributed by institutional size. These are marked approximate=true and prefixed with ≈ in the UI. digitalStemPlus is an internal calculation (INCoDe.2030 multiplier) and was already consistent.",
+      "officialStem": {
+        "description": "DGEEC/Eurostat classification: Natural Sciences, ICT, Engineering",
+        "source": "DGEEC InfoCursos",
+        "sourceURL": "https://infocursos.mec.pt/",
+        "lastUpdated": "June 2024",
+        "cnaefCodes": [
+          "04 (Life Sciences)",
+          "05 (Physical/Math)",
+          "06 (ICT)",
+          "07 (Engineering)",
+          "72 (Health Tech)"
+        ],
+        "national": 27990,
+        "year": 2023
+      },
+      "digitalStemPlus": {
+        "description": "Hiring-relevant talent pool: STEM + CTeSP + Adjacent programs",
+        "composition": {
+          "coreICT": {
+            "share": 0.16,
+            "description": "CNAEF 06 (full)"
+          },
+          "digitalEngineering": {
+            "share": 0.3,
+            "description": "CNAEF 07 (select)"
+          },
+          "quantitativeSciences": {
+            "share": 0.12,
+            "description": "CNAEF 05 (select)"
+          },
+          "adjacentDigital": {
+            "share": 0.27,
+            "description": "Info Systems, UX/UI, Tech Management"
+          },
+          "ctespVocational": {
+            "share": 0.15,
+            "description": "2-year diplomas: Web Dev, Programming"
+          }
+        },
+        "nationalEstimate": 35000,
+        "year": 2023
+      },
+      "coreICT": {
+        "description": "Pure CS/IT specialists (subset of Digital STEM+)",
+        "cnaefCodes": [
+          "481 (Computer Science)",
+          "523 (Electronics/Automation)"
+        ],
+        "avgShare": 0.16,
+        "national": 5600,
+        "year": 2023
+      }
+    },
+    "chartConfig": {
+      "description": "D3.js bubble chart configuration",
+      "cityConfig": {
+        "lisbon": {
+          "displayName": "Lisbon"
+        },
+        "porto": {
+          "displayName": "Porto"
+        },
+        "braga": {
+          "displayName": "Braga"
+        },
+        "guimaraes": {
+          "displayName": "Guimarães"
+        },
+        "coimbra": {
+          "displayName": "Coimbra"
+        },
+        "aveiro": {
+          "displayName": "Aveiro"
+        },
+        "covilha": {
+          "displayName": "Covilhã"
+        },
+        "evora": {
+          "displayName": "Évora"
+        },
+        "faro": {
+          "displayName": "Faro"
+        },
+        "setubal": {
+          "displayName": "Setúbal"
+        }
+      },
+      "cityNutsRegion": {
+        "lisbon": "Lisbon Metropolitan Area",
+        "porto": "Norte",
+        "braga": "Norte",
+        "guimaraes": "Norte",
+        "coimbra": "Centro",
+        "aveiro": "Centro",
+        "covilha": "Centro",
+        "evora": "Alentejo",
+        "faro": "Algarve",
+        "setubal": "Península de Setúbal"
+      },
+      "labelOffsets": {
+        "lisbon": {
+          "position": "above",
+          "extraPad": 6,
+          "anchor": "middle"
+        },
+        "porto": {
+          "position": "above",
+          "extraPad": 6,
+          "anchor": "middle"
+        },
+        "braga": {
+          "position": "above",
+          "extraPad": 5,
+          "anchor": "middle"
+        },
+        "guimaraes": {
+          "position": "below",
+          "extraPad": 12,
+          "anchor": "middle"
+        },
+        "coimbra": {
+          "position": "above",
+          "extraPad": 5,
+          "anchor": "middle"
+        },
+        "aveiro": {
+          "position": "above",
+          "extraPad": 6,
+          "anchor": "middle"
+        },
+        "covilha": {
+          "position": "below",
+          "extraPad": 12,
+          "anchor": "middle"
+        },
+        "evora": {
+          "position": "above",
+          "extraPad": 5,
+          "anchor": "middle"
+        },
+        "faro": {
+          "position": "right",
+          "extraPad": 3,
+          "anchor": "start"
+        },
+        "setubal": {
+          "position": "below",
+          "extraPad": 12,
+          "anchor": "middle"
+        }
+      }
+    }
+  },
+  "regionalTotals": {
+    "Norte": {
+      "officialStem": 10044,
+      "digitalStemPlus": 12156,
+      "coreICT": 1246
+    },
+    "Centro": {
+      "officialStem": 5842,
+      "digitalStemPlus": 6354,
+      "coreICT": 496
+    },
+    "Oeste and Vale do Tejo": {
+      "officialStem": 360,
+      "digitalStemPlus": 2622,
+      "coreICT": 149
+    },
+    "Lisbon Metropolitan Area": {
+      "officialStem": 8089,
+      "digitalStemPlus": 9195,
+      "coreICT": 1103
+    },
+    "Península de Setúbal": {
+      "officialStem": 2503,
+      "digitalStemPlus": 2629,
+      "coreICT": 195
+    },
+    "Alentejo": {
+      "officialStem": 435,
+      "digitalStemPlus": 1022,
+      "coreICT": 45
+    },
+    "Algarve": {
+      "officialStem": 717,
+      "digitalStemPlus": 794,
+      "coreICT": 33
+    }
+  },
+  "cities": {
+    "lisbon": {
+      "_meta": {
+        "cityId": "lisbon",
+        "lastUpdated": "2026-02-05T21:53:11Z",
+        "dataQualityScore": 90
+      },
+      "basic": {
+        "id": "lisbon",
+        "name": {
+          "value": "Lisbon",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "INE"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 100
+            }
+          }
+        },
+        "featured": true,
+        "region": {
+          "value": "Lisbon Metropolitan Area",
+          "nutsCode": "PT17",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "INE NUTS III"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 100
+            }
+          }
+        }
+      },
+      "talent": {
+        "universities": {
+          "value": [
+            "ULisboa",
+            "Nova",
+            "ISCTE",
+            "IPL"
+          ],
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "A3ES / RJIES"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 98
+            }
+          }
+        },
+        "graduates": {
+          "officialStem": {
+            "value": 8089,
+            "year": 2023,
+            "meta": {
+              "source": {
+                "type": "estimated",
+                "provider": "Proportional estimate from DGEEC regional total",
+                "methodology": "City share of regional DGEEC total, distributed proportionally by institutional size"
+              },
+              "verification": {
+                "level": "estimated",
+                "checkScore": 70
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            },
+            "approximate": true
+          },
+          "digitalStemPlus": {
+            "value": 9195,
+            "year": 2023,
+            "meta": {
+              "source": {
+                "type": "derived",
+                "provider": "Internal calculation",
+                "methodology": "officialStem × INCoDe.2030 multiplier"
+              },
+              "verification": {
+                "level": "verified",
+                "checkScore": 90
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            }
+          },
+          "coreICT": {
+            "value": 1103,
+            "year": 2023,
+            "pctOfDigitalStem": {
+              "value": 12,
+              "meta": {
+                "source": {
+                  "type": "derived",
+                  "provider": "Internal calculation",
+                  "methodology": "(coreICT / digitalStemPlus) × 100"
+                },
+                "verification": {
+                  "level": "verified",
+                  "checkScore": 90
+                }
+              }
+            },
+            "pctOfOfficialStem": {
+              "value": 13.6,
+              "meta": {
+                "source": {
+                  "type": "derived",
+                  "provider": "Internal calculation",
+                  "methodology": "(coreICT / officialStem) × 100"
+                },
+                "verification": {
+                  "level": "verified",
+                  "checkScore": 90
+                }
+              }
+            },
+            "meta": {
+              "source": {
+                "type": "estimated",
+                "provider": "Proportional estimate from DGEEC regional total",
+                "methodology": "City share of regional DGEEC total, distributed proportionally by institutional size"
+              },
+              "verification": {
+                "level": "estimated",
+                "checkScore": 70
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            },
+            "approximate": true
+          }
+        }
+      },
+      "costs": {
+        "salaryIndex": {
+          "value": 100,
+          "baseline": "Lisbon = 100",
+          "meta": {
+            "source": {
+              "type": "derived",
+              "provider": "Internal calculation",
+              "methodology": "COL-adjusted regional baseline"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 85
+            },
+            "lifecycle": {
+              "updateFrequency": "annual",
+              "nextReview": "2026-09-01"
+            }
+          }
+        },
+        "officeRent": {
+          "min": 20,
+          "max": 26,
+          "unit": "EUR/m2/month",
+          "meta": {
+            "source": {
+              "type": "composite",
+              "provider": "Cushman & Wakefield, JLL Portugal, Idealista, AI fact-checked",
+              "methodology": "Derived from multiple real estate sources and cross-verified via AI fact-check consensus"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 88
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        },
+        "residentialRent": {
+          "min": 1000,
+          "max": 1650,
+          "unit": "EUR/month",
+          "type": "T1",
+          "meta": {
+            "source": {
+              "type": "composite",
+              "provider": "Idealista, Numbeo, Cushman & Wakefield, JLL Portugal, AI fact-checked",
+              "methodology": "Derived from multiple rental listing and cost-of-living sources, cross-verified via AI fact-check consensus"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 82
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        },
+        "colIndex": {
+          "value": 46,
+          "baseline": "New York = 100",
+          "meta": {
+            "source": {
+              "type": "survey",
+              "provider": "Numbeo",
+              "note": "New York = 100. Where direct Numbeo data was unavailable, Numbeo-style estimates were derived from regional cost patterns and AI fact-checked."
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 85
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        }
+      },
+      "flags": {
+        "featured": true,
+        "hasAirport": true,
+        "hasUniversityHub": true
+      }
+    },
+    "porto": {
+      "_meta": {
+        "cityId": "porto",
+        "lastUpdated": "2026-02-05T21:53:11Z",
+        "dataQualityScore": 90
+      },
+      "basic": {
+        "id": "porto",
+        "name": {
+          "value": "Porto",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "INE"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 100
+            }
+          }
+        },
+        "featured": true,
+        "region": {
+          "value": "Norte",
+          "nutsCode": "PT11",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "INE NUTS III"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 100
+            }
+          }
+        }
+      },
+      "talent": {
+        "universities": {
+          "value": [
+            "UPorto",
+            "IPP"
+          ],
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "A3ES / RJIES"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 98
+            }
+          }
+        },
+        "graduates": {
+          "officialStem": {
+            "value": 5439,
+            "year": 2023,
+            "meta": {
+              "source": {
+                "type": "estimated",
+                "provider": "Proportional estimate from DGEEC regional total",
+                "methodology": "City share of regional DGEEC total, distributed proportionally by institutional size"
+              },
+              "verification": {
+                "level": "estimated",
+                "checkScore": 70
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            },
+            "approximate": true
+          },
+          "digitalStemPlus": {
+            "value": 6582,
+            "year": 2023,
+            "meta": {
+              "source": {
+                "type": "derived",
+                "provider": "Internal calculation",
+                "methodology": "officialStem × INCoDe.2030 multiplier"
+              },
+              "verification": {
+                "level": "verified",
+                "checkScore": 90
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            }
+          },
+          "coreICT": {
+            "value": 720,
+            "year": 2023,
+            "pctOfDigitalStem": {
+              "value": 10.9,
+              "meta": {
+                "source": {
+                  "type": "derived",
+                  "provider": "Internal calculation",
+                  "methodology": "(coreICT / digitalStemPlus) × 100"
+                },
+                "verification": {
+                  "level": "verified",
+                  "checkScore": 90
+                }
+              }
+            },
+            "pctOfOfficialStem": {
+              "value": 13.2,
+              "meta": {
+                "source": {
+                  "type": "derived",
+                  "provider": "Internal calculation",
+                  "methodology": "(coreICT / officialStem) × 100"
+                },
+                "verification": {
+                  "level": "verified",
+                  "checkScore": 90
+                }
+              }
+            },
+            "meta": {
+              "source": {
+                "type": "estimated",
+                "provider": "Proportional estimate from DGEEC regional total",
+                "methodology": "City share of regional DGEEC total, distributed proportionally by institutional size"
+              },
+              "verification": {
+                "level": "estimated",
+                "checkScore": 70
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            },
+            "approximate": true
+          }
+        }
+      },
+      "costs": {
+        "salaryIndex": {
+          "value": 87.4,
+          "baseline": "Lisbon = 100",
+          "meta": {
+            "source": {
+              "type": "derived",
+              "provider": "Internal calculation",
+              "methodology": "COL-adjusted regional baseline"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 85
+            },
+            "lifecycle": {
+              "updateFrequency": "annual",
+              "nextReview": "2026-09-01"
+            }
+          }
+        },
+        "officeRent": {
+          "min": 16,
+          "max": 20,
+          "unit": "EUR/m2/month",
+          "meta": {
+            "source": {
+              "type": "composite",
+              "provider": "Cushman & Wakefield, JLL Portugal, Idealista, AI fact-checked",
+              "methodology": "Derived from multiple real estate sources and cross-verified via AI fact-check consensus"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 88
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        },
+        "residentialRent": {
+          "min": 800,
+          "max": 1200,
+          "unit": "EUR/month",
+          "type": "T1",
+          "meta": {
+            "source": {
+              "type": "composite",
+              "provider": "Idealista, Numbeo, Cushman & Wakefield, JLL Portugal, AI fact-checked",
+              "methodology": "Derived from multiple rental listing and cost-of-living sources, cross-verified via AI fact-check consensus"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 82
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        },
+        "colIndex": {
+          "value": 40,
+          "baseline": "New York = 100",
+          "meta": {
+            "source": {
+              "type": "survey",
+              "provider": "Numbeo",
+              "note": "New York = 100. Where direct Numbeo data was unavailable, Numbeo-style estimates were derived from regional cost patterns and AI fact-checked."
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 85
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        }
+      },
+      "flags": {
+        "featured": true,
+        "hasAirport": true,
+        "hasUniversityHub": true
+      }
+    },
+    "braga": {
+      "_meta": {
+        "cityId": "braga",
+        "lastUpdated": "2026-02-05T21:53:11Z",
+        "dataQualityScore": 90
+      },
+      "basic": {
+        "id": "braga",
+        "name": {
+          "value": "Braga",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "INE"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 100
+            }
+          }
+        },
+        "featured": true,
+        "region": {
+          "value": "Norte",
+          "nutsCode": "PT11",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "INE NUTS III"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 100
+            }
+          }
+        }
+      },
+      "talent": {
+        "universities": {
+          "value": [
+            "UMinho",
+            "IPCA"
+          ],
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "A3ES / RJIES"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 98
+            }
+          }
+        },
+        "graduates": {
+          "officialStem": {
+            "value": 1517,
+            "year": 2023,
+            "meta": {
+              "source": {
+                "type": "estimated",
+                "provider": "Proportional estimate from DGEEC regional total",
+                "methodology": "City share of regional DGEEC total, distributed proportionally by institutional size"
+              },
+              "verification": {
+                "level": "estimated",
+                "checkScore": 70
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            },
+            "approximate": true
+          },
+          "digitalStemPlus": {
+            "value": 1836,
+            "year": 2023,
+            "meta": {
+              "source": {
+                "type": "derived",
+                "provider": "Internal calculation",
+                "methodology": "officialStem × INCoDe.2030 multiplier"
+              },
+              "verification": {
+                "level": "verified",
+                "checkScore": 90
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            }
+          },
+          "coreICT": {
+            "value": 219,
+            "year": 2023,
+            "pctOfDigitalStem": {
+              "value": 11.9,
+              "meta": {
+                "source": {
+                  "type": "derived",
+                  "provider": "Internal calculation",
+                  "methodology": "(coreICT / digitalStemPlus) × 100"
+                },
+                "verification": {
+                  "level": "verified",
+                  "checkScore": 90
+                }
+              }
+            },
+            "pctOfOfficialStem": {
+              "value": 14.4,
+              "meta": {
+                "source": {
+                  "type": "derived",
+                  "provider": "Internal calculation",
+                  "methodology": "(coreICT / officialStem) × 100"
+                },
+                "verification": {
+                  "level": "verified",
+                  "checkScore": 90
+                }
+              }
+            },
+            "meta": {
+              "source": {
+                "type": "estimated",
+                "provider": "Proportional estimate from DGEEC regional total",
+                "methodology": "City share of regional DGEEC total, distributed proportionally by institutional size"
+              },
+              "verification": {
+                "level": "estimated",
+                "checkScore": 70
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            },
+            "approximate": true
+          }
+        }
+      },
+      "costs": {
+        "salaryIndex": {
+          "value": 82.2,
+          "baseline": "Lisbon = 100",
+          "meta": {
+            "source": {
+              "type": "derived",
+              "provider": "Internal calculation",
+              "methodology": "COL-adjusted regional baseline"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 85
+            },
+            "lifecycle": {
+              "updateFrequency": "annual",
+              "nextReview": "2026-09-01"
+            }
+          }
+        },
+        "officeRent": {
+          "min": 11,
+          "max": 14,
+          "unit": "EUR/m2/month",
+          "meta": {
+            "source": {
+              "type": "composite",
+              "provider": "Cushman & Wakefield, JLL Portugal, Idealista, AI fact-checked",
+              "methodology": "Derived from multiple real estate sources and cross-verified via AI fact-check consensus"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 88
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        },
+        "residentialRent": {
+          "min": 600,
+          "max": 850,
+          "unit": "EUR/month",
+          "type": "T1",
+          "meta": {
+            "source": {
+              "type": "composite",
+              "provider": "Idealista, Numbeo, Cushman & Wakefield, JLL Portugal, AI fact-checked",
+              "methodology": "Derived from multiple rental listing and cost-of-living sources, cross-verified via AI fact-check consensus"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 82
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        },
+        "colIndex": {
+          "value": 35,
+          "baseline": "New York = 100",
+          "meta": {
+            "source": {
+              "type": "survey",
+              "provider": "Numbeo",
+              "note": "New York = 100. Where direct Numbeo data was unavailable, Numbeo-style estimates were derived from regional cost patterns and AI fact-checked."
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 85
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        }
+      },
+      "flags": {
+        "featured": true,
+        "hasAirport": false,
+        "hasUniversityHub": true
+      }
+    },
+    "guimaraes": {
+      "_meta": {
+        "cityId": "guimaraes",
+        "lastUpdated": "2026-02-05T21:53:11Z",
+        "dataQualityScore": 90
+      },
+      "basic": {
+        "id": "guimaraes",
+        "name": {
+          "value": "Guimarães",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "INE"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 100
+            }
+          }
+        },
+        "featured": true,
+        "region": {
+          "value": "Norte",
+          "nutsCode": "PT11",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "INE NUTS III"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 100
+            }
+          }
+        }
+      },
+      "talent": {
+        "universities": {
+          "value": [
+            "UMinho (Engineering Campus)"
+          ],
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "A3ES / RJIES"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 98
+            }
+          }
+        },
+        "graduates": {
+          "officialStem": {
+            "value": 1212,
+            "year": 2023,
+            "meta": {
+              "source": {
+                "type": "estimated",
+                "provider": "Proportional estimate from DGEEC regional total",
+                "methodology": "City share of regional DGEEC total, distributed proportionally by institutional size"
+              },
+              "verification": {
+                "level": "estimated",
+                "checkScore": 70
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            },
+            "approximate": true
+          },
+          "digitalStemPlus": {
+            "value": 1467,
+            "year": 2023,
+            "meta": {
+              "source": {
+                "type": "derived",
+                "provider": "Internal calculation",
+                "methodology": "officialStem × INCoDe.2030 multiplier"
+              },
+              "verification": {
+                "level": "verified",
+                "checkScore": 90
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            }
+          },
+          "coreICT": {
+            "value": 142,
+            "year": 2023,
+            "pctOfDigitalStem": {
+              "value": 9.7,
+              "meta": {
+                "source": {
+                  "type": "derived",
+                  "provider": "Internal calculation",
+                  "methodology": "(coreICT / digitalStemPlus) × 100"
+                },
+                "verification": {
+                  "level": "verified",
+                  "checkScore": 90
+                }
+              }
+            },
+            "pctOfOfficialStem": {
+              "value": 11.7,
+              "meta": {
+                "source": {
+                  "type": "derived",
+                  "provider": "Internal calculation",
+                  "methodology": "(coreICT / officialStem) × 100"
+                },
+                "verification": {
+                  "level": "verified",
+                  "checkScore": 90
+                }
+              }
+            },
+            "meta": {
+              "source": {
+                "type": "estimated",
+                "provider": "Proportional estimate from DGEEC regional total",
+                "methodology": "City share of regional DGEEC total, distributed proportionally by institutional size"
+              },
+              "verification": {
+                "level": "estimated",
+                "checkScore": 70
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            },
+            "approximate": true
+          }
+        }
+      },
+      "costs": {
+        "salaryIndex": {
+          "value": 80.2,
+          "baseline": "Lisbon = 100",
+          "meta": {
+            "source": {
+              "type": "derived",
+              "provider": "Internal calculation",
+              "methodology": "COL-adjusted regional baseline"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 85
+            },
+            "lifecycle": {
+              "updateFrequency": "annual",
+              "nextReview": "2026-09-01"
+            }
+          }
+        },
+        "officeRent": {
+          "min": 9,
+          "max": 12,
+          "unit": "EUR/m2/month",
+          "meta": {
+            "source": {
+              "type": "composite",
+              "provider": "Cushman & Wakefield, JLL Portugal, Idealista, AI fact-checked",
+              "methodology": "Derived from multiple real estate sources and cross-verified via AI fact-check consensus"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 88
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        },
+        "residentialRent": {
+          "min": 550,
+          "max": 750,
+          "unit": "EUR/month",
+          "type": "T1",
+          "meta": {
+            "source": {
+              "type": "composite",
+              "provider": "Idealista, Numbeo, Cushman & Wakefield, JLL Portugal, AI fact-checked",
+              "methodology": "Derived from multiple rental listing and cost-of-living sources, cross-verified via AI fact-check consensus"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 82
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        },
+        "colIndex": {
+          "value": 33,
+          "baseline": "New York = 100",
+          "meta": {
+            "source": {
+              "type": "survey",
+              "provider": "Numbeo",
+              "note": "New York = 100. Where direct Numbeo data was unavailable, Numbeo-style estimates were derived from regional cost patterns and AI fact-checked."
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 85
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        }
+      },
+      "flags": {
+        "featured": true,
+        "hasAirport": false,
+        "hasUniversityHub": true
+      }
+    },
+    "coimbra": {
+      "_meta": {
+        "cityId": "coimbra",
+        "lastUpdated": "2026-02-05T21:53:11Z",
+        "dataQualityScore": 90
+      },
+      "basic": {
+        "id": "coimbra",
+        "name": {
+          "value": "Coimbra",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "INE"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 100
+            }
+          }
+        },
+        "featured": true,
+        "region": {
+          "value": "Centro",
+          "nutsCode": "PT16",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "INE NUTS III"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 100
+            }
+          }
+        }
+      },
+      "talent": {
+        "universities": {
+          "value": [
+            "UCoimbra",
+            "IPC"
+          ],
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "A3ES / RJIES"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 98
+            }
+          }
+        },
+        "graduates": {
+          "officialStem": {
+            "value": 1761,
+            "year": 2023,
+            "meta": {
+              "source": {
+                "type": "estimated",
+                "provider": "Proportional estimate from DGEEC regional total",
+                "methodology": "City share of regional DGEEC total, distributed proportionally by institutional size"
+              },
+              "verification": {
+                "level": "estimated",
+                "checkScore": 70
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            },
+            "approximate": true
+          },
+          "digitalStemPlus": {
+            "value": 1915,
+            "year": 2023,
+            "meta": {
+              "source": {
+                "type": "derived",
+                "provider": "Internal calculation",
+                "methodology": "officialStem × INCoDe.2030 multiplier"
+              },
+              "verification": {
+                "level": "verified",
+                "checkScore": 90
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            }
+          },
+          "coreICT": {
+            "value": 177,
+            "year": 2023,
+            "pctOfDigitalStem": {
+              "value": 9.2,
+              "meta": {
+                "source": {
+                  "type": "derived",
+                  "provider": "Internal calculation",
+                  "methodology": "(coreICT / digitalStemPlus) × 100"
+                },
+                "verification": {
+                  "level": "verified",
+                  "checkScore": 90
+                }
+              }
+            },
+            "pctOfOfficialStem": {
+              "value": 10.1,
+              "meta": {
+                "source": {
+                  "type": "derived",
+                  "provider": "Internal calculation",
+                  "methodology": "(coreICT / officialStem) × 100"
+                },
+                "verification": {
+                  "level": "verified",
+                  "checkScore": 90
+                }
+              }
+            },
+            "meta": {
+              "source": {
+                "type": "estimated",
+                "provider": "Proportional estimate from DGEEC regional total",
+                "methodology": "City share of regional DGEEC total, distributed proportionally by institutional size"
+              },
+              "verification": {
+                "level": "estimated",
+                "checkScore": 70
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            },
+            "approximate": true
+          }
+        }
+      },
+      "costs": {
+        "salaryIndex": {
+          "value": 73.2,
+          "baseline": "Lisbon = 100",
+          "meta": {
+            "source": {
+              "type": "derived",
+              "provider": "Internal calculation",
+              "methodology": "COL-adjusted regional baseline"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 85
+            },
+            "lifecycle": {
+              "updateFrequency": "annual",
+              "nextReview": "2026-09-01"
+            }
+          }
+        },
+        "officeRent": {
+          "min": 10,
+          "max": 13,
+          "unit": "EUR/m2/month",
+          "meta": {
+            "source": {
+              "type": "composite",
+              "provider": "Cushman & Wakefield, JLL Portugal, Idealista, AI fact-checked",
+              "methodology": "Derived from multiple real estate sources and cross-verified via AI fact-check consensus"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 88
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        },
+        "residentialRent": {
+          "min": 550,
+          "max": 750,
+          "unit": "EUR/month",
+          "type": "T1",
+          "meta": {
+            "source": {
+              "type": "composite",
+              "provider": "Idealista, Numbeo, Cushman & Wakefield, JLL Portugal, AI fact-checked",
+              "methodology": "Derived from multiple rental listing and cost-of-living sources, cross-verified via AI fact-check consensus"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 82
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        },
+        "colIndex": {
+          "value": 34,
+          "baseline": "New York = 100",
+          "meta": {
+            "source": {
+              "type": "survey",
+              "provider": "Numbeo",
+              "note": "New York = 100. Where direct Numbeo data was unavailable, Numbeo-style estimates were derived from regional cost patterns and AI fact-checked."
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 85
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        }
+      },
+      "flags": {
+        "featured": true,
+        "hasAirport": false,
+        "hasUniversityHub": true
+      }
+    },
+    "aveiro": {
+      "_meta": {
+        "cityId": "aveiro",
+        "lastUpdated": "2026-02-05T21:53:11Z",
+        "dataQualityScore": 90
+      },
+      "basic": {
+        "id": "aveiro",
+        "name": {
+          "value": "Aveiro",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "INE"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 100
+            }
+          }
+        },
+        "featured": true,
+        "region": {
+          "value": "Centro",
+          "nutsCode": "PT16",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "INE NUTS III"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 100
+            }
+          }
+        }
+      },
+      "talent": {
+        "universities": {
+          "value": [
+            "UAveiro"
+          ],
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "A3ES / RJIES"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 98
+            }
+          }
+        },
+        "graduates": {
+          "officialStem": {
+            "value": 1433,
+            "year": 2023,
+            "meta": {
+              "source": {
+                "type": "estimated",
+                "provider": "Proportional estimate from DGEEC regional total",
+                "methodology": "City share of regional DGEEC total, distributed proportionally by institutional size"
+              },
+              "verification": {
+                "level": "estimated",
+                "checkScore": 70
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            },
+            "approximate": true
+          },
+          "digitalStemPlus": {
+            "value": 1558,
+            "year": 2023,
+            "meta": {
+              "source": {
+                "type": "derived",
+                "provider": "Internal calculation",
+                "methodology": "officialStem × INCoDe.2030 multiplier"
+              },
+              "verification": {
+                "level": "verified",
+                "checkScore": 90
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            }
+          },
+          "coreICT": {
+            "value": 169,
+            "year": 2023,
+            "pctOfDigitalStem": {
+              "value": 10.8,
+              "meta": {
+                "source": {
+                  "type": "derived",
+                  "provider": "Internal calculation",
+                  "methodology": "(coreICT / digitalStemPlus) × 100"
+                },
+                "verification": {
+                  "level": "verified",
+                  "checkScore": 90
+                }
+              }
+            },
+            "pctOfOfficialStem": {
+              "value": 11.8,
+              "meta": {
+                "source": {
+                  "type": "derived",
+                  "provider": "Internal calculation",
+                  "methodology": "(coreICT / officialStem) × 100"
+                },
+                "verification": {
+                  "level": "verified",
+                  "checkScore": 90
+                }
+              }
+            },
+            "meta": {
+              "source": {
+                "type": "estimated",
+                "provider": "Proportional estimate from DGEEC regional total",
+                "methodology": "City share of regional DGEEC total, distributed proportionally by institutional size"
+              },
+              "verification": {
+                "level": "estimated",
+                "checkScore": 70
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            },
+            "approximate": true
+          }
+        }
+      },
+      "costs": {
+        "salaryIndex": {
+          "value": 76,
+          "baseline": "Lisbon = 100",
+          "meta": {
+            "source": {
+              "type": "derived",
+              "provider": "Internal calculation",
+              "methodology": "COL-adjusted regional baseline"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 85
+            },
+            "lifecycle": {
+              "updateFrequency": "annual",
+              "nextReview": "2026-09-01"
+            }
+          }
+        },
+        "officeRent": {
+          "min": 12,
+          "max": 15,
+          "unit": "EUR/m2/month",
+          "meta": {
+            "source": {
+              "type": "composite",
+              "provider": "Cushman & Wakefield, JLL Portugal, Idealista, AI fact-checked",
+              "methodology": "Derived from multiple real estate sources and cross-verified via AI fact-check consensus"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 88
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        },
+        "residentialRent": {
+          "min": 600,
+          "max": 850,
+          "unit": "EUR/month",
+          "type": "T1",
+          "meta": {
+            "source": {
+              "type": "composite",
+              "provider": "Idealista, Numbeo, Cushman & Wakefield, JLL Portugal, AI fact-checked",
+              "methodology": "Derived from multiple rental listing and cost-of-living sources, cross-verified via AI fact-check consensus"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 82
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        },
+        "colIndex": {
+          "value": 37,
+          "baseline": "New York = 100",
+          "meta": {
+            "source": {
+              "type": "survey",
+              "provider": "Numbeo",
+              "note": "New York = 100. Where direct Numbeo data was unavailable, Numbeo-style estimates were derived from regional cost patterns and AI fact-checked."
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 85
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        }
+      },
+      "flags": {
+        "featured": true,
+        "hasAirport": false,
+        "hasUniversityHub": true
+      }
+    },
+    "covilha": {
+      "_meta": {
+        "cityId": "covilha",
+        "lastUpdated": "2026-02-05T21:53:11Z",
+        "dataQualityScore": 90
+      },
+      "basic": {
+        "id": "covilha",
+        "name": {
+          "value": "Covilhã",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "INE"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 100
+            }
+          }
+        },
+        "featured": true,
+        "region": {
+          "value": "Centro",
+          "nutsCode": "PT16",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "INE NUTS III"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 100
+            }
+          }
+        }
+      },
+      "talent": {
+        "universities": {
+          "value": [
+            "UBI"
+          ],
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "A3ES / RJIES"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 98
+            }
+          }
+        },
+        "graduates": {
+          "officialStem": {
+            "value": 1240,
+            "year": 2023,
+            "meta": {
+              "source": {
+                "type": "estimated",
+                "provider": "Proportional estimate from DGEEC regional total",
+                "methodology": "City share of regional DGEEC total, distributed proportionally by institutional size"
+              },
+              "verification": {
+                "level": "estimated",
+                "checkScore": 70
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            },
+            "approximate": true
+          },
+          "digitalStemPlus": {
+            "value": 1349,
+            "year": 2023,
+            "meta": {
+              "source": {
+                "type": "derived",
+                "provider": "Internal calculation",
+                "methodology": "officialStem × INCoDe.2030 multiplier"
+              },
+              "verification": {
+                "level": "verified",
+                "checkScore": 90
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            }
+          },
+          "coreICT": {
+            "value": 76,
+            "year": 2023,
+            "pctOfDigitalStem": {
+              "value": 5.6,
+              "meta": {
+                "source": {
+                  "type": "derived",
+                  "provider": "Internal calculation",
+                  "methodology": "(coreICT / digitalStemPlus) × 100"
+                },
+                "verification": {
+                  "level": "verified",
+                  "checkScore": 90
+                }
+              }
+            },
+            "pctOfOfficialStem": {
+              "value": 6.1,
+              "meta": {
+                "source": {
+                  "type": "derived",
+                  "provider": "Internal calculation",
+                  "methodology": "(coreICT / officialStem) × 100"
+                },
+                "verification": {
+                  "level": "verified",
+                  "checkScore": 90
+                }
+              }
+            },
+            "meta": {
+              "source": {
+                "type": "estimated",
+                "provider": "Proportional estimate from DGEEC regional total",
+                "methodology": "City share of regional DGEEC total, distributed proportionally by institutional size"
+              },
+              "verification": {
+                "level": "estimated",
+                "checkScore": 70
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            },
+            "approximate": true
+          }
+        }
+      },
+      "costs": {
+        "salaryIndex": {
+          "value": 69.5,
+          "baseline": "Lisbon = 100",
+          "meta": {
+            "source": {
+              "type": "derived",
+              "provider": "Internal calculation",
+              "methodology": "COL-adjusted regional baseline"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 85
+            },
+            "lifecycle": {
+              "updateFrequency": "annual",
+              "nextReview": "2026-09-01"
+            }
+          }
+        },
+        "officeRent": {
+          "min": 7,
+          "max": 10,
+          "unit": "EUR/m2/month",
+          "meta": {
+            "source": {
+              "type": "composite",
+              "provider": "Cushman & Wakefield, JLL Portugal, Idealista, AI fact-checked",
+              "methodology": "Derived from multiple real estate sources and cross-verified via AI fact-check consensus"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 88
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        },
+        "residentialRent": {
+          "min": 450,
+          "max": 650,
+          "unit": "EUR/month",
+          "type": "T1",
+          "meta": {
+            "source": {
+              "type": "composite",
+              "provider": "Idealista, Numbeo, Cushman & Wakefield, JLL Portugal, AI fact-checked",
+              "methodology": "Derived from multiple rental listing and cost-of-living sources, cross-verified via AI fact-check consensus"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 82
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        },
+        "colIndex": {
+          "value": 30,
+          "baseline": "New York = 100",
+          "meta": {
+            "source": {
+              "type": "survey",
+              "provider": "Numbeo",
+              "note": "New York = 100. Where direct Numbeo data was unavailable, Numbeo-style estimates were derived from regional cost patterns and AI fact-checked."
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 85
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        }
+      },
+      "flags": {
+        "featured": true,
+        "hasAirport": false,
+        "hasUniversityHub": true
+      }
+    },
+    "evora": {
+      "_meta": {
+        "cityId": "evora",
+        "lastUpdated": "2026-02-05T21:53:11Z",
+        "dataQualityScore": 90
+      },
+      "basic": {
+        "id": "evora",
+        "name": {
+          "value": "Évora",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "INE"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 100
+            }
+          }
+        },
+        "featured": true,
+        "region": {
+          "value": "Alentejo",
+          "nutsCode": "PT18",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "INE NUTS III"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 100
+            }
+          }
+        }
+      },
+      "talent": {
+        "universities": {
+          "value": [
+            "UÉvora"
+          ],
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "A3ES / RJIES"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 98
+            }
+          }
+        },
+        "graduates": {
+          "officialStem": {
+            "value": 305,
+            "year": 2023,
+            "meta": {
+              "source": {
+                "type": "estimated",
+                "provider": "Proportional estimate from DGEEC regional total",
+                "methodology": "City share of regional DGEEC total, distributed proportionally by institutional size"
+              },
+              "verification": {
+                "level": "estimated",
+                "checkScore": 70
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            },
+            "approximate": true
+          },
+          "digitalStemPlus": {
+            "value": 716,
+            "year": 2023,
+            "meta": {
+              "source": {
+                "type": "derived",
+                "provider": "Internal calculation",
+                "methodology": "officialStem × INCoDe.2030 multiplier"
+              },
+              "verification": {
+                "level": "verified",
+                "checkScore": 90
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            }
+          },
+          "coreICT": {
+            "value": 29,
+            "year": 2023,
+            "pctOfDigitalStem": {
+              "value": 4.1,
+              "meta": {
+                "source": {
+                  "type": "derived",
+                  "provider": "Internal calculation",
+                  "methodology": "(coreICT / digitalStemPlus) × 100"
+                },
+                "verification": {
+                  "level": "verified",
+                  "checkScore": 90
+                }
+              }
+            },
+            "pctOfOfficialStem": {
+              "value": 9.5,
+              "meta": {
+                "source": {
+                  "type": "derived",
+                  "provider": "Internal calculation",
+                  "methodology": "(coreICT / officialStem) × 100"
+                },
+                "verification": {
+                  "level": "verified",
+                  "checkScore": 90
+                }
+              }
+            },
+            "meta": {
+              "source": {
+                "type": "estimated",
+                "provider": "Proportional estimate from DGEEC regional total",
+                "methodology": "City share of regional DGEEC total, distributed proportionally by institutional size"
+              },
+              "verification": {
+                "level": "estimated",
+                "checkScore": 70
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            },
+            "approximate": true
+          }
+        }
+      },
+      "costs": {
+        "salaryIndex": {
+          "value": 76.4,
+          "baseline": "Lisbon = 100",
+          "meta": {
+            "source": {
+              "type": "derived",
+              "provider": "Internal calculation",
+              "methodology": "COL-adjusted regional baseline"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 85
+            },
+            "lifecycle": {
+              "updateFrequency": "annual",
+              "nextReview": "2026-09-01"
+            }
+          }
+        },
+        "officeRent": {
+          "min": 8,
+          "max": 11,
+          "unit": "EUR/m2/month",
+          "meta": {
+            "source": {
+              "type": "composite",
+              "provider": "Cushman & Wakefield, JLL Portugal, Idealista, AI fact-checked",
+              "methodology": "Derived from multiple real estate sources and cross-verified via AI fact-check consensus"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 88
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        },
+        "residentialRent": {
+          "min": 550,
+          "max": 750,
+          "unit": "EUR/month",
+          "type": "T1",
+          "meta": {
+            "source": {
+              "type": "composite",
+              "provider": "Idealista, Numbeo, Cushman & Wakefield, JLL Portugal, AI fact-checked",
+              "methodology": "Derived from multiple rental listing and cost-of-living sources, cross-verified via AI fact-check consensus"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 82
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        },
+        "colIndex": {
+          "value": 32,
+          "baseline": "New York = 100",
+          "meta": {
+            "source": {
+              "type": "survey",
+              "provider": "Numbeo",
+              "note": "New York = 100. Where direct Numbeo data was unavailable, Numbeo-style estimates were derived from regional cost patterns and AI fact-checked."
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 85
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        }
+      },
+      "flags": {
+        "featured": true,
+        "hasAirport": false,
+        "hasUniversityHub": true
+      }
+    },
+    "faro": {
+      "_meta": {
+        "cityId": "faro",
+        "lastUpdated": "2026-02-05T21:53:11Z",
+        "dataQualityScore": 90
+      },
+      "basic": {
+        "id": "faro",
+        "name": {
+          "value": "Faro",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "INE"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 100
+            }
+          }
+        },
+        "featured": true,
+        "region": {
+          "value": "Algarve",
+          "nutsCode": "PT15",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "INE NUTS III"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 100
+            }
+          }
+        }
+      },
+      "talent": {
+        "universities": {
+          "value": [
+            "UALG"
+          ],
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "A3ES / RJIES"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 98
+            }
+          }
+        },
+        "graduates": {
+          "officialStem": {
+            "value": 717,
+            "year": 2023,
+            "meta": {
+              "source": {
+                "type": "estimated",
+                "provider": "Proportional estimate from DGEEC regional total",
+                "methodology": "City share of regional DGEEC total, distributed proportionally by institutional size"
+              },
+              "verification": {
+                "level": "estimated",
+                "checkScore": 70
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            },
+            "approximate": true
+          },
+          "digitalStemPlus": {
+            "value": 794,
+            "year": 2023,
+            "meta": {
+              "source": {
+                "type": "derived",
+                "provider": "Internal calculation",
+                "methodology": "officialStem × INCoDe.2030 multiplier"
+              },
+              "verification": {
+                "level": "verified",
+                "checkScore": 90
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            }
+          },
+          "coreICT": {
+            "value": 33,
+            "year": 2023,
+            "pctOfDigitalStem": {
+              "value": 4.2,
+              "meta": {
+                "source": {
+                  "type": "derived",
+                  "provider": "Internal calculation",
+                  "methodology": "(coreICT / digitalStemPlus) × 100"
+                },
+                "verification": {
+                  "level": "verified",
+                  "checkScore": 90
+                }
+              }
+            },
+            "pctOfOfficialStem": {
+              "value": 4.6,
+              "meta": {
+                "source": {
+                  "type": "derived",
+                  "provider": "Internal calculation",
+                  "methodology": "(coreICT / officialStem) × 100"
+                },
+                "verification": {
+                  "level": "verified",
+                  "checkScore": 90
+                }
+              }
+            },
+            "meta": {
+              "source": {
+                "type": "estimated",
+                "provider": "Proportional estimate from DGEEC regional total",
+                "methodology": "City share of regional DGEEC total, distributed proportionally by institutional size"
+              },
+              "verification": {
+                "level": "estimated",
+                "checkScore": 70
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            },
+            "approximate": true
+          }
+        }
+      },
+      "costs": {
+        "salaryIndex": {
+          "value": 75.5,
+          "baseline": "Lisbon = 100",
+          "meta": {
+            "source": {
+              "type": "derived",
+              "provider": "Internal calculation",
+              "methodology": "COL-adjusted regional baseline"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 85
+            },
+            "lifecycle": {
+              "updateFrequency": "annual",
+              "nextReview": "2026-09-01"
+            }
+          }
+        },
+        "officeRent": {
+          "min": 12,
+          "max": 15,
+          "unit": "EUR/m2/month",
+          "meta": {
+            "source": {
+              "type": "composite",
+              "provider": "Cushman & Wakefield, JLL Portugal, Idealista, AI fact-checked",
+              "methodology": "Derived from multiple real estate sources and cross-verified via AI fact-check consensus"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 88
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        },
+        "residentialRent": {
+          "min": 800,
+          "max": 1100,
+          "unit": "EUR/month",
+          "type": "T1",
+          "meta": {
+            "source": {
+              "type": "composite",
+              "provider": "Idealista, Numbeo, Cushman & Wakefield, JLL Portugal, AI fact-checked",
+              "methodology": "Derived from multiple rental listing and cost-of-living sources, cross-verified via AI fact-check consensus"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 82
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        },
+        "colIndex": {
+          "value": 38,
+          "baseline": "New York = 100",
+          "meta": {
+            "source": {
+              "type": "survey",
+              "provider": "Numbeo",
+              "note": "New York = 100. Where direct Numbeo data was unavailable, Numbeo-style estimates were derived from regional cost patterns and AI fact-checked."
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 85
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        }
+      },
+      "flags": {
+        "featured": true,
+        "hasAirport": true,
+        "hasUniversityHub": false
+      }
+    },
+    "setubal": {
+      "_meta": {
+        "cityId": "setubal",
+        "lastUpdated": "2026-02-05T21:53:11Z",
+        "dataQualityScore": 90
+      },
+      "basic": {
+        "id": "setubal",
+        "name": {
+          "value": "Setúbal",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "INE"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 100
+            }
+          }
+        },
+        "featured": true,
+        "region": {
+          "value": "Península de Setúbal",
+          "nutsCode": "PT17",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "INE NUTS III"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 100
+            }
+          }
+        }
+      },
+      "talent": {
+        "universities": {
+          "value": [
+            "IPS",
+            "ESE Setúbal"
+          ],
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "A3ES / RJIES"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 98
+            }
+          }
+        },
+        "graduates": {
+          "officialStem": {
+            "value": 2503,
+            "year": 2023,
+            "meta": {
+              "source": {
+                "type": "estimated",
+                "provider": "Proportional estimate from DGEEC regional total",
+                "methodology": "City share of regional DGEEC total, distributed proportionally by institutional size"
+              },
+              "verification": {
+                "level": "estimated",
+                "checkScore": 70
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            },
+            "approximate": true
+          },
+          "digitalStemPlus": {
+            "value": 2629,
+            "year": 2023,
+            "meta": {
+              "source": {
+                "type": "derived",
+                "provider": "Internal calculation",
+                "methodology": "officialStem × INCoDe.2030 multiplier"
+              },
+              "verification": {
+                "level": "verified",
+                "checkScore": 90
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            }
+          },
+          "coreICT": {
+            "value": 195,
+            "year": 2023,
+            "pctOfDigitalStem": {
+              "value": 7.4,
+              "meta": {
+                "source": {
+                  "type": "derived",
+                  "provider": "Internal calculation",
+                  "methodology": "(coreICT / digitalStemPlus) × 100"
+                },
+                "verification": {
+                  "level": "verified",
+                  "checkScore": 90
+                }
+              }
+            },
+            "pctOfOfficialStem": {
+              "value": 7.8,
+              "meta": {
+                "source": {
+                  "type": "derived",
+                  "provider": "Internal calculation",
+                  "methodology": "(coreICT / officialStem) × 100"
+                },
+                "verification": {
+                  "level": "verified",
+                  "checkScore": 90
+                }
+              }
+            },
+            "meta": {
+              "source": {
+                "type": "estimated",
+                "provider": "Proportional estimate from DGEEC regional total",
+                "methodology": "City share of regional DGEEC total, distributed proportionally by institutional size"
+              },
+              "verification": {
+                "level": "estimated",
+                "checkScore": 70
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            },
+            "approximate": true
+          }
+        }
+      },
+      "costs": {
+        "salaryIndex": {
+          "value": 88.2,
+          "baseline": "Lisbon = 100",
+          "meta": {
+            "source": {
+              "type": "derived",
+              "provider": "Internal calculation",
+              "methodology": "COL-adjusted regional baseline"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 85
+            },
+            "lifecycle": {
+              "updateFrequency": "annual",
+              "nextReview": "2026-09-01"
+            }
+          }
+        },
+        "officeRent": {
+          "min": 10,
+          "max": 13,
+          "unit": "EUR/m2/month",
+          "meta": {
+            "source": {
+              "type": "composite",
+              "provider": "Cushman & Wakefield, JLL Portugal, Idealista, AI fact-checked",
+              "methodology": "Derived from multiple real estate sources and cross-verified via AI fact-check consensus"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 88
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        },
+        "residentialRent": {
+          "min": 600,
+          "max": 850,
+          "unit": "EUR/month",
+          "type": "T1",
+          "meta": {
+            "source": {
+              "type": "composite",
+              "provider": "Idealista, Numbeo, Cushman & Wakefield, JLL Portugal, AI fact-checked",
+              "methodology": "Derived from multiple rental listing and cost-of-living sources, cross-verified via AI fact-check consensus"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 82
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        },
+        "colIndex": {
+          "value": 36,
+          "baseline": "New York = 100",
+          "meta": {
+            "source": {
+              "type": "survey",
+              "provider": "Numbeo",
+              "note": "New York = 100. Where direct Numbeo data was unavailable, Numbeo-style estimates were derived from regional cost patterns and AI fact-checked."
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 85
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        }
+      },
+      "flags": {
+        "featured": true,
+        "hasAirport": false,
+        "hasUniversityHub": false
+      }
+    },
+    "vilareal": {
+      "_meta": {
+        "cityId": "vilareal",
+        "lastUpdated": "2026-02-05T21:53:11Z",
+        "dataQualityScore": 80
+      },
+      "basic": {
+        "id": "vilareal",
+        "name": {
+          "value": "Vila Real",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "INE"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 100
+            }
+          }
+        },
+        "featured": false,
+        "region": {
+          "value": "Norte",
+          "nutsCode": "PT11",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "INE NUTS III"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 100
+            }
+          }
+        }
+      },
+      "talent": {
+        "universities": {
+          "value": [
+            "UTAD"
+          ],
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "A3ES / RJIES"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 98
+            }
+          }
+        },
+        "graduates": {
+          "officialStem": {
+            "value": 696,
+            "year": 2023,
+            "meta": {
+              "source": {
+                "type": "estimated",
+                "provider": "Proportional estimate from DGEEC regional total",
+                "methodology": "City share of regional DGEEC total, distributed proportionally by institutional size"
+              },
+              "verification": {
+                "level": "estimated",
+                "checkScore": 70
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            },
+            "approximate": true
+          },
+          "digitalStemPlus": {
+            "value": 842,
+            "year": 2023,
+            "meta": {
+              "source": {
+                "type": "derived",
+                "provider": "Internal calculation",
+                "methodology": "officialStem × INCoDe.2030 multiplier"
+              },
+              "verification": {
+                "level": "verified",
+                "checkScore": 90
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            }
+          },
+          "coreICT": {
+            "value": 65,
+            "year": 2023,
+            "pctOfDigitalStem": {
+              "value": 7.7,
+              "meta": {
+                "source": {
+                  "type": "derived",
+                  "provider": "Internal calculation",
+                  "methodology": "(coreICT / digitalStemPlus) × 100"
+                },
+                "verification": {
+                  "level": "verified",
+                  "checkScore": 90
+                }
+              }
+            },
+            "pctOfOfficialStem": {
+              "value": 9.3,
+              "meta": {
+                "source": {
+                  "type": "derived",
+                  "provider": "Internal calculation",
+                  "methodology": "(coreICT / officialStem) × 100"
+                },
+                "verification": {
+                  "level": "verified",
+                  "checkScore": 90
+                }
+              }
+            },
+            "meta": {
+              "source": {
+                "type": "estimated",
+                "provider": "Proportional estimate from DGEEC regional total",
+                "methodology": "City share of regional DGEEC total, distributed proportionally by institutional size"
+              },
+              "verification": {
+                "level": "estimated",
+                "checkScore": 70
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            },
+            "approximate": true
+          }
+        }
+      },
+      "costs": {
+        "salaryIndex": {
+          "value": 79.2,
+          "baseline": "Lisbon = 100",
+          "meta": {
+            "source": {
+              "type": "derived",
+              "provider": "Internal calculation",
+              "methodology": "COL-adjusted regional baseline"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 85
+            },
+            "lifecycle": {
+              "updateFrequency": "annual",
+              "nextReview": "2026-09-01"
+            }
+          }
+        },
+        "officeRent": {
+          "min": 8,
+          "max": 10,
+          "unit": "EUR/m2/month",
+          "meta": {
+            "source": {
+              "type": "composite",
+              "provider": "Cushman & Wakefield, JLL Portugal, Idealista, AI fact-checked",
+              "methodology": "Derived from multiple real estate sources and cross-verified via AI fact-check consensus"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 88
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        },
+        "residentialRent": {
+          "min": 450,
+          "max": 650,
+          "unit": "EUR/month",
+          "type": "T1",
+          "meta": {
+            "source": {
+              "type": "composite",
+              "provider": "Idealista, Numbeo, Cushman & Wakefield, JLL Portugal, AI fact-checked",
+              "methodology": "Derived from multiple rental listing and cost-of-living sources, cross-verified via AI fact-check consensus"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 82
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        },
+        "colIndex": {
+          "value": 32,
+          "baseline": "New York = 100",
+          "meta": {
+            "source": {
+              "type": "survey",
+              "provider": "Numbeo",
+              "note": "New York = 100. Where direct Numbeo data was unavailable, Numbeo-style estimates were derived from regional cost patterns and AI fact-checked."
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 85
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        }
+      },
+      "flags": {
+        "featured": false,
+        "hasAirport": false,
+        "hasUniversityHub": false
+      }
+    },
+    "vianacastelo": {
+      "_meta": {
+        "cityId": "vianacastelo",
+        "lastUpdated": "2026-02-05T21:53:11Z",
+        "dataQualityScore": 80
+      },
+      "basic": {
+        "id": "vianacastelo",
+        "name": {
+          "value": "Viana do Castelo",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "INE"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 100
+            }
+          }
+        },
+        "featured": false,
+        "region": {
+          "value": "Norte",
+          "nutsCode": "PT11",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "INE NUTS III"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 100
+            }
+          }
+        }
+      },
+      "talent": {
+        "universities": {
+          "value": [
+            "IPVC"
+          ],
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "A3ES / RJIES"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 98
+            }
+          }
+        },
+        "graduates": {
+          "officialStem": {
+            "value": 516,
+            "year": 2023,
+            "meta": {
+              "source": {
+                "type": "estimated",
+                "provider": "Proportional estimate from DGEEC regional total",
+                "methodology": "City share of regional DGEEC total, distributed proportionally by institutional size"
+              },
+              "verification": {
+                "level": "estimated",
+                "checkScore": 70
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            },
+            "approximate": true
+          },
+          "digitalStemPlus": {
+            "value": 625,
+            "year": 2023,
+            "meta": {
+              "source": {
+                "type": "derived",
+                "provider": "Internal calculation",
+                "methodology": "officialStem × INCoDe.2030 multiplier"
+              },
+              "verification": {
+                "level": "verified",
+                "checkScore": 90
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            }
+          },
+          "coreICT": {
+            "value": 44,
+            "year": 2023,
+            "pctOfDigitalStem": {
+              "value": 7,
+              "meta": {
+                "source": {
+                  "type": "derived",
+                  "provider": "Internal calculation",
+                  "methodology": "(coreICT / digitalStemPlus) × 100"
+                },
+                "verification": {
+                  "level": "verified",
+                  "checkScore": 90
+                }
+              }
+            },
+            "pctOfOfficialStem": {
+              "value": 8.5,
+              "meta": {
+                "source": {
+                  "type": "derived",
+                  "provider": "Internal calculation",
+                  "methodology": "(coreICT / officialStem) × 100"
+                },
+                "verification": {
+                  "level": "verified",
+                  "checkScore": 90
+                }
+              }
+            },
+            "meta": {
+              "source": {
+                "type": "estimated",
+                "provider": "Proportional estimate from DGEEC regional total",
+                "methodology": "City share of regional DGEEC total, distributed proportionally by institutional size"
+              },
+              "verification": {
+                "level": "estimated",
+                "checkScore": 70
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            },
+            "approximate": true
+          }
+        }
+      },
+      "costs": {
+        "salaryIndex": {
+          "value": 80.2,
+          "baseline": "Lisbon = 100",
+          "meta": {
+            "source": {
+              "type": "derived",
+              "provider": "Internal calculation",
+              "methodology": "COL-adjusted regional baseline"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 85
+            },
+            "lifecycle": {
+              "updateFrequency": "annual",
+              "nextReview": "2026-09-01"
+            }
+          }
+        },
+        "officeRent": {
+          "min": 9,
+          "max": 12,
+          "unit": "EUR/m2/month",
+          "meta": {
+            "source": {
+              "type": "composite",
+              "provider": "Cushman & Wakefield, JLL Portugal, Idealista, AI fact-checked",
+              "methodology": "Derived from multiple real estate sources and cross-verified via AI fact-check consensus"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 88
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        },
+        "residentialRent": {
+          "min": 500,
+          "max": 700,
+          "unit": "EUR/month",
+          "type": "T1",
+          "meta": {
+            "source": {
+              "type": "composite",
+              "provider": "Idealista, Numbeo, Cushman & Wakefield, JLL Portugal, AI fact-checked",
+              "methodology": "Derived from multiple rental listing and cost-of-living sources, cross-verified via AI fact-check consensus"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 82
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        },
+        "colIndex": {
+          "value": 33,
+          "baseline": "New York = 100",
+          "meta": {
+            "source": {
+              "type": "survey",
+              "provider": "Numbeo",
+              "note": "New York = 100. Where direct Numbeo data was unavailable, Numbeo-style estimates were derived from regional cost patterns and AI fact-checked."
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 85
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        }
+      },
+      "flags": {
+        "featured": false,
+        "hasAirport": false,
+        "hasUniversityHub": false
+      }
+    },
+    "braganca": {
+      "_meta": {
+        "cityId": "braganca",
+        "lastUpdated": "2026-02-05T21:53:11Z",
+        "dataQualityScore": 80
+      },
+      "basic": {
+        "id": "braganca",
+        "name": {
+          "value": "Bragança",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "INE"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 100
+            }
+          }
+        },
+        "featured": false,
+        "region": {
+          "value": "Norte",
+          "nutsCode": "PT11",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "INE NUTS III"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 100
+            }
+          }
+        }
+      },
+      "talent": {
+        "universities": {
+          "value": [
+            "IPB"
+          ],
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "A3ES / RJIES"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 98
+            }
+          }
+        },
+        "graduates": {
+          "officialStem": {
+            "value": 664,
+            "year": 2023,
+            "meta": {
+              "source": {
+                "type": "estimated",
+                "provider": "Proportional estimate from DGEEC regional total",
+                "methodology": "City share of regional DGEEC total, distributed proportionally by institutional size"
+              },
+              "verification": {
+                "level": "estimated",
+                "checkScore": 70
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            },
+            "approximate": true
+          },
+          "digitalStemPlus": {
+            "value": 804,
+            "year": 2023,
+            "meta": {
+              "source": {
+                "type": "derived",
+                "provider": "Internal calculation",
+                "methodology": "officialStem × INCoDe.2030 multiplier"
+              },
+              "verification": {
+                "level": "verified",
+                "checkScore": 90
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            }
+          },
+          "coreICT": {
+            "value": 56,
+            "year": 2023,
+            "pctOfDigitalStem": {
+              "value": 7,
+              "meta": {
+                "source": {
+                  "type": "derived",
+                  "provider": "Internal calculation",
+                  "methodology": "(coreICT / digitalStemPlus) × 100"
+                },
+                "verification": {
+                  "level": "verified",
+                  "checkScore": 90
+                }
+              }
+            },
+            "pctOfOfficialStem": {
+              "value": 8.4,
+              "meta": {
+                "source": {
+                  "type": "derived",
+                  "provider": "Internal calculation",
+                  "methodology": "(coreICT / officialStem) × 100"
+                },
+                "verification": {
+                  "level": "verified",
+                  "checkScore": 90
+                }
+              }
+            },
+            "meta": {
+              "source": {
+                "type": "estimated",
+                "provider": "Proportional estimate from DGEEC regional total",
+                "methodology": "City share of regional DGEEC total, distributed proportionally by institutional size"
+              },
+              "verification": {
+                "level": "estimated",
+                "checkScore": 70
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            },
+            "approximate": true
+          }
+        }
+      },
+      "costs": {
+        "salaryIndex": {
+          "value": 75,
+          "baseline": "Lisbon = 100",
+          "meta": {
+            "source": {
+              "type": "derived",
+              "provider": "Internal calculation",
+              "methodology": "COL-adjusted regional baseline"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 85
+            },
+            "lifecycle": {
+              "updateFrequency": "annual",
+              "nextReview": "2026-09-01"
+            }
+          }
+        },
+        "officeRent": {
+          "min": 6,
+          "max": 8,
+          "unit": "EUR/m2/month",
+          "meta": {
+            "source": {
+              "type": "composite",
+              "provider": "Cushman & Wakefield, JLL Portugal, Idealista, AI fact-checked",
+              "methodology": "Derived from multiple real estate sources and cross-verified via AI fact-check consensus"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 88
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        },
+        "residentialRent": {
+          "min": 350,
+          "max": 550,
+          "unit": "EUR/month",
+          "type": "T1",
+          "meta": {
+            "source": {
+              "type": "composite",
+              "provider": "Idealista, Numbeo, Cushman & Wakefield, JLL Portugal, AI fact-checked",
+              "methodology": "Derived from multiple rental listing and cost-of-living sources, cross-verified via AI fact-check consensus"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 82
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        },
+        "colIndex": {
+          "value": 28,
+          "baseline": "New York = 100",
+          "meta": {
+            "source": {
+              "type": "survey",
+              "provider": "Numbeo",
+              "note": "New York = 100. Where direct Numbeo data was unavailable, Numbeo-style estimates were derived from regional cost patterns and AI fact-checked."
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 85
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        }
+      },
+      "flags": {
+        "featured": false,
+        "hasAirport": false,
+        "hasUniversityHub": false
+      }
+    },
+    "leiria": {
+      "_meta": {
+        "cityId": "leiria",
+        "lastUpdated": "2026-02-05T21:53:11Z",
+        "dataQualityScore": 80
+      },
+      "basic": {
+        "id": "leiria",
+        "name": {
+          "value": "Leiria",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "INE"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 100
+            }
+          }
+        },
+        "featured": false,
+        "region": {
+          "value": "Oeste and Vale do Tejo",
+          "nutsCode": "PT16",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "INE NUTS III"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 100
+            }
+          }
+        }
+      },
+      "talent": {
+        "universities": {
+          "value": [
+            "IPL"
+          ],
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "A3ES / RJIES"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 98
+            }
+          }
+        },
+        "graduates": {
+          "officialStem": {
+            "value": 267,
+            "year": 2023,
+            "meta": {
+              "source": {
+                "type": "estimated",
+                "provider": "Proportional estimate from DGEEC regional total",
+                "methodology": "City share of regional DGEEC total, distributed proportionally by institutional size"
+              },
+              "verification": {
+                "level": "estimated",
+                "checkScore": 70
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            },
+            "approximate": true
+          },
+          "digitalStemPlus": {
+            "value": 1943,
+            "year": 2023,
+            "meta": {
+              "source": {
+                "type": "derived",
+                "provider": "Internal calculation",
+                "methodology": "officialStem × INCoDe.2030 multiplier"
+              },
+              "verification": {
+                "level": "verified",
+                "checkScore": 90
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            }
+          },
+          "coreICT": {
+            "value": 104,
+            "year": 2023,
+            "pctOfDigitalStem": {
+              "value": 5.4,
+              "meta": {
+                "source": {
+                  "type": "derived",
+                  "provider": "Internal calculation",
+                  "methodology": "(coreICT / digitalStemPlus) × 100"
+                },
+                "verification": {
+                  "level": "verified",
+                  "checkScore": 90
+                }
+              }
+            },
+            "pctOfOfficialStem": {
+              "value": 39,
+              "meta": {
+                "source": {
+                  "type": "derived",
+                  "provider": "Internal calculation",
+                  "methodology": "(coreICT / officialStem) × 100"
+                },
+                "verification": {
+                  "level": "verified",
+                  "checkScore": 90
+                }
+              }
+            },
+            "meta": {
+              "source": {
+                "type": "estimated",
+                "provider": "Proportional estimate from DGEEC regional total",
+                "methodology": "City share of regional DGEEC total, distributed proportionally by institutional size"
+              },
+              "verification": {
+                "level": "estimated",
+                "checkScore": 70
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            },
+            "approximate": true
+          }
+        }
+      },
+      "costs": {
+        "salaryIndex": {
+          "value": 74.1,
+          "baseline": "Lisbon = 100",
+          "meta": {
+            "source": {
+              "type": "derived",
+              "provider": "Internal calculation",
+              "methodology": "COL-adjusted regional baseline"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 85
+            },
+            "lifecycle": {
+              "updateFrequency": "annual",
+              "nextReview": "2026-09-01"
+            }
+          }
+        },
+        "officeRent": {
+          "min": 10,
+          "max": 13,
+          "unit": "EUR/m2/month",
+          "meta": {
+            "source": {
+              "type": "composite",
+              "provider": "Cushman & Wakefield, JLL Portugal, Idealista, AI fact-checked",
+              "methodology": "Derived from multiple real estate sources and cross-verified via AI fact-check consensus"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 88
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        },
+        "residentialRent": {
+          "min": 550,
+          "max": 750,
+          "unit": "EUR/month",
+          "type": "T1",
+          "meta": {
+            "source": {
+              "type": "composite",
+              "provider": "Idealista, Numbeo, Cushman & Wakefield, JLL Portugal, AI fact-checked",
+              "methodology": "Derived from multiple rental listing and cost-of-living sources, cross-verified via AI fact-check consensus"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 82
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        },
+        "colIndex": {
+          "value": 35,
+          "baseline": "New York = 100",
+          "meta": {
+            "source": {
+              "type": "survey",
+              "provider": "Numbeo",
+              "note": "New York = 100. Where direct Numbeo data was unavailable, Numbeo-style estimates were derived from regional cost patterns and AI fact-checked."
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 85
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        }
+      },
+      "flags": {
+        "featured": false,
+        "hasAirport": false,
+        "hasUniversityHub": false
+      }
+    },
+    "santarem": {
+      "_meta": {
+        "cityId": "santarem",
+        "lastUpdated": "2026-02-05T21:53:11Z",
+        "dataQualityScore": 80
+      },
+      "basic": {
+        "id": "santarem",
+        "name": {
+          "value": "Santarém",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "INE"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 100
+            }
+          }
+        },
+        "featured": false,
+        "region": {
+          "value": "Oeste and Vale do Tejo",
+          "nutsCode": "PT16",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "INE NUTS III"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 100
+            }
+          }
+        }
+      },
+      "talent": {
+        "universities": {
+          "value": [
+            "IPS"
+          ],
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "A3ES / RJIES"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 98
+            }
+          }
+        },
+        "graduates": {
+          "officialStem": {
+            "value": 35,
+            "year": 2023,
+            "meta": {
+              "source": {
+                "type": "estimated",
+                "provider": "Proportional estimate from DGEEC regional total",
+                "methodology": "City share of regional DGEEC total, distributed proportionally by institutional size"
+              },
+              "verification": {
+                "level": "estimated",
+                "checkScore": 70
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            },
+            "approximate": true
+          },
+          "digitalStemPlus": {
+            "value": 259,
+            "year": 2023,
+            "meta": {
+              "source": {
+                "type": "derived",
+                "provider": "Internal calculation",
+                "methodology": "officialStem × INCoDe.2030 multiplier"
+              },
+              "verification": {
+                "level": "verified",
+                "checkScore": 90
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            }
+          },
+          "coreICT": {
+            "value": 23,
+            "year": 2023,
+            "pctOfDigitalStem": {
+              "value": 8.9,
+              "meta": {
+                "source": {
+                  "type": "derived",
+                  "provider": "Internal calculation",
+                  "methodology": "(coreICT / digitalStemPlus) × 100"
+                },
+                "verification": {
+                  "level": "verified",
+                  "checkScore": 90
+                }
+              }
+            },
+            "pctOfOfficialStem": {
+              "value": 65.7,
+              "meta": {
+                "source": {
+                  "type": "derived",
+                  "provider": "Internal calculation",
+                  "methodology": "(coreICT / officialStem) × 100"
+                },
+                "verification": {
+                  "level": "verified",
+                  "checkScore": 90
+                }
+              }
+            },
+            "meta": {
+              "source": {
+                "type": "estimated",
+                "provider": "Proportional estimate from DGEEC regional total",
+                "methodology": "City share of regional DGEEC total, distributed proportionally by institutional size"
+              },
+              "verification": {
+                "level": "estimated",
+                "checkScore": 70
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            },
+            "approximate": true
+          }
+        }
+      },
+      "costs": {
+        "salaryIndex": {
+          "value": 73,
+          "baseline": "Lisbon = 100",
+          "meta": {
+            "source": {
+              "type": "derived",
+              "provider": "Internal calculation",
+              "methodology": "COL-adjusted regional baseline"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 85
+            },
+            "lifecycle": {
+              "updateFrequency": "annual",
+              "nextReview": "2026-09-01"
+            }
+          }
+        },
+        "officeRent": {
+          "min": 11,
+          "max": 14,
+          "unit": "EUR/m2/month",
+          "meta": {
+            "source": {
+              "type": "composite",
+              "provider": "Cushman & Wakefield, JLL Portugal, Idealista, AI fact-checked",
+              "methodology": "Derived from multiple real estate sources and cross-verified via AI fact-check consensus"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 88
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        },
+        "residentialRent": {
+          "min": 450,
+          "max": 700,
+          "unit": "EUR/month",
+          "type": "T1",
+          "meta": {
+            "source": {
+              "type": "composite",
+              "provider": "Idealista, Numbeo, Cushman & Wakefield, JLL Portugal, AI fact-checked",
+              "methodology": "Derived from multiple rental listing and cost-of-living sources, cross-verified via AI fact-check consensus"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 82
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        },
+        "colIndex": {
+          "value": 30,
+          "baseline": "New York = 100",
+          "meta": {
+            "source": {
+              "type": "survey",
+              "provider": "Numbeo",
+              "note": "New York = 100. Where direct Numbeo data was unavailable, Numbeo-style estimates were derived from regional cost patterns and AI fact-checked."
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 85
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        }
+      },
+      "flags": {
+        "featured": false,
+        "hasAirport": false,
+        "hasUniversityHub": false
+      }
+    },
+    "viseu": {
+      "_meta": {
+        "cityId": "viseu",
+        "lastUpdated": "2026-02-05T21:53:11Z",
+        "dataQualityScore": 80
+      },
+      "basic": {
+        "id": "viseu",
+        "name": {
+          "value": "Viseu",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "INE"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 100
+            }
+          }
+        },
+        "featured": false,
+        "region": {
+          "value": "Centro",
+          "nutsCode": "PT16",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "INE NUTS III"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 100
+            }
+          }
+        }
+      },
+      "talent": {
+        "universities": {
+          "value": [
+            "IPV"
+          ],
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "A3ES / RJIES"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 98
+            }
+          }
+        },
+        "graduates": {
+          "officialStem": {
+            "value": 971,
+            "year": 2023,
+            "meta": {
+              "source": {
+                "type": "estimated",
+                "provider": "Proportional estimate from DGEEC regional total",
+                "methodology": "City share of regional DGEEC total, distributed proportionally by institutional size"
+              },
+              "verification": {
+                "level": "estimated",
+                "checkScore": 70
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            },
+            "approximate": true
+          },
+          "digitalStemPlus": {
+            "value": 1057,
+            "year": 2023,
+            "meta": {
+              "source": {
+                "type": "derived",
+                "provider": "Internal calculation",
+                "methodology": "officialStem × INCoDe.2030 multiplier"
+              },
+              "verification": {
+                "level": "verified",
+                "checkScore": 90
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            }
+          },
+          "coreICT": {
+            "value": 47,
+            "year": 2023,
+            "pctOfDigitalStem": {
+              "value": 4.4,
+              "meta": {
+                "source": {
+                  "type": "derived",
+                  "provider": "Internal calculation",
+                  "methodology": "(coreICT / digitalStemPlus) × 100"
+                },
+                "verification": {
+                  "level": "verified",
+                  "checkScore": 90
+                }
+              }
+            },
+            "pctOfOfficialStem": {
+              "value": 4.8,
+              "meta": {
+                "source": {
+                  "type": "derived",
+                  "provider": "Internal calculation",
+                  "methodology": "(coreICT / officialStem) × 100"
+                },
+                "verification": {
+                  "level": "verified",
+                  "checkScore": 90
+                }
+              }
+            },
+            "meta": {
+              "source": {
+                "type": "estimated",
+                "provider": "Proportional estimate from DGEEC regional total",
+                "methodology": "City share of regional DGEEC total, distributed proportionally by institutional size"
+              },
+              "verification": {
+                "level": "estimated",
+                "checkScore": 70
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            },
+            "approximate": true
+          }
+        }
+      },
+      "costs": {
+        "salaryIndex": {
+          "value": 71.3,
+          "baseline": "Lisbon = 100",
+          "meta": {
+            "source": {
+              "type": "derived",
+              "provider": "Internal calculation",
+              "methodology": "COL-adjusted regional baseline"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 85
+            },
+            "lifecycle": {
+              "updateFrequency": "annual",
+              "nextReview": "2026-09-01"
+            }
+          }
+        },
+        "officeRent": {
+          "min": 8,
+          "max": 11,
+          "unit": "EUR/m2/month",
+          "meta": {
+            "source": {
+              "type": "composite",
+              "provider": "Cushman & Wakefield, JLL Portugal, Idealista, AI fact-checked",
+              "methodology": "Derived from multiple real estate sources and cross-verified via AI fact-check consensus"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 88
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        },
+        "residentialRent": {
+          "min": 450,
+          "max": 650,
+          "unit": "EUR/month",
+          "type": "T1",
+          "meta": {
+            "source": {
+              "type": "composite",
+              "provider": "Idealista, Numbeo, Cushman & Wakefield, JLL Portugal, AI fact-checked",
+              "methodology": "Derived from multiple rental listing and cost-of-living sources, cross-verified via AI fact-check consensus"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 82
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        },
+        "colIndex": {
+          "value": 32,
+          "baseline": "New York = 100",
+          "meta": {
+            "source": {
+              "type": "survey",
+              "provider": "Numbeo",
+              "note": "New York = 100. Where direct Numbeo data was unavailable, Numbeo-style estimates were derived from regional cost patterns and AI fact-checked."
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 85
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        }
+      },
+      "flags": {
+        "featured": false,
+        "hasAirport": false,
+        "hasUniversityHub": false
+      }
+    },
+    "castelobranco": {
+      "_meta": {
+        "cityId": "castelobranco",
+        "lastUpdated": "2026-02-05T21:53:11Z",
+        "dataQualityScore": 80
+      },
+      "basic": {
+        "id": "castelobranco",
+        "name": {
+          "value": "Castelo Branco",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "INE"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 100
+            }
+          }
+        },
+        "featured": false,
+        "region": {
+          "value": "Centro",
+          "nutsCode": "PT16",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "INE NUTS III"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 100
+            }
+          }
+        }
+      },
+      "talent": {
+        "universities": {
+          "value": [
+            "IPCB"
+          ],
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "A3ES / RJIES"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 98
+            }
+          }
+        },
+        "graduates": {
+          "officialStem": {
+            "value": 437,
+            "year": 2023,
+            "meta": {
+              "source": {
+                "type": "estimated",
+                "provider": "Proportional estimate from DGEEC regional total",
+                "methodology": "City share of regional DGEEC total, distributed proportionally by institutional size"
+              },
+              "verification": {
+                "level": "estimated",
+                "checkScore": 70
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            },
+            "approximate": true
+          },
+          "digitalStemPlus": {
+            "value": 475,
+            "year": 2023,
+            "meta": {
+              "source": {
+                "type": "derived",
+                "provider": "Internal calculation",
+                "methodology": "officialStem × INCoDe.2030 multiplier"
+              },
+              "verification": {
+                "level": "verified",
+                "checkScore": 90
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            }
+          },
+          "coreICT": {
+            "value": 27,
+            "year": 2023,
+            "pctOfDigitalStem": {
+              "value": 5.7,
+              "meta": {
+                "source": {
+                  "type": "derived",
+                  "provider": "Internal calculation",
+                  "methodology": "(coreICT / digitalStemPlus) × 100"
+                },
+                "verification": {
+                  "level": "verified",
+                  "checkScore": 90
+                }
+              }
+            },
+            "pctOfOfficialStem": {
+              "value": 6.2,
+              "meta": {
+                "source": {
+                  "type": "derived",
+                  "provider": "Internal calculation",
+                  "methodology": "(coreICT / officialStem) × 100"
+                },
+                "verification": {
+                  "level": "verified",
+                  "checkScore": 90
+                }
+              }
+            },
+            "meta": {
+              "source": {
+                "type": "estimated",
+                "provider": "Proportional estimate from DGEEC regional total",
+                "methodology": "City share of regional DGEEC total, distributed proportionally by institutional size"
+              },
+              "verification": {
+                "level": "estimated",
+                "checkScore": 70
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            },
+            "approximate": true
+          }
+        }
+      },
+      "costs": {
+        "salaryIndex": {
+          "value": 69.5,
+          "baseline": "Lisbon = 100",
+          "meta": {
+            "source": {
+              "type": "derived",
+              "provider": "Internal calculation",
+              "methodology": "COL-adjusted regional baseline"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 85
+            },
+            "lifecycle": {
+              "updateFrequency": "annual",
+              "nextReview": "2026-09-01"
+            }
+          }
+        },
+        "officeRent": {
+          "min": 7,
+          "max": 10,
+          "unit": "EUR/m2/month",
+          "meta": {
+            "source": {
+              "type": "composite",
+              "provider": "Cushman & Wakefield, JLL Portugal, Idealista, AI fact-checked",
+              "methodology": "Derived from multiple real estate sources and cross-verified via AI fact-check consensus"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 88
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        },
+        "residentialRent": {
+          "min": 400,
+          "max": 600,
+          "unit": "EUR/month",
+          "type": "T1",
+          "meta": {
+            "source": {
+              "type": "composite",
+              "provider": "Idealista, Numbeo, Cushman & Wakefield, JLL Portugal, AI fact-checked",
+              "methodology": "Derived from multiple rental listing and cost-of-living sources, cross-verified via AI fact-check consensus"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 82
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        },
+        "colIndex": {
+          "value": 30,
+          "baseline": "New York = 100",
+          "meta": {
+            "source": {
+              "type": "survey",
+              "provider": "Numbeo",
+              "note": "New York = 100. Where direct Numbeo data was unavailable, Numbeo-style estimates were derived from regional cost patterns and AI fact-checked."
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 85
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        }
+      },
+      "flags": {
+        "featured": false,
+        "hasAirport": false,
+        "hasUniversityHub": false
+      }
+    },
+    "tomar": {
+      "_meta": {
+        "cityId": "tomar",
+        "lastUpdated": "2026-02-05T21:53:11Z",
+        "dataQualityScore": 80
+      },
+      "basic": {
+        "id": "tomar",
+        "name": {
+          "value": "Tomar",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "INE"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 100
+            }
+          }
+        },
+        "featured": false,
+        "region": {
+          "value": "Oeste and Vale do Tejo",
+          "nutsCode": "PT16",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "INE NUTS III"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 100
+            }
+          }
+        }
+      },
+      "talent": {
+        "universities": {
+          "value": [
+            "IPT"
+          ],
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "A3ES / RJIES"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 98
+            }
+          }
+        },
+        "graduates": {
+          "officialStem": {
+            "value": 58,
+            "year": 2023,
+            "meta": {
+              "source": {
+                "type": "estimated",
+                "provider": "Proportional estimate from DGEEC regional total",
+                "methodology": "City share of regional DGEEC total, distributed proportionally by institutional size"
+              },
+              "verification": {
+                "level": "estimated",
+                "checkScore": 70
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            },
+            "approximate": true
+          },
+          "digitalStemPlus": {
+            "value": 420,
+            "year": 2023,
+            "meta": {
+              "source": {
+                "type": "derived",
+                "provider": "Internal calculation",
+                "methodology": "officialStem × INCoDe.2030 multiplier"
+              },
+              "verification": {
+                "level": "verified",
+                "checkScore": 90
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            }
+          },
+          "coreICT": {
+            "value": 22,
+            "year": 2023,
+            "pctOfDigitalStem": {
+              "value": 5.2,
+              "meta": {
+                "source": {
+                  "type": "derived",
+                  "provider": "Internal calculation",
+                  "methodology": "(coreICT / digitalStemPlus) × 100"
+                },
+                "verification": {
+                  "level": "verified",
+                  "checkScore": 90
+                }
+              }
+            },
+            "pctOfOfficialStem": {
+              "value": 37.9,
+              "meta": {
+                "source": {
+                  "type": "derived",
+                  "provider": "Internal calculation",
+                  "methodology": "(coreICT / officialStem) × 100"
+                },
+                "verification": {
+                  "level": "verified",
+                  "checkScore": 90
+                }
+              }
+            },
+            "meta": {
+              "source": {
+                "type": "estimated",
+                "provider": "Proportional estimate from DGEEC regional total",
+                "methodology": "City share of regional DGEEC total, distributed proportionally by institutional size"
+              },
+              "verification": {
+                "level": "estimated",
+                "checkScore": 70
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            },
+            "approximate": true
+          }
+        }
+      },
+      "costs": {
+        "salaryIndex": {
+          "value": 69.8,
+          "baseline": "Lisbon = 100",
+          "meta": {
+            "source": {
+              "type": "derived",
+              "provider": "Internal calculation",
+              "methodology": "COL-adjusted regional baseline"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 85
+            },
+            "lifecycle": {
+              "updateFrequency": "annual",
+              "nextReview": "2026-09-01"
+            }
+          }
+        },
+        "officeRent": {
+          "min": 7,
+          "max": 10,
+          "unit": "EUR/m2/month",
+          "meta": {
+            "source": {
+              "type": "composite",
+              "provider": "Cushman & Wakefield, JLL Portugal, Idealista, AI fact-checked",
+              "methodology": "Derived from multiple real estate sources and cross-verified via AI fact-check consensus"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 88
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        },
+        "residentialRent": {
+          "min": 400,
+          "max": 600,
+          "unit": "EUR/month",
+          "type": "T1",
+          "meta": {
+            "source": {
+              "type": "composite",
+              "provider": "Idealista, Numbeo, Cushman & Wakefield, JLL Portugal, AI fact-checked",
+              "methodology": "Derived from multiple rental listing and cost-of-living sources, cross-verified via AI fact-check consensus"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 82
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        },
+        "colIndex": {
+          "value": 30,
+          "baseline": "New York = 100",
+          "meta": {
+            "source": {
+              "type": "survey",
+              "provider": "Numbeo",
+              "note": "New York = 100. Where direct Numbeo data was unavailable, Numbeo-style estimates were derived from regional cost patterns and AI fact-checked."
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 85
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        }
+      },
+      "flags": {
+        "featured": false,
+        "hasAirport": false,
+        "hasUniversityHub": false
+      }
+    },
+    "beja": {
+      "_meta": {
+        "cityId": "beja",
+        "lastUpdated": "2026-02-05T21:53:11Z",
+        "dataQualityScore": 80
+      },
+      "basic": {
+        "id": "beja",
+        "name": {
+          "value": "Beja",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "INE"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 100
+            }
+          }
+        },
+        "featured": false,
+        "region": {
+          "value": "Alentejo",
+          "nutsCode": "PT18",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "INE NUTS III"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 100
+            }
+          }
+        }
+      },
+      "talent": {
+        "universities": {
+          "value": [
+            "IPBeja"
+          ],
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "A3ES / RJIES"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 98
+            }
+          }
+        },
+        "graduates": {
+          "officialStem": {
+            "value": 72,
+            "year": 2023,
+            "meta": {
+              "source": {
+                "type": "estimated",
+                "provider": "Proportional estimate from DGEEC regional total",
+                "methodology": "City share of regional DGEEC total, distributed proportionally by institutional size"
+              },
+              "verification": {
+                "level": "estimated",
+                "checkScore": 70
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            },
+            "approximate": true
+          },
+          "digitalStemPlus": {
+            "value": 170,
+            "year": 2023,
+            "meta": {
+              "source": {
+                "type": "derived",
+                "provider": "Internal calculation",
+                "methodology": "officialStem × INCoDe.2030 multiplier"
+              },
+              "verification": {
+                "level": "verified",
+                "checkScore": 90
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            }
+          },
+          "coreICT": {
+            "value": 9,
+            "year": 2023,
+            "pctOfDigitalStem": {
+              "value": 5.3,
+              "meta": {
+                "source": {
+                  "type": "derived",
+                  "provider": "Internal calculation",
+                  "methodology": "(coreICT / digitalStemPlus) × 100"
+                },
+                "verification": {
+                  "level": "verified",
+                  "checkScore": 90
+                }
+              }
+            },
+            "pctOfOfficialStem": {
+              "value": 12.5,
+              "meta": {
+                "source": {
+                  "type": "derived",
+                  "provider": "Internal calculation",
+                  "methodology": "(coreICT / officialStem) × 100"
+                },
+                "verification": {
+                  "level": "verified",
+                  "checkScore": 90
+                }
+              }
+            },
+            "meta": {
+              "source": {
+                "type": "estimated",
+                "provider": "Proportional estimate from DGEEC regional total",
+                "methodology": "City share of regional DGEEC total, distributed proportionally by institutional size"
+              },
+              "verification": {
+                "level": "estimated",
+                "checkScore": 70
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            },
+            "approximate": true
+          }
+        }
+      },
+      "costs": {
+        "salaryIndex": {
+          "value": 72.4,
+          "baseline": "Lisbon = 100",
+          "meta": {
+            "source": {
+              "type": "derived",
+              "provider": "Internal calculation",
+              "methodology": "COL-adjusted regional baseline"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 85
+            },
+            "lifecycle": {
+              "updateFrequency": "annual",
+              "nextReview": "2026-09-01"
+            }
+          }
+        },
+        "officeRent": {
+          "min": 6,
+          "max": 9,
+          "unit": "EUR/m2/month",
+          "meta": {
+            "source": {
+              "type": "composite",
+              "provider": "Cushman & Wakefield, JLL Portugal, Idealista, AI fact-checked",
+              "methodology": "Derived from multiple real estate sources and cross-verified via AI fact-check consensus"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 88
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        },
+        "residentialRent": {
+          "min": 350,
+          "max": 550,
+          "unit": "EUR/month",
+          "type": "T1",
+          "meta": {
+            "source": {
+              "type": "composite",
+              "provider": "Idealista, Numbeo, Cushman & Wakefield, JLL Portugal, AI fact-checked",
+              "methodology": "Derived from multiple rental listing and cost-of-living sources, cross-verified via AI fact-check consensus"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 82
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        },
+        "colIndex": {
+          "value": 28,
+          "baseline": "New York = 100",
+          "meta": {
+            "source": {
+              "type": "survey",
+              "provider": "Numbeo",
+              "note": "New York = 100. Where direct Numbeo data was unavailable, Numbeo-style estimates were derived from regional cost patterns and AI fact-checked."
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 85
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        }
+      },
+      "flags": {
+        "featured": false,
+        "hasAirport": false,
+        "hasUniversityHub": false
+      }
+    },
+    "portalegre": {
+      "_meta": {
+        "cityId": "portalegre",
+        "lastUpdated": "2026-02-05T21:53:11Z",
+        "dataQualityScore": 80
+      },
+      "basic": {
+        "id": "portalegre",
+        "name": {
+          "value": "Portalegre",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "INE"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 100
+            }
+          }
+        },
+        "featured": false,
+        "region": {
+          "value": "Alentejo",
+          "nutsCode": "PT18",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "INE NUTS III"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 100
+            }
+          }
+        }
+      },
+      "talent": {
+        "universities": {
+          "value": [
+            "IPP"
+          ],
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "A3ES / RJIES"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 98
+            }
+          }
+        },
+        "graduates": {
+          "officialStem": {
+            "value": 58,
+            "year": 2023,
+            "meta": {
+              "source": {
+                "type": "estimated",
+                "provider": "Proportional estimate from DGEEC regional total",
+                "methodology": "City share of regional DGEEC total, distributed proportionally by institutional size"
+              },
+              "verification": {
+                "level": "estimated",
+                "checkScore": 70
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            },
+            "approximate": true
+          },
+          "digitalStemPlus": {
+            "value": 136,
+            "year": 2023,
+            "meta": {
+              "source": {
+                "type": "derived",
+                "provider": "Internal calculation",
+                "methodology": "officialStem × INCoDe.2030 multiplier"
+              },
+              "verification": {
+                "level": "verified",
+                "checkScore": 90
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            }
+          },
+          "coreICT": {
+            "value": 7,
+            "year": 2023,
+            "pctOfDigitalStem": {
+              "value": 5.1,
+              "meta": {
+                "source": {
+                  "type": "derived",
+                  "provider": "Internal calculation",
+                  "methodology": "(coreICT / digitalStemPlus) × 100"
+                },
+                "verification": {
+                  "level": "verified",
+                  "checkScore": 90
+                }
+              }
+            },
+            "pctOfOfficialStem": {
+              "value": 12.1,
+              "meta": {
+                "source": {
+                  "type": "derived",
+                  "provider": "Internal calculation",
+                  "methodology": "(coreICT / officialStem) × 100"
+                },
+                "verification": {
+                  "level": "verified",
+                  "checkScore": 90
+                }
+              }
+            },
+            "meta": {
+              "source": {
+                "type": "estimated",
+                "provider": "Proportional estimate from DGEEC regional total",
+                "methodology": "City share of regional DGEEC total, distributed proportionally by institutional size"
+              },
+              "verification": {
+                "level": "estimated",
+                "checkScore": 70
+              },
+              "lifecycle": {
+                "updateFrequency": "annual",
+                "nextReview": "2026-09-01"
+              }
+            },
+            "approximate": true
+          }
+        }
+      },
+      "costs": {
+        "salaryIndex": {
+          "value": 72.4,
+          "baseline": "Lisbon = 100",
+          "meta": {
+            "source": {
+              "type": "derived",
+              "provider": "Internal calculation",
+              "methodology": "COL-adjusted regional baseline"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 85
+            },
+            "lifecycle": {
+              "updateFrequency": "annual",
+              "nextReview": "2026-09-01"
+            }
+          }
+        },
+        "officeRent": {
+          "min": 6,
+          "max": 9,
+          "unit": "EUR/m2/month",
+          "meta": {
+            "source": {
+              "type": "composite",
+              "provider": "Cushman & Wakefield, JLL Portugal, Idealista, AI fact-checked",
+              "methodology": "Derived from multiple real estate sources and cross-verified via AI fact-check consensus"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 88
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        },
+        "residentialRent": {
+          "min": 350,
+          "max": 550,
+          "unit": "EUR/month",
+          "type": "T1",
+          "meta": {
+            "source": {
+              "type": "composite",
+              "provider": "Idealista, Numbeo, Cushman & Wakefield, JLL Portugal, AI fact-checked",
+              "methodology": "Derived from multiple rental listing and cost-of-living sources, cross-verified via AI fact-check consensus"
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 82
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        },
+        "colIndex": {
+          "value": 28,
+          "baseline": "New York = 100",
+          "meta": {
+            "source": {
+              "type": "survey",
+              "provider": "Numbeo",
+              "note": "New York = 100. Where direct Numbeo data was unavailable, Numbeo-style estimates were derived from regional cost patterns and AI fact-checked."
+            },
+            "verification": {
+              "level": "verified",
+              "checkScore": 85
+            },
+            "lifecycle": {
+              "updateFrequency": "quarterly",
+              "nextReview": "2026-03-01"
+            }
+          }
+        }
+      },
+      "flags": {
+        "featured": false,
+        "hasAirport": false,
+        "hasUniversityHub": false
+      }
+    }
+  }
+}

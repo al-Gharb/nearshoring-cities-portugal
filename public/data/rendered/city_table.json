@@ -1,0 +1,420 @@
+{
+  "_meta": {
+    "generatedAt": "2026-02-06T22:11:02Z",
+    "source": "MASTER.json"
+  },
+  "regionOrder": [
+    "Norte",
+    "Centro",
+    "Oeste and Vale do Tejo",
+    "Lisbon Metropolitan Area",
+    "Península de Setúbal",
+    "Alentejo",
+    "Algarve"
+  ],
+  "regionSummaries": [
+    {
+      "region": "Norte",
+      "cityCount": 6,
+      "stemTotal": 11810,
+      "ictTotal": 1246,
+      "ictPct": 10.6
+    },
+    {
+      "region": "Centro",
+      "cityCount": 5,
+      "stemTotal": 5890,
+      "ictTotal": 496,
+      "ictPct": 8.4
+    },
+    {
+      "region": "Oeste and Vale do Tejo",
+      "cityCount": 3,
+      "stemTotal": 2430,
+      "ictTotal": 149,
+      "ictPct": 6.1
+    },
+    {
+      "region": "Lisbon Metropolitan Area",
+      "cityCount": 1,
+      "stemTotal": 9150,
+      "ictTotal": 1103,
+      "ictPct": 12.1
+    },
+    {
+      "region": "Península de Setúbal",
+      "cityCount": 1,
+      "stemTotal": 2750,
+      "ictTotal": 195,
+      "ictPct": 7.1
+    },
+    {
+      "region": "Alentejo",
+      "cityCount": 3,
+      "stemTotal": 1500,
+      "ictTotal": 45,
+      "ictPct": 3.0
+    },
+    {
+      "region": "Algarve",
+      "cityCount": 1,
+      "stemTotal": 920,
+      "ictTotal": 33,
+      "ictPct": 3.6
+    }
+  ],
+  "rows": [
+    {
+      "id": "porto",
+      "name": "Porto",
+      "region": "Norte",
+      "nutsCode": "PT11",
+      "featured": true,
+      "universities": [
+        "UPorto",
+        "IPP"
+      ],
+      "stemGrads": 6400,
+      "ictGrads": 1220,
+      "ictPct": 19.1,
+      "salaryIndex": 87.4,
+      "officeRent": "16-20",
+      "residentialRent": "800-1200",
+      "colIndex": 40
+    },
+    {
+      "id": "braga",
+      "name": "Braga",
+      "region": "Norte",
+      "nutsCode": "PT11",
+      "featured": true,
+      "universities": [
+        "UMinho",
+        "IPCA"
+      ],
+      "stemGrads": 1780,
+      "ictGrads": 370,
+      "ictPct": 20.8,
+      "salaryIndex": 82.2,
+      "officeRent": "11-14",
+      "residentialRent": "600-850",
+      "colIndex": 35
+    },
+    {
+      "id": "guimaraes",
+      "name": "Guimarães",
+      "region": "Norte",
+      "nutsCode": "PT11",
+      "featured": true,
+      "universities": [
+        "UMinho (Engineering Campus)"
+      ],
+      "stemGrads": 1420,
+      "ictGrads": 240,
+      "ictPct": 16.9,
+      "salaryIndex": 80.2,
+      "officeRent": "9-12",
+      "residentialRent": "550-750",
+      "colIndex": 33
+    },
+    {
+      "id": "vilareal",
+      "name": "Vila Real",
+      "region": "Norte",
+      "nutsCode": "PT11",
+      "featured": false,
+      "universities": [
+        "UTAD"
+      ],
+      "stemGrads": 820,
+      "ictGrads": 110,
+      "ictPct": 13.4,
+      "salaryIndex": 79.2,
+      "officeRent": "8-10",
+      "residentialRent": "450-650",
+      "colIndex": 32
+    },
+    {
+      "id": "vianacastelo",
+      "name": "Viana do Castelo",
+      "region": "Norte",
+      "nutsCode": "PT11",
+      "featured": false,
+      "universities": [
+        "IPVC"
+      ],
+      "stemGrads": 610,
+      "ictGrads": 75,
+      "ictPct": 12.3,
+      "salaryIndex": 80.2,
+      "officeRent": "9-12",
+      "residentialRent": "500-700",
+      "colIndex": 33
+    },
+    {
+      "id": "braganca",
+      "name": "Bragança",
+      "region": "Norte",
+      "nutsCode": "PT11",
+      "featured": false,
+      "universities": [
+        "IPB"
+      ],
+      "stemGrads": 780,
+      "ictGrads": 95,
+      "ictPct": 12.2,
+      "salaryIndex": 75.0,
+      "officeRent": "6-8",
+      "residentialRent": "350-550",
+      "colIndex": 28
+    },
+    {
+      "id": "coimbra",
+      "name": "Coimbra",
+      "region": "Centro",
+      "nutsCode": "PT16",
+      "featured": true,
+      "universities": [
+        "UCoimbra",
+        "IPC"
+      ],
+      "stemGrads": 1775,
+      "ictGrads": 325,
+      "ictPct": 18.3,
+      "salaryIndex": 73.2,
+      "officeRent": "10-13",
+      "residentialRent": "550-750",
+      "colIndex": 34
+    },
+    {
+      "id": "aveiro",
+      "name": "Aveiro",
+      "region": "Centro",
+      "nutsCode": "PT16",
+      "featured": true,
+      "universities": [
+        "UAveiro"
+      ],
+      "stemGrads": 1445,
+      "ictGrads": 310,
+      "ictPct": 21.5,
+      "salaryIndex": 76.0,
+      "officeRent": "12-15",
+      "residentialRent": "600-850",
+      "colIndex": 37
+    },
+    {
+      "id": "covilha",
+      "name": "Covilhã",
+      "region": "Centro",
+      "nutsCode": "PT16",
+      "featured": true,
+      "universities": [
+        "UBI"
+      ],
+      "stemGrads": 1250,
+      "ictGrads": 140,
+      "ictPct": 11.2,
+      "salaryIndex": 69.5,
+      "officeRent": "7-10",
+      "residentialRent": "450-650",
+      "colIndex": 30
+    },
+    {
+      "id": "viseu",
+      "name": "Viseu",
+      "region": "Centro",
+      "nutsCode": "PT16",
+      "featured": false,
+      "universities": [
+        "IPV"
+      ],
+      "stemGrads": 980,
+      "ictGrads": 85,
+      "ictPct": 8.7,
+      "salaryIndex": 71.3,
+      "officeRent": "8-11",
+      "residentialRent": "450-650",
+      "colIndex": 32
+    },
+    {
+      "id": "castelobranco",
+      "name": "Castelo Branco",
+      "region": "Centro",
+      "nutsCode": "PT16",
+      "featured": false,
+      "universities": [
+        "IPCB"
+      ],
+      "stemGrads": 440,
+      "ictGrads": 50,
+      "ictPct": 11.4,
+      "salaryIndex": 69.5,
+      "officeRent": "7-10",
+      "residentialRent": "400-600",
+      "colIndex": 30
+    },
+    {
+      "id": "leiria",
+      "name": "Leiria",
+      "region": "Oeste and Vale do Tejo",
+      "nutsCode": "PT16",
+      "featured": false,
+      "universities": [
+        "IPL"
+      ],
+      "stemGrads": 1800,
+      "ictGrads": 210,
+      "ictPct": 11.7,
+      "salaryIndex": 74.1,
+      "officeRent": "10-13",
+      "residentialRent": "550-750",
+      "colIndex": 35
+    },
+    {
+      "id": "santarem",
+      "name": "Santarém",
+      "region": "Oeste and Vale do Tejo",
+      "nutsCode": "PT16",
+      "featured": false,
+      "universities": [
+        "IPS"
+      ],
+      "stemGrads": 240,
+      "ictGrads": 45,
+      "ictPct": 18.8,
+      "salaryIndex": 55.0,
+      "officeRent": "11-14",
+      "residentialRent": "450-700",
+      "colIndex": 30
+    },
+    {
+      "id": "tomar",
+      "name": "Tomar",
+      "region": "Oeste and Vale do Tejo",
+      "nutsCode": "PT16",
+      "featured": false,
+      "universities": [
+        "IPT"
+      ],
+      "stemGrads": 390,
+      "ictGrads": 45,
+      "ictPct": 11.5,
+      "salaryIndex": 69.8,
+      "officeRent": "7-10",
+      "residentialRent": "400-600",
+      "colIndex": 30
+    },
+    {
+      "id": "lisbon",
+      "name": "Lisbon",
+      "region": "Lisbon Metropolitan Area",
+      "nutsCode": "PT17",
+      "featured": true,
+      "universities": [
+        "ULisboa",
+        "Nova",
+        "ISCTE",
+        "IPL"
+      ],
+      "stemGrads": 9150,
+      "ictGrads": 1780,
+      "ictPct": 19.5,
+      "salaryIndex": 100.0,
+      "officeRent": "20-26",
+      "residentialRent": "1000-1650",
+      "colIndex": 46
+    },
+    {
+      "id": "setubal",
+      "name": "Setúbal",
+      "region": "Península de Setúbal",
+      "nutsCode": "PT17",
+      "featured": true,
+      "universities": [
+        "IPS",
+        "ESE Setúbal"
+      ],
+      "stemGrads": 2750,
+      "ictGrads": 215,
+      "ictPct": 7.8,
+      "salaryIndex": 88.2,
+      "officeRent": "10-13",
+      "residentialRent": "600-850",
+      "colIndex": 36
+    },
+    {
+      "id": "evora",
+      "name": "Évora",
+      "region": "Alentejo",
+      "nutsCode": "PT18",
+      "featured": true,
+      "universities": [
+        "UÉvora"
+      ],
+      "stemGrads": 1050,
+      "ictGrads": 95,
+      "ictPct": 9.0,
+      "salaryIndex": 76.4,
+      "officeRent": "8-11",
+      "residentialRent": "550-750",
+      "colIndex": 32
+    },
+    {
+      "id": "beja",
+      "name": "Beja",
+      "region": "Alentejo",
+      "nutsCode": "PT18",
+      "featured": false,
+      "universities": [
+        "IPBeja"
+      ],
+      "stemGrads": 250,
+      "ictGrads": 30,
+      "ictPct": 12.0,
+      "salaryIndex": 72.4,
+      "officeRent": "6-9",
+      "residentialRent": "350-550",
+      "colIndex": 28
+    },
+    {
+      "id": "portalegre",
+      "name": "Portalegre",
+      "region": "Alentejo",
+      "nutsCode": "PT18",
+      "featured": false,
+      "universities": [
+        "IPP"
+      ],
+      "stemGrads": 200,
+      "ictGrads": 25,
+      "ictPct": 12.5,
+      "salaryIndex": 72.4,
+      "officeRent": "6-9",
+      "residentialRent": "350-550",
+      "colIndex": 28
+    },
+    {
+      "id": "faro",
+      "name": "Faro",
+      "region": "Algarve",
+      "nutsCode": "PT15",
+      "featured": true,
+      "universities": [
+        "UALG"
+      ],
+      "stemGrads": 920,
+      "ictGrads": 70,
+      "ictPct": 7.6,
+      "salaryIndex": 75.5,
+      "officeRent": "12-15",
+      "residentialRent": "800-1100",
+      "colIndex": 38
+    }
+  ],
+  "totals": {
+    "cities": 20,
+    "stemGrads": 34450,
+    "ictGrads": 5535
+  }
+}

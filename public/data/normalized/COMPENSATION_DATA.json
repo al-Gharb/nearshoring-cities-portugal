@@ -1,0 +1,301 @@
+{
+  "_meta": {
+    "schema": "3.0",
+    "database": "COMPENSATION_DATA",
+    "lastUpdated": "2026-02-06T00:00:00Z",
+    "version": "1.0.0",
+    "baseline": {
+      "location": "Lisbon",
+      "currency": "EUR",
+      "period": "monthly",
+      "year": 2024
+    }
+  },
+
+  "methodology": {
+    "formula": "final_salary = (base_midpoint × tier_multiplier × (1 + tech_premium)) × (city_salary_index / 100)",
+    "notes": [
+      "Base bands are Lisbon-equivalent (salaryIndex = 100)",
+      "Apply single highest tech-stack premium (do NOT stack)",
+      "City salary indices from MASTER.json",
+      "All values gross monthly before tax",
+      "HTML display values are authoritative — the htmlAuthoritative field stores the hand-tuned annual ranges shown on the website",
+      "Lead/Principal = Senior × 1.12 (ratio of 1.40/1.25 multipliers)",
+      "Employer Total = Senior annual × 1.2375 + €2,244 meal allowance (€10.20/day × 220 days)"
+    ]
+  },
+
+  "baseBands": {
+    "softwareEngineer": {
+      "roleType": "Software Engineer",
+      "min": 2500,
+      "midpoint": 3125,
+      "max": 3750,
+      "meta": {
+        "source": { "type": "survey", "provider": "Glassdoor, Landing.jobs 2024" },
+        "verification": { "level": "verified", "checkScore": 82 },
+        "lifecycle": { "updateFrequency": "annual", "nextReview": "2026-11-01" },
+        "htmlAuthoritative": { "junior": "€20–28k", "mid": "€30–45k", "senior": "€45–65k", "lead": "€50–73k" }
+      }
+    },
+    "devops": {
+      "roleType": "DevOps / SRE",
+      "min": 2750,
+      "midpoint": 3375,
+      "max": 4000,
+      "meta": {
+        "source": { "type": "survey", "provider": "Glassdoor, Landing.jobs 2024" },
+        "verification": { "level": "verified" },
+        "htmlAuthoritative": { "junior": "€22–30k", "mid": "€33–48k", "senior": "€48–70k", "lead": "€54–78k" }
+      }
+    },
+    "mlDataEngineer": {
+      "roleType": "ML / Data Engineer",
+      "min": 2917,
+      "midpoint": 3542,
+      "max": 4167,
+      "meta": {
+        "source": { "type": "survey", "provider": "Glassdoor, Landing.jobs 2024" },
+        "verification": { "level": "verified" },
+        "htmlAuthoritative": { "junior": "€22–30k", "mid": "€35–50k", "senior": "€50–75k", "lead": "€56–84k" }
+      }
+    },
+    "mobileEngineer": {
+      "roleType": "Mobile Engineer (iOS/Android)",
+      "min": 2400,
+      "midpoint": 3000,
+      "max": 3600,
+      "meta": {
+        "source": { "type": "survey", "provider": "Glassdoor, Landing.jobs 2024" },
+        "verification": { "level": "verified" }
+      }
+    },
+    "engineeringManager": {
+      "roleType": "Engineering Manager",
+      "min": 4000,
+      "midpoint": 5000,
+      "max": 6000,
+      "meta": {
+        "source": { "type": "survey", "provider": "Glassdoor, Landing.jobs 2024" },
+        "verification": { "level": "verified" }
+      }
+    },
+    "productManager": {
+      "roleType": "Product Manager (PM)",
+      "min": 2917,
+      "midpoint": 3542,
+      "max": 4167,
+      "meta": {
+        "source": { "type": "survey", "provider": "Glassdoor, Landing.jobs 2024" },
+        "verification": { "level": "verified" },
+        "htmlAuthoritative": { "junior": "€25–32k", "mid": "€35–50k", "senior": "€50–70k", "lead": "€56–78k" }
+      }
+    },
+    "qaTesting": {
+      "roleType": "QA / Testing",
+      "min": 2000,
+      "midpoint": 2458,
+      "max": 2917,
+      "meta": {
+        "source": { "type": "survey", "provider": "Glassdoor, Landing.jobs 2024" },
+        "verification": { "level": "verified" },
+        "htmlAuthoritative": { "junior": "€16–22k", "mid": "€24–35k", "senior": "€35–50k", "lead": "€39–56k" }
+      }
+    },
+    "techSupport": {
+      "roleType": "Tech Support L1/L2",
+      "min": 1500,
+      "midpoint": 1800,
+      "max": 2100,
+      "meta": {
+        "source": { "type": "survey", "provider": "Glassdoor, Landing.jobs 2024" },
+        "verification": { "level": "verified" }
+      }
+    },
+    "uxCreative": {
+      "roleType": "UX / Creative",
+      "min": 2333,
+      "midpoint": 2833,
+      "max": 3333,
+      "meta": {
+        "source": { "type": "survey", "provider": "Glassdoor, Landing.jobs 2024" },
+        "verification": { "level": "verified" },
+        "htmlAuthoritative": { "junior": "€18–25k", "mid": "€28–40k", "senior": "€40–55k", "lead": "€45–62k" }
+      }
+    },
+    "adminBackoffice": {
+      "roleType": "Admin / Back-office",
+      "min": 1200,
+      "midpoint": 1500,
+      "max": 1800,
+      "meta": {
+        "source": { "type": "survey", "provider": "Glassdoor, Landing.jobs 2024" },
+        "verification": { "level": "verified" }
+      }
+    }
+  },
+
+  "seniorityMultipliers": {
+    "junior": {
+      "tier": "Junior",
+      "multiplier": 0.85,
+      "description": "15% below midpoint",
+      "meta": {
+        "source": { "type": "estimate", "provider": "Industry standard" },
+        "verification": { "level": "verified" }
+      }
+    },
+    "midLevel": {
+      "tier": "Mid-level",
+      "multiplier": 1.00,
+      "description": "Base = MIDPOINT",
+      "meta": {
+        "source": { "type": "estimate", "provider": "Industry standard" },
+        "verification": { "level": "verified" }
+      }
+    },
+    "senior": {
+      "tier": "Senior",
+      "multiplier": 1.25,
+      "description": "25% above midpoint",
+      "meta": {
+        "source": { "type": "estimate", "provider": "Industry standard" },
+        "verification": { "level": "verified" }
+      }
+    },
+    "leadPrincipal": {
+      "tier": "Lead/Principal",
+      "multiplier": 1.40,
+      "description": "40% above midpoint — highly experienced",
+      "meta": {
+        "source": { "type": "estimate", "provider": "Industry standard" },
+        "verification": { "level": "verified" }
+      }
+    }
+  },
+
+  "techStackPremiums": {
+    "coreBackend": {
+      "stack": "Core backend (Java, .NET, Python)",
+      "premium": 0.00,
+      "description": "Baseline — no premium",
+      "meta": { "source": { "type": "estimate", "provider": "Market analysis" }, "verification": { "level": "unverified" } }
+    },
+    "frontend": {
+      "stack": "Front-end (React, Angular, Vue)",
+      "premium": 0.05,
+      "description": "+5%",
+      "meta": { "source": { "type": "estimate", "provider": "Market analysis" }, "verification": { "level": "unverified" } }
+    },
+    "mobile": {
+      "stack": "Mobile (iOS/Android — native)",
+      "premium": 0.10,
+      "description": "+10%",
+      "meta": { "source": { "type": "estimate", "provider": "Market analysis" }, "verification": { "level": "unverified" } }
+    },
+    "devopsCloud": {
+      "stack": "DevOps / Cloud (K8s, Terraform)",
+      "premium": 0.15,
+      "description": "+15%",
+      "meta": { "source": { "type": "estimate", "provider": "Market analysis" }, "verification": { "level": "unverified" } }
+    },
+    "systemsRust": {
+      "stack": "Systems / Rust / Embedded",
+      "premium": 0.25,
+      "description": "+25%",
+      "meta": { "source": { "type": "estimate", "provider": "Market analysis" }, "verification": { "level": "unverified" } }
+    },
+    "dataML": {
+      "stack": "Data Engineering / ML / MLOps",
+      "premium": 0.25,
+      "description": "+25%",
+      "meta": { "source": { "type": "estimate", "provider": "Market analysis" }, "verification": { "level": "unverified" } }
+    },
+    "security": {
+      "stack": "Security / Infosec / AppSec",
+      "premium": 0.30,
+      "description": "+30%",
+      "meta": { "source": { "type": "estimate", "provider": "Market analysis" }, "verification": { "level": "unverified" } }
+    },
+    "blockchain": {
+      "stack": "Blockchain / Web3 / Smart Contracts",
+      "premium": 0.40,
+      "description": "+40%",
+      "meta": { "source": { "type": "estimate", "provider": "Market analysis" }, "verification": { "level": "unverified" } }
+    }
+  },
+
+  "employerCosts": {
+    "socialSecurity": {
+      "employerRate": 23.75,
+      "employeeRate": 11.0,
+      "unit": "%",
+      "meta": { "source": { "type": "official", "provider": "Segurança Social" } }
+    },
+    "mealAllowance": {
+      "cardMax": 10.20,
+      "cashMax": 6.00,
+      "unit": "EUR/day",
+      "meta": { "source": { "type": "official", "provider": "OE 2025" } }
+    },
+    "workInsurance": {
+      "mandatory": true,
+      "avgRate": 1.0,
+      "unit": "%",
+      "meta": { "source": { "type": "official", "provider": "ASF" } }
+    },
+    "holidayAllowance": {
+      "months": 2,
+      "description": "14 monthly salaries/year (holiday subsidy + Christmas subsidy)",
+      "meta": { "source": { "type": "official", "provider": "Código do Trabalho" } }
+    },
+    "_note": "Legally binding values — changes by government decree. Total employer burden ~30-35% on top of gross salary."
+  },
+
+  "calculationExamples": [
+    {
+      "scenario": "Senior Software Engineer in Porto (Core Backend)",
+      "inputs": {
+        "role": "softwareEngineer",
+        "baseMidpoint": 3125,
+        "tier": "senior",
+        "tierMultiplier": 1.25,
+        "techStack": "coreBackend",
+        "techPremium": 0.00,
+        "city": "Porto",
+        "cityIndex": 87.4
+      },
+      "calculation": {
+        "step1": "3125 × 1.25 = 3906 (after tier multiplier)",
+        "step2": "3906 × (1 + 0.00) = 3906 (no tech premium)",
+        "step3": "3906 × (87.4 / 100) = 3414 EUR/month"
+      },
+      "result": {
+        "grossMonthly": 3414,
+        "unit": "EUR"
+      }
+    },
+    {
+      "scenario": "Mid-level ML Engineer in Braga (Data ML stack)",
+      "inputs": {
+        "role": "mlDataEngineer",
+        "baseMidpoint": 3542,
+        "tier": "midLevel",
+        "tierMultiplier": 1.00,
+        "techStack": "dataML",
+        "techPremium": 0.25,
+        "city": "Braga",
+        "cityIndex": 82.2
+      },
+      "calculation": {
+        "step1": "3542 × 1.00 = 3542 (mid-level baseline)",
+        "step2": "3542 × (1 + 0.25) = 4428 (with ML premium)",
+        "step3": "4428 × (82.2 / 100) = 3640 EUR/month"
+      },
+      "result": {
+        "grossMonthly": 3640,
+        "unit": "EUR"
+      }
+    }
+  ]
+}

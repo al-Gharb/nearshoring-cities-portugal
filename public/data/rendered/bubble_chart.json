@@ -1,0 +1,280 @@
+{
+  "_meta": {
+    "generatedAt": "2026-02-06T22:11:02Z",
+    "source": "MASTER.json"
+  },
+  "xAxis": {
+    "label": "Salary Index (Lisbon = 100)",
+    "field": "salaryIndex"
+  },
+  "yAxis": {
+    "label": "Digital STEM+ Graduates",
+    "field": "stemGrads"
+  },
+  "bubbleSize": {
+    "label": "Core ICT Graduates",
+    "field": "ictGrads"
+  },
+  "points": [
+    {
+      "id": "lisbon",
+      "name": "Lisbon",
+      "region": "Lisbon Metropolitan Area",
+      "featured": true,
+      "x": 100.0,
+      "y": 9150,
+      "r": 1780,
+      "col": 46,
+      "labelOffset": {
+        "position": "above",
+        "extraPad": 6,
+        "anchor": "middle"
+      }
+    },
+    {
+      "id": "porto",
+      "name": "Porto",
+      "region": "Norte",
+      "featured": true,
+      "x": 87.4,
+      "y": 6400,
+      "r": 1220,
+      "col": 40,
+      "labelOffset": {
+        "position": "above",
+        "extraPad": 6,
+        "anchor": "middle"
+      }
+    },
+    {
+      "id": "braga",
+      "name": "Braga",
+      "region": "Norte",
+      "featured": true,
+      "x": 82.2,
+      "y": 1780,
+      "r": 370,
+      "col": 35,
+      "labelOffset": {
+        "position": "above",
+        "extraPad": 5,
+        "anchor": "middle"
+      }
+    },
+    {
+      "id": "guimaraes",
+      "name": "Guimarães",
+      "region": "Norte",
+      "featured": true,
+      "x": 80.2,
+      "y": 1420,
+      "r": 240,
+      "col": 33,
+      "labelOffset": {
+        "position": "below",
+        "extraPad": 12,
+        "anchor": "middle"
+      }
+    },
+    {
+      "id": "coimbra",
+      "name": "Coimbra",
+      "region": "Centro",
+      "featured": true,
+      "x": 73.2,
+      "y": 1775,
+      "r": 325,
+      "col": 34,
+      "labelOffset": {
+        "position": "above",
+        "extraPad": 5,
+        "anchor": "middle"
+      }
+    },
+    {
+      "id": "aveiro",
+      "name": "Aveiro",
+      "region": "Centro",
+      "featured": true,
+      "x": 76.0,
+      "y": 1445,
+      "r": 310,
+      "col": 37,
+      "labelOffset": {
+        "position": "above",
+        "extraPad": 6,
+        "anchor": "middle"
+      }
+    },
+    {
+      "id": "covilha",
+      "name": "Covilhã",
+      "region": "Centro",
+      "featured": true,
+      "x": 69.5,
+      "y": 1250,
+      "r": 140,
+      "col": 30,
+      "labelOffset": {
+        "position": "below",
+        "extraPad": 12,
+        "anchor": "middle"
+      }
+    },
+    {
+      "id": "evora",
+      "name": "Évora",
+      "region": "Alentejo",
+      "featured": true,
+      "x": 76.4,
+      "y": 1050,
+      "r": 95,
+      "col": 32,
+      "labelOffset": {
+        "position": "above",
+        "extraPad": 5,
+        "anchor": "middle"
+      }
+    },
+    {
+      "id": "faro",
+      "name": "Faro",
+      "region": "Algarve",
+      "featured": true,
+      "x": 75.5,
+      "y": 920,
+      "r": 70,
+      "col": 38,
+      "labelOffset": {
+        "position": "right",
+        "extraPad": 3,
+        "anchor": "start"
+      }
+    },
+    {
+      "id": "setubal",
+      "name": "Setúbal",
+      "region": "Península de Setúbal",
+      "featured": true,
+      "x": 88.2,
+      "y": 2750,
+      "r": 215,
+      "col": 36,
+      "labelOffset": {
+        "position": "below",
+        "extraPad": 12,
+        "anchor": "middle"
+      }
+    },
+    {
+      "id": "vilareal",
+      "name": "Vila Real",
+      "region": "Norte",
+      "featured": false,
+      "x": 79.2,
+      "y": 820,
+      "r": 110,
+      "col": 32,
+      "labelOffset": {}
+    },
+    {
+      "id": "vianacastelo",
+      "name": "Viana do Castelo",
+      "region": "Norte",
+      "featured": false,
+      "x": 80.2,
+      "y": 610,
+      "r": 75,
+      "col": 33,
+      "labelOffset": {}
+    },
+    {
+      "id": "braganca",
+      "name": "Bragança",
+      "region": "Norte",
+      "featured": false,
+      "x": 75.0,
+      "y": 780,
+      "r": 95,
+      "col": 28,
+      "labelOffset": {}
+    },
+    {
+      "id": "leiria",
+      "name": "Leiria",
+      "region": "Oeste and Vale do Tejo",
+      "featured": false,
+      "x": 74.1,
+      "y": 1800,
+      "r": 210,
+      "col": 35,
+      "labelOffset": {}
+    },
+    {
+      "id": "santarem",
+      "name": "Santarém",
+      "region": "Oeste and Vale do Tejo",
+      "featured": false,
+      "x": 55.0,
+      "y": 240,
+      "r": 45,
+      "col": 30,
+      "labelOffset": {}
+    },
+    {
+      "id": "viseu",
+      "name": "Viseu",
+      "region": "Centro",
+      "featured": false,
+      "x": 71.3,
+      "y": 980,
+      "r": 85,
+      "col": 32,
+      "labelOffset": {}
+    },
+    {
+      "id": "castelobranco",
+      "name": "Castelo Branco",
+      "region": "Centro",
+      "featured": false,
+      "x": 69.5,
+      "y": 440,
+      "r": 50,
+      "col": 30,
+      "labelOffset": {}
+    },
+    {
+      "id": "tomar",
+      "name": "Tomar",
+      "region": "Oeste and Vale do Tejo",
+      "featured": false,
+      "x": 69.8,
+      "y": 390,
+      "r": 45,
+      "col": 30,
+      "labelOffset": {}
+    },
+    {
+      "id": "beja",
+      "name": "Beja",
+      "region": "Alentejo",
+      "featured": false,
+      "x": 72.4,
+      "y": 250,
+      "r": 30,
+      "col": 28,
+      "labelOffset": {}
+    },
+    {
+      "id": "portalegre",
+      "name": "Portalegre",
+      "region": "Alentejo",
+      "featured": false,
+      "x": 72.4,
+      "y": 200,
+      "r": 25,
+      "col": 28,
+      "labelOffset": {}
+    }
+  ]
+}

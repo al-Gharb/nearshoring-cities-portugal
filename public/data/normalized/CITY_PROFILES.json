@@ -1,0 +1,2774 @@
+{
+  "_meta": {
+    "schema": "3.0",
+    "database": "CITY_PROFILES",
+    "lastUpdated": "2026-02-06T09:48:56Z",
+    "version": "1.0.0",
+    "coverOrder": [
+      "braga",
+      "guimaraes",
+      "porto",
+      "aveiro",
+      "coimbra",
+      "covilha",
+      "lisbon",
+      "setubal",
+      "evora",
+      "faro"
+    ]
+  },
+  "cities": {
+    "lisbon": {
+      "_meta": {
+        "cityId": "lisbon",
+        "featured": true,
+        "tagline": "The Prime Innovation Capital",
+        "sectionId": "lisbon",
+        "coverIcon": "fa-landmark",
+        "coverTags": [
+          "Fintech",
+          "NLP/AI",
+          "SaaS",
+          "Startups"
+        ],
+        "lastUpdated": "2026-02-06T00:00:00Z"
+      },
+      "ecosystem": {
+        "techCompanies": {
+          "value": [
+            {
+              "name": "Microsoft",
+              "url": "https://www.microsoft.com/pt-pt/",
+              "sector": "Cloud / AI",
+              "description": "Azure and AI research hub"
+            },
+            {
+              "name": "Google",
+              "url": "https://careers.google.com/locations/portugal/",
+              "sector": "Search / Cloud",
+              "description": "Engineering and cloud services"
+            },
+            {
+              "name": "Siemens",
+              "url": "https://jobs.siemens.com/pt_PT/externaljobs/SearchJobs/?42414=%5B812097%5D&42414_format=17570&listFilterMode=1&folderRecordsPerPage=6&",
+              "sector": "Industrial / IoT",
+              "description": "Digital industries and smart infrastructure"
+            },
+            {
+              "name": "Talkdesk",
+              "url": "https://www.talkdesk.com/",
+              "sector": "Contact Centre AI",
+              "foundedYear": 2011,
+              "description": "AI-powered contact center platform",
+              "notableFact": "Portuguese unicorn, valued at $10B+ (Series D, August 2021)"
+            },
+            {
+              "name": "Farfetch",
+              "url": "https://www.farfetch.com/",
+              "sector": "E-commerce / Fashion Tech",
+              "foundedYear": 2007,
+              "description": "Luxury fashion marketplace",
+              "notableFact": "Founded by José Neves, acquired by Coupang 2024"
+            },
+            {
+              "name": "OutSystems",
+              "url": "https://www.outsystems.com/",
+              "sector": "Low-Code Platform",
+              "foundedYear": 2001,
+              "description": "Enterprise low-code application development",
+              "notableFact": "Portuguese unicorn, valued at $9.5B (Feb 2021) → ~$4.4B (Oct 2022 per ISVWorld)"
+            },
+            {
+              "name": "Volkswagen Digital Solutions",
+              "url": "https://www.vwds.pt/",
+              "sector": "Automotive Software",
+              "description": "Digital solutions for VW Group"
+            },
+            {
+              "name": "Mercedes-Benz.io",
+              "url": "https://www.mercedes-benz.io/",
+              "sector": "Automotive Software",
+              "description": "Digital products for Mercedes-Benz"
+            },
+            {
+              "name": "Unbabel",
+              "url": "https://unbabel.com/",
+              "sector": "AI / Translation",
+              "description": "AI-powered translation platform"
+            },
+            {
+              "name": "Codacy",
+              "url": "https://www.codacy.com/",
+              "sector": "DevOps / Code Quality",
+              "description": "Automated code review platform"
+            }
+          ],
+          "count": 500,
+          "countNote": "50+ multinational R&D centres",
+          "meta": {
+            "source": {
+              "type": "estimate",
+              "provider": "Web research"
+            }
+          }
+        },
+        "domains": {
+          "value": [
+            {
+              "name": "Fintech AI",
+              "detail": "Payment fraud, credit scoring"
+            },
+            {
+              "name": "Distributed Systems",
+              "detail": "Microservices, K8s"
+            },
+            {
+              "name": "NLP/LLM",
+              "detail": "Multilingual chatbots"
+            },
+            {
+              "name": "HQ Operations",
+              "detail": "C-suite presence"
+            },
+            {
+              "name": "Cybersecurity",
+              "detail": "SOC, threat detection"
+            },
+            {
+              "name": "Data Engineering",
+              "detail": "ETL, data lakes"
+            }
+          ]
+        },
+        "coworking": {
+          "spaces": [
+            {
+              "name": "Heden",
+              "type": "Premium coworking",
+              "url": "https://www.hedenspaces.com/"
+            },
+            {
+              "name": "Second Home",
+              "type": "Creative coworking",
+              "url": "https://secondhome.io/location/lisbon/"
+            },
+            {
+              "name": "Spaces",
+              "type": "Flexible office",
+              "url": "https://www.spacesworks.com/pt/lisbon/"
+            }
+          ],
+          "totalSpaces": 50,
+          "description": "50+ coworking spaces",
+          "meta": {
+            "source": { "type": "estimate", "provider": "Web research" },
+            "verifiedDate": "2026-02-07"
+          }
+        },
+        "studentOrgs": {
+          "value": [
+            {
+              "name": "NLX Group",
+              "url": "https://nlx.di.fc.ul.pt/",
+              "description": "Portuguese NLP research lab",
+              "icon": "fa-brain"
+            },
+            {
+              "name": "GDG Lisbon",
+              "url": "https://gdglisbon.com/",
+              "description": "Google Developer Group chapter",
+              "icon": "fa-cloud"
+            },
+            {
+              "name": "AWS User Group Portugal",
+              "url": "https://www.meetup.com/aws-user-group-lisbon/",
+              "description": "Community of AWS builders",
+              "icon": "fa-users"
+            },
+            {
+              "name": "NEEIST",
+              "url": "https://neiist.tecnico.ulisboa.pt/",
+              "description": "IST engineering student guild",
+              "icon": "fa-laptop-code"
+            }
+          ],
+          "meta": {
+            "source": { "type": "official", "provider": "Organization websites" },
+            "verifiedDate": "2026-02-08"
+          }
+        },
+        "clusters": {
+          "value": "Portugal's capital and largest tech hub",
+          "regionalShare": "42% of national tech workforce (2024)",
+          "meta": {
+            "source": { "type": "survey", "provider": "Landing.Jobs 2024" },
+            "note": "Down from 52% in 2023 as remote work distributes talent"
+          }
+        }
+      },
+      "infrastructure": {
+        "airport": {
+          "name": "Humberto Delgado Airport",
+          "iataCode": "LIS",
+          "distanceKm": 7,
+          "driveTime": "15-25 minutes",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "ANA Aeroportos"
+            }
+          }
+        },
+        "connectivity": {
+          "fiberPenetration": 80,
+          "avgDownloadMbps": 200,
+          "latencyFrankfurt": 25,
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "ANACOM"
+            }
+          }
+        },
+        "commuteTimes": {
+          "routes": [
+            {
+              "to": "setubal",
+              "time": "~45 min",
+              "mode": "car/train"
+            },
+            {
+              "to": "evora",
+              "time": "~1h15",
+              "mode": "car"
+            }
+          ],
+          "meta": {
+            "source": {
+              "type": "estimate",
+              "provider": "Google Maps / CP"
+            }
+          }
+        }
+      },
+      "universityDetail": {
+        "institutions": [
+          {
+            "name": "Instituto Superior Técnico (IST)",
+            "url": "https://tecnico.ulisboa.pt/en/",
+            "parent": "University of Lisbon",
+            "type": "university",
+            "programs": [
+              "MSc/PhD: Computer Science",
+              "Data Science",
+              "Electrical & Computer Engineering"
+            ]
+          },
+          {
+            "name": "Faculdade de Ciências (FCUL)",
+            "url": "https://ciencias.ulisboa.pt/en",
+            "parent": "University of Lisbon",
+            "type": "university",
+            "programs": [
+              "MSc/PhD: Informatics Engineering",
+              "Data Science",
+              "Bioinformatics"
+            ]
+          },
+          {
+            "name": "FCT NOVA",
+            "url": "https://www.fct.unl.pt/en",
+            "parent": "NOVA University Lisbon",
+            "type": "university",
+            "programs": [
+              "MSc/PhD: Computer Science",
+              "Data Science & Advanced Analytics",
+              "Information Management"
+            ]
+          },
+          {
+            "name": "ISCTE",
+            "url": "https://www.iscte-iul.pt/?lang=en",
+            "parent": "University Institute of Lisbon",
+            "type": "university",
+            "programs": [
+              "MSc: Information Management",
+              "Business Analytics",
+              "Data Science"
+            ]
+          },
+          {
+            "name": "ISEL",
+            "url": "https://www.isel.pt/en/",
+            "parent": "Lisbon Polytechnic Institute",
+            "type": "university",
+            "programs": [
+              "BSc/MSc: Computer Engineering",
+              "Information Systems Engineering"
+            ]
+          },
+          {
+            "name": "INESC-ID",
+            "url": "https://www.inesc-id.pt/",
+            "type": "research",
+            "focus": [
+              "Distributed Systems",
+              "HPC",
+              "Information Systems"
+            ]
+          },
+          {
+            "name": "LASIGE",
+            "url": "https://www.lasige.pt/",
+            "type": "research",
+            "focus": [
+              "Dependable Systems",
+              "Privacy & Security",
+              "Accessible Computing"
+            ]
+          },
+          {
+            "name": "NOVA LINCS",
+            "url": "https://nova-lincs.di.fct.unl.pt/",
+            "type": "research",
+            "focus": [
+              "Software Reliability",
+              "Cyber-Physical Systems"
+            ]
+          },
+          {
+            "name": "ELLIS Unit Lisbon",
+            "url": "https://ellis.eu/units/lisbon",
+            "type": "research",
+            "focus": [
+              "Machine Learning Theory",
+              "Responsible AI"
+            ]
+          },
+          {
+            "name": "LIP",
+            "url": "http://www.lip.pt/",
+            "type": "research",
+            "focus": [
+              "Lab for Instrumentation & Experimental Particle Physics (CERN/ESA)"
+            ]
+          }
+        ],
+        "talentProfile": {
+          "value": "IST graduates are often hired before finishing their degrees; the city also draws talent from other regions, making the practical hiring pool larger than the graduate count alone.",
+          "meta": {
+            "source": {
+              "type": "derived",
+              "provider": "Industry interviews"
+            }
+          }
+        },
+        "meta": {
+          "source": {
+            "type": "official",
+            "provider": "A3ES / University websites"
+          }
+        }
+      },
+      "culture": {
+        "climate": {
+          "value": "Mediterranean climate, ~2,800 sunshine hours/year, mild winters",
+          "type": "mediterranean",
+          "sunshineHours": 2800,
+          "rainDays": 60,
+          "avgTempSummer": 28,
+          "avgTempWinter": 11,
+          "seaInfluence": "Strong - Atlantic coast, coastal breezes moderate heat",
+          "humidity": "moderate",
+          "bestMonths": [
+            "Apr",
+            "May",
+            "Jun",
+            "Sep",
+            "Oct"
+          ],
+          "unit": "°C",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "IPMA/WMO"
+            },
+            "note": "Changed from 'sunny days' (unverifiable) to sunshine hours per fact-check"
+          }
+        },
+        "qualityOfLife": {
+          "walkability": "High (central areas pedestrian-friendly)",
+          "healthcare": "SNS public + extensive private clinics",
+          "culture": "UNESCO-listed Belém Tower, vibrant arts scene"
+        },
+        "retention": {
+          "strengths": [
+            "Capital city amenities",
+            "Largest talent pool",
+            "Most international"
+          ],
+          "risks": [
+            "Highest cost of living",
+            "Intense competition for engineers",
+            "Remote work competition from EU"
+          ],
+          "narrative": "Portugal's capital and largest tech hub. Home to 50+ multinational R&D centres and the densest startup ecosystem in the country. Strong in Fintech, AI/NLP, and Enterprise SaaS. Highest talent concentration but also highest competition for skilled engineers. The baseline city for salary and cost comparisons."
+        }
+      },
+      "verification": {
+        "checkScore": 88,
+        "checkDate": "2026-02-07",
+        "note": "Fact-checked 58 claims: 51 SUPPORTED, 7 UNVERIFIABLE (coworking names, latency metric)"
+      }
+    },
+    "porto": {
+      "_meta": {
+        "cityId": "porto",
+        "featured": true,
+        "tagline": "The Industrial and Technological Vanguard",
+        "sectionId": "porto",
+        "coverIcon": "fa-industry",
+        "coverTags": [
+          "Industrial AI",
+          "Automotive",
+          "Enterprise"
+        ],
+        "lastUpdated": "2026-02-06T00:00:00Z"
+      },
+      "ecosystem": {
+        "techCompanies": {
+          "value": [
+            {
+              "name": "Critical TechWorks",
+              "url": "https://www.criticaltechworks.com/",
+              "sector": "Automotive Software",
+              "foundedYear": 2018,
+              "description": "BMW Group JV for automotive software",
+              "notableFact": "One of Porto's largest tech employers"
+            },
+            {
+              "name": "Farfetch",
+              "url": "https://www.farfetch.com/",
+              "sector": "E-commerce / Fashion Tech",
+              "foundedYear": 2007,
+              "description": "Luxury fashion marketplace, Porto HQ"
+            },
+            {
+              "name": "Blip",
+              "url": "https://blip.pt/",
+              "sector": "Digital Media / Betting Tech",
+              "foundedYear": 2009,
+              "description": "Flutter Entertainment development center"
+            },
+            {
+              "name": "Natixis",
+              "url": "https://www.natixisinportugal.com/",
+              "sector": "Banking / Fintech",
+              "description": "Financial services technology center"
+            },
+            {
+              "name": "Deloitte",
+              "url": "https://www2.deloitte.com/pt/pt.html",
+              "sector": "Consulting / Technology",
+              "description": "Technology consulting and services"
+            },
+            {
+              "name": "Infineon Technologies",
+              "url": "https://www.infineon.com/regional/portugal",
+              "sector": "Semiconductors",
+              "description": "Semiconductor solutions"
+            },
+            {
+              "name": "Sword Health",
+              "url": "https://swordhealth.com/",
+              "sector": "HealthTech / AI",
+              "description": "AI-powered physical therapy"
+            },
+            {
+              "name": "Jscrambler",
+              "url": "https://jscrambler.com/",
+              "sector": "Cybersecurity",
+              "description": "JavaScript protection and security"
+            },
+            {
+              "name": "Anchorage Digital",
+              "url": "https://www.anchorage.com/",
+              "sector": "Crypto / Fintech",
+              "description": "Digital asset infrastructure"
+            },
+            {
+              "name": "Tonic App",
+              "url": "https://tonicapp.com/",
+              "sector": "HealthTech",
+              "description": "Healthcare communication platform"
+            }
+          ],
+          "count": 340,
+          "countYear": 2024,
+          "meta": {
+            "source": {
+              "type": "estimate",
+              "provider": "Web research"
+            }
+          }
+        },
+        "domains": {
+          "value": [
+            {
+              "name": "Industrial AI",
+              "detail": "Predictive maintenance"
+            },
+            {
+              "name": "Edge IoT",
+              "detail": "Factory sensors, PLCs"
+            },
+            {
+              "name": "Cyber-Physical",
+              "detail": "Digital twins, SCADA"
+            },
+            {
+              "name": "Connected Vehicles",
+              "detail": "V2X, telematics"
+            },
+            {
+              "name": "Fintech",
+              "detail": "Trading systems"
+            }
+          ]
+        },
+        "coworking": {
+          "spaces": [
+            {
+              "name": "Porto i/o",
+              "type": "Coworking"
+            },
+            {
+              "name": "CRU Cowork",
+              "type": "Coworking"
+            },
+            {
+              "name": "Unicorn Workspaces",
+              "type": "Flexible office"
+            },
+            {
+              "name": "UPTEC",
+              "type": "University incubator"
+            },
+            {
+              "name": "Founders Founders",
+              "type": "Coworking"
+            }
+          ],
+          "totalSpaces": 25
+        },
+        "studentOrgs": {
+          "value": [
+            {
+              "name": "NIAEFEUP",
+              "url": "https://niaefeup.pt/",
+              "description": "FEUP informatics student nucleus",
+              "icon": "fa-microchip"
+            },
+            {
+              "name": "Porto Tech Hub",
+              "url": "https://portotechhub.com/",
+              "description": "Citywide tech cluster network",
+              "icon": "fa-code"
+            },
+            {
+              "name": "GDG Porto",
+              "url": "https://gdgporto.com/",
+              "description": "Google Developer Group Porto",
+              "icon": "fa-cloud"
+            },
+            {
+              "name": "Porto AI Meetup",
+              "url": "https://community.mindstone.com/events/porto_ai_meetup_november_2024",
+              "description": "Applied AI meetup series",
+              "icon": "fa-brain"
+            }
+          ],
+          "meta": {
+            "source": { "type": "official", "provider": "Organization websites" },
+            "verifiedDate": "2026-02-08"
+          }
+        },
+        "clusters": {
+          "value": "Part of Porto-Braga-Guimarães tech triangle",
+          "regionalShare": "28% of national tech workforce"
+        }
+      },
+      "infrastructure": {
+        "airport": {
+          "name": "Francisco Sá Carneiro Airport",
+          "iataCode": "OPO",
+          "distanceKm": 11,
+          "driveTime": "15-20 minutes",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "ANA Aeroportos"
+            }
+          }
+        },
+        "connectivity": {
+          "fiberPenetration": 75,
+          "avgDownloadMbps": 200,
+          "latencyFrankfurt": 24,
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "ANACOM"
+            }
+          }
+        },
+        "commuteTimes": {
+          "routes": [
+            {
+              "to": "braga",
+              "time": "~45 min",
+              "mode": "train/car"
+            },
+            {
+              "to": "guimaraes",
+              "time": "~50 min",
+              "mode": "car"
+            },
+            {
+              "to": "aveiro",
+              "time": "~50 min",
+              "mode": "train"
+            }
+          ],
+          "meta": {
+            "source": {
+              "type": "estimate",
+              "provider": "Google Maps / CP"
+            }
+          }
+        }
+      },
+      "universityDetail": {
+        "institutions": [
+          {
+            "name": "FEUP",
+            "url": "https://sigarra.up.pt/feup/en/",
+            "parent": "Faculty of Engineering, University of Porto",
+            "type": "university",
+            "programs": [
+              "MSc/PhD: Informatics Engineering",
+              "Electrical & Computer Engineering",
+              "Data Science"
+            ]
+          },
+          {
+            "name": "FCUP",
+            "url": "https://sigarra.up.pt/fcup/en/",
+            "parent": "Faculty of Sciences, University of Porto",
+            "type": "university",
+            "programs": [
+              "MSc/PhD: Computer Science",
+              "Network & Information Systems Engineering"
+            ]
+          },
+          {
+            "name": "ISEP",
+            "url": "https://www.isep.ipp.pt/",
+            "parent": "Porto Polytechnic Institute",
+            "type": "university",
+            "programs": [
+              "BSc/MSc: Informatics Engineering",
+              "Computer Systems Engineering"
+            ]
+          },
+          {
+            "name": "INESC TEC",
+            "url": "https://www.inesctec.pt/en",
+            "type": "research",
+            "focus": [
+              "Applied R&D in AI",
+              "Robotics",
+              "Power/Energy Systems"
+            ]
+          },
+          {
+            "name": "IT Porto",
+            "url": "https://www.it.pt/",
+            "type": "research",
+            "focus": [
+              "Instituto de Telecomunicações: Networks",
+              "Signal Processing",
+              "Wireless"
+            ]
+          },
+          {
+            "name": "CISTER",
+            "url": "https://cister-labs.pt/",
+            "type": "research",
+            "focus": [
+              "Real-Time & Embedded Computing Systems",
+              "Industrial IoT"
+            ]
+          }
+        ],
+        "talentProfile": {
+          "value": "Porto anchors the broader Norte corridor; employers often recruit across Porto, Braga, and Guimarães as a combined talent pool. The city has a reputation for retaining talent due to quality of life and a maturing local tech scene.",
+          "meta": {
+            "source": {
+              "type": "derived",
+              "provider": "Industry interviews"
+            }
+          }
+        },
+        "meta": {
+          "source": {
+            "type": "official",
+            "provider": "A3ES / University websites"
+          }
+        }
+      },
+      "culture": {
+        "climate": {
+          "value": "Atlantic, mild summers, wetter winters",
+          "type": "atlantic",
+          "rainDays": 115,
+          "avgTempSummer": 25,
+          "avgTempWinter": 9,
+          "seaInfluence": "Strong - Atlantic coast, cool ocean currents",
+          "humidity": "high",
+          "bestMonths": [
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep"
+          ],
+          "unit": "°C",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "IPMA"
+            },
+            "note": "Changed from sunnyDays to sunshineHours per fact-check Feb 2026"
+          },
+          "sunshineHours": 2200
+        },
+        "qualityOfLife": {
+          "walkability": "High (historic center pedestrian-friendly)",
+          "healthcare": "SNS public + private clinics",
+          "culture": "UNESCO World Heritage historic center"
+        },
+        "retention": {
+          "strengths": [
+            "Quality of life",
+            "Growing tech scene",
+            "Lower cost vs Lisbon"
+          ],
+          "risks": [
+            "Remote work competition from EU",
+            "Lisbon salary gap"
+          ],
+          "narrative": "Porto, the 'Invincible City,' is Portugal's second-largest tech hub. Ideal for Industrial AI, predictive maintenance, and IoT-to-Cloud pipelines, Porto combines lower costs with world-class engineering talent. Home to Critical TechWorks (BMW JV) and INESC TEC, the city offers 30-35% cost savings versus Lisbon while maintaining top-tier talent access. Porto anchors the broader Norte corridor; employers often recruit across Porto, Braga, and Guimarães as a combined talent pool."
+        }
+      },
+      "verification": {
+        "checkScore": 90,
+        "checkDate": "2026-02-06",
+        "note": "Major hub, strong data coverage"
+      }
+    },
+    "braga": {
+      "_meta": {
+        "cityId": "braga",
+        "featured": true,
+        "tagline": "The Youthful Engine of the North",
+        "sectionId": "braga",
+        "coverIcon": "fa-shield-halved",
+        "coverTags": [
+          "Deep Tech",
+          "Security",
+          "Low COL"
+        ],
+        "lastUpdated": "2026-02-06T00:00:00Z"
+      },
+      "ecosystem": {
+        "techCompanies": {
+          "value": [
+            {
+              "name": "Bosch",
+              "url": "https://www.bosch.pt/en/",
+              "sector": "Industrial / R&D",
+              "description": "R&D center for automotive and IoT solutions"
+            },
+            {
+              "name": "Primavera",
+              "url": "https://www.cegid.com/pt/solucoes/primavera/",
+              "sector": "Enterprise Software",
+              "description": "Leading Portuguese ERP/business software company",
+              "notableFact": "Headquartered in Braga"
+            },
+            {
+              "name": "Checkmarx",
+              "url": "https://checkmarx.com/",
+              "sector": "Cybersecurity",
+              "description": "Application security testing",
+              "notableFact": "Israeli company with major Braga office"
+            },
+            {
+              "name": "Accenture",
+              "url": "https://www.accenture.com/pt-pt",
+              "sector": "Consulting / Technology",
+              "description": "Technology consulting and services"
+            },
+            {
+              "name": "Subvisual",
+              "url": "https://subvisual.com/",
+              "sector": "Product Studio",
+              "description": "Product design and development studio"
+            },
+            {
+              "name": "Coverflex",
+              "url": "https://www.coverflex.com/",
+              "sector": "HR Tech / Fintech",
+              "description": "Flexible benefits and compensation platform"
+            }
+          ],
+          "meta": {
+            "source": {
+              "type": "estimate",
+              "provider": "Web research"
+            }
+          }
+        },
+        "domains": {
+          "value": [
+            {
+              "name": "High-Assurance SW",
+              "detail": "Formal verification"
+            },
+            {
+              "name": "Cybersecurity",
+              "detail": "AppSec, SAST/DAST"
+            },
+            {
+              "name": "Backend Eng",
+              "detail": "Scala, Haskell, Rust"
+            },
+            {
+              "name": "Blockchain",
+              "detail": "Smart contracts, DeFi"
+            },
+            {
+              "name": "Automotive SW",
+              "detail": "ADAS, infotainment"
+            }
+          ]
+        },
+        "coworking": {
+          "spaces": [
+            {
+              "name": "GNRation",
+              "type": "Creative hub"
+            },
+            {
+              "name": "Startup Braga",
+              "type": "Incubator/accelerator"
+            }
+          ]
+        },
+        "studentOrgs": {
+          "value": [
+            {
+              "name": "CeSIUM",
+              "url": "https://cesium.di.uminho.pt/",
+              "description": "UMinho computer science union",
+              "icon": "fa-code"
+            },
+            {
+              "name": "NECC",
+              "url": "https://necc.di.uminho.pt/",
+              "description": "UMinho computer club chapter",
+              "icon": "fa-laptop-code"
+            },
+            {
+              "name": "ENEI",
+              "url": "https://eneiconf.pt/",
+              "description": "National informatics student conference",
+              "icon": "fa-shield-halved"
+            },
+            {
+              "name": "APPIA (AI) Braga",
+              "url": "https://www.appia.pt/bem-vindo/contactos/",
+              "description": "Portuguese AI association node",
+              "icon": "fa-users"
+            }
+          ],
+          "meta": {
+            "source": { "type": "official", "provider": "Organization websites" },
+            "verifiedDate": "2026-02-08"
+          }
+        },
+        "clusters": {
+          "value": "Part of Porto-Braga-Guimarães tech triangle",
+          "nearbyHub": "Porto (~45 min)"
+        }
+      },
+      "infrastructure": {
+        "airport": {
+          "name": "Via Porto (OPO)",
+          "distanceKm": 55,
+          "driveTime": "~45 min"
+        },
+        "connectivity": {
+          "fiberPenetration": 70,
+          "latencyFrankfurt": 26,
+          "meta": {
+            "source": {
+              "type": "estimate",
+              "provider": "ANACOM"
+            }
+          }
+        },
+        "commuteTimes": {
+          "routes": [
+            {
+              "to": "porto",
+              "time": "~45 min",
+              "mode": "train/car"
+            },
+            {
+              "to": "guimaraes",
+              "time": "~25 min",
+              "mode": "car"
+            }
+          ]
+        }
+      },
+      "universityDetail": {
+        "institutions": [
+          {
+            "name": "University of Minho",
+            "url": "https://www.uminho.pt/EN",
+            "parent": "Gualtar Campus, Braga",
+            "type": "university",
+            "programs": [
+              "MSc/PhD: Informatics Engineering",
+              "Software Engineering",
+              "Computer Graphics"
+            ]
+          },
+          {
+            "name": "IPCA",
+            "url": "https://portal.ipca.pt/en/",
+            "parent": "Polytechnic Institute of Cávado and Ave",
+            "type": "university",
+            "programs": [
+              "BSc: Computer Engineering",
+              "Information Systems"
+            ]
+          },
+          {
+            "name": "HASLab",
+            "url": "https://haslab.uminho.pt/",
+            "type": "research",
+            "focus": [
+              "INESC TEC research unit: High-Assurance Software",
+              "Formal Methods",
+              "Distributed Systems"
+            ]
+          },
+          {
+            "name": "ALGORITMI",
+            "url": "https://algoritmi.uminho.pt/",
+            "type": "research",
+            "focus": [
+              "Industrial Information Systems",
+              "Optimization",
+              "Operations Research"
+            ]
+          }
+        ],
+        "talentProfile": {
+          "value": "UMinho's CS department has a tradition of formal methods and functional programming (Haskell appears in the curriculum). Braga sits within easy commuting distance of Porto and shares a practical hiring corridor with Guimarães.",
+          "meta": {
+            "source": {
+              "type": "derived",
+              "provider": "Industry interviews"
+            }
+          }
+        },
+        "meta": {
+          "source": {
+            "type": "official",
+            "provider": "A3ES / University websites"
+          }
+        }
+      },
+      "culture": {
+        "climate": {
+          "value": "Atlantic, green, rainier than south",
+          "type": "atlantic",
+          "rainDays": 130,
+          "avgTempSummer": 24,
+          "avgTempWinter": 8,
+          "seaInfluence": "Moderate - 30km from coast, Atlantic influence",
+          "humidity": "high",
+          "bestMonths": [
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep"
+          ],
+          "unit": "°C",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "IPMA"
+            },
+            "note": "Changed from sunnyDays to sunshineHours per fact-check Feb 2026"
+          },
+          "sunshineHours": 2000
+        },
+        "qualityOfLife": {
+          "walkability": "Moderate (compact historic center)",
+          "healthcare": "Hospital de Braga + clinics",
+          "culture": "Bom Jesus do Monte sanctuary, youngest city in Portugal"
+        },
+        "retention": {
+          "strengths": [
+            "Very low cost of living",
+            "Strong university pipeline",
+            "Porto proximity"
+          ],
+          "risks": [
+            "Smaller ecosystem scale",
+            "Brain drain to Porto/Lisbon"
+          ],
+          "narrative": "Braga hosts the UMinho campus with strong computer science programs and the Bosch R&D centre. The city's deep tech ecosystem centres on cybersecurity (Checkmarx) and enterprise software (Primavera BSS). Low cost of living and proximity to Porto (45 min) make it attractive for satellite offices."
+        }
+      },
+      "verification": {
+        "checkScore": 88,
+        "checkDate": "2026-02-06",
+        "note": "Major tech hub, good data coverage"
+      }
+    },
+    "guimaraes": {
+      "_meta": {
+        "cityId": "guimaraes",
+        "featured": true,
+        "tagline": "Industry 4.0 at the Birthplace of Portugal",
+        "sectionId": "guimaraes",
+        "coverIcon": "fa-gears",
+        "coverTags": [
+          "Smart Manufacturing",
+          "Computer Vision",
+          "QC"
+        ],
+        "lastUpdated": "2026-02-06T00:00:00Z"
+      },
+      "ecosystem": {
+        "techCompanies": {
+          "value": [
+            {
+              "name": "Bosch Car Multimedia",
+              "sector": "Automotive Electronics",
+              "description": "Largest Bosch facility in Portugal",
+              "notableFact": "One of the region's largest employers"
+            },
+            {
+              "name": "Farfetch (Tech Hub)",
+              "url": "https://www.avepark.pt/sobre/?lang=en",
+              "sector": "E-commerce / Fashion Tech",
+              "description": "Farfetch presence at AvePark tech park"
+            },
+            {
+              "name": "Sentinel Smart Vision",
+              "url": "https://www.sentinel-vision.com/en/home/",
+              "sector": "Computer Vision",
+              "description": "Smart vision and AI solutions"
+            },
+            {
+              "name": "Platforme",
+              "url": "https://www.platforme.com/",
+              "sector": "Fashion Tech",
+              "description": "Mass customization platform for fashion"
+            },
+            {
+              "name": "B-Parts",
+              "url": "https://www.b-parts.com/",
+              "sector": "E-commerce / Automotive",
+              "description": "Online marketplace for recycled auto parts"
+            }
+          ],
+          "meta": {
+            "source": {
+              "type": "estimate",
+              "provider": "Web research"
+            }
+          }
+        },
+        "domains": {
+          "value": [
+            {
+              "name": "Computer Vision",
+              "detail": "Defect detection, QC"
+            },
+            {
+              "name": "Smart Manufacturing",
+              "detail": "MES, ERP integration"
+            },
+            {
+              "name": "Industrial Data",
+              "detail": "Time-series analytics"
+            },
+            {
+              "name": "E-commerce",
+              "detail": "Fashion tech, logistics"
+            },
+            {
+              "name": "Smart Textiles",
+              "detail": "IoT fabrics, wearables"
+            }
+          ]
+        },
+        "coworking": {
+          "spaces": [
+            {
+              "name": "SpinPark",
+              "type": "University incubator"
+            }
+          ]
+        },
+        "studentOrgs": {
+          "value": [
+            {
+              "name": "SET.UP GUIMA.",
+              "url": "https://www.setupguimaraes.com/en/",
+              "description": "Municipal entrepreneurship support hub",
+              "icon": "fa-gear"
+            },
+            {
+              "name": "EEUM Engineering",
+              "url": "https://www.engium.uminho.pt/en/",
+              "description": "UMinho engineering faculty council",
+              "icon": "fa-gear"
+            },
+            {
+              "name": "Startup Minho",
+              "url": "https://www.tecminho.uminho.pt/empreender/tecminhoincubationhub",
+              "description": "University incubator and lab",
+              "icon": "fa-industry"
+            },
+            {
+              "name": "NEEGI-UM",
+              "url": "https://www.neegium.dps.uminho.pt/",
+              "description": "Industrial engineering student group",
+              "icon": "fa-robot"
+            }
+          ],
+          "meta": {
+            "source": { "type": "official", "provider": "Organization websites" },
+            "verifiedDate": "2026-02-08"
+          }
+        },
+        "clusters": {
+          "value": "Part of Porto-Braga-Guimarães tech triangle",
+          "nearbyHub": "Braga (~25 min), Porto (~50 min)"
+        }
+      },
+      "infrastructure": {
+        "airport": {
+          "name": "Via Porto (OPO)",
+          "distanceKm": 60,
+          "driveTime": "~50 min"
+        },
+        "connectivity": {
+          "fiberPenetration": 65,
+          "latencyFrankfurt": 27,
+          "meta": {
+            "source": {
+              "type": "estimate",
+              "provider": "ANACOM"
+            }
+          }
+        },
+        "commuteTimes": {
+          "routes": [
+            {
+              "to": "braga",
+              "time": "~25 min",
+              "mode": "car"
+            },
+            {
+              "to": "porto",
+              "time": "~50 min",
+              "mode": "car"
+            }
+          ]
+        }
+      },
+      "universityDetail": {
+        "institutions": [
+          {
+            "name": "University of Minho",
+            "url": "https://www.uminho.pt/EN",
+            "parent": "Azurém Campus, Guimarães",
+            "type": "university",
+            "programs": [
+              "MSc/PhD: Industrial Electronics & Computers",
+              "Mechatronics",
+              "Polymer Engineering"
+            ]
+          },
+          {
+            "name": "CCG",
+            "url": "https://www.ccg.pt/en/",
+            "type": "research",
+            "focus": [
+              "Centre for Computer Graphics: Computer Vision",
+              "Image Processing",
+              "3D Reconstruction"
+            ]
+          },
+          {
+            "name": "Done Lab",
+            "url": "https://www.donelab.pt/",
+            "type": "research",
+            "focus": [
+              "Advanced Manufacturing",
+              "Product Engineering"
+            ]
+          }
+        ],
+        "talentProfile": {
+          "value": "The lower ICT share reflects Azurém's heavy industrial and electronics engineering focus alongside computing programs. Graduates here tend to have hands-on exposure to manufacturing systems and automation.",
+          "meta": {
+            "source": {
+              "type": "derived",
+              "provider": "Industry interviews"
+            }
+          }
+        },
+        "meta": {
+          "source": {
+            "type": "official",
+            "provider": "A3ES / University websites"
+          }
+        }
+      },
+      "culture": {
+        "climate": {
+          "value": "Atlantic, similar to Braga",
+          "type": "atlantic",
+          "rainDays": 130,
+          "avgTempSummer": 24,
+          "avgTempWinter": 8,
+          "seaInfluence": "Moderate - 30km from coast, Atlantic influence",
+          "humidity": "high",
+          "bestMonths": [
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep"
+          ],
+          "unit": "°C",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "IPMA"
+            },
+            "note": "Changed from sunnyDays to sunshineHours per fact-check Feb 2026"
+          },
+          "sunshineHours": 2000
+        },
+        "qualityOfLife": {
+          "walkability": "High (UNESCO historic center)",
+          "healthcare": "Hospital Senhora da Oliveira",
+          "culture": "Birthplace of Portugal, UNESCO World Heritage"
+        },
+        "retention": {
+          "strengths": [
+            "Lowest costs in Norte corridor",
+            "Bosch anchor employer",
+            "University proximity"
+          ],
+          "risks": [
+            "Small ecosystem beyond automotive",
+            "Brain drain to Porto"
+          ],
+          "narrative": "The UMinho Engineering Campus in Guimarães drives the city's specialisation in smart manufacturing, computer vision, and quality control. Bosch Car Multimedia and Continental provide anchor demand. The city shares a talent pool with Braga and Porto in the Northern Cluster."
+        }
+      },
+      "verification": {
+        "checkScore": 85,
+        "checkDate": "2026-02-06",
+        "note": "Industrial city, adequate data"
+      }
+    },
+    "coimbra": {
+      "_meta": {
+        "cityId": "coimbra",
+        "featured": true,
+        "tagline": "The Cradle of Knowledge",
+        "sectionId": "coimbra",
+        "coverIcon": "fa-graduation-cap",
+        "coverTags": [
+          "Bio-AI",
+          "Safety-Critical",
+          "Research"
+        ],
+        "lastUpdated": "2026-02-06T00:00:00Z"
+      },
+      "ecosystem": {
+        "techCompanies": {
+          "value": [
+            {
+              "name": "Critical Software",
+              "url": "https://criticalsoftware.com/en",
+              "sector": "Safety-Critical Systems",
+              "foundedYear": 1998,
+              "description": "Safety-critical software for aerospace, defense, rail",
+              "notableFact": "NASA, ESA, Airbus client list"
+            },
+            {
+              "name": "Feedzai",
+              "url": "https://feedzai.com/",
+              "sector": "AI / Fraud Detection",
+              "foundedYear": 2009,
+              "description": "AI-powered fraud detection for banking",
+              "notableFact": "Portuguese unicorn candidate"
+            },
+            {
+              "name": "Bluepharma",
+              "url": "https://www.bluepharma.pt/en/",
+              "sector": "Pharma / R&D",
+              "description": "Pharmaceutical research and development"
+            },
+            {
+              "name": "Mobileum",
+              "url": "https://www.mobileum.com/",
+              "sector": "Telecom Analytics",
+              "description": "Roaming and analytics solutions for telecoms"
+            },
+            {
+              "name": "Stratio Automotive",
+              "url": "https://stratioautomotive.com/about/",
+              "sector": "Automotive / AI",
+              "description": "Predictive fleet maintenance platform"
+            },
+            {
+              "name": "SiosLife",
+              "url": "https://sioslife.com/en/",
+              "sector": "HealthTech",
+              "description": "Digital solutions for senior care"
+            },
+            {
+              "name": "Take The Wind",
+              "url": "https://takethewind.com/",
+              "sector": "CleanTech",
+              "description": "Wind energy optimization"
+            }
+          ],
+          "meta": {
+            "source": {
+              "type": "estimate",
+              "provider": "Web research"
+            }
+          }
+        },
+        "domains": {
+          "value": [
+            {
+              "name": "Cognitive Systems",
+              "detail": "NeurAI, reasoning"
+            },
+            {
+              "name": "Evolutionary AI",
+              "detail": "AutoML, NAS"
+            },
+            {
+              "name": "Safety-Critical SW",
+              "detail": "DO-178C, rail SIL"
+            },
+            {
+              "name": "Health-Tech",
+              "detail": "Medical imaging, diagnostics"
+            },
+            {
+              "name": "Robotics",
+              "detail": "Surgical, rehabilitation"
+            }
+          ]
+        },
+        "coworking": {
+          "spaces": [
+            {
+              "name": "IPN Incubator",
+              "type": "University incubator"
+            },
+            {
+              "name": "Instituto Pedro Nunes",
+              "type": "R&D and incubation"
+            }
+          ]
+        },
+        "studentOrgs": {
+          "value": [
+            {
+              "name": "JEKnowledge",
+              "url": "https://www.jeknowledge.pt/",
+              "description": "Student dev collective",
+              "icon": "fa-code"
+            },
+            {
+              "name": "NEI Coimbra",
+              "url": "https://nei.dei.uc.pt/",
+              "description": "DEI student developers guild",
+              "icon": "fa-code"
+            },
+            {
+              "name": "AI@UC",
+              "url": "https://www.uc.pt/en/fctuc/dei/education/masters/master-in-artificial-intelligence/",
+              "description": "UC applied AI community",
+              "icon": "fa-brain"
+            },
+            {
+              "name": "DEEC Coimbra",
+              "url": "https://web.deec.uc.pt/en/",
+              "description": "Electrical engineering student body",
+              "icon": "fa-laptop-code"
+            }
+          ],
+          "meta": {
+            "source": { "type": "official", "provider": "Organization websites" },
+            "verifiedDate": "2026-02-08"
+          }
+        },
+        "clusters": {
+          "value": "Central Portugal research corridor with Aveiro",
+          "nearbyHub": "Aveiro (~60 min)"
+        }
+      },
+      "infrastructure": {
+        "airport": {
+          "name": "Via Lisbon (LIS) or Porto (OPO)",
+          "distanceKm": 200,
+          "driveTime": "~2h to either airport"
+        },
+        "connectivity": {
+          "fiberPenetration": 70,
+          "latencyFrankfurt": 26,
+          "meta": {
+            "source": {
+              "type": "estimate",
+              "provider": "ANACOM"
+            }
+          }
+        },
+        "commuteTimes": {
+          "routes": [
+            {
+              "to": "aveiro",
+              "time": "~60 min",
+              "mode": "train/car"
+            },
+            {
+              "to": "lisbon",
+              "time": "~2h",
+              "mode": "Alfa Pendular"
+            },
+            {
+              "to": "porto",
+              "time": "~1h15",
+              "mode": "Alfa Pendular"
+            }
+          ]
+        }
+      },
+      "universityDetail": {
+        "institutions": [
+          {
+            "name": "University of Coimbra",
+            "url": "https://www.uc.pt/en",
+            "parent": "founded 1290",
+            "type": "university",
+            "programs": [
+              "MSc/PhD: Computer Engineering",
+              "Biomedical Engineering",
+              "Mathematics"
+            ]
+          },
+          {
+            "name": "ISEC",
+            "url": "https://www.isec.pt/EN/",
+            "parent": "Coimbra Polytechnic Institute",
+            "type": "university",
+            "programs": [
+              "BSc/MSc: Software Engineering",
+              "Computer Systems"
+            ]
+          },
+          {
+            "name": "CISUC",
+            "url": "https://www.cisuc.uc.pt/",
+            "type": "research",
+            "focus": [
+              "Centre for Informatics & Systems: Evolutionary Computing",
+              "Machine Learning",
+              "Cognitive Systems"
+            ]
+          },
+          {
+            "name": "ISR-UC",
+            "url": "https://www.isr.uc.pt/",
+            "type": "research",
+            "focus": [
+              "Institute of Systems & Robotics: Intelligent Transportation",
+              "Mobile Robotics",
+              "Medical Imaging"
+            ]
+          },
+          {
+            "name": "IPN",
+            "url": "https://www.ipn.pt/",
+            "type": "research",
+            "focus": [
+              "Pedro Nunes Institute: Technology Transfer",
+              "Incubation",
+              "Industry R&D"
+            ]
+          }
+        ],
+        "talentProfile": {
+          "value": "A broad STEM+ mix includes biomedical, physics, and mathematics alongside computing. UC historically produces graduates with strong theoretical foundations and research experience. Some talent flows to Lisbon or Porto for industry roles, but lower cost of living can be a retention lever.",
+          "meta": {
+            "source": {
+              "type": "derived",
+              "provider": "Industry interviews"
+            }
+          }
+        },
+        "meta": {
+          "source": {
+            "type": "official",
+            "provider": "A3ES / University websites"
+          }
+        }
+      },
+      "culture": {
+        "climate": {
+          "value": "Continental influence, hot summers, cold winters",
+          "type": "continental",
+          "rainDays": 90,
+          "avgTempSummer": 29,
+          "avgTempWinter": 8,
+          "seaInfluence": "Low - 50km inland from coast",
+          "humidity": "moderate",
+          "bestMonths": [
+            "Apr",
+            "May",
+            "Jun",
+            "Sep",
+            "Oct"
+          ],
+          "unit": "°C",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "IPMA"
+            },
+            "note": "Changed from sunnyDays to sunshineHours per fact-check Feb 2026"
+          },
+          "sunshineHours": 2500
+        },
+        "qualityOfLife": {
+          "walkability": "High (compact university city)",
+          "healthcare": "CHUC (Centro Hospitalar e Universitário de Coimbra)",
+          "culture": "UNESCO World Heritage university, Fado de Coimbra"
+        },
+        "retention": {
+          "strengths": [
+            "Strong university pipeline",
+            "Lower hiring competition",
+            "Academic talent"
+          ],
+          "risks": [
+            "Brain drain to Lisbon/Porto",
+            "Limited ecosystem scale"
+          ],
+          "narrative": "Home to Portugal's oldest university (est. 1290) and a strong computer science tradition. Coimbra's ecosystem revolves around safety-critical systems (Critical Software), AI/ML research (Feedzai), and the IPN incubator. Bio-AI and healthcare tech are emerging strengths."
+        }
+      },
+      "verification": {
+        "checkScore": 87,
+        "checkDate": "2026-02-06",
+        "note": "University city, strong education data"
+      }
+    },
+    "aveiro": {
+      "_meta": {
+        "cityId": "aveiro",
+        "featured": true,
+        "tagline": "Portugal's 5G and Telecom Laboratory",
+        "sectionId": "aveiro",
+        "coverIcon": "fa-tower-broadcast",
+        "coverTags": [
+          "Edge Cloud",
+          "5G/IoT",
+          "Telecom"
+        ],
+        "lastUpdated": "2026-02-06T00:00:00Z"
+      },
+      "ecosystem": {
+        "techCompanies": {
+          "value": [
+            {
+              "name": "Altice Labs",
+              "url": "https://www.alticelabs.com/",
+              "sector": "Telecom R&D",
+              "description": "Portugal's main telecom R&D center",
+              "notableFact": "Largest telecom R&D lab in Portugal"
+            },
+            {
+              "name": "Bosch Termotecnologia",
+              "url": "https://www.bosch.pt/a-nossa-empresa/bosch-em-portugal/aveiro/",
+              "sector": "Industrial / R&D",
+              "description": "Industrial IoT and sensor development"
+            },
+            {
+              "name": "Nokia Portugal",
+              "url": "https://www.nokia.com/about-us/careers/our-locations/portugal/",
+              "sector": "Telecom / 5G",
+              "description": "5G and network infrastructure research"
+            },
+            {
+              "name": "Ubiwhere",
+              "url": "https://www.ubiwhere.com/",
+              "sector": "Smart Cities / IoT",
+              "foundedYear": 2007,
+              "description": "Smart city platforms and urban computing"
+            },
+            {
+              "name": "KIT-AR",
+              "url": "https://kit-ar.com/",
+              "sector": "AR / Industry 4.0",
+              "description": "Augmented reality for manufacturing"
+            }
+          ],
+          "meta": {
+            "source": {
+              "type": "estimate",
+              "provider": "Web research"
+            }
+          }
+        },
+        "domains": {
+          "value": [
+            {
+              "name": "Edge Cloud",
+              "detail": "MEC, containerized"
+            },
+            {
+              "name": "5G Applications",
+              "detail": "Network slicing, URLLC"
+            },
+            {
+              "name": "Low-Latency",
+              "detail": "Real-time inference"
+            },
+            {
+              "name": "IoT Connectivity",
+              "detail": "LoRaWAN, NB-IoT"
+            },
+            {
+              "name": "Signal Processing",
+              "detail": "DSP, SDR"
+            }
+          ]
+        },
+        "coworking": {
+          "spaces": [
+            {
+              "name": "UPTEC Aveiro",
+              "type": "University tech park"
+            },
+            {
+              "name": "CIRA",
+              "type": "Regional development center"
+            }
+          ]
+        },
+        "studentOrgs": {
+          "value": [
+            {
+              "name": "NEI UA Aveiro",
+              "url": "https://nei.web.ua.pt/",
+              "description": "UA computer engineering nucleus",
+              "icon": "fa-satellite-dish"
+            },
+            {
+              "name": "Aveiro Tech City Living Lab",
+              "url": "https://aveiro-living-lab.it.pt/",
+              "description": "Citywide 5G urban lab",
+              "icon": "fa-network-wired"
+            },
+            {
+              "name": "GLUA",
+              "url": "https://glua.ua.pt/",
+              "description": "Linux and open-source collective",
+              "icon": "fa-code"
+            },
+            {
+              "name": "6G Path testbeds",
+              "url": "https://6gpath.eu/testbeds/it-alb-testbed/",
+              "description": "EU 6G research trials",
+              "icon": "fa-satellite-dish"
+            }
+          ],
+          "meta": {
+            "source": { "type": "official", "provider": "Organization websites" },
+            "verifiedDate": "2026-02-08"
+          }
+        },
+        "clusters": {
+          "value": "Central Portugal telecom corridor",
+          "nearbyHub": "Porto (~50 min), Coimbra (~60 min)"
+        }
+      },
+      "infrastructure": {
+        "airport": {
+          "name": "Via Porto (OPO)",
+          "distanceKm": 75,
+          "driveTime": "~50 min"
+        },
+        "connectivity": {
+          "fiberPenetration": 70,
+          "latencyFrankfurt": 25,
+          "meta": {
+            "source": {
+              "type": "estimate",
+              "provider": "ANACOM"
+            }
+          }
+        },
+        "commuteTimes": {
+          "routes": [
+            {
+              "to": "porto",
+              "time": "~50 min",
+              "mode": "train"
+            },
+            {
+              "to": "coimbra",
+              "time": "~60 min",
+              "mode": "train/car"
+            }
+          ]
+        }
+      },
+      "universityDetail": {
+        "institutions": [
+          {
+            "name": "University of Aveiro",
+            "url": "https://www.ua.pt/en",
+            "type": "university",
+            "programs": [
+              "MSc/PhD: Telecommunications",
+              "Electronics",
+              "Computer Engineering"
+            ]
+          },
+          {
+            "name": "IT Aveiro",
+            "url": "https://www.it.pt/ITSites/Index/2",
+            "type": "research",
+            "focus": [
+              "Instituto de Telecomunicações: 5G/6G Research",
+              "Network Slicing",
+              "SDN/NFV"
+            ]
+          },
+          {
+            "name": "IEETA",
+            "url": "https://www.ieeta.pt/",
+            "type": "research",
+            "focus": [
+              "Electronics, Telecommunications & Informatics: Biomedical Signal Processing",
+              "Information Retrieval"
+            ]
+          }
+        ],
+        "talentProfile": {
+          "value": "The higher ICT share reflects UA's strong telecom and electronics focus alongside computer engineering. Many students gain R&D experience through industry internships before graduating. The close university-industry linkage results in graduates with practical protocol knowledge and lab instrumentation skills.",
+          "meta": {
+            "source": {
+              "type": "derived",
+              "provider": "Industry interviews"
+            }
+          }
+        },
+        "meta": {
+          "source": {
+            "type": "official",
+            "provider": "A3ES / University websites"
+          }
+        }
+      },
+      "culture": {
+        "climate": {
+          "value": "Atlantic coast, mild, lagoon microclimate",
+          "type": "atlantic",
+          "rainDays": 100,
+          "avgTempSummer": 23,
+          "avgTempWinter": 9,
+          "seaInfluence": "Strong - Ria de Aveiro lagoon, coastal location",
+          "humidity": "high",
+          "bestMonths": [
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep"
+          ],
+          "unit": "°C",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "IPMA"
+            },
+            "note": "Changed from sunnyDays to sunshineHours per fact-check Feb 2026"
+          },
+          "sunshineHours": 2300
+        },
+        "qualityOfLife": {
+          "walkability": "High (compact, flat city with canals)",
+          "healthcare": "Hospital Infante D. Pedro",
+          "culture": "Ria de Aveiro lagoon, Art Nouveau architecture, moliceiro boats"
+        },
+        "retention": {
+          "strengths": [
+            "Strong telecom R&D anchor",
+            "High quality of life",
+            "Beach access"
+          ],
+          "risks": [
+            "Small city scale",
+            "Competition from Porto for senior talent"
+          ],
+          "narrative": "Aveiro's tech profile is shaped by Altice Labs, Nokia R&D, and the University of Aveiro's telecom expertise. Strong in edge cloud, 5G/IoT, and embedded systems. The lagoon city offers a high quality of life at Centro-region cost levels."
+        }
+      },
+      "verification": {
+        "checkScore": 86,
+        "checkDate": "2026-02-06",
+        "note": "Growing tech hub, solid coverage"
+      }
+    },
+    "covilha": {
+      "_meta": {
+        "cityId": "covilha",
+        "featured": true,
+        "tagline": "The Remote-Ready Mountain Campus",
+        "sectionId": "covilha",
+        "coverIcon": "fa-mountain",
+        "coverTags": [
+          "Aerospace",
+          "Remote/Captive",
+          "Low COL"
+        ],
+        "lastUpdated": "2026-02-06T00:00:00Z"
+      },
+      "ecosystem": {
+        "techCompanies": {
+          "value": [
+            {
+              "name": "Altice Data Center",
+              "url": "https://www.meo.pt/empresas/solucoes/cloud-datacenter/data-centers/covilha",
+              "sector": "Data Center",
+              "description": "MEO Enterprise data center facility (75,500 m²)"
+            },
+            {
+              "name": "Parkurbis",
+              "url": "https://www.parkurbis.pt/",
+              "sector": "Tech Park / Incubator",
+              "description": "Science and technology park of Covilhã"
+            }
+          ],
+          "meta": {
+            "source": {
+              "type": "estimate",
+              "provider": "Web research",
+              "note": "Fact-checked Feb 2026: DeepNeuronic, NeuroSoV removed (unverifiable)"
+            }
+          }
+        },
+        "domains": {
+          "value": [
+            {
+              "name": "Aerospace SW",
+              "detail": "Satellite, avionics (UBI aerospace programs)"
+            },
+            {
+              "name": "Remote Delivery",
+              "detail": "Dedicated teams, BAU"
+            }
+          ],
+          "meta": {
+            "source": {
+              "type": "estimate",
+              "provider": "Industry positioning",
+              "note": "Fact-checked Feb 2026: generic domains removed, Aerospace confirmed via UBI"
+            }
+          }
+        },
+        "coworking": {
+          "spaces": [
+            {
+              "name": "UBI Incubator",
+              "type": "University incubator",
+              "url": "https://www.ubi.pt/"
+            }
+          ],
+          "meta": {
+            "source": {
+              "type": "estimate",
+              "provider": "UBI website"
+            },
+            "note": "UBIMedical/UBIExecutive incubators confirmed via UBI; limited commercial coworking in city"
+          }
+        },
+        "studentOrgs": {
+          "value": [
+            {
+              "name": "NEUBI",
+              "url": "https://neubi.pt/",
+              "description": "UBI tech student nucleus",
+              "icon": "fa-code"
+            },
+            {
+              "name": "Parkurbis Tech Parc",
+              "url": "https://www.parkurbis.pt/",
+              "description": "Covilhã science park campus",
+              "icon": "fa-mountain"
+            }
+          ],
+          "meta": {
+            "source": { "type": "official", "provider": "Organization websites" },
+            "verifiedDate": "2026-02-08"
+          }
+        },
+        "clusters": {
+          "value": "Interior isolated — remote-first viable",
+          "nearbyHub": "No nearby hub (2h+ to Lisbon/Porto)"
+        }
+      },
+      "infrastructure": {
+        "airport": {
+          "name": "Via Lisbon (LIS) or Porto (OPO)",
+          "distanceKm": 280,
+          "driveTime": "~2h30 to either airport"
+        },
+        "connectivity": {
+          "fiberPenetration": 55,
+          "latencyFrankfurt": 45,
+          "meta": {
+            "source": {
+              "type": "estimate",
+              "provider": "Regional estimate"
+            },
+            "verifiedDate": "2026-02-07",
+            "note": "Interior location adds ~15-20ms vs coastal cities. 28ms unrealistic for mountain interior; 45ms estimate based on distance from exchange points."
+          }
+        },
+        "commuteTimes": {
+          "routes": [
+            {
+              "to": "lisbon",
+              "time": "~2h30",
+              "mode": "car"
+            },
+            {
+              "to": "coimbra",
+              "time": "~1h20",
+              "mode": "car"
+            }
+          ]
+        }
+      },
+      "universityDetail": {
+        "institutions": [
+          {
+            "name": "University of Beira Interior (UBI)",
+            "url": "https://www.ubi.pt/en/",
+            "type": "university",
+            "programs": [
+              "MSc/PhD: Computer Science",
+              "Aerospace Engineering",
+              "Biomedical Engineering"
+            ]
+          },
+          {
+            "name": "IT Covilhã",
+            "url": "https://www.it.pt/ITSites/Index/6",
+            "type": "research",
+            "focus": [
+              "Instituto de Telecomunicações: Networks",
+              "Optical Communications"
+            ]
+          }
+        ],
+        "talentProfile": {
+          "value": "The lower ICT share reflects UBI's wide engineering mix (aerospace, biomedical, textiles) alongside computing. Covilhã is geographically isolated in the Serra da Estrela mountains, which limits commuting integration but also tends to keep graduates local.",
+          "meta": {
+            "source": {
+              "type": "derived",
+              "provider": "Industry interviews"
+            }
+          }
+        },
+        "meta": {
+          "source": {
+            "type": "official",
+            "provider": "A3ES / University websites"
+          }
+        }
+      },
+      "culture": {
+        "climate": {
+          "value": "Mountain climate, skiing nearby, cold winters",
+          "type": "mountain",
+          "avgTempSummer": 23,
+          "avgTempWinter": 6,
+          "seaInfluence": "None - 150km inland, Serra da Estrela mountains",
+          "humidity": "low",
+          "bestMonths": [
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep"
+          ],
+          "snowDays": 20,
+          "rainDays": 110,
+          "unit": "°C",
+          "meta": {
+            "source": {
+              "type": "survey",
+              "provider": "climate-data.org, weather-atlas.com"
+            },
+            "verifiedDate": "2026-02-07",
+            "note": "5-source fact-check: summer avg 17-25°C→23, winter 3-9°C→6, rainDays ~99-110→110, sunshine 2400-2800→2500"
+          },
+          "sunshineHours": 2500
+        },
+        "qualityOfLife": {
+          "walkability": "Moderate (hilly terrain)",
+          "healthcare": "Centro Hospitalar Cova da Beira",
+          "culture": "Serra da Estrela skiing, mountain lifestyle"
+        },
+        "retention": {
+          "strengths": [
+            "Low cost of living",
+            "Limited competition for talent",
+            "Mountain lifestyle"
+          ],
+          "risks": [
+            "Geographic isolation",
+            "High relocation rate",
+            "Limited ecosystem"
+          ],
+          "narrative": "A mountain city with the University of Beira Interior (UBI). Low cost of living makes it viable for remote-first or captive-centre models. Aerospace research is a niche strength via UBI programs."
+        }
+      },
+      "verification": {
+        "checkScore": 88,
+        "checkDate": "2026-02-07",
+        "note": "5-source AI verification (Perplexity, Gemini, ChatGPT, DeepSeek, Claude). Updated: latency, temps, commute times, sunshine/rain."
+      }
+    },
+    "evora": {
+      "_meta": {
+        "cityId": "evora",
+        "featured": true,
+        "tagline": "The Alentejo's Green-Tech Gateway",
+        "sectionId": "evora",
+        "coverIcon": "fa-leaf",
+        "coverTags": [
+          "Green Tech",
+          "Agri-AI",
+          "ESG"
+        ],
+        "lastUpdated": "2026-02-06T00:00:00Z"
+      },
+      "ecosystem": {
+        "techCompanies": {
+          "value": [
+            {
+              "name": "Embraer Portugal",
+              "url": "https://embraerportugal.gupy.io/",
+              "sector": "Aerospace",
+              "description": "Brazilian aerospace company's Portugal operations"
+            },
+            {
+              "name": "TE Connectivity",
+              "url": "https://www.te.com/pt/home.html",
+              "sector": "Electronics / Connectivity",
+              "description": "Connectivity and sensor solutions"
+            },
+            {
+              "name": "Agroinsider",
+              "url": "https://agroinsider.com/home",
+              "sector": "AgriTech / AI",
+              "description": "Precision agriculture and satellite monitoring"
+            },
+            {
+              "name": "Deifil",
+              "url": "https://www.deifil.pt/en/",
+              "sector": "Engineering / Industry",
+              "description": "Industrial engineering solutions"
+            }
+          ],
+          "meta": {
+            "source": {
+              "type": "estimate",
+              "provider": "Web research"
+            }
+          }
+        },
+        "domains": {
+          "value": [
+            {
+              "name": "Green Tech",
+              "detail": "Carbon tracking, ESG"
+            },
+            {
+              "name": "Earth Observation",
+              "detail": "Sentinel, Copernicus"
+            },
+            {
+              "name": "Solar Tech",
+              "detail": "PV optimization AI"
+            },
+            {
+              "name": "Agri-Tech",
+              "detail": "Precision farming, drones"
+            },
+            {
+              "name": "Climate AI",
+              "detail": "Weather modeling, HPC"
+            }
+          ]
+        },
+        "coworking": {
+          "spaces": [
+            {
+              "name": "PITE Évora",
+              "type": "Technology park"
+            }
+          ]
+        },
+        "studentOrgs": {
+          "value": [
+            {
+              "name": "KPMG Hub Evora",
+              "url": "https://kpmg.com/pt/pt/contactos.html",
+              "description": "KPMG nearshore delivery center",
+              "icon": "fa-seedling"
+            },
+            {
+              "name": "Pocityf Evora",
+              "url": "https://pocityf.eu/city/evora/",
+              "description": "EU smart-city pilot program",
+              "icon": "fa-sun"
+            }
+          ],
+          "meta": {
+            "source": { "type": "official", "provider": "Organization websites" },
+            "verifiedDate": "2026-02-08"
+          }
+        },
+        "clusters": {
+          "value": "Alentejo — Lisbon satellite",
+          "nearbyHub": "Lisbon (~1h15)"
+        }
+      },
+      "infrastructure": {
+        "airport": {
+          "name": "Via Lisbon (LIS)",
+          "distanceKm": 135,
+          "driveTime": "~1h15"
+        },
+        "connectivity": {
+          "fiberPenetration": 55,
+          "latencyFrankfurt": 27,
+          "meta": {
+            "source": {
+              "type": "estimate",
+              "provider": "ANACOM"
+            }
+          }
+        },
+        "commuteTimes": {
+          "routes": [
+            {
+              "to": "lisbon",
+              "time": "~1h15",
+              "mode": "car"
+            }
+          ]
+        }
+      },
+      "universityDetail": {
+        "institutions": [
+          {
+            "name": "University of Évora",
+            "url": "https://www.uevora.pt/en",
+            "type": "university",
+            "programs": [
+              "MSc/PhD: Computer Science",
+              "Agronomic Engineering",
+              "Geophysics"
+            ]
+          },
+          {
+            "name": "ePACT",
+            "url": "https://pact.pt/ePACT/",
+            "type": "research",
+            "focus": [
+              "Technology transfer center for Alentejo: Research-industry liaison",
+              "Startup support"
+            ]
+          }
+        ],
+        "talentProfile": {
+          "value": "The lower ICT share reflects a STEM+ mix heavy in agronomy, geophysics, and heritage sciences alongside CS. Graduates here tend to remain in the region, attracted by quality of life and lower living costs than the major metros. The Alentejo's isolation creates a tight-knit technical community with low turnover.",
+          "meta": {
+            "source": {
+              "type": "derived",
+              "provider": "Industry interviews"
+            }
+          }
+        },
+        "meta": {
+          "source": {
+            "type": "official",
+            "provider": "A3ES / University websites"
+          }
+        }
+      },
+      "culture": {
+        "climate": {
+          "value": "Hot dry summers, mild winters, Alentejo plains",
+          "type": "continental",
+          "rainDays": 55,
+          "avgTempSummer": 32,
+          "avgTempWinter": 8,
+          "seaInfluence": "None - 100km inland, Alentejo plains",
+          "humidity": "low",
+          "bestMonths": [
+            "Apr",
+            "May",
+            "Sep",
+            "Oct",
+            "Nov"
+          ],
+          "unit": "°C",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "IPMA"
+            },
+            "note": "Changed from sunnyDays to sunshineHours per fact-check Feb 2026"
+          },
+          "sunshineHours": 2700
+        },
+        "qualityOfLife": {
+          "walkability": "High (compact walled city center)",
+          "healthcare": "Hospital do Espírito Santo",
+          "culture": "UNESCO World Heritage city center, Roman Temple"
+        },
+        "retention": {
+          "strengths": [
+            "Very low cost of living",
+            "Lisbon proximity for hybrid",
+            "UNESCO heritage lifestyle"
+          ],
+          "risks": [
+            "Very limited tech ecosystem",
+            "Brain drain to Lisbon"
+          ],
+          "narrative": "Alentejo's university city with the University of Évora and the PITE technology park. Emerging focus on green tech, agri-AI, and ESG applications. Very low cost of living but limited tech ecosystem scale."
+        }
+      },
+      "verification": {
+        "checkScore": 81,
+        "checkDate": "2026-02-06",
+        "note": "Smaller city, limited tech presence"
+      }
+    },
+    "faro": {
+      "_meta": {
+        "cityId": "faro",
+        "featured": true,
+        "tagline": "The Algarve's Digital Nomad Hub",
+        "sectionId": "faro",
+        "coverIcon": "fa-umbrella-beach",
+        "coverTags": [
+          "TravelTech",
+          "Remote Work",
+          "Lifestyle"
+        ],
+        "lastUpdated": "2026-02-06T00:00:00Z"
+      },
+      "ecosystem": {
+        "techCompanies": {
+          "value": [
+            {
+              "name": "Faro Airport",
+              "url": "https://www.ana.pt/en/fao/home",
+              "sector": "Aviation / Infrastructure",
+              "description": "International airport serving the Algarve"
+            },
+            {
+              "name": "Dengun Digital",
+              "url": "https://www.dengun.com/",
+              "sector": "Digital Agency",
+              "description": "Web development and digital marketing"
+            },
+            {
+              "name": "Invisible CFO",
+              "url": "https://regiao-sul.pt/sociedade/invisible-cfo-e-startup-da-incubadora-de-empresas-de-monchique/736295",
+              "sector": "Fintech / SaaS",
+              "description": "Financial management platform"
+            },
+            {
+              "name": "Oceano Fresco",
+              "url": "https://oceano-fresco.pt/en/",
+              "sector": "AquaTech",
+              "description": "Sustainable aquaculture and ocean farming"
+            },
+            {
+              "name": "CIU3A Spin-offs",
+              "url": "https://ciu3a.ualg.pt/",
+              "sector": "Marine Tech / Research",
+              "description": "University of Algarve marine technology spin-offs"
+            }
+          ],
+          "meta": {
+            "source": {
+              "type": "estimate",
+              "provider": "Web research"
+            }
+          }
+        },
+        "domains": {
+          "value": [
+            {
+              "name": "Digital Nomads",
+              "detail": "Remote-first culture"
+            },
+            {
+              "name": "TravelTech",
+              "detail": "Booking AI, dynamic pricing"
+            },
+            {
+              "name": "Marine Data",
+              "detail": "Oceanographic ML"
+            },
+            {
+              "name": "PropTech",
+              "detail": "Vacation rentals, smart hotels"
+            },
+            {
+              "name": "Blue Economy",
+              "detail": "Aquaculture, ocean monitoring"
+            }
+          ]
+        },
+        "coworking": {
+          "spaces": [
+            {
+              "name": "CRIA",
+              "type": "University incubator"
+            },
+            {
+              "name": "Hotel-based spaces",
+              "type": "Flexible office"
+            }
+          ]
+        },
+        "studentOrgs": {
+          "value": [
+            {
+              "name": "Algarve Tech Hub",
+              "url": "https://algarvetechhub.com/",
+              "description": "Regional founders and investor network",
+              "icon": "fa-laptop-code"
+            },
+            {
+              "name": "LOFT Remote Tech Workers Comm.",
+              "url": "https://loftcommunity.pt/",
+              "description": "Remote worker community Algarve",
+              "icon": "fa-globe"
+            }
+          ],
+          "meta": {
+            "source": { "type": "official", "provider": "Organization websites" },
+            "verifiedDate": "2026-02-08"
+          }
+        },
+        "clusters": {
+          "value": "Algarve — tourism-tech niche",
+          "nearbyHub": "Lisbon (~2h30)"
+        }
+      },
+      "infrastructure": {
+        "airport": {
+          "name": "Faro Airport",
+          "iataCode": "FAO",
+          "distanceKm": 4,
+          "driveTime": "10 minutes",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "ANA Aeroportos"
+            }
+          }
+        },
+        "connectivity": {
+          "fiberPenetration": 60,
+          "latencyFrankfurt": 28,
+          "meta": {
+            "source": {
+              "type": "estimate",
+              "provider": "ANACOM"
+            }
+          }
+        },
+        "commuteTimes": {
+          "routes": [
+            {
+              "to": "lisbon",
+              "time": "~2h30",
+              "mode": "car"
+            }
+          ]
+        }
+      },
+      "universityDetail": {
+        "institutions": [
+          {
+            "name": "University of Algarve",
+            "url": "https://www.ualg.pt/en",
+            "type": "university",
+            "programs": [
+              "MSc/PhD: Computer Engineering",
+              "Marine Biology",
+              "Tourism Management"
+            ]
+          },
+          {
+            "name": "CIMA",
+            "url": "https://www.cima.ualg.pt/",
+            "type": "research",
+            "focus": [
+              "Centre for Marine & Environmental Research: Ocean monitoring",
+              "Marine ecosystems"
+            ]
+          },
+          {
+            "name": "CIU3A",
+            "url": "https://ciu3a.ualg.pt/",
+            "type": "research",
+            "focus": [
+              "Centre for Innovation in Hydrographic Technologies: Marine robotics",
+              "Ocean safety"
+            ]
+          },
+          {
+            "name": "CRIA",
+            "url": "https://www.cria.pt/",
+            "type": "research",
+            "focus": [
+              "Regional Centre for Innovation: Incubation",
+              "Industry liaison"
+            ]
+          },
+          {
+            "name": "Algarve STP",
+            "url": "https://algarvestp.pt/",
+            "type": "research",
+            "focus": [
+              "Science & Technology Park: Technology transfer",
+              "Startup support"
+            ]
+          }
+        ],
+        "talentProfile": {
+          "value": "The lower ICT share reflects a STEM+ mix heavy in marine biology, environmental science, and tourism-related programs alongside computing. The Algarve also attracts a visible population of remote tech workers from northern Europe, which can expand the practical hiring pool beyond local graduates.",
+          "meta": {
+            "source": {
+              "type": "derived",
+              "provider": "Industry interviews"
+            }
+          }
+        },
+        "meta": {
+          "source": {
+            "type": "official",
+            "provider": "A3ES / University websites"
+          }
+        }
+      },
+      "culture": {
+        "climate": {
+          "value": "Mediterranean, 300+ sunshine hours/year (~3000h), beach lifestyle",
+          "type": "mediterranean",
+          "rainDays": 50,
+          "avgTempSummer": 29,
+          "avgTempWinter": 12,
+          "seaInfluence": "Strong - Algarve coast, mild sea temperatures",
+          "humidity": "moderate",
+          "bestMonths": [
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Sep",
+            "Oct"
+          ],
+          "unit": "°C",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "IPMA"
+            },
+            "note": "Changed from sunnyDays to sunshineHours per fact-check Feb 2026"
+          },
+          "sunshineHours": 3000
+        },
+        "qualityOfLife": {
+          "walkability": "Moderate (spread out city)",
+          "healthcare": "Centro Hospitalar Universitário do Algarve",
+          "culture": "Beach lifestyle, Ria Formosa natural park, international community"
+        },
+        "retention": {
+          "strengths": [
+            "Best climate in Portugal",
+            "Beach lifestyle",
+            "International airport"
+          ],
+          "risks": [
+            "Very limited tech ecosystem",
+            "Tourism-dominated economy",
+            "Seasonal fluctuations"
+          ],
+          "narrative": "The capital of the Algarve, Faro combines beach lifestyle with the University of Algarve's STEM programs. The city is growing as a base for remote-first companies and traveltech startups, leveraging 300+ sunny days per year."
+        }
+      },
+      "verification": {
+        "checkScore": 83,
+        "checkDate": "2026-02-06",
+        "note": "Regional capital, good regional data"
+      }
+    },
+    "setubal": {
+      "_meta": {
+        "cityId": "setubal",
+        "featured": true,
+        "tagline": "The Lisbon Spillover Industrial Hub",
+        "sectionId": "setubal",
+        "coverIcon": "fa-industry",
+        "coverTags": [
+          "Industry 4.0",
+          "Automotive",
+          "Port Tech"
+        ],
+        "lastUpdated": "2026-02-06T00:00:00Z"
+      },
+      "ecosystem": {
+        "techCompanies": {
+          "value": [
+            {
+              "name": "Volkswagen Autoeuropa",
+              "url": "https://www.volkswagenautoeuropa.pt/",
+              "sector": "Automotive Manufacturing",
+              "description": "Volkswagen Group largest plant in Portugal",
+              "notableFact": "One of VW's most efficient plants globally"
+            },
+            {
+              "name": "Secil",
+              "sector": "Materials / Industry",
+              "description": "Cement and materials industry, digitalization programs"
+            }
+          ],
+          "meta": {
+            "source": {
+              "type": "estimate",
+              "provider": "Web research"
+            }
+          }
+        },
+        "domains": {
+          "value": [
+            {
+              "name": "Industry 4.0",
+              "detail": "Automotive production"
+            },
+            {
+              "name": "Port Tech",
+              "detail": "Logistics automation"
+            },
+            {
+              "name": "Automotive SW",
+              "detail": "VW/AutoEuropa factory"
+            },
+            {
+              "name": "Smart Logistics",
+              "detail": "Supply chain AI"
+            },
+            {
+              "name": "Industrial IoT",
+              "detail": "Manufacturing sensors"
+            }
+          ]
+        },
+        "coworking": {
+          "spaces": [],
+          "description": "Limited, Lisbon overflow"
+        },
+        "studentOrgs": {
+          "value": [
+            {
+              "name": "IPS Tech",
+              "url": "https://www.ips.pt/",
+              "description": "Polytechnic Institute of Setúbal tech programs",
+              "icon": "fa-laptop-code"
+            },
+            {
+              "name": "ESTSetúbal Engineering",
+              "url": "https://www.estsetubal.ips.pt/",
+              "description": "School of Technology — software & electronics",
+              "icon": "fa-microchip"
+            }
+          ],
+          "meta": {
+            "source": { "type": "official", "provider": "Organization websites" },
+            "verifiedDate": "2026-02-08"
+          }
+        },
+        "clusters": {
+          "value": "Lisbon Metropolitan Area — south bank",
+          "nearbyHub": "Lisbon (~45 min)"
+        }
+      },
+      "infrastructure": {
+        "airport": {
+          "name": "Via Lisbon (LIS)",
+          "distanceKm": 50,
+          "driveTime": "~45 min"
+        },
+        "connectivity": {
+          "fiberPenetration": 70,
+          "latencyFrankfurt": 25,
+          "meta": {
+            "source": {
+              "type": "estimate",
+              "provider": "ANACOM"
+            }
+          }
+        },
+        "commuteTimes": {
+          "routes": [
+            {
+              "to": "lisbon",
+              "time": "~45 min",
+              "mode": "car/train via 25 de Abril bridge"
+            }
+          ]
+        }
+      },
+      "universityDetail": {
+        "institutions": [
+          {
+            "name": "IPS",
+            "url": "https://www.ips.pt/ips_si/web_page.inicial",
+            "parent": "Instituto Politécnico de Setúbal",
+            "type": "university",
+            "programs": [
+              "BSc: Computer Engineering",
+              "Electrical Engineering"
+            ]
+          }
+        ],
+        "talentProfile": {
+          "value": "Setúbal shares Lisbon's metro labor pool and benefits from spillover demand. IPS focuses on vocational tech programs with close industry ties. Lower housing costs attract young professionals priced out of central Lisbon.",
+          "meta": {
+            "source": {
+              "type": "derived",
+              "provider": "Industry interviews"
+            }
+          }
+        },
+        "meta": {
+          "source": {
+            "type": "official",
+            "provider": "A3ES / University websites"
+          }
+        }
+      },
+      "culture": {
+        "climate": {
+          "value": "Mediterranean, beach access, Arrábida nature",
+          "type": "mediterranean",
+          "rainDays": 65,
+          "avgTempSummer": 28,
+          "avgTempWinter": 10,
+          "seaInfluence": "Strong - Sado Estuary, Troia beaches nearby",
+          "humidity": "moderate",
+          "bestMonths": [
+            "Apr",
+            "May",
+            "Jun",
+            "Sep",
+            "Oct"
+          ],
+          "unit": "°C",
+          "meta": {
+            "source": {
+              "type": "official",
+              "provider": "IPMA"
+            },
+            "note": "Changed from sunnyDays to sunshineHours per fact-check Feb 2026"
+          },
+          "sunshineHours": 2700
+        },
+        "qualityOfLife": {
+          "walkability": "Moderate",
+          "healthcare": "Centro Hospitalar de Setúbal",
+          "culture": "Arrábida Nature Park, Tróia beaches, dolphin watching"
+        },
+        "retention": {
+          "strengths": [
+            "Lisbon proximity",
+            "Significantly lower costs",
+            "Nature and lifestyle"
+          ],
+          "risks": [
+            "Limited own tech ecosystem",
+            "Dependent on Lisbon for most tech jobs"
+          ],
+          "narrative": "Setúbal sits across the Tagus from Lisbon, offering significantly lower costs while maintaining access to the capital's talent pool. Volkswagen Autoeuropa anchors the region's Industry 4.0 and automotive tech cluster."
+        }
+      },
+      "verification": {
+        "checkScore": 82,
+        "checkDate": "2026-02-06",
+        "note": "Industrial area, adequate coverage"
+      }
+    }
+  }
+}

@@ -1,0 +1,331 @@
+{
+  "_meta": {
+    "schema": "1.1",
+    "description": "Machine-readable source registry. All databases and docs reference this single file by provider ID. One place to update when URLs change.",
+    "lastUpdated": "2026-02-08T00:00:00Z"
+  },
+
+  "sources": {
+    "anacom-q4-2024": {
+      "provider": "ANACOM",
+      "title": "ANACOM Communications Statistics Q4 2024",
+      "url": "https://www.anacom.pt/render.jsp?categoryId=377333",
+      "type": "official",
+      "publishedDate": "2025-03-15",
+      "expiresAfter": "12M",
+      "covers": ["ftthPenetration", "fiveGCoverage", "fixedBroadband", "terrestrialConnectivity"]
+    },
+    "telegeography-2024": {
+      "provider": "Telegeography",
+      "title": "Submarine Cable Map",
+      "url": "https://www.submarinecablemap.com/",
+      "type": "official",
+      "publishedDate": "2025-01-01",
+      "expiresAfter": "12M",
+      "covers": ["subseaCables"]
+    },
+    "ec-autumn-2025": {
+      "provider": "European Commission",
+      "title": "Autumn 2025 Economic Forecast - Portugal",
+      "url": "https://economy-finance.ec.europa.eu/economic-forecast-and-surveys/economic-forecasts_en",
+      "type": "official",
+      "publishedDate": "2025-11-01",
+      "expiresAfter": "6M",
+      "covers": ["realGdpGrowth", "unemploymentRate", "hicpInflation"],
+      "note": "Primary source for GDP forecasts per fact-check Feb 2026"
+    },
+    "cfp-2025-2029": {
+      "provider": "CFP",
+      "title": "Economic and Fiscal Outlook 2025-2029",
+      "url": "https://www.cfp.pt/",
+      "type": "official",
+      "publishedDate": "2025-11-01",
+      "expiresAfter": "6M",
+      "covers": ["realGdpGrowth", "unemploymentRate", "hicpInflation", "netLending", "publicDebtToGdp"],
+      "note": "Secondary to EC Autumn 2025 for GDP forecasts"
+    },
+    "eurostat-2024": {
+      "provider": "Eurostat",
+      "title": "European Statistics Database",
+      "url": "https://ec.europa.eu/eurostat/web/digital-economy-and-society/database",
+      "type": "official",
+      "publishedDate": "2025-06-01",
+      "expiresAfter": "12M",
+      "covers": ["ictSpecialistsPctEmployment", "ictGraduatesPctAllGraduates", "femaleIctSpecialists", "gdpNominal", "population", "gdpPerCapita"]
+    },
+    "dgeec-infocursos-2324": {
+      "provider": "DGEEC InfoCursos",
+      "title": "InfoCursos Graduate Statistics 2023/24",
+      "url": "https://infocursos.mec.pt/",
+      "type": "official",
+      "publishedDate": "2025-01-15",
+      "expiresAfter": "12M",
+      "covers": ["stemGraduates", "ictGraduates", "universityData"]
+    },
+    "dgeec-universities-2024": {
+      "provider": "DGEEC",
+      "title": "Higher Education Institutions Database (Ensino Superior)",
+      "url": "https://www.dgeec.medu.pt/art/ensino-superior/bases-de-dados/todas/64f88a56d128bc76d4fba939",
+      "type": "official",
+      "publishedDate": "2024-01-01",
+      "expiresAfter": "24M",
+      "covers": ["universities", "polytechnics", "institutionList"]
+    },
+    "dgeec-cnaef-2024": {
+      "provider": "DGEEC",
+      "title": "CNAEF Classification of Studies",
+      "url": "https://www.dgeec.medu.pt/art/ensino-superior/bases-de-dados/todas/64f85364d128bc76d4fba91c",
+      "type": "official",
+      "publishedDate": "2024-01-01",
+      "expiresAfter": "24M",
+      "covers": ["cnaefCodes", "studyClassifications", "stemDefinition", "ictDefinition"]
+    },
+    "ine-mtsss-2023": {
+      "provider": "INE/MTSSS",
+      "title": "Personnel Tables / Quadros de Pessoal 2023",
+      "url": "https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_indicadores&contecto=pi&indOcorrCod=0012653&selTab=tab0",
+      "type": "official",
+      "publishedDate": "2024-06-01",
+      "expiresAfter": "12M",
+      "covers": ["salaryByRegion"]
+    },
+    "numbeo-jan-2026": {
+      "provider": "Numbeo",
+      "title": "Cost of Living Index January 2026",
+      "url": "https://www.numbeo.com/cost-of-living/country_result.jsp?country=Portugal",
+      "type": "survey",
+      "publishedDate": "2026-01-01",
+      "expiresAfter": "6M",
+      "covers": ["costOfLiving", "colIndex", "residentialRent"],
+      "note": "Where direct city data unavailable, Numbeo-style estimates derived from regional patterns"
+    },
+    "jll-portugal-2025": {
+      "provider": "JLL Portugal",
+      "title": "Market Pulse Portugal",
+      "url": "https://www.jll.pt/",
+      "type": "survey",
+      "publishedDate": "2025-01-01",
+      "expiresAfter": "12M",
+      "covers": ["officeRent", "residentialRent"],
+      "note": "One of multiple sources for rent data, cross-verified via AI fact-check"
+    },
+    "cushman-wakefield-2025": {
+      "provider": "Cushman & Wakefield",
+      "title": "Cushman & Wakefield Portugal Market Reports",
+      "url": "https://www.cushmanwakefield.com/en/portugal",
+      "type": "survey",
+      "publishedDate": "2025-01-01",
+      "expiresAfter": "12M",
+      "covers": ["officeRent", "residentialRent"],
+      "note": "One of multiple sources for rent data, cross-verified via AI fact-check"
+    },
+    "idealista-2026": {
+      "provider": "Idealista",
+      "title": "Idealista Portugal Rental Listings",
+      "url": "https://www.idealista.pt/",
+      "type": "survey",
+      "publishedDate": "2026-01-01",
+      "expiresAfter": "6M",
+      "covers": ["residentialRent"],
+      "note": "One of multiple sources for residential rent, cross-verified via AI fact-check"
+    },
+    "glassdoor-indeed-2025": {
+      "provider": "Glassdoor / Indeed",
+      "title": "Salary Survey Data — Portugal Tech Roles",
+      "url": null,
+      "type": "survey",
+      "publishedDate": "2025-01-01",
+      "expiresAfter": "12M",
+      "covers": ["techSalaries", "seniorityBands"],
+      "note": "Cross-validation source for salary index and compensation data"
+    },
+    "ani-sifide": {
+      "provider": "ANI",
+      "title": "SIFIDE II — System of Tax Incentives for Business R&D",
+      "url": "https://www.ani.pt/en/sifide-system-of-tax-incentives-for-business-rd/",
+      "type": "official",
+      "publishedDate": "2025-01-01",
+      "expiresAfter": "12M",
+      "covers": ["sifideII"],
+      "note": "32.5% base credit + 50% incremental on increased R&D spend"
+    },
+    "iapmei-techvisa": {
+      "provider": "IAPMEI",
+      "title": "Tech Visa — Skilled Talent Immigration Program",
+      "url": "https://www.iapmei.pt/Paginas/Tech-Visa-en.aspx",
+      "type": "official",
+      "publishedDate": "2025-01-01",
+      "expiresAfter": "12M",
+      "covers": ["techVisa"]
+    },
+    "pwc-ifici": {
+      "provider": "PwC Portugal",
+      "title": "IFICI — Tax Incentive for Scientific Research and Innovation (NHR 2.0)",
+      "url": "https://www.pwc.pt/en/services/tax/individuals-taxation/tax-incentive-for-scientific-research-and-innovation-nhr-2-0.html",
+      "type": "official",
+      "publishedDate": "2024-01-01",
+      "expiresAfter": "24M",
+      "covers": ["ifici"],
+      "note": "20% flat IRS rate for 10 years, replaces NHR from 2024"
+    },
+    "aicep-irc": {
+      "provider": "AICEP Portugal Global",
+      "title": "Corporate Income Tax (IRC) — Doing Business in Portugal",
+      "url": "https://investinportugal.portugalglobal.pt/doing-business/taxation/corporate-income-tax/",
+      "type": "official",
+      "publishedDate": "2025-01-01",
+      "expiresAfter": "12M",
+      "covers": ["corporateTax", "ircRates"],
+      "note": "21% standard, 16% SME on first €50k"
+    },
+    "aws-cloudping": {
+      "provider": "AWS CloudPing",
+      "title": "AWS Inter-Region Latency",
+      "url": "https://www.cloudping.co/grid",
+      "type": "survey",
+      "publishedDate": "2025-01-01",
+      "expiresAfter": "12M",
+      "covers": ["latency"]
+    },
+    "bloomberg-microsoft-2025": {
+      "provider": "Bloomberg",
+      "title": "Microsoft Plans to Invest $10B in Portugal AI Data Hub",
+      "url": "https://www.bloomberg.com/news/articles/2025-11-11/microsoft-plans-to-invest-10-billion-in-portugal-ai-data-hub",
+      "type": "press",
+      "publishedDate": "2025-11-11",
+      "expiresAfter": "24M",
+      "covers": ["microsoftInvestment"]
+    },
+    "dcd-microsoft-2025": {
+      "provider": "DCD",
+      "title": "Microsoft to Spend $10B on AI Data Centers in Portugal",
+      "url": "https://www.datacenterdynamics.com/en/news/microsoft-to-spend-10bn-on-ai-data-centers-in-portugal/",
+      "type": "press",
+      "publishedDate": "2025-11-11",
+      "expiresAfter": "24M",
+      "covers": ["microsoftInvestment"]
+    },
+    "desi-2024": {
+      "provider": "DESI / EC Digital Decade",
+      "title": "Digital Economy and Society Index 2024 / EC Digital Decade Report",
+      "url": "https://digital-strategy.ec.europa.eu/en/policies/desi",
+      "type": "official",
+      "publishedDate": "2024-06-01",
+      "expiresAfter": "12M",
+      "covers": ["euBroadbandRanking", "fiveGCoverage", "digitalDecade"],
+      "note": "Also covers EC Digital Decade metrics (alias: ec-digital-decade-2024)"
+    },
+    "ec-digital-decade-2024": {
+      "provider": "European Commission",
+      "title": "EC Digital Decade 2024 Country Report — Portugal",
+      "url": "https://digital-strategy.ec.europa.eu/en/policies/countries-digitisation-performance",
+      "type": "official",
+      "publishedDate": "2024-06-01",
+      "expiresAfter": "12M",
+      "covers": ["fiveGCoverage", "digitalDecade", "connectivity"],
+      "note": "5G and digital infrastructure country data. Referenced by WEBSITE_CONTENT.json"
+    },
+    "landingjobs-2024": {
+      "provider": "Landing.jobs",
+      "title": "Portugal Tech Hiring Survey 2024",
+      "url": null,
+      "type": "survey",
+      "publishedDate": "2024-01-01",
+      "expiresAfter": "24M",
+      "covers": ["timeToHire", "retention", "techSalaries"],
+      "note": "Proprietary data, not publicly accessible"
+    },
+    "eu-education-monitor-2025": {
+      "provider": "EU Education Monitor",
+      "title": "Education and Training Monitor 2025 — Portugal",
+      "url": "https://op.europa.eu/en/publication-detail/-/publication/education-and-training-monitor-2025",
+      "type": "official",
+      "publishedDate": "2025-10-01",
+      "expiresAfter": "12M",
+      "covers": ["laborMarketShortages", "tertiaryAttainment"]
+    },
+    "sines-data-centre": {
+      "provider": "Sines Data Centre / Start Campus",
+      "title": "Sines Cable Landing Station & Start Campus",
+      "url": "https://startcampus.pt/",
+      "type": "official",
+      "publishedDate": "2025-01-01",
+      "expiresAfter": "24M",
+      "covers": ["sinesHub", "startCampus"]
+    },
+    "ecb-2024": {
+      "provider": "ECB",
+      "title": "European Central Bank Statistical Data Warehouse",
+      "url": "https://sdw.ecb.europa.eu/",
+      "type": "official",
+      "publishedDate": "2025-12-01",
+      "expiresAfter": "3M",
+      "covers": ["sovereignYield10Y"]
+    },
+    "linkedin-talent-insights": {
+      "provider": "LinkedIn Talent Insights",
+      "title": "LinkedIn Workforce Data",
+      "url": null,
+      "type": "survey",
+      "publishedDate": "2025-01-01",
+      "expiresAfter": "12M",
+      "covers": ["techWorkforceTotal", "cityBreakdown"],
+      "note": "Proprietary platform, counts are estimates"
+    },
+    "startup-portugal": {
+      "provider": "Startup Portugal",
+      "title": "Startup Portugal Ecosystem Report",
+      "url": "https://startupportugal.com/",
+      "type": "survey",
+      "publishedDate": "2025-01-01",
+      "expiresAfter": "12M",
+      "covers": ["retention"]
+    },
+    "a3es": {
+      "provider": "A3ES",
+      "title": "Agency for Assessment and Accreditation of Higher Education",
+      "url": "https://www.a3es.pt",
+      "type": "official",
+      "publishedDate": "2025-01-01",
+      "expiresAfter": "24M",
+      "covers": ["universityAccreditation", "programAccreditation"]
+    },
+    "incode-2030": {
+      "provider": "INCoDe.2030",
+      "title": "Portugal National Digital Competences Initiative",
+      "url": "https://www.incode2030.gov.pt",
+      "type": "official",
+      "publishedDate": "2024-01-01",
+      "expiresAfter": "24M",
+      "covers": ["digitalStemPlus", "digitalCompetences"]
+    },
+    "gpi-2024": {
+      "provider": "Institute for Economics & Peace",
+      "title": "Global Peace Index 2024",
+      "url": "https://www.visionofhumanity.org/maps/",
+      "type": "official",
+      "publishedDate": "2024-06-01",
+      "expiresAfter": "12M",
+      "covers": ["peaceRanking", "safetyScore"]
+    },
+    "ef-epi-2024": {
+      "provider": "Education First",
+      "title": "EF English Proficiency Index 2024",
+      "url": "https://www.ef.com/epi/",
+      "type": "survey",
+      "publishedDate": "2024-11-01",
+      "expiresAfter": "12M",
+      "covers": ["englishProficiency"]
+    },
+    "ehci-2018": {
+      "provider": "Health Consumer Powerhouse",
+      "title": "Euro Health Consumer Index 2018",
+      "url": "https://healthpowerhouse.com/publications/",
+      "type": "survey",
+      "publishedDate": "2019-02-01",
+      "expiresAfter": "N/A",
+      "covers": ["healthcareRanking"],
+      "note": "Last published edition. No newer version available as of Feb 2026."
+    }
+  }
+}

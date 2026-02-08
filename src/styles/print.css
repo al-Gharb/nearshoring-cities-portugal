@@ -1,0 +1,58 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   PRINT.CSS — Print-specific overrides
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media print {
+  body { font-size: 12pt; color: #000; background: #fff; }
+
+  .cover-page,
+  .scroll-indicator,
+  .back-to-map,
+  .theme-toggle,
+  .ai-simulator-cta,
+  .city-list-panel,
+  .simulator-form,
+  .prompt-output-wrapper,
+  .simulator-ai-links,
+  .simulator-actions,
+  .archive-toggle,
+  #verification-archive,
+  .transparency-section,
+  .toc-nav,
+  .city-toggle-btn,
+  .city-print-btn { display: none !important; }
+
+  .deeper-dive-container,
+  .deeper-dive-container[open],
+  .section-collapse,
+  .section-collapse[open],
+  details, details[open] {
+    display: block !important;
+  }
+  details > summary { display: none !important; }
+  .deeper-dive-content,
+  .section-collapse-body { display: block !important; }
+
+  .section-block,
+  .card,
+  .card-sm,
+  .highlight-box { box-shadow: none; border: 1px solid #ddd; }
+
+  /* Prevent page breaks inside cards/tables */
+  .card, .section-block, table, .city-section { break-inside: avoid; }
+  h2, h3, h4 { break-after: avoid; }
+
+  a { color: #000; text-decoration: underline; }
+  a[href]::after { content: " (" attr(href) ")"; font-size: 0.8em; color: #666; }
+  a[href^="#"]::after { content: none; }
+  a[href^="javascript"]::after { content: none; }
+
+  .container { max-width: 100%; padding: 0; }
+
+  /* Expand city profiles for print */
+  .city-grid {
+    max-height: none !important;
+    opacity: 1 !important;
+    overflow: visible !important;
+  }
+}

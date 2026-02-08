@@ -1,0 +1,586 @@
+{
+  "_meta": {
+    "schema": "2.0",
+    "description": "Fact-check claims v2.0 — Separated verifiable claims from internal calculations. One authoritative source per category.",
+    "lastUpdated": "2026-02-07",
+    "version": "2.0.0",
+    "sourceStrategy": {
+      "officeRent": "Cushman & Wakefield (quarterly MarketBeat reports)",
+      "residentialRent": "INE Statistics Portugal / Confidencial Imobiliário",
+      "costOfLiving": "Numbeo (crowdsourced comparative index)",
+      "graduates": "DGEEC official NUTS II/III totals only",
+      "macroeconomic": "European Commission Autumn Forecast + CFP",
+      "infrastructure": "ANACOM (telecom regulator) + Telegeography (cables)",
+      "workforce": "Eurostat Digital Economy & Society database"
+    },
+    "internalCalculations": {
+      "note": "These metrics are derived from official data using our methodology. They should NOT be sent for external verification. Instead, link to the methodology section explaining how they were calculated.",
+      "list": [
+        "Digital STEM+ (custom CNAEF code grouping)",
+        "Core ICT % (CNAEF 06 subset ratio)",
+        "Salary Index (INE regional wages normalized to Lisbon=100)",
+        "Cost comparison claims (derived from COL indices)"
+      ]
+    }
+  },
+
+  "categories": {
+
+    "macroeconomic": {
+      "id": "01",
+      "label": "Macroeconomic",
+      "description": "Portugal's economic fundamentals — verifiable against EC/Eurostat/CFP",
+      "confidenceScore": 85,
+      "primarySource": {
+        "name": "European Commission Economic Forecasts",
+        "url": "https://economy-finance.ec.europa.eu/economic-forecast-and-surveys/economic-forecasts_en",
+        "backups": ["CFP (https://cfp.pt)", "Eurostat", "Statistics Portugal (INE)"]
+      },
+      "claims": [
+        { "id": "MAC-01", "claim": "GDP Nominal 2024: €264.6B", "source": "INE/Eurostat national accounts", "verifiable": true },
+        { "id": "MAC-02", "claim": "Population 2024: 10.5M", "source": "Eurostat", "verifiable": true },
+        { "id": "MAC-03", "claim": "GDP Per Capita 2024: €25,200", "source": "Eurostat", "verifiable": true },
+        { "id": "MAC-04", "claim": "Public Debt 2024: €275B (94.9% GDP)", "source": "CFP/Statistics Portugal", "verifiable": true },
+        { "id": "MAC-05", "claim": "Trade Surplus 2024: +1.8% GDP (goods+services)", "source": "CFP", "verifiable": true, "note": "Tourism surplus offsets goods deficit" },
+        { "id": "MAC-10", "claim": "Real GDP Growth 2024: 1.9%", "source": "INE/Eurostat", "verifiable": true },
+        { "id": "MAC-11", "claim": "Real GDP Growth 2025: 1.9% forecast", "source": "EC Autumn 2025", "verifiable": true },
+        { "id": "MAC-12", "claim": "Real GDP Growth 2026: 2.2% forecast", "source": "EC Autumn 2025", "verifiable": true },
+        { "id": "MAC-13", "claim": "Real GDP Growth 2027: 2.1% forecast", "source": "EC Autumn 2025", "verifiable": true },
+        { "id": "MAC-20", "claim": "Unemployment Rate 2024: 6.5%", "source": "Eurostat LFS/CFP", "verifiable": true },
+        { "id": "MAC-21", "claim": "Unemployment Rate 2025: 6.1% forecast", "source": "CFP", "verifiable": true },
+        { "id": "MAC-22", "claim": "Unemployment Rate 2026: 6.0% forecast", "source": "CFP", "verifiable": true },
+        { "id": "MAC-23", "claim": "Unemployment Rate 2027: 5.9% forecast", "source": "CFP", "verifiable": true },
+        { "id": "MAC-30", "claim": "Employment Rate (20-64) 2024: 76.3%", "source": "Eurostat", "verifiable": true },
+        { "id": "MAC-31", "claim": "Employment Rate 2025: 76.9% forecast", "source": "CFP", "verifiable": true },
+        { "id": "MAC-32", "claim": "Employment Rate 2026: 77.4% forecast", "source": "CFP", "verifiable": true },
+        { "id": "MAC-33", "claim": "Employment Rate 2027: 77.8% forecast", "source": "CFP", "verifiable": true },
+        { "id": "MAC-40", "claim": "Tertiary Attainment (25-34): 43.2%", "source": "OECD/Eurostat", "verifiable": true },
+        { "id": "MAC-50", "claim": "HICP Inflation 2024: 2.7%", "source": "Eurostat/ECB", "verifiable": true },
+        { "id": "MAC-51", "claim": "HICP Inflation 2025: 2.3% forecast", "source": "CFP", "verifiable": true },
+        { "id": "MAC-52", "claim": "HICP Inflation 2026: 2.1% forecast", "source": "CFP", "verifiable": true },
+        { "id": "MAC-53", "claim": "HICP Inflation 2027: 2.0% forecast (at ECB target)", "source": "CFP", "verifiable": true },
+        { "id": "MAC-60", "claim": "Public Debt 2025: 91.2% GDP forecast", "source": "CFP", "verifiable": true },
+        { "id": "MAC-61", "claim": "Public Debt 2026: 89.4% GDP forecast", "source": "CFP", "verifiable": true },
+        { "id": "MAC-62", "claim": "Public Debt 2027: 88.1% GDP forecast", "source": "CFP", "verifiable": true },
+        { "id": "MAC-70", "claim": "Net Lending (Budget Surplus) 2024: +2.8% GDP", "source": "CFP", "verifiable": true },
+        { "id": "MAC-71", "claim": "Net Lending 2025: +2.1% GDP forecast", "source": "CFP", "verifiable": true },
+        { "id": "MAC-72", "claim": "Net Lending 2026: +1.5% GDP forecast", "source": "CFP", "verifiable": true },
+        { "id": "MAC-80", "claim": "Sovereign Yield (10Y) 2024: 3.0%", "source": "ECB", "verifiable": true },
+        { "id": "MAC-81", "claim": "Sovereign Yield 2025: 2.8% forecast", "source": "ECB/CFP", "verifiable": true },
+        { "id": "MAC-90", "claim": "GDP Deflator 2024: 4.4%", "source": "CFP", "verifiable": true },
+        { "id": "MAC-91", "claim": "GDP Deflator 2025: 3.6% forecast", "source": "CFP", "verifiable": true },
+        { "id": "MAC-92", "claim": "Private Consumption Growth 2024: 3.2%", "source": "CFP", "verifiable": true },
+        { "id": "MAC-93", "claim": "Private Consumption Growth 2025: 3.3% forecast", "source": "CFP", "verifiable": true },
+        { "id": "MAC-94", "claim": "Gross Fixed Capital Formation 2024: 3.1%", "source": "CFP", "verifiable": true },
+        { "id": "MAC-95", "claim": "Gross Fixed Capital Formation 2025: 3.6% forecast", "source": "CFP", "verifiable": true },
+        { "id": "MAC-96", "claim": "Gross Fixed Capital Formation 2026: 5.5% forecast", "source": "CFP", "verifiable": true }
+      ]
+    },
+
+    "digitalInfra": {
+      "id": "02",
+      "label": "Digital Infrastructure",
+      "description": "Connectivity, fiber, 5G, subsea cables — verifiable against ANACOM/Telegeography",
+      "confidenceScore": 90,
+      "primarySource": {
+        "name": "ANACOM (Portuguese Telecom Regulator)",
+        "url": "https://www.anacom.pt/render.jsp?categoryId=386968",
+        "backups": ["Telegeography Submarine Cable Map", "DESI Report"]
+      },
+      "claims": [
+        { "id": "DIG-01", "claim": "FTTH network coverage: 94.1% of dwellings", "source": "ANACOM Q4 2024", "verifiable": true },
+        { "id": "DIG-02", "claim": "FTTH take-up rate: 55.3% of covered households", "source": "ANACOM Q4 2024", "verifiable": true },
+        { "id": "DIG-03", "claim": "Fiber share of broadband: 68.9% of connections", "source": "ANACOM Q4 2024", "verifiable": true },
+        { "id": "DIG-04", "claim": "Lisbon Metro FTTH coverage: 99.3%", "source": "ANACOM Q4 2024", "verifiable": true },
+        { "id": "DIG-10", "claim": "5G population coverage: 98%", "source": "ANACOM 2024", "verifiable": true },
+        { "id": "DIG-11", "claim": "5G operators: MEO (Altice), NOS, Vodafone", "source": "ANACOM", "verifiable": true },
+        { "id": "DIG-20", "claim": "Average fixed broadband traffic: 319 GB/month (Q4 2024)", "source": "ANACOM Q4 2024", "verifiable": true },
+        { "id": "DIG-21", "claim": "Business-grade fiber: 1-10 Gbps symmetric available", "source": "ANACOM/ISP offerings", "verifiable": true },
+        { "id": "DIG-22", "claim": "Consumer fiber 500 Mbps: €30-45/month", "source": "MEO/NOS/Vodafone pricing", "verifiable": true },
+        { "id": "DIG-23", "claim": "EU ranking: 4th highest proportion of 100+ Mbps connections", "source": "ANACOM 2024", "verifiable": true },
+        { "id": "DIG-30", "claim": "Latency Portugal-Frankfurt: <25ms", "source": "AWS CloudPing", "verifiable": true },
+        { "id": "DIG-31", "claim": "Latency Portugal-Amsterdam: <25ms", "source": "AWS CloudPing", "verifiable": true },
+        { "id": "DIG-32", "claim": "Latency Portugal-São Paulo: ~45ms (via EllaLink)", "source": "EllaLink/network tests", "verifiable": true },
+        { "id": "DIG-33", "claim": "Latency Portugal-New York: ~80ms", "source": "Network tests", "verifiable": true },
+        { "id": "DIG-40", "claim": "9 operational submarine cables in Portugal", "source": "Telegeography 2024", "verifiable": true },
+        { "id": "DIG-41", "claim": "6+ additional cables planned (2024-2025)", "source": "Telegeography", "verifiable": true },
+        { "id": "DIG-42", "claim": "Cable landing points: Carcavelos, Sines, Sesimbra, Seixal, Burgau", "source": "Telegeography", "verifiable": true },
+        { "id": "DIG-50", "claim": "EllaLink: Sines-Fortaleza (Brazil), 100 Tbps capacity, ICE6 tech", "source": "EllaLink official", "verifiable": true },
+        { "id": "DIG-51", "claim": "2Africa: Carcavelos landing, 180 Tbps, Africa/ME/Asia ring", "source": "Telegeography/Meta", "verifiable": true },
+        { "id": "DIG-52", "claim": "Equiano: Sesimbra landing, South Africa/Namibia/Nigeria", "source": "Telegeography/Google", "verifiable": true },
+        { "id": "DIG-53", "claim": "ACE: Carcavelos landing, West Africa/South Africa", "source": "Telegeography", "verifiable": true },
+        { "id": "DIG-54", "claim": "MainOne: Seixal landing, West Africa (Nigeria, Ghana)", "source": "Telegeography", "verifiable": true },
+        { "id": "DIG-55", "claim": "WACS: Seixal landing, West Africa/South Africa", "source": "Telegeography", "verifiable": true },
+        { "id": "DIG-56", "claim": "SEA-ME-WE-3: Sesimbra landing, SE Asia/Middle East", "source": "Telegeography", "verifiable": true },
+        { "id": "DIG-57", "claim": "Europe India Gateway: Sesimbra landing, India via Mediterranean", "source": "Telegeography", "verifiable": true },
+        { "id": "DIG-58", "claim": "Tata TGN-Western Europe: Carcavelos, UK/Spain/Europe", "source": "Telegeography", "verifiable": true },
+        { "id": "DIG-59", "claim": "Medusa: Carcavelos (planned 2026), Mediterranean/N. Africa", "source": "Telegeography", "verifiable": true },
+        { "id": "DIG-60", "claim": "Nuvem: Sines (planned 2026), Bermuda/USA", "source": "Telegeography", "verifiable": true },
+        { "id": "DIG-70", "claim": "Sines designated as neutral digital port", "source": "Sines Data Centre", "verifiable": true },
+        { "id": "DIG-71", "claim": "Sines: Europe's westernmost major cable landing", "source": "Telegeography/EllaLink", "verifiable": true },
+        { "id": "DIG-72", "claim": "Sines: Multiple HDD bore pipes ready for future cables", "source": "Sines Data Centre", "verifiable": true },
+        { "id": "DIG-73", "claim": "Sines START Campus: up to 450MW hyperscaler capacity", "source": "Sines Data Centre", "verifiable": true },
+        { "id": "DIG-80", "claim": "Microsoft: $10B (~€8.6B) AI data center investment announced Nov 2025", "source": "Bloomberg/Microsoft", "verifiable": true },
+        { "id": "DIG-81", "claim": "Altice Data Center facility in Covilhã", "source": "Altice/MEO", "verifiable": true },
+        { "id": "DIG-90", "claim": "Terrestrial fiber to France and Spain for redundancy", "source": "ANACOM", "verifiable": true },
+        { "id": "DIG-91", "claim": "Sines-Lisbon-Madrid-Marseille low-latency corridor", "source": "EllaLink/Sines DC", "verifiable": true },
+        { "id": "DIG-92", "claim": "EU Digital Economy rank: 13th (DESI 2024)", "source": "EC DESI Report", "verifiable": true }
+      ]
+    },
+
+    "officeRent": {
+      "id": "03",
+      "label": "Office Rent (Commercial Real Estate)",
+      "description": "Prime office rent by city — verifiable against Cushman & Wakefield / JLL quarterly reports",
+      "confidenceScore": 82,
+      "primarySource": {
+        "name": "Cushman & Wakefield MarketBeat Portugal / JLL Portugal",
+        "url": "https://www.cushmanwakefield.com/en/portugal/insights/portugal-marketbeat",
+        "note": "Quarterly reports with prime rent ranges by zone. Use most recent quarter."
+      },
+      "claims": [
+        { "id": "OFF-01", "claim": "Lisbon prime CBD: €20-26/m²/month", "source": "JLL Portugal Q4 2024", "verifiable": true },
+        { "id": "OFF-02", "claim": "Lisbon secondary zones: €12-18/m²/month", "source": "JLL/C&W Q4 2024", "verifiable": true },
+        { "id": "OFF-03", "claim": "Porto Boavista CBD: €16-20/m²/month", "source": "JLL Portugal Q4 2024", "verifiable": true },
+        { "id": "OFF-04", "claim": "Porto secondary (Maia): €10-14/m²/month", "source": "JLL Q4 2024", "verifiable": true },
+        { "id": "OFF-05", "claim": "Braga office rent: €11-14/m²/month", "source": "JLL Portugal estimate", "verifiable": true },
+        { "id": "OFF-06", "claim": "Guimarães office rent: €9-12/m²/month", "source": "JLL Portugal estimate", "verifiable": true },
+        { "id": "OFF-07", "claim": "Coimbra office rent: €10-14/m²/month", "source": "JLL Portugal estimate", "verifiable": true },
+        { "id": "OFF-08", "claim": "Aveiro office rent: €10-13/m²/month", "source": "JLL Portugal estimate", "verifiable": true },
+        { "id": "OFF-09", "claim": "Covilhã office rent: €7-10/m²/month", "source": "Industry estimate", "verifiable": false, "note": "No primary market data" },
+        { "id": "OFF-10", "claim": "Évora office rent: €8-11/m²/month", "source": "Industry estimate", "verifiable": false, "note": "No primary market data" },
+        { "id": "OFF-11", "claim": "Faro office rent: €9-13/m²/month", "source": "Industry estimate", "verifiable": false, "note": "No primary market data" },
+        { "id": "OFF-12", "claim": "Setúbal office rent: €10-14/m²/month", "source": "Industry estimate", "verifiable": false },
+        { "id": "OFF-20", "claim": "Lisbon vacancy rate declining trend", "source": "C&W/JLL MarketBeat", "verifiable": true },
+        { "id": "OFF-21", "claim": "Porto office market more constrained than Lisbon", "source": "JLL Portugal", "verifiable": true },
+        { "id": "OFF-22", "claim": "Coworking options available in all featured cities", "source": "Coworker.com", "verifiable": true }
+      ],
+      "internalNote": "Secondary cities (Braga, Coimbra, etc.) are ESTIMATES based on Porto-30% rule. Mark as 'Industry estimate' not verifiable."
+    },
+
+    "residentialRent": {
+      "id": "04",
+      "label": "Residential Rent (Housing Costs)",
+      "description": "Average residential rents — verifiable against INE or Confidencial Imobiliário",
+      "confidenceScore": 75,
+      "primarySource": {
+        "name": "INE Statistics Portugal (Índice de Rendas Residenciais)",
+        "url": "https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_indicadores&contecto=pi&indOcorrCod=0011483",
+        "backups": ["Confidencial Imobiliário (SIR)", "Idealista price monitor"]
+      },
+      "claims": [
+        { "id": "REN-01", "claim": "Lisbon T1 rent: €1,000-1,650/month", "source": "Idealista/Numbeo Q4 2024", "verifiable": true },
+        { "id": "REN-02", "claim": "Porto T1 rent: €800-1,200/month", "source": "Idealista/Numbeo Q4 2024", "verifiable": true },
+        { "id": "REN-03", "claim": "Braga T1 rent: €600-850/month", "source": "Idealista/Numbeo Q4 2024", "verifiable": true },
+        { "id": "REN-04", "claim": "Guimarães T1 rent: €550-750/month", "source": "Idealista/Numbeo Q4 2024", "verifiable": true },
+        { "id": "REN-05", "claim": "Coimbra T1 rent: €600-900/month", "source": "Idealista/Numbeo Q4 2024", "verifiable": true },
+        { "id": "REN-06", "claim": "Aveiro T1 rent: €600-850/month", "source": "Idealista/Numbeo Q4 2024", "verifiable": true },
+        { "id": "REN-07", "claim": "Covilhã T1 rent: €400-550/month", "source": "Idealista/Numbeo Q4 2024", "verifiable": true },
+        { "id": "REN-08", "claim": "Évora T1 rent: €500-700/month", "source": "Idealista/Numbeo Q4 2024", "verifiable": true },
+        { "id": "REN-09", "claim": "Faro T1 rent: €700-950/month", "source": "Idealista/Numbeo Q4 2024", "verifiable": true },
+        { "id": "REN-10", "claim": "Setúbal T1 rent: €650-900/month", "source": "Idealista/Numbeo Q4 2024", "verifiable": true },
+        { "id": "REN-20", "claim": "National average rent increase: +7% YoY", "source": "INE 2024", "verifiable": true },
+        { "id": "REN-21", "claim": "Lisbon median rent: €15-18/m²/month", "source": "Confidencial Imobiliário Q4 2024", "verifiable": true },
+        { "id": "REN-22", "claim": "Porto median rent: €11-14/m²/month", "source": "Confidencial Imobiliário Q4 2024", "verifiable": true },
+        { "id": "REN-30", "claim": "Lisbon COL Index: 46 (NY=100)", "source": "Numbeo", "verifiable": true },
+        { "id": "REN-31", "claim": "Porto COL Index: 40 (NY=100)", "source": "Numbeo", "verifiable": true },
+        { "id": "REN-32", "claim": "Braga COL Index: 35 (NY=100)", "source": "Numbeo", "verifiable": true },
+        { "id": "REN-33", "claim": "Coimbra COL Index: 35 (NY=100)", "source": "Numbeo", "verifiable": true },
+        { "id": "REN-34", "claim": "Guimarães COL Index: 33 (NY=100)", "source": "Numbeo", "verifiable": true },
+        { "id": "REN-35", "claim": "Covilhã COL Index: 30 (NY=100)", "source": "Numbeo", "verifiable": true },
+        { "id": "REN-40", "claim": "Monthly essentials (excl rent): €600-700", "source": "Numbeo", "verifiable": true },
+        { "id": "REN-41", "claim": "Utilities (electricity, water, internet): €100-135/month", "source": "Numbeo", "verifiable": true }
+      ],
+      "internalNote": "Monthly rent ranges (€1,200-1,800) are derived from €/m² × average apartment size. Mark calculation methodology."
+    },
+
+    "workforce": {
+      "id": "05",
+      "label": "Workforce Talent",
+      "description": "Tech employment statistics — verifiable against Eurostat/INE",
+      "confidenceScore": 85,
+      "primarySource": {
+        "name": "Eurostat Digital Economy & Society Database",
+        "url": "https://ec.europa.eu/eurostat/web/digital-economy-and-society/database",
+        "backups": ["INE employment statistics", "LinkedIn Talent Insights"]
+      },
+      "claims": [
+        { "id": "WKF-01", "claim": "ICT specialists: 5.1% of total employment", "source": "Eurostat 2024", "verifiable": true },
+        { "id": "WKF-02", "claim": "ICT graduates: 3.8% of all graduates", "source": "Eurostat", "verifiable": true },
+        { "id": "WKF-03", "claim": "Female ICT specialists: 21.3%", "source": "Eurostat", "verifiable": true },
+        { "id": "WKF-04", "claim": "EU average ICT specialists: 4.8%", "source": "Eurostat", "verifiable": true },
+        { "id": "WKF-05", "claim": "EU average ICT graduates: 4.2%", "source": "Eurostat", "verifiable": true },
+        { "id": "WKF-06", "claim": "EU average female ICT: 19.1%", "source": "Eurostat", "verifiable": true },
+        { "id": "WKF-07", "claim": "ICT workforce trend: +12% since 2020", "source": "Eurostat", "verifiable": true },
+        { "id": "WKF-10", "claim": "Total tech workforce: ~250k (official Eurostat)", "source": "Eurostat 5.1% × 4.9M employed", "verifiable": true },
+        { "id": "WKF-11", "claim": "LinkedIn tech profiles: ~165k", "source": "LinkedIn Talent Insights", "verifiable": true },
+        { "id": "WKF-12", "claim": "LinkedIn covers ~66% of formal ICT workforce", "source": "LinkedIn/Eurostat cross-reference", "verifiable": false },
+        { "id": "WKF-20", "claim": "Lisbon tech workforce: ~85k (LinkedIn) / ~129k (official)", "source": "LinkedIn/Eurostat", "verifiable": true },
+        { "id": "WKF-21", "claim": "Porto tech workforce: ~45k (LinkedIn) / ~68k (official)", "source": "LinkedIn/Eurostat", "verifiable": true },
+        { "id": "WKF-22", "claim": "Coimbra tech workforce: ~12k (LinkedIn) / ~18k (official)", "source": "LinkedIn/Eurostat", "verifiable": true },
+        { "id": "WKF-23", "claim": "Braga tech workforce: ~8k (LinkedIn) / ~12k (official)", "source": "LinkedIn/Eurostat", "verifiable": true },
+        { "id": "WKF-24", "claim": "Aveiro tech workforce: ~6.5k (LinkedIn) / ~10k (official)", "source": "LinkedIn/Eurostat", "verifiable": true },
+        { "id": "WKF-25", "claim": "79% of tech workforce concentrated in Lisbon + Porto", "source": "LinkedIn/Eurostat", "verifiable": true },
+        { "id": "WKF-30", "claim": "Time to hire (mid-level): 4-6 weeks", "source": "Landing.jobs", "verifiable": true },
+        { "id": "WKF-31", "claim": "Time to hire (senior/niche): 8-12 weeks", "source": "Landing.jobs", "verifiable": true },
+        { "id": "WKF-32", "claim": "Lisbon most competitive hiring market", "source": "Landing.jobs", "verifiable": true },
+        { "id": "WKF-40", "claim": "78% of IT workforce: bachelor's or higher", "source": "Eurostat/INE", "verifiable": true },
+        { "id": "WKF-41", "claim": "15% of IT workforce: master's or PhD", "source": "Eurostat/INE", "verifiable": true },
+        { "id": "WKF-42", "claim": "68% of ICT workers hold tertiary education (up 18pp since 2014)", "source": "Eurostat", "verifiable": true },
+        { "id": "WKF-50", "claim": "Median IT worker age: 32", "source": "Eurostat/INE", "verifiable": true },
+        { "id": "WKF-51", "claim": "Under-35 segment: 58% of IT workforce", "source": "Eurostat/INE", "verifiable": true },
+        { "id": "WKF-52", "claim": "Female ICT growth: 26.9% (trending up)", "source": "Eurostat", "verifiable": true },
+        { "id": "WKF-60", "claim": "Average tenure Lisbon: 2.1 years", "source": "Landing.jobs", "verifiable": true },
+        { "id": "WKF-61", "claim": "Average tenure Porto: 2.8 years", "source": "Landing.jobs", "verifiable": true },
+        { "id": "WKF-62", "claim": "Average tenure secondary cities: 3.5+ years", "source": "Landing.jobs", "verifiable": true },
+        { "id": "WKF-70", "claim": "Senior engineers shortage nationally", "source": "EU Education Monitor 2025", "verifiable": true },
+        { "id": "WKF-71", "claim": "AI/ML specialists shortage nationally", "source": "EU Education Monitor 2025", "verifiable": true },
+        { "id": "WKF-72", "claim": "Median sector tenure: 18-24 months", "source": "Startup Portugal", "verifiable": true }
+      ]
+    },
+
+    "taxIncentives": {
+      "id": "06",
+      "label": "Strategic & Tax",
+      "description": "R&D credits, visa programs — verifiable against ANI/AICEP official docs",
+      "confidenceScore": 88,
+      "primarySource": {
+        "name": "ANI (Agência Nacional de Inovação) - SIFIDE II",
+        "url": "https://www.ani.pt/pt/financiamento/incentivos-fiscais/sifide/",
+        "backups": ["AICEP Portugal Global", "AT (Tax Authority)"]
+      },
+      "claims": [
+        { "id": "TAX-01", "claim": "SIFIDE II: R&D tax credit up to 82.5% of eligible expenses", "source": "ANI official", "verifiable": true },
+        { "id": "TAX-02", "claim": "SIFIDE II base rate: 32.5%", "source": "ANI official", "verifiable": true },
+        { "id": "TAX-03", "claim": "SIFIDE II incremental rate: 50% above baseline", "source": "ANI official", "verifiable": true },
+        { "id": "TAX-04", "claim": "SIFIDE II SME bonus: up to 47.75% total", "source": "ANI official", "verifiable": true },
+        { "id": "TAX-10", "claim": "Tech Visa: Fast-track work permits for non-Schengen tech talent", "source": "IAPMEI", "verifiable": true },
+        { "id": "TAX-11", "claim": "Tech Visa: 15-day approval process", "source": "IAPMEI", "verifiable": true },
+        { "id": "TAX-20", "claim": "Corporate Tax: 21% standard rate", "source": "Autoridade Tributária", "verifiable": true },
+        { "id": "TAX-21", "claim": "Corporate Tax: 17% for first €25k (SME rate)", "source": "Autoridade Tributária", "verifiable": true },
+        { "id": "TAX-22", "claim": "Municipal surcharge (Derrama): 0-1.5% additional", "source": "AT", "verifiable": true },
+        { "id": "TAX-23", "claim": "Large operations can negotiate incentive packages", "source": "AICEP", "verifiable": true },
+        { "id": "TAX-30", "claim": "IFICI regime: Tax Incentive for Scientific Research and Innovation", "source": "AICEP", "verifiable": true },
+        { "id": "TAX-31", "claim": "IFICI replaces NHR for qualifying activities (NHR 2.0)", "source": "AICEP", "verifiable": true },
+        { "id": "TAX-40", "claim": "Interior regions: Additional tax benefits", "source": "AICEP", "verifiable": true },
+        { "id": "TAX-41", "claim": "Free Trade Zones: Madeira/Azores reduced rates", "source": "AT", "verifiable": true },
+        { "id": "TAX-50", "claim": "Portugal 2030: EU structural funds available for tech investment", "source": "Portugal 2030", "verifiable": true },
+        { "id": "TAX-51", "claim": "PRR Recovery Plan: Digital transformation grants", "source": "PRR Portugal", "verifiable": true }
+      ]
+    },
+
+    "graduates": {
+      "id": "07",
+      "label": "University Talent",
+      "description": "Official STEM graduate totals by NUTS region — verifiable against DGEEC",
+      "confidenceScore": 78,
+      "primarySource": {
+        "name": "DGEEC InfoCursos Portal",
+        "url": "https://infocursos.mec.pt/",
+        "note": "Portal requires interactive queries. Export data to CSV for verification."
+      },
+      "claims": [
+        { "id": "GRD-01", "claim": "Total STEM graduates (CNAEF 4+5): ~18,000/year", "source": "DGEEC 2023/24", "verifiable": true },
+        { "id": "GRD-02", "claim": "ICT graduates (CNAEF 06): ~3,500/year", "source": "DGEEC 2023/24", "verifiable": true },
+        { "id": "GRD-03", "claim": "Norte region official STEM total: 6,706", "source": "DGEEC regional 2023/24", "verifiable": true },
+        { "id": "GRD-04", "claim": "Centro region official STEM total: 3,987", "source": "DGEEC regional 2023/24", "verifiable": true },
+        { "id": "GRD-05", "claim": "Lisboa region official STEM total: 3,655", "source": "DGEEC regional 2023/24", "verifiable": true },
+        { "id": "GRD-10", "claim": "Lisbon Metro Area: largest graduate output", "source": "DGEEC regional", "verifiable": true },
+        { "id": "GRD-11", "claim": "Norte region: second largest graduate output", "source": "DGEEC regional", "verifiable": true },
+        { "id": "GRD-12", "claim": "Centro region: third largest graduate output", "source": "DGEEC regional", "verifiable": true },
+        { "id": "GRD-20", "claim": "North Cluster: Braga, Guimarães, Porto share talent pool", "source": "DGEEC/Geographic analysis", "verifiable": true },
+        { "id": "GRD-21", "claim": "North Cluster: High commuting via A3/A7 + urban rail", "source": "CP/Infrastructure", "verifiable": true },
+        { "id": "GRD-22", "claim": "UMinho + FEUP feed same regional pool", "source": "DGEEC institutional data", "verifiable": true },
+        { "id": "GRD-30", "claim": "Central Cluster: Aveiro, Coimbra moderate sharing", "source": "DGEEC/Geographic analysis", "verifiable": true },
+        { "id": "GRD-31", "claim": "Aveiro leans Porto (~45 min train)", "source": "CP schedules", "verifiable": true },
+        { "id": "GRD-32", "claim": "Coimbra exports graduates to Lisbon/Porto", "source": "Survey data", "verifiable": true },
+        { "id": "GRD-40", "claim": "Capital Cluster: Lisbon + Évora low-moderate sharing", "source": "DGEEC/Geographic analysis", "verifiable": true },
+        { "id": "GRD-41", "claim": "Évora ~1h15 to Lisbon, hybrid-only viable", "source": "Google Maps", "verifiable": true },
+        { "id": "GRD-42", "claim": "Évora experiences brain drain to Lisbon", "source": "Survey data", "verifiable": true },
+        { "id": "GRD-50", "claim": "Interior Cluster: Covilhã isolated, high relocation", "source": "UBI survey", "verifiable": true },
+        { "id": "GRD-51", "claim": "UBI produces quality engineers despite isolation", "source": "UBI data", "verifiable": true },
+        { "id": "GRD-60", "claim": "Algarve Cluster: Faro minimal talent sharing", "source": "DGEEC/Geographic", "verifiable": true },
+        { "id": "GRD-61", "claim": "Faro: Expat/nomad hub, tourism-tech niche", "source": "Nomad List/Survey", "verifiable": true },
+        { "id": "GRD-70", "claim": "Lisbon-Porto: No daily commute (3+ hrs)", "source": "CP schedules", "verifiable": true },
+        { "id": "GRD-71", "claim": "Alfa Pendular enables weekly splits for senior roles", "source": "CP schedules", "verifiable": true },
+        { "id": "GRD-80", "claim": "Regional salary data: Grande Lisboa baseline", "source": "INE indicator 0012653", "verifiable": true },
+        { "id": "GRD-81", "claim": "Norte region wages: 74.2% of Lisbon", "source": "INE 2023", "verifiable": true },
+        { "id": "GRD-82", "claim": "Centro region wages: 71.9% of Lisbon", "source": "INE 2023", "verifiable": true },
+        { "id": "GRD-83", "claim": "Alentejo region wages: 73.0% of Lisbon", "source": "INE 2023", "verifiable": true },
+        { "id": "GRD-84", "claim": "Algarve region wages: 68.2% of Lisbon", "source": "INE 2023", "verifiable": true },
+        { "id": "GRD-85", "claim": "Oeste/Tejo region wages: 68.8% of Lisbon", "source": "INE 2023", "verifiable": true },
+        { "id": "GRD-86", "claim": "Setúbal Peninsula wages: 78.9% of Lisbon", "source": "INE 2023", "verifiable": true }
+      ],
+      "internalNote": "Our 'Digital STEM+' category is a CUSTOM CNAEF mapping — NOT directly verifiable. Link to methodology section."
+    },
+
+    "city:lisbon": {
+      "id": "C01",
+      "label": "Lisbon Profile",
+      "description": "Lisbon ecosystem — verifiable company presence, universities, infrastructure",
+      "confidenceScore": 88,
+      "primarySource": { "name": "Company/University websites", "url": null },
+      "claims": [
+        { "id": "LIS-01", "claim": "IST (Instituto Superior Técnico) — University of Lisbon engineering", "source": "tecnico.ulisboa.pt", "verifiable": true },
+        { "id": "LIS-02", "claim": "FCUL (Faculdade de Ciências) — University of Lisbon sciences", "source": "ciencias.ulisboa.pt", "verifiable": true },
+        { "id": "LIS-03", "claim": "FCT NOVA — NOVA University computer science", "source": "fct.unl.pt", "verifiable": true },
+        { "id": "LIS-04", "claim": "ISCTE — University Institute of Lisbon", "source": "iscte-iul.pt", "verifiable": true },
+        { "id": "LIS-05", "claim": "ISEL — Lisbon Polytechnic Institute engineering", "source": "isel.pt", "verifiable": true },
+        { "id": "LIS-06", "claim": "Microsoft development center with Azure and AI engineering", "source": "microsoft.com/pt-pt", "verifiable": true },
+        { "id": "LIS-07", "claim": "Google engineering and cloud services office", "source": "careers.google.com", "verifiable": true },
+        { "id": "LIS-08", "claim": "Talkdesk unicorn: AI contact center (~$10B valuation per 2021 press)", "source": "talkdesk.com + TechCrunch", "verifiable": true },
+        { "id": "LIS-09", "claim": "OutSystems unicorn: Low-code platform (~$9.5B valuation per 2021 press)", "source": "outsystems.com + Forbes", "verifiable": true },
+        { "id": "LIS-10", "claim": "Farfetch: Founded by José Neves, acquired by Coupang 2024", "source": "farfetch.com", "verifiable": true },
+        { "id": "LIS-11", "claim": "Siemens digital industries and smart infrastructure", "source": "siemens.com", "verifiable": true },
+        { "id": "LIS-12", "claim": "Volkswagen Digital Solutions — VW Group software", "source": "vwds.pt", "verifiable": true },
+        { "id": "LIS-13", "claim": "Mercedes-Benz.io — digital products hub", "source": "mercedes-benz.io", "verifiable": true },
+        { "id": "LIS-14", "claim": "Unbabel — AI-powered translation platform", "source": "unbabel.com", "verifiable": true },
+        { "id": "LIS-15", "claim": "Codacy — automated code review platform", "source": "codacy.com", "verifiable": true },
+        { "id": "LIS-16", "claim": "INESC-ID: Distributed Systems, HPC research", "source": "inesc-id.pt", "verifiable": true },
+        { "id": "LIS-17", "claim": "LASIGE: Privacy & Security, Dependable Systems", "source": "lasige.pt", "verifiable": true },
+        { "id": "LIS-18", "claim": "NOVA LINCS: Software Reliability research", "source": "nova-lincs.di.fct.unl.pt", "verifiable": true },
+        { "id": "LIS-19", "claim": "ELLIS Unit Lisbon: ML Theory, Responsible AI", "source": "ellis.eu/units/lisbon", "verifiable": true },
+        { "id": "LIS-20", "claim": "LIP: CERN/ESA particle physics lab", "source": "lip.pt", "verifiable": true },
+        { "id": "LIS-21", "claim": "Dozens of coworking spaces (Heden, Second Home, Spaces, etc.)", "source": "coworker.com", "verifiable": true },
+        { "id": "LIS-22", "claim": "Humberto Delgado Airport (LIS), 7km from center", "source": "ana.pt", "verifiable": true },
+        { "id": "LIS-23", "claim": "~2,800 sunshine hours/year, Mediterranean climate", "source": "IPMA/WMO", "verifiable": true }
+      ]
+    },
+
+    "city:porto": {
+      "id": "C02",
+      "label": "Porto Profile",
+      "description": "Porto ecosystem — verifiable company presence, universities, infrastructure",
+      "confidenceScore": 90,
+      "primarySource": { "name": "Company/University websites", "url": null },
+      "claims": [
+        { "id": "PRT-01", "claim": "FEUP — Faculty of Engineering, University of Porto", "source": "fe.up.pt", "verifiable": true },
+        { "id": "PRT-02", "claim": "FCUP — Faculty of Sciences, University of Porto", "source": "fc.up.pt", "verifiable": true },
+        { "id": "PRT-03", "claim": "ISEP — Porto Polytechnic Institute engineering", "source": "isep.ipp.pt", "verifiable": true },
+        { "id": "PRT-04", "claim": "Critical TechWorks: BMW Group JV, largest Porto tech employer", "source": "criticaltechworks.com", "verifiable": true },
+        { "id": "PRT-05", "claim": "Farfetch luxury fashion marketplace, Porto HQ", "source": "farfetch.com", "verifiable": true },
+        { "id": "PRT-06", "claim": "Blip: Flutter Entertainment development center", "source": "blip.pt", "verifiable": true },
+        { "id": "PRT-07", "claim": "Natixis financial services technology center", "source": "natixisinportugal.com", "verifiable": true },
+        { "id": "PRT-08", "claim": "Infineon Technologies semiconductor solutions", "source": "infineon.com", "verifiable": true },
+        { "id": "PRT-09", "claim": "Sword Health: AI-powered physical therapy", "source": "swordhealth.com", "verifiable": true },
+        { "id": "PRT-10", "claim": "Jscrambler: JavaScript security platform", "source": "jscrambler.com", "verifiable": true },
+        { "id": "PRT-11", "claim": "Anchorage Digital: Digital asset infrastructure", "source": "anchorage.com", "verifiable": true },
+        { "id": "PRT-12", "claim": "INESC TEC: Applied R&D in AI, Robotics, Energy", "source": "inesctec.pt", "verifiable": true },
+        { "id": "PRT-13", "claim": "IT Porto: Telecom, Networks, Wireless research", "source": "it.pt", "verifiable": true },
+        { "id": "PRT-14", "claim": "CISTER: Real-Time & Embedded Computing Systems", "source": "cister-labs.pt", "verifiable": true },
+        { "id": "PRT-15", "claim": "Francisco Sá Carneiro Airport (OPO), 11km from center", "source": "ana.pt", "verifiable": true },
+        { "id": "PRT-16", "claim": "Porto i/o, UPTEC, Founders Founders coworking", "source": "coworker.com", "verifiable": true },
+        { "id": "PRT-17", "claim": "UNESCO World Heritage historic center", "source": "UNESCO", "verifiable": true },
+        { "id": "PRT-18", "claim": "~2,200 sunshine hours/year, Atlantic climate", "source": "IPMA", "verifiable": true }
+      ]
+    },
+
+    "city:braga": {
+      "id": "C03",
+      "label": "Braga Profile",
+      "description": "Braga ecosystem — verifiable company presence, universities, infrastructure",
+      "confidenceScore": 88,
+      "primarySource": { "name": "Company/University websites", "url": null },
+      "claims": [
+        { "id": "BRG-01", "claim": "University of Minho — Gualtar Campus in Braga", "source": "uminho.pt", "verifiable": true },
+        { "id": "BRG-02", "claim": "IPCA — Polytechnic Institute of Cávado and Ave", "source": "portal.ipca.pt", "verifiable": true },
+        { "id": "BRG-03", "claim": "Bosch R&D center for automotive and IoT", "source": "bosch.pt", "verifiable": true },
+        { "id": "BRG-04", "claim": "Primavera BSS (now Cegid): Leading Portuguese ERP, HQ in Braga", "source": "cegid.com/pt", "verifiable": true },
+        { "id": "BRG-05", "claim": "Checkmarx: Israeli cybersecurity company, major Braga office", "source": "checkmarx.com", "verifiable": true },
+        { "id": "BRG-06", "claim": "Subvisual: Product design and development studio", "source": "subvisual.com", "verifiable": true },
+        { "id": "BRG-07", "claim": "Coverflex: Flexible benefits and compensation platform", "source": "coverflex.com", "verifiable": true },
+        { "id": "BRG-08", "claim": "HASLab/INESC TEC: High-Assurance Software, Formal Methods", "source": "haslab.uminho.pt", "verifiable": true },
+        { "id": "BRG-09", "claim": "ALGORITMI: Industrial Information Systems, Optimization", "source": "algoritmi.uminho.pt", "verifiable": true },
+        { "id": "BRG-10", "claim": "INL: International Iberian Nanotechnology Laboratory", "source": "inl.int", "verifiable": true },
+        { "id": "BRG-11", "claim": "GNRation creative hub", "source": "gnration.pt", "verifiable": true },
+        { "id": "BRG-12", "claim": "Startup Braga incubator/accelerator", "source": "startupbraga.com", "verifiable": true },
+        { "id": "BRG-13", "claim": "Bom Jesus do Monte sanctuary (UNESCO)", "source": "UNESCO", "verifiable": true },
+        { "id": "BRG-14", "claim": "~45 min to Porto via train/car", "source": "CP/Google Maps", "verifiable": true }
+      ]
+    },
+
+    "city:guimaraes": {
+      "id": "C04",
+      "label": "Guimarães Profile",
+      "description": "Guimarães ecosystem — verifiable company presence, universities",
+      "confidenceScore": 85,
+      "primarySource": { "name": "Company/University websites", "url": null },
+      "claims": [
+        { "id": "GUI-01", "claim": "University of Minho — Azurém Engineering Campus", "source": "uminho.pt", "verifiable": true },
+        { "id": "GUI-02", "claim": "Bosch Car Multimedia: Largest Bosch facility in Portugal", "source": "bosch.pt", "verifiable": true },
+        { "id": "GUI-03", "claim": "Farfetch presence at AvePark tech park", "source": "avepark.pt", "verifiable": true },
+        { "id": "GUI-04", "claim": "Sentinel Smart Vision: Computer vision and AI solutions", "source": "sentinel-vision.com", "verifiable": true },
+        { "id": "GUI-05", "claim": "Platforme: Mass customization for fashion industry", "source": "platforme.com", "verifiable": true },
+        { "id": "GUI-06", "claim": "B-Parts: Recycled auto parts marketplace", "source": "b-parts.com", "verifiable": true },
+        { "id": "GUI-07", "claim": "CCG/ZGDV: Centre for Computer Graphics, 3D/CV research", "source": "ccg.pt", "verifiable": true },
+        { "id": "GUI-08", "claim": "Done Lab: Advanced Manufacturing research", "source": "donelab.pt", "verifiable": true },
+        { "id": "GUI-09", "claim": "PIEP: Polymer Engineering Innovation Center", "source": "piep.pt", "verifiable": true },
+        { "id": "GUI-10", "claim": "SpinPark university incubator", "source": "spinpark.pt", "verifiable": true },
+        { "id": "GUI-11", "claim": "UNESCO World Heritage historic center (Birthplace of Portugal)", "source": "UNESCO", "verifiable": true },
+        { "id": "GUI-12", "claim": "~25 min to Braga, ~50 min to Porto", "source": "Google Maps", "verifiable": true }
+      ]
+    },
+
+    "city:coimbra": {
+      "id": "C05",
+      "label": "Coimbra Profile",
+      "description": "Coimbra ecosystem — verifiable company presence, universities",
+      "confidenceScore": 87,
+      "primarySource": { "name": "Company/University websites", "url": null },
+      "claims": [
+        { "id": "COI-01", "claim": "University of Coimbra — founded 1290, oldest in Portugal", "source": "uc.pt", "verifiable": true },
+        { "id": "COI-02", "claim": "ISEC — Coimbra Polytechnic Institute engineering", "source": "isec.pt", "verifiable": true },
+        { "id": "COI-03", "claim": "Critical Software: Safety-critical systems (NASA, ESA, Airbus clients)", "source": "criticalsoftware.com", "verifiable": true },
+        { "id": "COI-04", "claim": "Feedzai: AI fraud detection for banking (unicorn candidate)", "source": "feedzai.com", "verifiable": true },
+        { "id": "COI-05", "claim": "Bluepharma: Pharmaceutical R&D", "source": "bluepharma.pt", "verifiable": true },
+        { "id": "COI-06", "claim": "Mobileum: Telecom analytics and roaming solutions", "source": "mobileum.com", "verifiable": true },
+        { "id": "COI-07", "claim": "Stratio Automotive: Predictive fleet maintenance", "source": "stratioautomotive.com", "verifiable": true },
+        { "id": "COI-08", "claim": "SiosLife: Digital solutions for senior care", "source": "sioslife.com", "verifiable": true },
+        { "id": "COI-09", "claim": "WIT Software: Communications platform", "source": "wit-software.com", "verifiable": true },
+        { "id": "COI-10", "claim": "CISUC: Evolutionary Computing, ML, Cognitive Systems", "source": "cisuc.uc.pt", "verifiable": true },
+        { "id": "COI-11", "claim": "ISR-UC: Intelligent Transportation, Mobile Robotics", "source": "isr.uc.pt", "verifiable": true },
+        { "id": "COI-12", "claim": "IPN (Instituto Pedro Nunes): Technology transfer, incubation", "source": "ipn.pt", "verifiable": true },
+        { "id": "COI-13", "claim": "UNESCO World Heritage university", "source": "UNESCO", "verifiable": true },
+        { "id": "COI-14", "claim": "~2,500 sunshine hours/year, continental climate", "source": "IPMA", "verifiable": true }
+      ]
+    },
+
+    "city:aveiro": {
+      "id": "C06",
+      "label": "Aveiro Profile",
+      "description": "Aveiro ecosystem — verifiable company presence, universities",
+      "confidenceScore": 86,
+      "primarySource": { "name": "Company/University websites", "url": null },
+      "claims": [
+        { "id": "AVE-01", "claim": "University of Aveiro — telecommunications specialty", "source": "ua.pt", "verifiable": true },
+        { "id": "AVE-02", "claim": "Altice Labs: Largest telecom R&D lab in Portugal", "source": "alticelabs.com", "verifiable": true },
+        { "id": "AVE-03", "claim": "Nokia Portugal: 5G and network infrastructure research", "source": "nokia.com", "verifiable": true },
+        { "id": "AVE-04", "claim": "Bosch Termotecnologia: Industrial IoT and sensors", "source": "bosch.pt/aveiro", "verifiable": true },
+        { "id": "AVE-05", "claim": "Ubiwhere: Smart city platforms and urban computing", "source": "ubiwhere.com", "verifiable": true },
+        { "id": "AVE-06", "claim": "KIT-AR: AR for manufacturing", "source": "kit-ar.com", "verifiable": true },
+        { "id": "AVE-07", "claim": "IT Aveiro: 5G/6G Research, Network Slicing, SDN/NFV", "source": "it.pt", "verifiable": true },
+        { "id": "AVE-08", "claim": "IEETA: Biomedical Signal Processing, Information Retrieval", "source": "ieeta.pt", "verifiable": true },
+        { "id": "AVE-09", "claim": "Ria de Aveiro lagoon, Art Nouveau architecture", "source": "Tourism Portugal", "verifiable": true },
+        { "id": "AVE-10", "claim": "~50 min to Porto via train", "source": "CP", "verifiable": true },
+        { "id": "AVE-11", "claim": "~2,300 sunshine hours/year, Atlantic climate", "source": "IPMA", "verifiable": true }
+      ]
+    },
+
+    "city:covilha": {
+      "id": "C07",
+      "label": "Covilhã Profile",
+      "description": "Covilhã ecosystem — verifiable company presence, universities",
+      "confidenceScore": 88,
+      "primarySource": { "name": "Company/University websites", "url": null },
+      "claims": [
+        { "id": "COV-01", "claim": "UBI (Universidade da Beira Interior) — aerospace specialty", "source": "ubi.pt", "verifiable": true },
+        { "id": "COV-02", "claim": "UBI aerospace engineering program", "source": "ubi.pt", "verifiable": true },
+        { "id": "COV-03", "claim": "Altice Data Center facility in Covilhã", "source": "meo.pt", "verifiable": true },
+        { "id": "COV-04", "claim": "Parkurbis: Science and Technology Park", "source": "parkurbis.pt", "verifiable": true },
+        { "id": "COV-05", "claim": "IT Covilhã: Networks, Optical Communications research", "source": "it.pt", "verifiable": true },
+        { "id": "COV-06", "claim": "Serra da Estrela: Portugal only ski resort nearby", "source": "Tourism Portugal", "verifiable": true },
+        { "id": "COV-07", "claim": "~2h30 to Lisbon or Porto (most isolated featured city)", "source": "Google Maps", "verifiable": true },
+        { "id": "COV-08", "claim": "Lowest cost of living among featured cities", "source": "Numbeo/Internal", "verifiable": false }
+      ]
+    },
+
+    "city:evora": {
+      "id": "C08",
+      "label": "Évora Profile",
+      "description": "Évora ecosystem — verifiable company presence, universities",
+      "confidenceScore": 81,
+      "primarySource": { "name": "Company/University websites", "url": null },
+      "claims": [
+        { "id": "EVO-01", "claim": "University of Évora — founded 1559", "source": "uevora.pt", "verifiable": true },
+        { "id": "EVO-02", "claim": "Embraer Portugal aerospace operations", "source": "embraer.com", "verifiable": true },
+        { "id": "EVO-03", "claim": "TE Connectivity: Electronics and sensor solutions", "source": "te.com", "verifiable": true },
+        { "id": "EVO-04", "claim": "Agroinsider: Precision agriculture and satellite monitoring", "source": "agroinsider.com", "verifiable": true },
+        { "id": "EVO-05", "claim": "PITE: Parque Industrial e Tecnológico de Évora", "source": "pite.pt", "verifiable": true },
+        { "id": "EVO-06", "claim": "ePACT: Technology transfer center for Alentejo", "source": "pact.pt", "verifiable": true },
+        { "id": "EVO-07", "claim": "UNESCO World Heritage city center, Roman Temple", "source": "UNESCO", "verifiable": true },
+        { "id": "EVO-08", "claim": "~1h15 to Lisbon by car", "source": "Google Maps", "verifiable": true },
+        { "id": "EVO-09", "claim": "~2,700 sunshine hours/year, hot dry summers", "source": "IPMA", "verifiable": true }
+      ]
+    },
+
+    "city:faro": {
+      "id": "C09",
+      "label": "Faro Profile",
+      "description": "Faro ecosystem — verifiable company presence, universities",
+      "confidenceScore": 83,
+      "primarySource": { "name": "Company/University websites", "url": null },
+      "claims": [
+        { "id": "FAR-01", "claim": "University of Algarve (UAlg)", "source": "ualg.pt", "verifiable": true },
+        { "id": "FAR-02", "claim": "Faro International Airport (FAO), 4km from center", "source": "ana.pt/fao", "verifiable": true },
+        { "id": "FAR-03", "claim": "CIMA: Centre for Marine & Environmental Research", "source": "cima.ualg.pt", "verifiable": true },
+        { "id": "FAR-04", "claim": "CIU3A: Marine robotics and ocean safety research", "source": "ciu3a.ualg.pt", "verifiable": true },
+        { "id": "FAR-05", "claim": "CRIA: Regional Centre for Innovation, incubation", "source": "cria.pt", "verifiable": true },
+        { "id": "FAR-06", "claim": "Algarve STP: Science & Technology Park", "source": "algarvestp.pt", "verifiable": true },
+        { "id": "FAR-07", "claim": "Oceano Fresco: Sustainable aquaculture startup", "source": "oceano-fresco.pt", "verifiable": true },
+        { "id": "FAR-08", "claim": "Ria Formosa natural park", "source": "ICNF", "verifiable": true },
+        { "id": "FAR-09", "claim": "~3,000 sunshine hours/year (highest in Portugal)", "source": "IPMA", "verifiable": true },
+        { "id": "FAR-10", "claim": "Digital nomad/remote work destination", "source": "Nomad List", "verifiable": true }
+      ]
+    }
+  },
+
+  "internalMethods": {
+    "_note": "These are internal calculations. DO NOT include in external fact-check prompts. Instead, display link to methodology.",
+    
+    "digitalStemPlus": {
+      "label": "Digital STEM+ Graduate Count",
+      "description": "Custom aggregation of CNAEF codes beyond standard ICT (06) to include digitally-relevant engineering and science fields.",
+      "methodology": "See index.html#methodology-graduates",
+      "cnaefCodes": ["06 (ICT)", "46 (Mathematics/Statistics)", "52 (Civil Engineering)", "48 (Computing - broad)"],
+      "disclaimer": "This is our proprietary methodology. Official DGEEC publishes only standard CNAEF totals."
+    },
+
+    "salaryIndex": {
+      "label": "Salary Index (Lisbon=100)",
+      "description": "Regional salary adjustment based on INE NUTS II wage data, normalized to Lisbon Metropolitan Area = 100.",
+      "methodology": "See index.html#methodology-salaries",
+      "sourceData": "INE indicator 0012653 (average monthly earnings by NUTS II)",
+      "calculation": "index = (region_avg_wage / lisbon_avg_wage) × 100",
+      "disclaimer": "Index values are our derivation. INE publishes raw wage figures, not indices."
+    },
+
+    "ictPercentage": {
+      "label": "ICT % of STEM",
+      "description": "Ratio of Core ICT graduates (CNAEF 06) to total Digital STEM+ graduates.",
+      "methodology": "See index.html#methodology-graduates",
+      "calculation": "ictPct = (coreIct / digitalStemPlus) × 100",
+      "disclaimer": "Depends on our Digital STEM+ definition."
+    },
+
+    "costComparisons": {
+      "label": "Cost Comparison Claims",
+      "description": "Claims like '30% cheaper than Lisbon' are derived from COL index differences.",
+      "methodology": "See index.html#methodology-costs",
+      "calculation": "savings = (1 - (city_col / lisbon_col)) × 100",
+      "disclaimer": "Derived calculation, not directly verifiable."
+    }
+  },
+
+  "verificationMethodology": {
+    "outputFormat": "JSONL",
+    "statusCodes": [
+      { "code": "SUPPORTED", "description": "Official source confirms value within ±5% tolerance" },
+      { "code": "PARTIALLY_SUPPORTED", "description": "Directionally correct, value differs 5-15% or source is secondary" },
+      { "code": "CONTRADICTED", "description": "Official source shows materially different value (>15% or wrong direction)" },
+      { "code": "UNVERIFIABLE", "description": "No authoritative source accessible; cannot confirm or deny" },
+      { "code": "OUTDATED", "description": "Source found but data is >12 months old" }
+    ],
+    "confidenceLevels": [
+      { "level": "HIGH", "description": "Primary official source with exact URL and matching value" },
+      { "level": "MEDIUM", "description": "Secondary source or minor variance" },
+      { "level": "LOW", "description": "Estimate, inference, or unavailable primary source" }
+    ],
+    "exampleOutput": "{\"claim_id\":\"MAC-01\",\"status\":\"SUPPORTED\",\"verified_value\":\"€289.4B\",\"confidence\":\"HIGH\",\"source_url\":\"https://www.ine.pt/...\",\"notes\":\"INE Q4 2024 release\"}",
+    "rules": [
+      "One claim per line (JSONL format)",
+      "Always include source_url if found",
+      "Note if source is behind paywall or requires login",
+      "Flag claims marked as 'internalCalculation' as NOT_FOR_VERIFICATION"
+    ]
+  }
+}

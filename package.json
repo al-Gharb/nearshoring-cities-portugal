@@ -1,0 +1,34 @@
+{
+  "name": "nearshoring-cities-portugal",
+  "version": "0.8.0",
+  "description": "Data-driven analysis of Portugal's best cities for IT nearshoring",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run --passWithNoTests",
+    "test:watch": "vitest",
+    "test:visual": "playwright test tests/visual/",
+    "test:all": "npm run test && npm run test:visual",
+    "deploy": "npm run build && npx gh-pages -d dist"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.5.1",
+    "d3": "^7.9.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.48.0",
+    "vite": "^5.4.0",
+    "vitest": "^2.1.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/al-gharb/nearshoring-cities-portugal"
+  },
+  "license": "UNLICENSED"
+}
