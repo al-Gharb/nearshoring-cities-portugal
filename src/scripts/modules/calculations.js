@@ -42,19 +42,96 @@ export function calculateICTPct(coreICT, officialStem) {
 }
 
 /**
- * Calculate salary index from regional baseline and COL index.
- * Formula: baseline × (1 + (COL - 30) × 1.33 / 100), capped at 100
+ * Calculate salary index from regional baseline and COL + Rent index.
+ * Formula: baseline × (1 + max(COL − 30, 0) × 1.77 / 100), capped at 100
  *
- * @param {number} regionalBaseline — INE regional salary percentage (e.g., 77.1 for Porto)
- * @param {number} colIndex — Numbeo Cost-of-Living index (NYC=100)
+/**
+ * Calculate salary index from INE regional baseline and city COL index.
+ *
+ * Two-step formula:
+ *   1. IT Convergence: compresses INE all-sector baseline toward 100,
+ *      reflecting that IT salaries vary less between regions than the
+ *      all-sector average (remote work, national competition).
+ *        compressed = baseline + (100 − baseline) × IT_CONVERGENCE
+ *
+ *   2. COL Adjustment: shifts up/down based on local cost of living
+ *      relative to the national average.
+ *        salaryIndex = compressed + (COL − NATIONAL_COL_AVG) × COL_SENSITIVITY
+ *
+ * Capped at 100 (Lisbon = 100 by definition).
+ *
+ * Parameters (tuned so Porto ≈ 92, all cities ≥ 81):
+ *   IT_CONVERGENCE  = 0.45  — 45% compression toward national parity
+ *   NATIONAL_COL_AVG = 33   — Numbeo national average COL (NYC = 100)
+ *   COL_SENSITIVITY  = 0.65 — each COL point above/below avg → ±0.65
+ *
+ * @param {number} regionalBaseline — INE Bachelor % vs Lisbon (e.g. 77.0 for Norte)
+ * @param {number} colIndex — Numbeo Cost-of-Living index (NYC = 100)
  * @returns {number} — salary index (Lisbon = 100)
  */
 export function calculateSalaryIndex(regionalBaseline, colIndex) {
-  const COL_FLOOR = 30;
-  const COL_SENSITIVITY = 1.33;
+  const IT_CONVERGENCE = 0.45;
+  const NATIONAL_COL_AVG = 33;
+  const COL_SENSITIVITY = 0.65;
 
-  const raw = regionalBaseline * (1 + ((colIndex - COL_FLOOR) * COL_SENSITIVITY) / 100);
-  return Math.min(Math.round(raw * 10) / 10, 100.0);
+  const compressed = regionalBaseline + (100 - regionalBaseline) * IT_CONVERGENCE;
+  const adjusted = compressed + (colIndex - NATIONAL_COL_AVG) * COL_SENSITIVITY;
+  return Math.min(Math.round(adjusted * 10) / 10, 100.0);
+}
+
+/**
+ * Auto-compute salary indices for ALL cities using INE baselines + COL.
+ * Reads INE region → city mapping from COMPENSATION_DATA.json,
+ * reads each city's colIndex from MASTER.json,
+ * writes computed salaryIndex back into the in-memory city objects.
+ *
+ * Call once after loadDatabases() and before any rendering.
+ *
+ * @param {Object} master — MASTER.json (cities, config, etc.)
+ * @param {Object} compensation — COMPENSATION_DATA.json
+ */
+export function computeAllSalaryIndices(master, compensation) {
+  const ine = compensation?.ineRegionalEarnings;
+  if (!ine?.regions || !ine?.regionToCityMapping) {
+    console.warn('computeAllSalaryIndices: missing INE data, skipping');
+    return;
+  }
+
+  const lisbonBachelor = ine.regions[ine.lisbonBaselineRegion]?.[ine.lisbonBaselineField];
+  if (!lisbonBachelor || lisbonBachelor <= 0) {
+    console.warn('computeAllSalaryIndices: invalid Lisbon baseline');
+    return;
+  }
+
+  // Build region → baseline % lookup
+  const regionBaselines = {};
+  for (const [regionKey, regionData] of Object.entries(ine.regions)) {
+    const bachelor = regionData[ine.lisbonBaselineField];
+    if (bachelor != null) {
+      regionBaselines[regionKey] = (bachelor / lisbonBachelor) * 100;
+    }
+  }
+
+  // Iterate mapping and compute each city's salary index
+  for (const [regionKey, cityIds] of Object.entries(ine.regionToCityMapping)) {
+    const baseline = regionBaselines[regionKey];
+    if (baseline == null) continue;
+
+    for (const cityId of cityIds) {
+      const city = master?.cities?.[cityId];
+      if (!city?.costs?.colIndex?.value) continue;
+
+      const col = city.costs.colIndex.value;
+      const newIndex = calculateSalaryIndex(baseline, col);
+
+      // Write back into in-memory object
+      if (city.costs.salaryIndex) {
+        city.costs.salaryIndex.value = newIndex;
+      } else {
+        city.costs.salaryIndex = { value: newIndex, baseline: 'Lisbon = 100' };
+      }
+    }
+  }
 }
 
 /**

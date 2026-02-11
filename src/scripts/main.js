@@ -6,6 +6,7 @@
  */
 
 import { loadDatabases, getStore } from './modules/database.js';
+import { computeAllSalaryIndices } from './modules/calculations.js';
 import { initThemeToggle } from './modules/themeToggle.js';
 import { renderCityTable } from './modules/cityTable.js';
 import { renderBubbleChart } from './modules/bubbleChart.js';
@@ -317,6 +318,10 @@ async function init() {
   try {
     // 1. Load all databases in parallel
     await loadDatabases();
+
+    // 1b. Auto-compute salary indices from INE baselines + COL
+    const { master, compensation } = getStore();
+    computeAllSalaryIndices(master, compensation);
 
     // 2. Initialize theme (reads localStorage, applies class)
     initThemeToggle();

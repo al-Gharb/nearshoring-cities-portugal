@@ -333,6 +333,58 @@ function renderSectionScoreCards() {
 }
 
 /**
+ * Populate the INE Regional Earnings table dynamically from COMPENSATION_DATA.json.
+ * Reads raw 14× values from ineRegionalEarnings, converts to 12× for display,
+ * and auto-calculates % vs Lisbon from Bachelor column.
+ */
+function populateINETable() {
+  const tbody = document.getElementById('ine-table-body');
+  if (!tbody) return;
+
+  const comp = getCompensationData();
+  const ine = comp?.ineRegionalEarnings;
+  if (!ine?.regions || !ine?.displayOrder) return;
+
+  const CONV = 14 / 12; // 14× → 12× conversion factor
+  const columns = ine.displayColumns || ['primary', 'profCourse', 'preBologna', 'bachelor', 'master'];
+  const baselineRegion = ine.regions[ine.lisbonBaselineRegion];
+  const lisbonBachelor14x = baselineRegion?.[ine.lisbonBaselineField] || 1;
+
+  const rows = ine.displayOrder.map(regionKey => {
+    const region = ine.regions[regionKey];
+    if (!region || region.display === false) return '';
+
+    const isHighlight = region.highlight === true;
+    const rowClass = isHighlight ? ' class="ine-highlight ine-lisbon"' : '';
+    const nameCell = isHighlight
+      ? `<td><strong>${region.name}</strong></td>`
+      : `<td>${region.name}</td>`;
+
+    // Convert each column from 14× to 12× and format
+    const dataCells = columns.map(col => {
+      const raw14x = region[col];
+      if (raw14x == null) return '<td class="col-numeric">—</td>';
+      const val12x = Math.round(raw14x * CONV);
+      const formatted = `€${val12x.toLocaleString('en-US')}`;
+      return `<td class="col-numeric">${formatted}</td>`;
+    }).join('');
+
+    // Calculate % vs Lisbon from Bachelor column
+    const bachelor14x = region[ine.lisbonBaselineField];
+    let pctCell = '<td class="col-numeric">—</td>';
+    if (bachelor14x != null && lisbonBachelor14x > 0) {
+      const pct = ((bachelor14x / lisbonBachelor14x) * 100).toFixed(1);
+      const pctFormatted = isHighlight ? `<strong>${pct}%</strong>` : `${pct}%`;
+      pctCell = `<td class="col-numeric">${pctFormatted}</td>`;
+    }
+
+    return `<tr${rowClass}>${nameCell}${dataCells}${pctCell}</tr>`;
+  }).filter(Boolean);
+
+  tbody.innerHTML = rows.join('');
+}
+
+/**
  * Populate the IT Salary Ranges table dynamically from COMPENSATION_DATA.json.
  * Reads htmlAuthoritative fields (hand-tuned annual ranges) for each role.
  */
@@ -426,6 +478,7 @@ function populateTechStackPremiums() {
 export function populateAll() {
   populateDbValues();
   populateMethodology();
+  populateINETable();
   populateSalaryTable();
   populateTechStackPremiums();
   renderFactCheckCards();

@@ -16,11 +16,25 @@
     "salaryFormat": "12x",
     "salaryFormatExplanation": "All salary values are normalized to 12 monthly payments for international comparison. Portugal's labor law mandates 14 payments/year (12 regular + holiday subsidy + Christmas subsidy), but we express salaries as if paid in 12 equal installments to match global standards. The 14-payment system is mentioned for context only.",
     "formula": "final_salary = (base_midpoint × tier_multiplier × (1 + tech_premium)) × (city_salary_index / 100)",
+    "salaryIndexFormula": {
+      "description": "IT-convergence-compressed INE baseline + COL adjustment",
+      "step1": "compressed = ineBaseline + (100 − ineBaseline) × IT_CONVERGENCE",
+      "step2": "salaryIndex = compressed + (colIndex − NATIONAL_COL_AVG) × COL_SENSITIVITY",
+      "step3": "cap at 100 (Lisbon = 100 by definition)",
+      "parameters": {
+        "IT_CONVERGENCE": 0.45,
+        "NATIONAL_COL_AVG": 33,
+        "COL_SENSITIVITY": 0.65
+      },
+      "rationale": "IT salaries vary less between Portuguese regions than all-sector averages due to remote work, national talent competition, and employer COL adjustments. The convergence factor (0.45) compresses INE all-sector baselines toward 100, while the COL adjustment (±0.65 per Numbeo point) captures local cost-of-living pressure.",
+      "autoCalculated": true,
+      "implementation": "computeAllSalaryIndices() in calculations.js runs at startup, reading INE baselines from COMPENSATION_DATA.json and COL from each city in MASTER.json"
+    },
     "notes": [
       "CRITICAL: All values are in 12x format (14 Portuguese payments normalized to 12 for international comparison)",
       "Base bands are Lisbon-equivalent (salaryIndex = 100)",
       "Apply single highest tech-stack premium (do NOT stack)",
-      "City salary indices from MASTER.json",
+      "City salary indices auto-computed from INE baseline + COL at runtime (see salaryIndexFormula)",
       "All values gross monthly before tax, expressed in 12x format",
       "HTML display values are authoritative — the htmlAuthoritative field stores the hand-tuned annual ranges shown on the website",
       "Lead/Principal = Senior × 1.12 (ratio of 1.40/1.25 multipliers)",
@@ -271,6 +285,131 @@
     "_note": "IMPORTANT: All salary values are in 12x format. Legally binding values change by government decree. Total employer cost ~25-30% above gross salary (SS + meal allowance)."
   },
 
+  "ineRegionalEarnings": {
+    "source": "INE — MTSSS/GEP Personnel Tables (Indicator 0012653)",
+    "year": 2023,
+    "format": "14x",
+    "formatNote": "Raw values are official 14× Portuguese format. Display auto-converts to 12× equivalent (×14/12 ≈ ×1.167). Percentage vs Lisbon is auto-calculated from Bachelor column.",
+    "lisbonBaselineField": "bachelor",
+    "lisbonBaselineRegion": "grandeLisboa",
+    "displayColumns": ["primary", "profCourse", "preBologna", "bachelor", "master"],
+    "columnLabels": {
+      "primary": "Primary (€)",
+      "profCourse": "Prof. Course (€)",
+      "preBologna": "Pre-Bologna (€)",
+      "bachelor": "Bachelor (€)",
+      "master": "Master (€)"
+    },
+    "columnTooltips": {
+      "primary": "Lower than 1st cycle of primary education",
+      "profCourse": "Short-cycle professional course",
+      "preBologna": "(Pre-Bologna) short-cycle tertiary course",
+      "bachelor": "Bachelor's level",
+      "master": "Master's level"
+    },
+    "displayOrder": ["grandeLisboa", "peninsulaSetubal", "norte", "alentejo", "centro", "oesteTejo", "algarve"],
+    "regions": {
+      "portugal": {
+        "name": "Portugal",
+        "nutsII": "National",
+        "display": false,
+        "total": 1460.81,
+        "primary": 970.16,
+        "profCourse": 1413.22,
+        "preBologna": 2190.46,
+        "bachelor": 2152.25,
+        "master": 2379.77
+      },
+      "norte": {
+        "name": "Norte",
+        "nutsII": "Norte",
+        "display": true,
+        "total": 1348.66,
+        "primary": 951.14,
+        "profCourse": 1357.46,
+        "preBologna": 2024.07,
+        "bachelor": 1947.58,
+        "master": 2156.48
+      },
+      "centro": {
+        "name": "Centro",
+        "nutsII": "Centro",
+        "display": true,
+        "total": 1305.72,
+        "primary": 966.60,
+        "profCourse": 1245.53,
+        "preBologna": 1755.46,
+        "bachelor": 1756.21,
+        "master": 1965.84
+      },
+      "oesteTejo": {
+        "name": "Oeste/Tejo",
+        "nutsII": "Oeste e Vale do Tejo",
+        "display": true,
+        "total": 1249.77,
+        "primary": 995.32,
+        "profCourse": 1271.50,
+        "preBologna": 1832.99,
+        "bachelor": 1763.35,
+        "master": 1978.00
+      },
+      "grandeLisboa": {
+        "name": "G. Lisboa",
+        "nutsII": "Grande Lisboa",
+        "highlight": true,
+        "display": true,
+        "total": 1817.17,
+        "primary": 987.94,
+        "profCourse": 1673.49,
+        "preBologna": 2543.41,
+        "bachelor": 2527.71,
+        "master": 2713.93
+      },
+      "peninsulaSetubal": {
+        "name": "P. Setúbal",
+        "nutsII": "Península de Setúbal",
+        "display": true,
+        "total": 1433.11,
+        "primary": 953.06,
+        "profCourse": 1283.38,
+        "preBologna": 2132.30,
+        "bachelor": 2066.26,
+        "master": 2139.84
+      },
+      "alentejo": {
+        "name": "Alentejo",
+        "nutsII": "Alentejo",
+        "display": true,
+        "total": 1326.13,
+        "primary": 973.58,
+        "profCourse": 1336.05,
+        "preBologna": 1957.42,
+        "bachelor": 1880.40,
+        "master": 2285.68
+      },
+      "algarve": {
+        "name": "Algarve",
+        "nutsII": "Algarve",
+        "display": true,
+        "total": 1238.68,
+        "primary": 954.85,
+        "profCourse": 1367.60,
+        "preBologna": 1774.68,
+        "bachelor": 1722.67,
+        "master": 1955.57
+      }
+    },
+    "regionToCityMapping": {
+      "grandeLisboa": ["lisbon"],
+      "peninsulaSetubal": ["setubal"],
+      "norte": ["porto", "braga", "guimaraes", "vilareal", "vianacastelo", "braganca"],
+      "centro": ["coimbra", "aveiro", "covilha", "viseu", "castelobranco"],
+      "oesteTejo": ["leiria", "santarem", "tomar"],
+      "alentejo": ["evora", "beja", "portalegre"],
+      "algarve": ["faro"]
+    }
+  },
+
   "calculationExamples": [
     {
       "scenario": "Senior Software Engineer in Porto (Core Backend) - 12x format",
@@ -282,15 +421,16 @@
         "techStack": "coreBackend",
         "techPremium": 0.00,
         "city": "Porto",
-        "cityIndex": 87.4
+        "cityIndex": 91.9,
+        "_salaryIndexCalculation": "INE Norte baseline 77.0% → compressed 87.35 → +COL(40−33)×0.65 = +4.55 → 91.9"
       },
       "calculation": {
         "step1": "3646 × 1.25 = 4558 (after tier multiplier)",
         "step2": "4558 × (1 + 0.00) = 4558 (no tech premium)",
-        "step3": "4558 × (87.4 / 100) = 3984 EUR/month (12x format)"
+        "step3": "4558 × (91.9 / 100) = 4189 EUR/month (12x format)"
       },
       "result": {
-        "grossMonthly": 3984,
+        "grossMonthly": 4189,
         "unit": "EUR"
       }
     },
@@ -304,15 +444,16 @@
         "techStack": "dataML",
         "techPremium": 0.25,
         "city": "Braga",
-        "cityIndex": 82.2
+        "cityIndex": 88.7,
+        "_salaryIndexCalculation": "INE Norte baseline 77.0% → compressed 87.35 → +COL(35−33)×0.65 = +1.30 → 88.7"
       },
       "calculation": {
         "step1": "4132 × 1.00 = 4132 (mid-level baseline)",
         "step2": "4132 × (1 + 0.25) = 5165 (with ML premium)",
-        "step3": "5165 × (82.2 / 100) = 4246 EUR/month (12x format)"
+        "step3": "5165 × (88.7 / 100) = 4581 EUR/month (12x format)"
       },
       "result": {
-        "grossMonthly": 4246,
+        "grossMonthly": 4581,
         "unit": "EUR"
       }
     }

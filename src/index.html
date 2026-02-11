@@ -319,7 +319,7 @@
         <span class="header-meta-sep">|</span>
         <span class="header-meta-item">
           <i class="fa-regular fa-calendar-check" aria-hidden="true"></i>
-          <strong>Last Update:</strong> <span aria-label="Last updated February 8, 2026">Feb. 08, 2026</span>
+          <strong>Last Update:</strong> <span aria-label="Last updated February 11, 2026">Feb. 08, 2026</span>
         </span>
         <span class="header-meta-sep">|</span>
         <span class="header-meta-item">
@@ -473,7 +473,7 @@
                   <th scope="col" class="col-numeric col-ict" title="Core ICT graduates/year — DGEEC CNAEF codes 481 (CS) + 523 (Electronics). City values are ≈estimates proportionally derived from official DGEEC regional totals; subtotals (*) are the actual DGEEC figures."><i class="fa-solid fa-user-graduate" aria-hidden="true"></i> ICT/yr</th>
                   <th scope="col" class="col-numeric col-ict col-with-badge" title="Auto-calculated: (Core ICT ÷ Official STEM) × 100 — shows what share of STEM graduates specialize in ICT"><span class="th-content"><span class="th-text">ICT %</span><span class="badge-auto" title="Auto-calculated: (Core ICT ÷ Official STEM) × 100">auto</span></span></th>
                   <th scope="col" class="col-numeric col-stemplus col-with-badge" title="Digital STEM+ — ≈estimated: round(Official STEM × 1.27), using INCoDe.2030 expansion factor to include adjacent digital programs (Info Systems, UX/UI, CTeSP vocational)"><span class="th-content"><span class="th-text"><i class="fa-solid fa-user-graduate" aria-hidden="true"></i><i class="fa-solid fa-user" aria-hidden="true"></i> STEM+/yr</span><span class="badge-auto" title="Auto-calculated: round(Official STEM × 1.27) — INCoDe.2030 expansion factor">auto</span></span></th>
-                  <th scope="col" class="col-numeric col-with-badge" title="Salary Index — auto-calculated: INE regional wages normalized to Lisbon = 100, adjusted by cost-of-living pressure"><span class="th-content"><span class="th-text">Salary Index</span><span class="badge-auto" title="Auto-calculated: Regional Baseline × (1 + (COL − 30) × 1.33 / 100), cap 100">auto</span></span></th>
+                  <th scope="col" class="col-numeric col-with-badge" title="Salary Index — auto-calculated: INE baseline compressed 45% toward 100 (IT convergence) + COL adjustment ±0.65/pt"><span class="th-content"><span class="th-text">Salary Index</span><span class="badge-auto" title="Auto-calculated: compressed baseline + (COL − 33) × 0.65, cap 100">auto</span></span></th>
                   <th scope="col" class="col-numeric" title="Office rent per m²/month — Derived from multiple sources: Cushman & Wakefield, JLL Portugal, Idealista. AI fact-checked.">Office €/m²</th>
                   <th scope="col" class="col-numeric" title="Residential rent per month — Derived from multiple sources: Idealista, Numbeo, C&W, JLL. 1-bedroom ~50 m², city center. AI fact-checked.">Res. Rent €</th>
                   <th scope="col" class="col-numeric" title="Cost of Living + Rent Index — Source: Numbeo (NYC = 100). Where unavailable, Numbeo-style estimate derived from regional cost patterns, AI fact-checked.">COL + Rent Index</th>
@@ -856,30 +856,40 @@
             <h4><i class="fa-solid fa-calculator" aria-hidden="true"></i> Salary Index Methodology <span class="badge-auto">AUTO-CALCULATED</span></h4>
             <div class="callout-success">
               <strong><i class="fa-solid fa-sync-alt"></i> Dynamic:</strong>
-              Values auto-calculated from COL + Rent Index. Changing COL + Rent Index will update Salary Index on page refresh.
+              Values auto-calculated at page load from INE baseline + COL index. Changing a city's COL index in MASTER.json will update its Salary Index on next page load.
             </div>
-            <p><strong>Base:</strong> INE/MTSSS regional average earnings (2024). Lisbon = 100% reference.</p>
-            <p><strong>COL Adjustment:</strong></p>
-            <ul>
-              <li>The <strong>COL + Rent Index</strong> (from Numbeo) already captures living costs including residential rent</li>
-              <li>Higher COL = employers must pay more to maintain living standards</li>
-              <li><em>(Modeling assumption)</em> Floor of 30 represents the lowest realistic COL in Portugal</li>
-              <li><em>(Modeling assumption)</em> <strong>1.33× multiplier</strong> increases COL weight by 33% to better reflect salary differentials</li>
-            </ul>
-            <p><strong>Formula:</strong></p>
+            <p><strong>Why IT convergence?</strong> INE all-sector regional earnings show 68–82% variation vs Lisbon, but IT salaries are significantly more compressed across regions due to remote work, national talent competition, and employer COL adjustments. The convergence factor accounts for this IT-specific compression.</p>
+            <p><strong>Two-Step Formula:</strong></p>
+            <ol>
+              <li><strong>IT Convergence (Step 1):</strong> Compress INE all-sector baseline toward 100<br>
+                <code>compressed = baseline + (100 − baseline) × 0.45</code><br>
+                <em>Example (Norte, baseline 77.0%): 77.0 + (100 − 77.0) × 0.45 = 87.35</em></li>
+              <li><strong>COL Adjustment (Step 2):</strong> Shift by local cost-of-living vs national average<br>
+                <code>salaryIndex = compressed + (COL − 33) × 0.65</code><br>
+                <em>Example (Porto, COL 40): 87.35 + (40 − 33) × 0.65 = 87.35 + 4.55 = 91.9</em></li>
+            </ol>
             <div class="formula-block">
-              <code>City Salary Index = Regional Baseline × (1 + (COL − 30) × 1.33 / 100)</code><br>
-              <span class="formula-note">Cap: 100% (Lisbon) · Floor: Regional baseline</span>
+              <code>salaryIndex = [baseline + (100 − baseline) × 0.45] + (COL − 33) × 0.65</code><br>
+              <span class="formula-note">Cap: 100 (Lisbon) · IT_CONVERGENCE = 0.45 · NAT_COL_AVG = 33 · COL_SENSITIVITY = 0.65</span>
             </div>
+            <p><strong>Parameters:</strong></p>
+            <ul>
+              <li><strong>IT_CONVERGENCE = 0.45</strong> — IT salaries are 45% more compressed than all-sector averages (remote work, national competition)</li>
+              <li><strong>NATIONAL_COL_AVG = 33</strong> — Numbeo national average COL index (NYC = 100)</li>
+              <li><strong>COL_SENSITIVITY = 0.65</strong> — Each COL point above/below national average adds/subtracts 0.65 to the salary index</li>
+            </ul>
             <p><strong>Example: Porto</strong></p>
             <div class="example-block">
-              Regional baseline (Norte) = 77.1% · COL + Rent Index = 40<br>
-              <strong>City Index = 77.1% × (1 + (40-30)×1.33/100) = 77.1% × 1.133 ≈ 87%</strong>
+              INE Norte Bachelor = 77.0% of Lisbon · COL Index = 40<br>
+              Step 1: 77.0 + (100 − 77.0) × 0.45 = <strong>87.35</strong> (compressed)<br>
+              Step 2: 87.35 + (40 − 33) × 0.65 = <strong>91.9</strong> (final salary index)
             </div>
             <ul class="source-metrics">
-              <li><strong>Inputs:</strong> INE regional baseline + Numbeo COL + Rent Index</li>
-              <li><strong>Method:</strong> Derived calculation (modeling assumption)</li>
-              <li><strong>Validation:</strong> Cross-checked with Numbeo COL indices, Glassdoor/Indeed salary surveys. Hover over any Salary Index cell for breakdown.</li>
+              <li><strong>Inputs:</strong> INE regional Bachelor earnings (COMPENSATION_DATA.json) + Numbeo COL index (MASTER.json per city)</li>
+              <li><strong>Method:</strong> Derived calculation with IT convergence assumption (modeling)</li>
+              <li><strong>Range:</strong> 81.3 (Covilhã, Castelo Branco) to 100 (Lisbon)</li>
+              <li><strong>Validation:</strong> Cross-checked with Glassdoor/Indeed salary surveys, Numbeo COL indices</li>
+              <li><strong>Implementation:</strong> <code>computeAllSalaryIndices()</code> in calculations.js — runs at startup, auto-updates on data change</li>
             </ul>
           </div>
 
@@ -1786,66 +1796,20 @@
                       <thead>
                         <tr>
                           <th>NUTS II Region</th>
-                          <th class="col-numeric">Total (€)</th>
-                          <th class="col-numeric">Primary (€)</th>
-                          <th class="col-numeric">Bachelor (€)</th>
-                          <th class="col-numeric">Master (€)</th>
+                          <th class="col-numeric" title="Lower than 1st cycle of primary education">Primary (€)</th>
+                          <th class="col-numeric" title="Short-cycle professional course">Prof. Course (€)</th>
+                          <th class="col-numeric" title="(Pre-Bologna) short-cycle tertiary course">Pre-Bologna (€)</th>
+                          <th class="col-numeric" title="Bachelor's level">Bachelor (€)</th>
+                          <th class="col-numeric" title="Master's level">Master (€)</th>
+                          <th class="col-numeric" title="Bachelor earnings as % of G. Lisboa (salary index baseline)">% vs Lisbon</th>
                         </tr>
                       </thead>
-                      <tbody>
-                        <tr class="ine-highlight ine-lisbon">
-                          <td><strong>G. Lisboa</strong></td>
-                          <td class="col-numeric"><strong>€2,120</strong></td>
-                          <td class="col-numeric">€1,153</td>
-                          <td class="col-numeric">€2,949</td>
-                          <td class="col-numeric">€3,166</td>
-                        </tr>
-                        <tr>
-                          <td>P. Setúbal</td>
-                          <td class="col-numeric">€1,672</td>
-                          <td class="col-numeric">€1,112</td>
-                          <td class="col-numeric">€2,411</td>
-                          <td class="col-numeric">€2,496</td>
-                        </tr>
-                        <tr>
-                          <td>Norte</td>
-                          <td class="col-numeric">€1,573</td>
-                          <td class="col-numeric">€1,110</td>
-                          <td class="col-numeric">€2,272</td>
-                          <td class="col-numeric">€2,516</td>
-                        </tr>
-                        <tr>
-                          <td>Alentejo</td>
-                          <td class="col-numeric">€1,547</td>
-                          <td class="col-numeric">€1,136</td>
-                          <td class="col-numeric">€2,194</td>
-                          <td class="col-numeric">€2,667</td>
-                        </tr>
-                        <tr>
-                          <td>Centro</td>
-                          <td class="col-numeric">€1,523</td>
-                          <td class="col-numeric">€1,128</td>
-                          <td class="col-numeric">€2,049</td>
-                          <td class="col-numeric">€2,293</td>
-                        </tr>
-                        <tr>
-                          <td>Oeste/Tejo</td>
-                          <td class="col-numeric">€1,458</td>
-                          <td class="col-numeric">€1,161</td>
-                          <td class="col-numeric">€2,057</td>
-                          <td class="col-numeric">€2,308</td>
-                        </tr>
-                        <tr>
-                          <td>Algarve</td>
-                          <td class="col-numeric">€1,445</td>
-                          <td class="col-numeric">€1,114</td>
-                          <td class="col-numeric">€2,010</td>
-                          <td class="col-numeric">€2,282</td>
-                        </tr>
+                      <tbody id="ine-table-body">
+                        <!-- Dynamically populated from COMPENSATION_DATA.json -->
                       </tbody>
                     </table>
                   </div>
-                  <p class="scorecard-footer"><strong>Source:</strong> <a href="#src-ine" class="source-link">INE (2023)</a> — MTSSS/GEP Personnel Tables (Indicator 0012653), average gross monthly earnings (€) by NUTS 2024 and education level. Original 14× values converted to 12× monthly equivalent (×14/12 ≈ ×1.167).</p>
+                  <p class="scorecard-footer"><strong>Source:</strong> <a href="#src-ine" class="source-link">INE (2023)</a> — MTSSS/GEP Personnel Tables (Indicator 0012653), average gross monthly earnings (€) by NUTS 2024 and education level. Original 14× values converted to 12× monthly equivalent (×14/12 ≈ ×1.167). % vs Lisbon = Bachelor earnings ÷ G. Lisboa Bachelor — used as salary index baseline.</p>
                 </div>
 
                 <!-- Labor market callouts -->

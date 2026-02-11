@@ -394,13 +394,13 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 100,
+          "value": 100.0,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
               "type": "derived",
               "provider": "Internal calculation",
-              "methodology": "COL-adjusted regional baseline"
+              "methodology": "IT-convergence-compressed INE baseline + COL adjustment"
             },
             "verification": {
               "level": "verified",
@@ -625,13 +625,13 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 87.4,
+          "value": 91.9,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
               "type": "derived",
               "provider": "Internal calculation",
-              "methodology": "COL-adjusted regional baseline"
+              "methodology": "IT-convergence-compressed INE baseline + COL adjustment"
             },
             "verification": {
               "level": "verified",
@@ -856,13 +856,13 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 82.2,
+          "value": 88.7,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
               "type": "derived",
               "provider": "Internal calculation",
-              "methodology": "COL-adjusted regional baseline"
+              "methodology": "IT-convergence-compressed INE baseline + COL adjustment"
             },
             "verification": {
               "level": "verified",
@@ -1086,13 +1086,13 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 80.2,
+          "value": 87.4,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
               "type": "derived",
               "provider": "Internal calculation",
-              "methodology": "COL-adjusted regional baseline"
+              "methodology": "IT-convergence-compressed INE baseline + COL adjustment"
             },
             "verification": {
               "level": "verified",
@@ -1317,13 +1317,13 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 73.2,
+          "value": 83.9,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
               "type": "derived",
               "provider": "Internal calculation",
-              "methodology": "COL-adjusted regional baseline"
+              "methodology": "IT-convergence-compressed INE baseline + COL adjustment"
             },
             "verification": {
               "level": "verified",
@@ -1547,13 +1547,13 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 76,
+          "value": 85.8,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
               "type": "derived",
               "provider": "Internal calculation",
-              "methodology": "COL-adjusted regional baseline"
+              "methodology": "IT-convergence-compressed INE baseline + COL adjustment"
             },
             "verification": {
               "level": "verified",
@@ -1777,13 +1777,13 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 69.5,
+          "value": 81.3,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
               "type": "derived",
               "provider": "Internal calculation",
-              "methodology": "COL-adjusted regional baseline"
+              "methodology": "IT-convergence-compressed INE baseline + COL adjustment"
             },
             "verification": {
               "level": "verified",
@@ -2007,13 +2007,13 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 76.4,
+          "value": 85.3,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
               "type": "derived",
               "provider": "Internal calculation",
-              "methodology": "COL-adjusted regional baseline"
+              "methodology": "IT-convergence-compressed INE baseline + COL adjustment"
             },
             "verification": {
               "level": "verified",
@@ -2237,13 +2237,13 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 75.5,
+          "value": 85.7,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
               "type": "derived",
               "provider": "Internal calculation",
-              "methodology": "COL-adjusted regional baseline"
+              "methodology": "IT-convergence-compressed INE baseline + COL adjustment"
             },
             "verification": {
               "level": "verified",
@@ -2468,13 +2468,13 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 88.2,
+          "value": 91.9,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
               "type": "derived",
               "provider": "Internal calculation",
-              "methodology": "COL-adjusted regional baseline"
+              "methodology": "IT-convergence-compressed INE baseline + COL adjustment"
             },
             "verification": {
               "level": "verified",
@@ -2698,13 +2698,13 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 79.2,
+          "value": 86.7,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
               "type": "derived",
               "provider": "Internal calculation",
-              "methodology": "COL-adjusted regional baseline"
+              "methodology": "IT-convergence-compressed INE baseline + COL adjustment"
             },
             "verification": {
               "level": "verified",
@@ -2928,13 +2928,13 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 80.2,
+          "value": 87.4,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
               "type": "derived",
               "provider": "Internal calculation",
-              "methodology": "COL-adjusted regional baseline"
+              "methodology": "IT-convergence-compressed INE baseline + COL adjustment"
             },
             "verification": {
               "level": "verified",
@@ -3158,13 +3158,13 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 75,
+          "value": 84.1,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
               "type": "derived",
               "provider": "Internal calculation",
-              "methodology": "COL-adjusted regional baseline"
+              "methodology": "IT-convergence-compressed INE baseline + COL adjustment"
             },
             "verification": {
               "level": "verified",
@@ -3388,13 +3388,13 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 74.1,
+          "value": 84.7,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
               "type": "derived",
               "provider": "Internal calculation",
-              "methodology": "COL-adjusted regional baseline"
+              "methodology": "IT-convergence-compressed INE baseline + COL adjustment"
             },
             "verification": {
               "level": "verified",
@@ -3618,13 +3618,13 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 73,
+          "value": 81.4,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
               "type": "derived",
               "provider": "Internal calculation",
-              "methodology": "COL-adjusted regional baseline"
+              "methodology": "IT-convergence-compressed INE baseline + COL adjustment"
             },
             "verification": {
               "level": "verified",
@@ -3848,13 +3848,13 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 71.3,
+          "value": 82.6,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
               "type": "derived",
               "provider": "Internal calculation",
-              "methodology": "COL-adjusted regional baseline"
+              "methodology": "IT-convergence-compressed INE baseline + COL adjustment"
             },
             "verification": {
               "level": "verified",
@@ -4078,13 +4078,13 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 69.5,
+          "value": 81.3,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
               "type": "derived",
               "provider": "Internal calculation",
-              "methodology": "COL-adjusted regional baseline"
+              "methodology": "IT-convergence-compressed INE baseline + COL adjustment"
             },
             "verification": {
               "level": "verified",
@@ -4308,13 +4308,13 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 69.8,
+          "value": 81.4,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
               "type": "derived",
               "provider": "Internal calculation",
-              "methodology": "COL-adjusted regional baseline"
+              "methodology": "IT-convergence-compressed INE baseline + COL adjustment"
             },
             "verification": {
               "level": "verified",
@@ -4538,13 +4538,13 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 72.4,
+          "value": 82.7,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
               "type": "derived",
               "provider": "Internal calculation",
-              "methodology": "COL-adjusted regional baseline"
+              "methodology": "IT-convergence-compressed INE baseline + COL adjustment"
             },
             "verification": {
               "level": "verified",
@@ -4768,13 +4768,13 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 72.4,
+          "value": 82.7,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
               "type": "derived",
               "provider": "Internal calculation",
-              "methodology": "COL-adjusted regional baseline"
+              "methodology": "IT-convergence-compressed INE baseline + COL adjustment"
             },
             "verification": {
               "level": "verified",

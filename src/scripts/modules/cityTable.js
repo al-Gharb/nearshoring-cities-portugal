@@ -144,7 +144,7 @@ function createCityRow(rowData) {
   salaryCell.dataset.field = 'salary-index';
   salaryCell.dataset.promptCore = 'true';
   salaryCell.textContent = rowData.salaryIndex !== '—' ? rowData.salaryIndex : '—';
-  salaryCell.title = 'Auto-calculated: INE regional wages ÷ Lisbon baseline, COL-adjusted';
+  salaryCell.title = 'Auto-calculated: INE baseline compressed 45% toward 100 + COL adjustment (±0.65/pt)';
   tr.appendChild(salaryCell);
 
   // Office Rent — prompt-core: rent generators + city generators

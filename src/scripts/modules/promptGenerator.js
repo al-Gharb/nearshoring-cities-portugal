@@ -1135,15 +1135,24 @@ function generateWorkforceClaims(content, compensation) {
     addClaim(`Portugal pays ${ec.holidayAllowance.months} extra monthly salaries/year (holiday + Christmas subsidy) — Código do Trabalho`);
   }
   
-  // ─── INE Regional Earnings (data-prompt-core ine-earnings-card — hardcoded from HTML) ───
-  // INE 2023 MTSSS/GEP Personnel Tables, 12× monthly equivalents
-  addClaim('INE average monthly earnings (12× equiv): G. Lisboa €2,120 total, €1,153 primary, €2,949 bachelor, €3,166 master — INE 2023');
-  addClaim('INE average monthly earnings (12× equiv): P. Setúbal €1,672 total — INE 2023');
-  addClaim('INE average monthly earnings (12× equiv): Norte €1,573 total — INE 2023');
-  addClaim('INE average monthly earnings (12× equiv): Alentejo €1,547 total — INE 2023');
-  addClaim('INE average monthly earnings (12× equiv): Centro €1,523 total — INE 2023');
-  addClaim('INE average monthly earnings (12× equiv): Oeste/Tejo €1,458 total — INE 2023');
-  addClaim('INE average monthly earnings (12× equiv): Algarve €1,445 total — INE 2023');
+  // ─── INE Regional Earnings (data-prompt-core ine-earnings-card — from COMPENSATION_DATA) ───
+  // INE 2023 MTSSS/GEP Personnel Tables — Bachelor earnings + % vs Lisbon only
+  const ine = compensation?.ineRegionalEarnings;
+  if (ine?.regions && ine?.displayOrder) {
+    const CONV = 14 / 12;
+    const baselineRegion = ine.regions[ine.lisbonBaselineRegion];
+    const lisbonBachelor14x = baselineRegion?.[ine.lisbonBaselineField] || 1;
+
+    ine.displayOrder.forEach(regionKey => {
+      const region = ine.regions[regionKey];
+      if (!region || region.display === false) return;
+      const bachelor14x = region[ine.lisbonBaselineField];
+      if (bachelor14x == null) return;
+      const bachelor12x = Math.round(bachelor14x * CONV);
+      const pctVsLisbon = ((bachelor14x / lisbonBachelor14x) * 100).toFixed(1);
+      addClaim(`INE average monthly earnings (12× equiv, Bachelor): ${region.name} €${bachelor12x.toLocaleString()} (${pctVsLisbon}% vs Lisbon) — INE ${ine.year}`);
+    });
+  }
   
   return claims;
 }
