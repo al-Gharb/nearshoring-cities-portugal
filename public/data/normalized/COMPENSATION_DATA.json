@@ -11,7 +11,6 @@
       "year": 2024
     }
   },
-
   "methodology": {
     "salaryFormat": "12x",
     "salaryFormatExplanation": "All salary values are normalized to 12 monthly payments for international comparison. Portugal's labor law mandates 14 payments/year (12 regular + holiday subsidy + Christmas subsidy), but we express salaries as if paid in 12 equal installments to match global standards. The 14-payment system is mentioned for context only.",
@@ -42,7 +41,6 @@
       "Social Security: 23.75% employer contribution (included in total cost calculation)"
     ]
   },
-
   "baseBands": {
     "softwareEngineer": {
       "roleType": "Software Engineer",
@@ -50,10 +48,26 @@
       "midpoint": 3646,
       "max": 4375,
       "meta": {
-        "source": { "type": "survey", "provider": "Glassdoor, Landing.jobs 2024" },
-        "verification": { "level": "verified", "checkScore": 82 },
-        "lifecycle": { "updateFrequency": "annual", "nextReview": "2026-11-01" },
-        "htmlAuthoritative": { "junior": "€22–36k", "mid": "€38–52k", "senior": "€55–72k", "lead": "€65–85k", "employerTotal": "€29–107k" },
+        "source": {
+          "type": "survey",
+          "provider": "Glassdoor, Landing.jobs 2024"
+        },
+        "verification": {
+          "level": "verified",
+          "checkScore": 82
+        },
+        "lifecycle": {
+          "updateFrequency": "annual",
+          "nextReview": "2026-11-01"
+        },
+        "htmlAuthoritative": {
+          "junior": "€22–36k",
+          "mid": "€38–52k",
+          "senior": "€55–72k",
+          "lead": "€65–85k",
+          "employerTotal": "€29–107k",
+          "monthlyEmployer": "€2.4–8.9k"
+        },
         "_conversionNote": "Converted from original 14x Portuguese values to 12x format (×14/12 ≈ ×1.167) for international comparison"
       }
     },
@@ -63,9 +77,21 @@
       "midpoint": 3938,
       "max": 4667,
       "meta": {
-        "source": { "type": "survey", "provider": "Glassdoor, Landing.jobs 2024" },
-        "verification": { "level": "verified" },
-        "htmlAuthoritative": { "junior": "€25–37k", "mid": "€40–55k", "senior": "€60–80k", "lead": "€70–90k", "employerTotal": "€33–114k" },
+        "source": {
+          "type": "survey",
+          "provider": "Glassdoor, Landing.jobs 2024"
+        },
+        "verification": {
+          "level": "verified"
+        },
+        "htmlAuthoritative": {
+          "junior": "€25–37k",
+          "mid": "€40–55k",
+          "senior": "€60–80k",
+          "lead": "€70–90k",
+          "employerTotal": "€33–114k",
+          "monthlyEmployer": "€2.8–9.5k"
+        },
         "_conversionNote": "Converted from original 14x Portuguese values to 12x format (×14/12 ≈ ×1.167) for international comparison"
       }
     },
@@ -75,9 +101,21 @@
       "midpoint": 4132,
       "max": 4861,
       "meta": {
-        "source": { "type": "survey", "provider": "Glassdoor, Landing.jobs 2024" },
-        "verification": { "level": "verified" },
-        "htmlAuthoritative": { "junior": "€25–39k", "mid": "€42–58k", "senior": "€60–82k", "lead": "€70–95k", "employerTotal": "€33–120k" },
+        "source": {
+          "type": "survey",
+          "provider": "Glassdoor, Landing.jobs 2024"
+        },
+        "verification": {
+          "level": "verified"
+        },
+        "htmlAuthoritative": {
+          "junior": "€25–39k",
+          "mid": "€42–58k",
+          "senior": "€60–82k",
+          "lead": "€70–95k",
+          "employerTotal": "€33–120k",
+          "monthlyEmployer": "€2.8–10.0k"
+        },
         "_conversionNote": "Converted from original 14x Portuguese values to 12x format (×14/12 ≈ ×1.167) for international comparison"
       }
     },
@@ -87,9 +125,21 @@
       "midpoint": 3500,
       "max": 4200,
       "meta": {
-        "source": { "type": "survey", "provider": "Glassdoor, Landing.jobs 2024" },
-        "verification": { "level": "verified" },
-        "htmlAuthoritative": { "junior": "€20–29k", "mid": "€33–50k", "senior": "€50–72k", "lead": "€56–80k" },
+        "source": {
+          "type": "survey",
+          "provider": "Glassdoor, Landing.jobs 2024"
+        },
+        "verification": {
+          "level": "verified"
+        },
+        "htmlAuthoritative": {
+          "junior": "€20–29k",
+          "mid": "€33–50k",
+          "senior": "€50–72k",
+          "lead": "€56–80k",
+          "employerTotal": "€38–90k",
+          "monthlyEmployer": "€3.2–7.5k"
+        },
         "_conversionNote": "Converted from original 14x Portuguese values to 12x format (×14/12 ≈ ×1.167) for international comparison"
       }
     },
@@ -99,9 +149,21 @@
       "midpoint": 5833,
       "max": 7000,
       "meta": {
-        "source": { "type": "survey", "provider": "Glassdoor, Landing.jobs 2024" },
-        "verification": { "level": "verified" },
-        "htmlAuthoritative": { "junior": "€34–46k", "mid": "€56–84k", "senior": "€84–121k", "lead": "€94–135k" },
+        "source": {
+          "type": "survey",
+          "provider": "Glassdoor, Landing.jobs 2024"
+        },
+        "verification": {
+          "level": "verified"
+        },
+        "htmlAuthoritative": {
+          "junior": "€34–46k",
+          "mid": "€56–84k",
+          "senior": "€84–121k",
+          "lead": "€94–135k",
+          "employerTotal": "€61–148k",
+          "monthlyEmployer": "€5.1–12.3k"
+        },
         "_conversionNote": "Converted from original 14x Portuguese values to 12x format (×14/12 ≈ ×1.167) for international comparison"
       }
     },
@@ -111,9 +173,21 @@
       "midpoint": 4132,
       "max": 4861,
       "meta": {
-        "source": { "type": "survey", "provider": "Glassdoor, Landing.jobs 2024" },
-        "verification": { "level": "verified" },
-        "htmlAuthoritative": { "junior": "€28–39k", "mid": "€42–58k", "senior": "€60–80k", "lead": "€70–90k", "employerTotal": "€37–114k" },
+        "source": {
+          "type": "survey",
+          "provider": "Glassdoor, Landing.jobs 2024"
+        },
+        "verification": {
+          "level": "verified"
+        },
+        "htmlAuthoritative": {
+          "junior": "€28–39k",
+          "mid": "€42–58k",
+          "senior": "€60–80k",
+          "lead": "€70–90k",
+          "employerTotal": "€37–114k",
+          "monthlyEmployer": "€3.1–9.5k"
+        },
         "_conversionNote": "Converted from original 14x Portuguese values to 12x format (×14/12 ≈ ×1.167) for international comparison"
       }
     },
@@ -123,9 +197,21 @@
       "midpoint": 2868,
       "max": 3403,
       "meta": {
-        "source": { "type": "survey", "provider": "Glassdoor, Landing.jobs 2024" },
-        "verification": { "level": "verified" },
-        "htmlAuthoritative": { "junior": "€18–27k", "mid": "€30–40k", "senior": "€45–60k", "lead": "€50–65k", "employerTotal": "€25–83k" },
+        "source": {
+          "type": "survey",
+          "provider": "Glassdoor, Landing.jobs 2024"
+        },
+        "verification": {
+          "level": "verified"
+        },
+        "htmlAuthoritative": {
+          "junior": "€18–27k",
+          "mid": "€30–40k",
+          "senior": "€45–60k",
+          "lead": "€50–65k",
+          "employerTotal": "€25–83k",
+          "monthlyEmployer": "€2.1–6.9k"
+        },
         "_conversionNote": "Converted from original 14x Portuguese values to 12x format (×14/12 ≈ ×1.167) for international comparison"
       }
     },
@@ -135,9 +221,21 @@
       "midpoint": 2100,
       "max": 2450,
       "meta": {
-        "source": { "type": "survey", "provider": "Glassdoor, Landing.jobs 2024" },
-        "verification": { "level": "verified" },
-        "htmlAuthoritative": { "junior": "€13–18k", "mid": "€20–30k", "senior": "€30–43k", "lead": "€34–48k" },
+        "source": {
+          "type": "survey",
+          "provider": "Glassdoor, Landing.jobs 2024"
+        },
+        "verification": {
+          "level": "verified"
+        },
+        "htmlAuthoritative": {
+          "junior": "€13–18k",
+          "mid": "€20–30k",
+          "senior": "€30–43k",
+          "lead": "€34–48k",
+          "employerTotal": "€24–53k",
+          "monthlyEmployer": "€2.0–4.4k"
+        },
         "_conversionNote": "Converted from original 14x Portuguese values to 12x format (×14/12 ≈ ×1.167) for international comparison"
       }
     },
@@ -147,9 +245,21 @@
       "midpoint": 3305,
       "max": 3889,
       "meta": {
-        "source": { "type": "survey", "provider": "Glassdoor, Landing.jobs 2024" },
-        "verification": { "level": "verified" },
-        "htmlAuthoritative": { "junior": "€20–31k", "mid": "€34–48k", "senior": "€50–65k", "lead": "€55–75k", "employerTotal": "€27–95k" },
+        "source": {
+          "type": "survey",
+          "provider": "Glassdoor, Landing.jobs 2024"
+        },
+        "verification": {
+          "level": "verified"
+        },
+        "htmlAuthoritative": {
+          "junior": "€20–31k",
+          "mid": "€34–48k",
+          "senior": "€50–65k",
+          "lead": "€55–75k",
+          "employerTotal": "€27–95k",
+          "monthlyEmployer": "€2.2–7.9k"
+        },
         "_conversionNote": "Converted from original 14x Portuguese values to 12x format (×14/12 ≈ ×1.167) for international comparison"
       }
     },
@@ -159,31 +269,52 @@
       "midpoint": 1750,
       "max": 2100,
       "meta": {
-        "source": { "type": "survey", "provider": "Glassdoor, Landing.jobs 2024" },
-        "verification": { "level": "verified" },
-        "htmlAuthoritative": { "junior": "€11–15k", "mid": "€17–25k", "senior": "€25–35k", "lead": "€28–39k" },
+        "source": {
+          "type": "survey",
+          "provider": "Glassdoor, Landing.jobs 2024"
+        },
+        "verification": {
+          "level": "verified"
+        },
+        "htmlAuthoritative": {
+          "junior": "€11–15k",
+          "mid": "€17–25k",
+          "senior": "€25–35k",
+          "lead": "€28–39k",
+          "employerTotal": "€20–46k",
+          "monthlyEmployer": "€1.7–3.8k"
+        },
         "_conversionNote": "Converted from original 14x Portuguese values to 12x format (×14/12 ≈ ×1.167) for international comparison"
       }
     }
   },
-
   "seniorityMultipliers": {
     "junior": {
       "tier": "Junior",
       "multiplier": 0.85,
       "description": "15% below midpoint",
       "meta": {
-        "source": { "type": "estimate", "provider": "Industry standard" },
-        "verification": { "level": "verified" }
+        "source": {
+          "type": "estimate",
+          "provider": "Industry standard"
+        },
+        "verification": {
+          "level": "verified"
+        }
       }
     },
     "midLevel": {
       "tier": "Mid-level",
-      "multiplier": 1.00,
+      "multiplier": 1.0,
       "description": "Base = MIDPOINT",
       "meta": {
-        "source": { "type": "estimate", "provider": "Industry standard" },
-        "verification": { "level": "verified" }
+        "source": {
+          "type": "estimate",
+          "provider": "Industry standard"
+        },
+        "verification": {
+          "level": "verified"
+        }
       }
     },
     "senior": {
@@ -191,100 +322,191 @@
       "multiplier": 1.25,
       "description": "25% above midpoint",
       "meta": {
-        "source": { "type": "estimate", "provider": "Industry standard" },
-        "verification": { "level": "verified" }
+        "source": {
+          "type": "estimate",
+          "provider": "Industry standard"
+        },
+        "verification": {
+          "level": "verified"
+        }
       }
     },
     "leadPrincipal": {
       "tier": "Lead/Principal",
-      "multiplier": 1.40,
+      "multiplier": 1.4,
       "description": "40% above midpoint — highly experienced",
       "meta": {
-        "source": { "type": "estimate", "provider": "Industry standard" },
-        "verification": { "level": "verified" }
+        "source": {
+          "type": "estimate",
+          "provider": "Industry standard"
+        },
+        "verification": {
+          "level": "verified"
+        }
       }
     }
   },
-
   "techStackPremiums": {
     "coreBackend": {
       "stack": "Core backend (Java, .NET, Python)",
-      "premium": 0.00,
+      "premium": 0.0,
       "description": "Baseline — no premium",
-      "meta": { "source": { "type": "estimate", "provider": "Market analysis" }, "verification": { "level": "unverified" } }
+      "meta": {
+        "source": {
+          "type": "estimate",
+          "provider": "Market analysis"
+        },
+        "verification": {
+          "level": "unverified"
+        }
+      }
     },
     "frontend": {
       "stack": "Front-end (React, Angular, Vue)",
       "premium": 0.05,
       "description": "+5%",
-      "meta": { "source": { "type": "estimate", "provider": "Market analysis" }, "verification": { "level": "unverified" } }
+      "meta": {
+        "source": {
+          "type": "estimate",
+          "provider": "Market analysis"
+        },
+        "verification": {
+          "level": "unverified"
+        }
+      }
     },
     "mobile": {
       "stack": "Mobile (iOS/Android — native)",
-      "premium": 0.10,
+      "premium": 0.1,
       "description": "+10%",
-      "meta": { "source": { "type": "estimate", "provider": "Market analysis" }, "verification": { "level": "unverified" } }
+      "meta": {
+        "source": {
+          "type": "estimate",
+          "provider": "Market analysis"
+        },
+        "verification": {
+          "level": "unverified"
+        }
+      }
     },
     "devopsCloud": {
       "stack": "DevOps / Cloud (K8s, Terraform)",
       "premium": 0.15,
       "description": "+15%",
-      "meta": { "source": { "type": "estimate", "provider": "Market analysis" }, "verification": { "level": "unverified" } }
+      "meta": {
+        "source": {
+          "type": "estimate",
+          "provider": "Market analysis"
+        },
+        "verification": {
+          "level": "unverified"
+        }
+      }
     },
     "systemsRust": {
       "stack": "Systems / Rust / Embedded",
       "premium": 0.25,
       "description": "+25%",
-      "meta": { "source": { "type": "estimate", "provider": "Market analysis" }, "verification": { "level": "unverified" } }
+      "meta": {
+        "source": {
+          "type": "estimate",
+          "provider": "Market analysis"
+        },
+        "verification": {
+          "level": "unverified"
+        }
+      }
     },
     "dataML": {
       "stack": "Data Engineering / ML / MLOps",
       "premium": 0.25,
       "description": "+25%",
-      "meta": { "source": { "type": "estimate", "provider": "Market analysis" }, "verification": { "level": "unverified" } }
+      "meta": {
+        "source": {
+          "type": "estimate",
+          "provider": "Market analysis"
+        },
+        "verification": {
+          "level": "unverified"
+        }
+      }
     },
     "security": {
       "stack": "Security / Infosec / AppSec",
-      "premium": 0.30,
+      "premium": 0.3,
       "description": "+30%",
-      "meta": { "source": { "type": "estimate", "provider": "Market analysis" }, "verification": { "level": "unverified" } }
+      "meta": {
+        "source": {
+          "type": "estimate",
+          "provider": "Market analysis"
+        },
+        "verification": {
+          "level": "unverified"
+        }
+      }
     },
     "blockchain": {
       "stack": "Blockchain / Web3 / Smart Contracts",
-      "premium": 0.40,
+      "premium": 0.4,
       "description": "+40%",
-      "meta": { "source": { "type": "estimate", "provider": "Market analysis" }, "verification": { "level": "unverified" } }
+      "meta": {
+        "source": {
+          "type": "estimate",
+          "provider": "Market analysis"
+        },
+        "verification": {
+          "level": "unverified"
+        }
+      }
     }
   },
-
   "employerCosts": {
     "socialSecurity": {
       "employerRate": 23.75,
       "employeeRate": 11.0,
       "unit": "%",
-      "meta": { "source": { "type": "official", "provider": "Segurança Social" } }
+      "meta": {
+        "source": {
+          "type": "official",
+          "provider": "Segurança Social"
+        }
+      }
     },
     "mealAllowance": {
-      "cardMax": 10.20,
-      "cashMax": 6.00,
+      "cardMax": 10.2,
+      "cashMax": 6.0,
       "unit": "EUR/day",
-      "meta": { "source": { "type": "official", "provider": "OE 2025" } }
+      "meta": {
+        "source": {
+          "type": "official",
+          "provider": "OE 2025"
+        }
+      }
     },
     "workInsurance": {
       "mandatory": true,
       "avgRate": 1.0,
       "unit": "%",
-      "meta": { "source": { "type": "official", "provider": "ASF" } }
+      "meta": {
+        "source": {
+          "type": "official",
+          "provider": "ASF"
+        }
+      }
     },
     "holidayAllowance": {
       "legalPayments": 14,
       "description": "Portugal mandates 14 salary payments/year (12 regular + holiday subsidy in July + Christmas subsidy in December). All salary data in this database is already normalized to 12x format for international comparison.",
-      "meta": { "source": { "type": "official", "provider": "Código do Trabalho" } },
+      "meta": {
+        "source": {
+          "type": "official",
+          "provider": "Código do Trabalho"
+        }
+      },
       "_normalizationNote": "The 14-payment structure is for context only. All monetary values in this database are expressed in 12x format."
     },
     "_note": "IMPORTANT: All salary values are in 12x format. Legally binding values change by government decree. Total employer cost ~25-30% above gross salary (SS + meal allowance)."
   },
-
   "ineRegionalEarnings": {
     "source": "INE — MTSSS/GEP Personnel Tables (Indicator 0012653)",
     "year": 2023,
@@ -292,7 +514,13 @@
     "formatNote": "Raw values are official 14× Portuguese format. Display auto-converts to 12× equivalent (×14/12 ≈ ×1.167). Percentage vs Lisbon is auto-calculated from Bachelor column.",
     "lisbonBaselineField": "bachelor",
     "lisbonBaselineRegion": "grandeLisboa",
-    "displayColumns": ["primary", "profCourse", "preBologna", "bachelor", "master"],
+    "displayColumns": [
+      "primary",
+      "profCourse",
+      "preBologna",
+      "bachelor",
+      "master"
+    ],
     "columnLabels": {
       "primary": "Primary (€)",
       "profCourse": "Prof. Course (€)",
@@ -307,7 +535,15 @@
       "bachelor": "Bachelor's level",
       "master": "Master's level"
     },
-    "displayOrder": ["grandeLisboa", "peninsulaSetubal", "norte", "alentejo", "centro", "oesteTejo", "algarve"],
+    "displayOrder": [
+      "grandeLisboa",
+      "peninsulaSetubal",
+      "norte",
+      "alentejo",
+      "centro",
+      "oesteTejo",
+      "algarve"
+    ],
     "regions": {
       "portugal": {
         "name": "Portugal",
@@ -336,7 +572,7 @@
         "nutsII": "Centro",
         "display": true,
         "total": 1305.72,
-        "primary": 966.60,
+        "primary": 966.6,
         "profCourse": 1245.53,
         "preBologna": 1755.46,
         "bachelor": 1756.21,
@@ -348,10 +584,10 @@
         "display": true,
         "total": 1249.77,
         "primary": 995.32,
-        "profCourse": 1271.50,
+        "profCourse": 1271.5,
         "preBologna": 1832.99,
         "bachelor": 1763.35,
-        "master": 1978.00
+        "master": 1978.0
       },
       "grandeLisboa": {
         "name": "G. Lisboa",
@@ -372,7 +608,7 @@
         "total": 1433.11,
         "primary": 953.06,
         "profCourse": 1283.38,
-        "preBologna": 2132.30,
+        "preBologna": 2132.3,
         "bachelor": 2066.26,
         "master": 2139.84
       },
@@ -384,7 +620,7 @@
         "primary": 973.58,
         "profCourse": 1336.05,
         "preBologna": 1957.42,
-        "bachelor": 1880.40,
+        "bachelor": 1880.4,
         "master": 2285.68
       },
       "algarve": {
@@ -393,23 +629,49 @@
         "display": true,
         "total": 1238.68,
         "primary": 954.85,
-        "profCourse": 1367.60,
+        "profCourse": 1367.6,
         "preBologna": 1774.68,
         "bachelor": 1722.67,
         "master": 1955.57
       }
     },
     "regionToCityMapping": {
-      "grandeLisboa": ["lisbon"],
-      "peninsulaSetubal": ["setubal"],
-      "norte": ["porto", "braga", "guimaraes", "vilareal", "vianacastelo", "braganca"],
-      "centro": ["coimbra", "aveiro", "covilha", "viseu", "castelobranco"],
-      "oesteTejo": ["leiria", "santarem", "tomar"],
-      "alentejo": ["evora", "beja", "portalegre"],
-      "algarve": ["faro"]
+      "grandeLisboa": [
+        "lisbon"
+      ],
+      "peninsulaSetubal": [
+        "setubal"
+      ],
+      "norte": [
+        "porto",
+        "braga",
+        "guimaraes",
+        "vilareal",
+        "vianacastelo",
+        "braganca"
+      ],
+      "centro": [
+        "coimbra",
+        "aveiro",
+        "covilha",
+        "viseu",
+        "castelobranco"
+      ],
+      "oesteTejo": [
+        "leiria",
+        "santarem",
+        "tomar"
+      ],
+      "alentejo": [
+        "evora",
+        "beja",
+        "portalegre"
+      ],
+      "algarve": [
+        "faro"
+      ]
     }
   },
-
   "calculationExamples": [
     {
       "scenario": "Senior Software Engineer in Porto (Core Backend) - 12x format",
@@ -419,7 +681,7 @@
         "tier": "senior",
         "tierMultiplier": 1.25,
         "techStack": "coreBackend",
-        "techPremium": 0.00,
+        "techPremium": 0.0,
         "city": "Porto",
         "cityIndex": 91.9,
         "_salaryIndexCalculation": "INE Norte baseline 77.0% → compressed 87.35 → +COL(40−33)×0.65 = +4.55 → 91.9"
@@ -440,7 +702,7 @@
         "role": "mlDataEngineer",
         "baseMidpoint": 4132,
         "tier": "midLevel",
-        "tierMultiplier": 1.00,
+        "tierMultiplier": 1.0,
         "techStack": "dataML",
         "techPremium": 0.25,
         "city": "Braga",

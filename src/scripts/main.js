@@ -276,24 +276,7 @@ function initArchiveToggle() {
     openArchive(false);
   }
 
-  // Fact-check prompt copy button
-  const copyBtn = document.getElementById('btn-copy-factcheck');
-  const promptText = document.getElementById('factcheck-prompt-text');
-  if (copyBtn && promptText) {
-    copyBtn.addEventListener('click', async () => {
-      try {
-        await navigator.clipboard.writeText(promptText.textContent);
-        copyBtn.classList.add('copied');
-        copyBtn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
-        setTimeout(() => {
-          copyBtn.classList.remove('copied');
-          copyBtn.innerHTML = '<i class="fa-solid fa-copy"></i> Copy';
-        }, 2000);
-      } catch (err) {
-        console.error('Copy failed:', err);
-      }
-    });
-  }
+  // Fact-check copy button handler lives in promptGenerator.js → initFactCheckGenerator()
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════

@@ -87,12 +87,12 @@ EMC_monthly = ((gross_annual_12x ÷ 12) × 1.2375) + €175 meals
 • Mandatory meal allowance: €175/month (€10.20/day × ~17 days avg)
 • Result is total monthly cost per employee to employer
 
-B — BASE BANDS (Lisbon-equivalent, 12x format; MIDPOINT = mid-level baseline)
+B — BASE BANDS (Lisbon-equivalent, monthly gross, 12x format)
 | Role Type                    | Min/month | Midpoint | Max/month |
 |------------------------------|-----------|----------|-----------|
 ${Object.values(salaryBands).map(b => `| ${b.label.padEnd(28)} | €${String(b.min).padStart(5)} | €${String(b.mid).padStart(5)}  | €${String(b.max).padStart(5)} |`).join('\n')}
 
-CRITICAL: Only MIDPOINT values are used for base calculations. Min/Max are for sanity bounds.
+MIDPOINT = mid-level (3–5yr) baseline for calculations. Min/Max are sanity bounds.
 
 C — SENIORITY / TIER MULTIPLIERS (apply to MIDPOINT)
 | Tier           | Multiplier | Description            |
@@ -102,6 +102,17 @@ ${Object.entries(tierMultipliers).map(([key, val]) => {
   const desc = val === 1.00 ? 'Base = MIDPOINT' : val < 1 ? `${Math.round((1 - val) * 100)}% below midpoint` : `${Math.round((val - 1) * 100)}% above midpoint`;
   return `| ${label.padEnd(14)} | ${String(val.toFixed(2)).padStart(10)} | ${desc.padEnd(22)} |`;
 }).join('\n')}
+
+B2 — COMPLETE ANNUAL SALARY TABLE (Lisbon-equivalent, 12x, gross + employer cost)
+These are the authoritative annual salary ranges published on the website.
+Use these for annual budget projections and client-facing tables.
+| Role Type                    | Junior (0–2yr) | Mid (3–5yr) | Senior (5+yr) | Lead/Principal | Employer Total* | Monthly Employer* |
+|------------------------------|----------------|-------------|---------------|----------------|-----------------|-------------------|
+${Object.values(salaryBands).filter(b => b.annual?.junior).map(b => {
+  const a = b.annual;
+  return `| ${b.label.padEnd(28)} | ${(a.junior || '—').padStart(14)} | ${(a.mid || '—').padStart(11)} | ${(a.senior || '—').padStart(13)} | ${(a.lead || '—').padStart(14)} | ${(a.employerTotal || '—').padStart(15)} | ${(a.monthlyEmployer || '—').padStart(17)} |`;
+}).join('\n')}
+*Employer Total = Gross annual × 1.2375 (23.75% SS) + meal allowance (~€2,244/yr). Monthly = annual ÷ 12.
 
 D — TECH-STACK PREMIUMS (apply after tier multiplier)
 Apply the single highest applicable premium per role (do NOT stack).

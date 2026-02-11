@@ -236,7 +236,7 @@ export function renderBubbleChart() {
     const ictLabel = d.ict ? d.ict.toLocaleString('en-US') : '0';
     const costLabel = !isNaN(d.cost) ? d3.format('.0f')(d.cost) : '—';
     const officialStemLabel = d.officialStem ? d.officialStem.toLocaleString('en-US') : '—';
-    const ictPct = d.grads > 0 ? ((d.ict / d.grads) * 100).toFixed(1) : '0.0';
+    const ictPct = d.officialStem > 0 ? ((d.ict / d.officialStem) * 100).toFixed(1) : '0.0';
     const regionBadge = d.nutsRegion
       ? `<span class="nuts-badge">${d.nutsRegion}</span>`
       : '';
@@ -297,7 +297,7 @@ export function renderBubbleChart() {
     .attr('class', 'inner-bubble')
     .attr('r', d => {
       const outer = radius(d.grads) || 0;
-      const ratio = d.grads > 0 ? Math.max(d.ict / d.grads, 0) : 0;
+      const ratio = d.officialStem > 0 ? Math.max(d.ict / d.officialStem, 0) : 0;
       // sqrt of ratio so small shares stay visible
       const inner = outer * Math.sqrt(ratio);
       return Math.max(4, inner);

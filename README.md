@@ -21,7 +21,7 @@ BUILT WITH AI
 - **20 Portuguese Cities** — 10 featured with full profiles, 10 secondary with key metrics
 - **Interactive D3.js Bubble Chart** — Visualize talent pool vs. cost trade-offs
 - **AI Nearshoring Simulator** — Generate custom nearshoring deep prompts for simulation
-- **Fact-Check System v3.1** — Dynamic claim generation from source databases
+- **Fact-Check System v3.2** — Dynamic claim generation from source databases
 - **Light/Dark Mode** — Full theme support
 - **Print-Ready** — City profiles styled for PDF export
 

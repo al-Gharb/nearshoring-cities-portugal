@@ -6,7 +6,7 @@
 
 import { getStore, getCity, getCityProfile, getChartConfig } from './database.js';
 import { formatNumber, formatRange } from './calculations.js';
-import { buildConfidenceBarHTML, getConfidenceLabel } from '../utils/confidenceBar.js';
+import { buildConfidenceBarHTML } from '../utils/confidenceBar.js';
 
 /**
  * City icons mapping (Font Awesome).

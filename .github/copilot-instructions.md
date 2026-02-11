@@ -1,7 +1,7 @@
 # Nearshoring Cities Portugal — Copilot Instructions
 
-> v3.1 — Vite-based modular architecture with normalized JSON databases
-> and AI fact-check system v3.1 (dynamic claim generation with HITL gate).
+> v3.2 — Vite-based modular architecture with normalized JSON databases
+> and AI fact-check system v3.2 (source-free claims, dynamic generation, HITL gate).
 
 ---
 
@@ -33,7 +33,7 @@ This is a **data-driven business analysis**, not marketing material.
 - 20 Portuguese cities (10 featured + 10 secondary)
 - Interactive D3.js bubble chart
 - AI Nearshoring Simulator (V4.8.1 prompt)
-- Fact-Check System v3.1
+- Fact-Check System v3.2
 - Light/dark mode
 
 ---
@@ -77,7 +77,8 @@ This is a **data-driven business analysis**, not marketing material.
 │    WEBSITE_CONTENT.json     ← Section content                               │
 │      ├── macroeconomic      (heroMetrics, economicActivity, labour)         │
 │      ├── digitalInfra       (connectivity, subseaCables, dataCenters)       │
-│      ├── strategic          (taxIncentives, laborMarket)                    │
+│      ├── strategic          (taxIncentives, laborMarket, costOfLiving)      │
+│      ├── qualityOfLife      (healthcare/EHCI, safety/GPI, political)        │
 │      └── workforce          (ictSpecialists, hiringInsights)                │
 │                                                                             │
 │    COMPENSATION_DATA.json   ← Salary bands + employer costs                 │
@@ -173,6 +174,7 @@ This is a **data-driven business analysis**, not marketing material.
 ├── dist/                     # Production build (git-ignored)
 ├── scripts/                  # Python maintenance utilities
 ├── tests/visual/             # Playwright screenshots
+├── DATA_FLOW.md              # Database → JS → HTML rendering map
 ├── vite.config.js            # Build config
 ├── package.json
 └── .github/
@@ -181,14 +183,17 @@ This is a **data-driven business analysis**, not marketing material.
 
 ---
 
-## Fact-Check System v3.1 (Dynamic)
+## Fact-Check System v3.2 (Dynamic, Source-Free)
 
-### Key Changes from v2
+### Key Changes from v3.1
 
-1. **Dynamic Claim Generation** — Claims are extracted directly from source databases at runtime
-2. **Single Source of Truth** — No separate claims file to sync; update source DB → claims auto-update
-3. **Internal Calculations Excluded** — Digital STEM+, Salary Index flagged as internal (not sent to AI)
-4. **Comprehensive Extraction** — All displayable data is converted to verifiable claims
+1. **Source-Free Claims** — Claim text no longer includes source attributions (no Numbeo, DGEEC, INE, Eurostat, Glassdoor etc. in claim strings). The 3rd-party AI must find its own sources independently.
+2. **Dynamic Claim Generation** — Claims are extracted directly from source databases at runtime
+3. **Single Source of Truth** — No separate claims file to sync; update source DB → claims auto-update
+4. **Internal Calculations Excluded** — Digital STEM+, Salary Index flagged as internal (not sent to AI)
+5. **Comprehensive Extraction** — All displayable data is converted to verifiable claims
+
+> **ℹ️ Data Flow Reference:** See `DATA_FLOW.md` at project root for the complete database → JS → HTML rendering map.
 
 ### Architecture
 
@@ -251,7 +256,7 @@ This is a **data-driven business analysis**, not marketing material.
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│  FACT-CHECK CORRECTION WORKFLOW v3.1                                       │
+│  FACT-CHECK CORRECTION WORKFLOW v3.2                                       │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                             │
 │  1. GENERATE PROMPT                                                         │
@@ -297,7 +302,8 @@ This is a **data-driven business analysis**, not marketing material.
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
-**Key Improvements v3.1:**
+**Key Improvements v3.2:**
+- **Source-free claims** — No source attributions in claim text; AI engines verify independently
 - **Multi-source verification** — Run 5-6 AI engines for consensus-based accuracy
 - **Verification matrix** — Compare results before deciding what to change
 - **HITL gate** — Human must approve ("GO") before any database modifications
@@ -355,7 +361,8 @@ npm run preview # Preview build at localhost:4173
 
 1. Edit `public/data/normalized/MASTER.json` for metrics
 2. Edit `public/data/normalized/CITY_PROFILES.json` for ecosystem
-3. Rebuild: `npm run build`
+3. **Check `DATA_FLOW.md`** for hardcoded HTML values that need manual sync
+4. Rebuild: `npm run build`
 
 ### Add New City
 

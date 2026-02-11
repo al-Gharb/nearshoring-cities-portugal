@@ -301,7 +301,7 @@
     <div class="container">
       <h3 class="header-verification">v0.8 work in progress...</h3>
       <p class="header-verification">
-         Expect curated insights, directional data, carefully derived estimates, and user-friendly information designed to help you ask the right questions and navigate Portugal as a nearshoring destination - built for operators, not consultants.  
+         Expect curated insights, directional data, carefully derived estimates, and user-friendly presented information, designed to help you ask the right questions when navigating Portugal as a nearshoring destination - built for operators, not scientists.  
       </p>
 
       <p class="header-meta header-meta-row">
@@ -1113,27 +1113,27 @@
         <!-- 5-Stat Hero Banner -->
         <div class="hero-stat-banner" data-db="content" data-prompt-core="true">
           <div class="grid-auto-180">
-            <div class="stat-hero">
+            <div class="stat-hero" id="macro-hero-gdp">
               <div class="stat-value">€264.6B</div>
               <div class="stat-label">GDP (2024, nominal)</div>
               <div class="stat-source"><a href="#src-eurostat" class="source-link">Eurostat</a></div>
             </div>
-            <div class="stat-hero">
+            <div class="stat-hero" id="macro-hero-pop">
               <div class="stat-value">10.5M</div>
               <div class="stat-label">Population (2024)</div>
               <div class="stat-source"><a href="#src-eurostat" class="source-link">Eurostat</a></div>
             </div>
-            <div class="stat-hero">
+            <div class="stat-hero" id="macro-hero-gdppc">
               <div class="stat-value">€25,200</div>
               <div class="stat-label">GDP per capita (2024)</div>
               <div class="stat-source"><a href="#src-eurostat" class="source-link">Eurostat</a></div>
             </div>
-            <div class="stat-hero">
-              <div class="stat-value">€262.2B</div>
-              <div class="stat-label">Public Debt (2024, 99.1% GDP)</div>
+            <div class="stat-hero" id="macro-hero-debt">
+              <div class="stat-value">€275.0B</div>
+              <div class="stat-label">Public Debt (2024, 94.9% GDP)</div>
               <div class="stat-source"><a href="#src-eurostat" class="source-link">Eurostat</a></div>
             </div>
-            <div class="stat-hero">
+            <div class="stat-hero" id="macro-hero-trade">
               <div class="stat-value">€28.9B</div>
               <div class="stat-label">Trade Surplus (2024, goods &amp; services)</div>
               <div class="stat-source"><a href="#src-eurostat" class="source-link">Eurostat</a></div>
@@ -1148,8 +1148,8 @@
                   <!-- Economic Activity -->
                   <div>
                     <p class="scorecard-column-title"><i class="fa-solid fa-arrow-trend-up"></i> Economic Activity</p>
-                    <ul class="scorecard-list">
-                      <li><strong>Real GDP Growth:</strong> 1.9% (2024a), 1.9% (2025f), 1.8% (2026f), 1.6% (2027f) <a href="#src-cfp" class="scorecard-source">CFP</a></li>
+                    <ul class="scorecard-list" id="macro-ea-list">
+                      <li><strong>Real GDP Growth:</strong> 1.9% (2024a), 1.9% (2025f), 2.2% (2026f), 2.1% (2027f) <a href="#src-ec-autumn-2025" class="scorecard-source">EC Autumn</a></li>
                       <li><strong>Gross Fixed Capital Formation:</strong> 3.1% (2024a), 3.6% (2025f), 5.5% (2026f), –1.1% (2027f) <a href="#src-cfp" class="scorecard-source">CFP</a></li>
                       <li><strong>Private Consumption:</strong> 3.2% (2024a), 3.3% (2025f), 2.3% (2026f), 2.3% (2027f) <a href="#src-cfp" class="scorecard-source">CFP</a></li>
                       <li><strong>Trade Balance (% GDP):</strong> 1.8% (2024a), 0.8% (2025f), 0.1% (2026f), 0.5% (2027f) <a href="#src-cfp" class="scorecard-source">CFP</a></li>
@@ -1159,7 +1159,7 @@
                   <!-- Labour & Costs -->
                   <div>
                     <p class="scorecard-column-title"><i class="fa-solid fa-users"></i> Labour &amp; Costs</p>
-                    <ul class="scorecard-list">
+                    <ul class="scorecard-list" id="macro-lc-list">
                       <li><strong>Unemployment Rate:</strong> 6.5% (2024a), 6.1% (2025f), 6.0% (2026f), 5.9% (2027f) <span class="scorecard-tag">below EU avg</span> <a href="#src-cfp" class="scorecard-source">CFP</a></li>
                       <li><strong>Employment Rate (20–64):</strong> 76.3% (2024a), 76.9% (2025f), 77.4% (2026f), 77.8% (2027f) <a href="#src-eurostat" class="scorecard-source">Eurostat</a></li>
                       <li><strong>GDP Deflator:</strong> 4.4% (2024a), 3.6% (2025f), 2.4% (2026f), 2.2% (2027f) <span class="scorecard-tag">moderating</span> <a href="#src-cfp" class="scorecard-source">CFP</a></li>
@@ -1170,9 +1170,9 @@
                   <!-- Fiscal, Prices & Markets -->
                   <div>
                     <p class="scorecard-column-title"><i class="fa-solid fa-landmark"></i> Fiscal, Prices &amp; Markets</p>
-                    <ul class="scorecard-list">
-                      <li><strong>Net Lending (% GDP):</strong> 2.8% (2024a), 2.8% (2025f), 2.3% (2026f), 2.3% (2027f) <span class="scorecard-tag">surplus</span> <a href="#src-cfp" class="scorecard-source">CFP</a></li>
-                      <li><strong>Public Debt-to-GDP:</strong> 99.1% (2024a), 97.2% (2025f), 95.5% (2026f), 93.8% (2027f) <span class="scorecard-tag">declining trend</span> <a href="#src-eurostat" class="scorecard-source">Eurostat</a></li>
+                    <ul class="scorecard-list" id="macro-fpm-list">
+                      <li><strong>Net Lending (% GDP):</strong> 2.8% (2024a), 2.1% (2025f), 1.5% (2026f), 1.7% (2027f) <span class="scorecard-tag">surplus</span> <a href="#src-cfp" class="scorecard-source">CFP</a></li>
+                      <li><strong>Public Debt-to-GDP:</strong> 94.9% (2024a), 91.2% (2025f), 89.4% (2026f), 88.1% (2027f) <span class="scorecard-tag">declining trend</span> <a href="#src-cfp" class="scorecard-source">CFP</a></li>
                       <li><strong>HICP Inflation:</strong> 2.7% (2024a), 2.3% (2025f), 2.1% (2026f), 2.0% (2027f) <span class="scorecard-tag">at ECB target</span> <a href="#src-cfp" class="scorecard-source">CFP</a></li>
                       <li><strong>10Y Sovereign Yield:</strong> 3.0% (2024a), 2.8% (2025f), 2.7% (2026f), 2.7% (2027f) <span class="scorecard-tag">stable</span> <a href="#src-ecb" class="scorecard-source">ECB</a></li>
                     </ul>
@@ -1204,27 +1204,27 @@
         <!-- 5G + Broadband Stats -->
         <div class="hero-stat-banner" data-db="content" data-prompt-core="true">
           <div class="grid-auto-180">
-            <div class="stat-hero">
+            <div class="stat-hero" id="digi-hero-latency">
               <div class="stat-value">&lt;25ms</div>
               <div class="stat-label">Latency to Frankfurt</div>
               <div class="stat-source"><a href="#src-cloudflare" class="source-link">Cloudflare, RIPE NCC</a></div>
             </div>
-            <div class="stat-hero">
+            <div class="stat-hero" id="digi-hero-4g">
               <div class="stat-value">95%+</div>
               <div class="stat-label">4G Population Coverage</div>
               <div class="stat-source"><a href="#src-anacom" class="source-link">ANACOM</a></div>
             </div>
-            <div class="stat-hero">
+            <div class="stat-hero" id="digi-hero-ftth">
               <div class="stat-value">60%+</div>
               <div class="stat-label">FTTH Penetration</div>
               <div class="stat-source"><a href="#src-anacom" class="source-link">ANACOM</a></div>
             </div>
-            <div class="stat-hero">
+            <div class="stat-hero" id="digi-hero-5g">
               <div class="stat-value">5G Live</div>
                     <div class="stat-label">All 3 Operators (2024)</div>
                     <div class="stat-source"><a href="#src-anacom" class="source-link">ANACOM</a></div>
                   </div>
-                  <div class="stat-hero">
+                  <div class="stat-hero" id="digi-hero-cables">
                     <div class="stat-value">14+</div>
                     <div class="stat-label">Subsea Cable Systems</div>
                     <div class="stat-source"><a href="#src-telegeography" class="source-link">TeleGeography</a></div>
@@ -1713,25 +1713,33 @@
           <div class="grid-auto-260">
             <div class="card" data-prompt-core="true">
               <h4><i class="fa-solid fa-flask" aria-hidden="true"></i> <a href="#src-ani" class="source-link">SIFIDE II — R&amp;D Tax Credit</a></h4>
+              <div id="tax-sifide-body">
               <p><strong>R&amp;D Tax Credit:</strong> 32.5% base credit + 50% incremental credit on increased R&amp;D spend (up to €1.5M).</p>
               <p>Eligible costs include salaries, equipment, software, and contracted R&amp;D.</p>
               <p class="scorecard-source">Annual application via <a href="#src-ani" class="source-link">ANI</a></p>
+              </div>
             </div>
             <div class="card" data-prompt-core="true">
               <h4><i class="fa-solid fa-passport" aria-hidden="true"></i> <a href="#src-iapmei" class="source-link">Tech Visa — Skilled Talent Immigration</a></h4>
+              <div id="tax-techvisa-body">
               <p>Fast-track work and residence permits for highly qualified non-EU tech professionals hired by certified companies. Includes pathways tailored for innovation and startups.</p>
               <p class="scorecard-source">Managed by <a href="#src-iapmei" class="source-link">IAPMEI</a> + AIMA/SEF</p>
+              </div>
             </div>
             <div class="card" data-prompt-core="true">
               <h4><i class="fa-solid fa-percent" aria-hidden="true"></i> <a href="#src-pwc-ifici" class="source-link">IFICI — Scientific Research &amp; Innovation</a></h4>
+              <div id="tax-ifici-body">
               <p>10-year regime offering a <strong>20% flat IRS rate</strong> on eligible employment/self-employment income for qualifying research and innovation professionals.</p>
               <p class="scorecard-source">Replaces the older NHR for new entrants from 2024. <a href="#src-pwc-ifici" class="source-link">Source</a></p>
+              </div>
             </div>
             <div class="card" data-prompt-core="true">
               <h4><i class="fa-solid fa-building" aria-hidden="true"></i> <a href="#src-aicep-irc" class="source-link">Corporate Tax (IRC)</a></h4>
+              <div id="tax-irc-body">
               <p><strong>Standard IRC:</strong> 21% on taxable profit. <strong>SMEs:</strong> 16% on the first €50,000; 21% thereafter.</p>
               <p>Municipal surtax: up to 1.5%. State surtax: 3–9% on higher profit brackets.</p>
               <p class="scorecard-source"><a href="#src-aicep-irc" class="source-link">AICEP Portugal Global</a></p>
+              </div>
             </div>
           </div>
         </div>
@@ -1753,6 +1761,7 @@
                           <th class="col-numeric">Senior (5+yr)</th>
                           <th class="col-numeric">Lead / Principal</th>
                           <th class="salary-employer col-numeric">Employer Total*</th>
+                          <th class="salary-employer col-numeric">Monthly Employer*</th>
                         </tr>
                       </thead>
                       <tbody id="salary-table-body">
@@ -1760,7 +1769,7 @@
                       </tbody>
                     </table>
                   </div>
-                  <p class="scorecard-footer"><strong>Note:</strong> <strong>All values are in 12× format</strong> (converted from Portugal's original 14-payment data for international comparison). *Employer Total = Gross annual × 1.2375 (23.75% Social Security) + meal allowance (~€2,244/yr), showing full range from Junior to Lead. Lead/Principal = Senior × 1.12 (40% vs 25% above midpoint). <strong>Source:</strong> <a href="#src-glassdoor" class="source-link">Glassdoor</a>, <a href="#src-landingjobs" class="source-link">Landing.jobs</a> (2024).</p>
+                  <p class="scorecard-footer" id="employer-costs-note"><strong>Note:</strong> <strong>All values are in 12× format</strong> (converted from Portugal's original 14-payment data for international comparison). *Employer Total = Gross annual × 1.2375 (23.75% Social Security) + meal allowance (~€2,244/yr), showing full range from Junior to Lead. Lead/Principal = Senior × 1.12 (40% vs 25% above midpoint). <strong>Source:</strong> <a href="#src-glassdoor" class="source-link">Glassdoor</a>, <a href="#src-landingjobs" class="source-link">Landing.jobs</a> (2024).</p>
                   <div class="callout-info" data-db="compensation">
                     <strong><i class="fa-solid fa-info-circle"></i> Portugal's 14× Payment System (Context Only):</strong>
                     Portuguese law mandates 14 salary payments per year — 12 regular months plus mandatory holiday subsidy (July) and Christmas subsidy (December), each equal to one month's base pay. <strong>For international comparison, all salary figures in this document are already normalized to 12× monthly equivalents.</strong> You do not need to convert values. When we reference INE source data, we note that the original 14× format has been converted (×14/12 ≈ ×1.167). These regional baselines feed into the per-city <a href="#src-salary-index" class="source-link">Salary Index</a> calculation via COL + Rent adjustment.
@@ -1832,17 +1841,17 @@
                   <div class="card card-flex" data-prompt-core="true">
                     <h4><i class="fa-solid fa-hospital" aria-hidden="true"></i> Healthcare System</h4>
                     <ul class="flex-fill">
-                      <li><strong>Public (SNS):</strong> Universal coverage, free at point of use with small co-pays for consultations and prescriptions</li>
-                      <li><strong>Private:</strong> €30–80/month — short wait times, English-speaking practitioners widely available</li>
-                      <li><strong><a href="#src-ehci" class="source-link">Euro Health Consumer Index</a>:</strong> Ranked 20th / 35 European countries (2018)</li>
+                      <li id="qol-healthcare-public"><strong>Public (SNS):</strong> Universal coverage, free at point of use with small co-pays for consultations and prescriptions</li>
+                      <li id="qol-healthcare-private"><strong>Private:</strong> €30–80/month — short wait times, English-speaking practitioners widely available</li>
+                      <li id="qol-healthcare-ehci"><strong><a href="#src-ehci" class="source-link">Euro Health Consumer Index</a>:</strong> Ranked 20th / 35 European countries (2018)</li>
                     </ul>
                   </div>
                   <div class="card card-flex" data-prompt-core="true">
                     <h4><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Safety &amp; Stability</h4>
                     <ul class="flex-fill">
-                      <li><strong><a href="#src-gpi" class="source-link">Global Peace Index</a>:</strong> 7th safest country worldwide (2024)</li>
-                      <li><strong>Crime:</strong> Among the lowest rates in the EU — Lisbon safer than most European capitals <a href="#src-eurostat" class="source-link"><i class="fa-solid fa-circle-info"></i></a></li>
-                      <li><strong>Political:</strong> Stable democracy; EU member since 1986, NATO since 1949</li>
+                      <li id="qol-safety-gpi"><strong><a href="#src-gpi" class="source-link">Global Peace Index</a>:</strong> 7th safest country worldwide (2024)</li>
+                      <li id="qol-safety-crime"><strong>Crime:</strong> Among the lowest rates in the EU — Lisbon safer than most European capitals <a href="#src-eurostat" class="source-link"><i class="fa-solid fa-circle-info"></i></a></li>
+                      <li id="qol-safety-political"><strong>Political:</strong> Stable democracy; EU member since 1986, NATO since 1949</li>
                     </ul>
                   </div>
                 </div>
@@ -1852,17 +1861,17 @@
               <div id="cost-of-living" class="section-block" data-db="content">
                 <h3><i class="fa-solid fa-cart-shopping" aria-hidden="true"></i> Cost of Living</h3>
                 <div class="grid-auto-260">
-                  <div class="stat-hero" data-prompt-core="true">
+                  <div class="stat-hero" id="col-hero-essentials" data-prompt-core="true">
                     <div class="stat-value">€669</div>
                     <div class="stat-label">Monthly essentials (single, outside Lisbon)</div>
                     <div class="stat-source"><a href="#src-numbeo" class="source-link">Numbeo 2024</a></div>
                   </div>
-                  <div class="stat-hero" data-prompt-core="true">
+                  <div class="stat-hero" id="col-hero-utilities" data-prompt-core="true">
                     <div class="stat-value">€120–180€</div>
                     <div class="stat-label">Utilities (electricity, water, internet)</div>
                     <div class="stat-source"><a href="#src-numbeo" class="source-link">Numbeo 2024</a></div>
                   </div>
-                  <div class="stat-hero" data-prompt-core="true">
+                  <div class="stat-hero" id="col-hero-comparison" data-prompt-core="true">
                     <div class="stat-value">30–65%</div>
                     <div class="stat-label">Cheaper than London/Amsterdam/Munich</div>
                     <div class="stat-source"><a href="#src-numbeo" class="source-link">Numbeo comparison</a></div>
@@ -2245,7 +2254,7 @@
         <i class="fa-solid fa-users section-icon" aria-hidden="true"></i>
         <span class="deeper-dive-title">Workforce Talent Pools</span>
         <span class="deeper-dive-subtitle">— IT professionals, city breakdown, hiring insights</span>
-        <span class="confidence-bar" title="Data confidence: 82% — Checked 2026-02-06"><span class="confidence-bar-track"><span class="confidence-bar-pointer" style="left: 63px;"></span></span><span class="confidence-bar-label">82%</span></span>
+        <span class="section-confidence" data-section="workforce"></span>
         <i class="fa-solid fa-chevron-down deeper-dive-chevron" aria-hidden="true"></i>
       </summary>
       <div class="deeper-dive-content">
@@ -2253,20 +2262,20 @@
         <!-- Workforce Intro -->
         <div class="workforce-intro" data-db="content" data-prompt-core="true">
                 <div class="grid-auto-180">
-                  <div class="stat-hero">
+                  <div class="stat-hero" id="wf-hero-total">
                     <div class="stat-value">~164,000</div>
                     <div class="stat-label">Total IT Professionals</div>
-                    <div class="stat-source"><a href="#src-idc" class="source-link">IDC Portugal 2024</a></div>
+                    <div class="stat-source"><a href="#src-linkedin" class="source-link">LinkedIn/Eurostat 2024</a></div>
                   </div>
-                  <div class="stat-hero">
+                  <div class="stat-hero" id="wf-hero-concentration">
                     <div class="stat-value">72%</div>
                     <div class="stat-label">Lisbon + Porto Concentration</div>
-                    <div class="stat-source"><a href="#src-idc" class="source-link">IDC Portugal 2024</a></div>
+                    <div class="stat-source"><a href="#src-linkedin" class="source-link">LinkedIn/Eurostat 2024</a></div>
                   </div>
-                  <div class="stat-hero">
+                  <div class="stat-hero" id="wf-hero-growth">
                     <div class="stat-value">~8.5%</div>
                     <div class="stat-label">Annual Growth Rate</div>
-                    <div class="stat-source"><a href="#src-idc" class="source-link">IDC Portugal 2024</a></div>
+                    <div class="stat-source"><a href="#src-linkedin" class="source-link">LinkedIn/Eurostat 2024</a></div>
                   </div>
                 </div>
               </div>
@@ -2274,7 +2283,7 @@
               <!-- City Breakdown -->
               <div class="card">
                 <h4><i class="fa-solid fa-building-user"></i> IT Workforce by City (2024 est.)</h4>
-                <div class="bar-chart-container" data-db="content" data-prompt-core="true">
+                <div class="bar-chart-container" id="workforce-bar-chart" data-db="content" data-prompt-core="true">
                   <div class="bar-chart-row">
                     <div class="bar-chart-header">
                       <span class="bar-chart-label">Lisbon</span>
@@ -2324,16 +2333,16 @@
               <div class="card" data-db="content">
                 <h3><i class="fa-solid fa-earth-europe"></i> EU Context: ICT Specialists</h3>
                 <div class="grid-2">
-                  <div data-prompt-core="true">
+                  <div id="eu-context-position" data-prompt-core="true">
                     <p><strong>Portugal's Position:</strong></p>
                     <ul>
-                      <li><strong>ICT specialists as % of employment:</strong> 4.5% (2024) — EU avg 4.8% <a href="#src-eurostat" class="source-link"><i class="fa-solid fa-circle-info"></i></a></li>
+                      <li><strong>ICT specialists as % of employment:</strong> 5.2% (2024) — EU avg 5.0% <a href="#src-eurostat" class="source-link"><i class="fa-solid fa-circle-info"></i></a></li>
                       <li><strong>ICT graduates as % of all graduates:</strong> 3.8% — EU avg 4.2% <a href="#src-eu-monitor" class="source-link"><i class="fa-solid fa-circle-info"></i></a></li>
-                      <li><strong>Female ICT specialists:</strong> 21.3% — EU avg 19.1% <a href="#src-eurostat" class="source-link"><i class="fa-solid fa-circle-info"></i></a></li>
+                      <li><strong>Female ICT specialists:</strong> 22.7% — EU avg 19.4% <a href="#src-eurostat" class="source-link"><i class="fa-solid fa-circle-info"></i></a></li>
                       <li><strong>Trend:</strong> Growing faster than EU average (+12% since 2020) <a href="#src-eurostat" class="source-link"><i class="fa-solid fa-circle-info"></i></a></li>
                     </ul>
                   </div>
-                  <div>
+                  <div id="eu-context-benchmarks">
                     <p><strong>Competitive Benchmarks:</strong></p>
                     <ul>
                       <li><strong>Romania:</strong> Similar costs, larger pool, higher attrition</li>
@@ -2349,19 +2358,19 @@
               <div class="card" data-db="content">
                 <h3><i class="fa-solid fa-magnifying-glass-chart"></i> Hiring Insights</h3>
                 <div class="grid-auto-260">
-                  <div class="insight-card" data-prompt-core="true">
+                  <div class="insight-card" id="hiring-time" data-prompt-core="true">
                     <div class="insight-title"><i class="fa-solid fa-clock"></i> Time to Hire</div>
                     <div class="insight-text">Average 4-6 weeks for mid-level roles. Senior/niche roles: 8-12 weeks. Lisbon most competitive. <a href="#src-landingjobs" class="source-link"><i class="fa-solid fa-circle-info"></i></a></div>
                   </div>
-                  <div class="insight-card" data-prompt-core="true">
+                  <div class="insight-card" id="hiring-education" data-prompt-core="true">
                     <div class="insight-title"><i class="fa-solid fa-user-graduate"></i> Education Level</div>
                     <div class="insight-text">78% of IT workforce holds bachelor's or higher. 15% have master's/PhD. CTeSP growing as entry path. <a href="#src-idc" class="source-link"><i class="fa-solid fa-circle-info"></i></a></div>
                   </div>
-                  <div class="insight-card" data-prompt-core="true">
+                  <div class="insight-card" id="hiring-age" data-prompt-core="true">
                     <div class="insight-title"><i class="fa-solid fa-users-between-lines"></i> Age Distribution</div>
                     <div class="insight-text">Median age 32. Under-35 segment: 58% of IT workforce. Fresh graduate pipeline: strong. <a href="#src-idc" class="source-link"><i class="fa-solid fa-circle-info"></i></a></div>
                   </div>
-                  <div class="insight-card" data-prompt-core="true">
+                  <div class="insight-card" id="hiring-retention" data-prompt-core="true">
                     <div class="insight-title"><i class="fa-solid fa-arrow-right-arrow-left"></i> Retention</div>
                     <div class="insight-text">Average tenure: 2.1 years (Lisbon), 2.8 years (Porto), 3.5+ years (secondary cities). Remote offers increasing churn. <a href="#src-landingjobs" class="source-link"><i class="fa-solid fa-circle-info"></i></a></div>
                   </div>

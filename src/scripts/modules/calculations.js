@@ -6,26 +6,7 @@
  * Formula: (coreICT / officialStem) × 100
  */
 
-/**
- * Calculate Digital STEM+ from Official STEM using the INCoDe.2030 expansion factor.
- * @param {number} officialStem
- * @param {number} [factor=1.27] — default national expansion factor
- * @returns {number}
- */
-export function calculateDigitalStem(officialStem, factor = 1.27) {
-  return Math.round(officialStem * factor);
-}
-
-/**
- * Calculate Core ICT from Digital STEM+.
- * National average: 16% of Digital STEM+ are pure ICT specialists.
- * @param {number} digitalStemPlus
- * @param {number} [share=0.16]
- * @returns {number}
- */
-export function calculateCoreICT(digitalStemPlus, share = 0.16) {
-  return Math.round(digitalStemPlus * share);
-}
+// NOTE: calculateDigitalStem and calculateCoreICT removed — values pre-computed in MASTER.json
 
 /**
  * Calculate ICT % for the table display.
@@ -45,7 +26,6 @@ export function calculateICTPct(coreICT, officialStem) {
  * Calculate salary index from regional baseline and COL + Rent index.
  * Formula: baseline × (1 + max(COL − 30, 0) × 1.77 / 100), capped at 100
  *
-/**
  * Calculate salary index from INE regional baseline and city COL index.
  *
  * Two-step formula:

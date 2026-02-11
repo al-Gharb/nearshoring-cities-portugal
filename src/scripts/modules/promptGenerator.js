@@ -1,4 +1,4 @@
-﻿/**
+/**
  * PROMPT GENERATOR MODULE
  * AI Nearshoring Simulator — collects form inputs + database data,
  * generates V4.8.1 prompt, handles UI (generate, copy, conditional fields).
@@ -6,7 +6,7 @@
  * Reads from 4 normalized databases instead of legacy 3-DB system.
  */
 
-import { getStore, getCity, getCityProfile, getNationalData, getCompensationData, getCityDisplayOrder, getChartConfig, getRegionalTotals } from './database.js';
+import { getStore, getCity, getCityProfile, getNationalData, getCompensationData, getChartConfig, getRegionalTotals } from './database.js';
 import { buildPromptTemplate } from './promptTemplate.js';
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -77,27 +77,9 @@ function getCityMeta(cityId) {
   };
 }
 
-/**
- * Parse rent string "€12–€18" into { min, max, mid } object.
- */
-function parseRent(rentStr) {
-  if (!rentStr) return { min: 12, max: 18, mid: 15 };
-  const match = rentStr.match(/€?(\d+)[–-]€?(\d+)/);
-  if (match) {
-    const min = parseInt(match[1]);
-    const max = parseInt(match[2]);
-    return { min, max, mid: (min + max) / 2 };
-  }
-  return { min: 12, max: 18, mid: 15 };
-}
-
-/**
- * Parse percentage string "19.1%" into number 19.1.
- */
-function parsePct(pctStr) {
-  if (!pctStr && pctStr !== 0) return 15;
-  return parseFloat(String(pctStr).replace('%', '')) || 15;
-}
+// Default fallbacks for missing data
+const DEFAULT_RENT = { min: 12, max: 18, mid: 15 };
+const DEFAULT_ICT_PCT = 15;
 
 /**
  * Build salary bands lookup from COMPENSATION_DATA.json.
@@ -145,6 +127,7 @@ function buildSalaryBands(compData) {
       mid: band.midpoint,
       max: band.max,
       label: band.roleType,
+      annual: band.meta?.htmlAuthoritative || {},
     };
   }
 
@@ -229,12 +212,12 @@ function prepareCityDataForAI() {
       universities: city.talent?.universities?.value ?? [],
       stemGrads: grads.digitalStemPlus?.value ?? 0,
       ictGrads: grads.coreICT?.value ?? 0,
-      ictPct: grads.coreICT?.pctOfOfficialStem?.value ?? parsePct(null),
+      ictPct: grads.coreICT?.pctOfOfficialStem?.value ?? DEFAULT_ICT_PCT,
       regionalPool: getRegionalPool(cityId, city),
       colIndex: costs.colIndex?.value ?? 35,
       salaryIndex: costs.salaryIndex?.value ?? 80,
-      officeRent: costs.officeRent ? { min: costs.officeRent.min, max: costs.officeRent.max, mid: ((costs.officeRent.min || 12) + (costs.officeRent.max || 18)) / 2 } : parseRent(null),
-      residentialRent: costs.residentialRent ? { min: costs.residentialRent.min, max: costs.residentialRent.max, mid: ((costs.residentialRent.min || 800) + (costs.residentialRent.max || 1200)) / 2 } : parseRent(null),
+      officeRent: costs.officeRent ? { min: costs.officeRent.min, max: costs.officeRent.max, mid: ((costs.officeRent.min || 12) + (costs.officeRent.max || 18)) / 2 } : DEFAULT_RENT,
+      residentialRent: costs.residentialRent ? { min: costs.residentialRent.min, max: costs.residentialRent.max, mid: ((costs.residentialRent.min || 800) + (costs.residentialRent.max || 1200)) / 2 } : DEFAULT_RENT,
       coworking: meta.coworking ?? profile?.ecosystem?.coworking?.description ?? null,
       climate: meta.climate ?? profile?.qualityOfLife?.climate?.value ?? null,
       tags: profile?.ecosystem?.domains?.value ?? [],
@@ -254,29 +237,6 @@ function prepareCityDataForAI() {
 function collectAllData() {
   const preparedCities = prepareCityDataForAI();
   const nationalData = getNationalData();
-
-  // Top 5 cities by STEM+ grads
-  const topCities = [...preparedCities]
-    .filter(c => c.stemGrads > 0)
-    .sort((a, b) => b.stemGrads - a.stemGrads)
-    .slice(0, 5)
-    .map(c => ({ city: c.name, stemGrads: c.stemGrads }));
-
-  // Regional breakdown — auto-build from each city's NUTS region
-  const store = getStore();
-  const masterCities2 = store.master?.cities || {};
-  const regionMap = {};
-  for (const cId of Object.keys(masterCities2)) {
-    const region = masterCities2[cId]?.basic?.region?.value;
-    if (region) {
-      if (!regionMap[region]) regionMap[region] = [];
-      regionMap[region].push(cId);
-    }
-  }
-  const regionalBreakdown = {};
-  for (const [region, ids] of Object.entries(regionMap)) {
-    regionalBreakdown[region] = preparedCities.filter(c => ids.includes(c.id)).reduce((s, c) => s + c.stemGrads, 0);
-  }
 
   return {
     cities: preparedCities,
@@ -474,7 +434,7 @@ function generateMacroeconomicClaims(content) {
   if (hero?.population) addClaim(`Population ${hero.population.year}: ${hero.population.value}M`);
   if (hero?.gdpPerCapita) addClaim(`GDP Per Capita ${hero.gdpPerCapita.year}: €${hero.gdpPerCapita.value.toLocaleString()}`);
   if (hero?.publicDebt) addClaim(`Public Debt ${hero.publicDebt.year}: €${hero.publicDebt.value}B (${hero.publicDebt.pctGdp}% GDP)`);
-  if (hero?.tradeSurplus) addClaim(`Trade Surplus ${hero.tradeSurplus.year}: +${hero.tradeSurplus.value}% GDP (goods+services)`);
+  if (hero?.tradeSurplus) addClaim(`Trade Surplus ${hero.tradeSurplus.year}: €${hero.tradeSurplus.absoluteValue}B (+${hero.tradeSurplus.value}% GDP, goods+services)`);
   
   // Economic Activity
   const econ = macro.economicActivity;
@@ -494,6 +454,12 @@ function generateMacroeconomicClaims(content) {
     econ.grossFixedCapitalFormation.values.forEach(v => {
       const type = v.type === 'forecast' ? ' forecast' : '';
       addClaim(`Gross Fixed Capital Formation ${v.year}: ${v.value}%${type}`);
+    });
+  }
+  if (econ?.tradeBalance?.values) {
+    econ.tradeBalance.values.forEach(v => {
+      const type = v.type === 'forecast' ? ' forecast' : '';
+      addClaim(`Trade Balance ${v.year}: ${v.value}% GDP${type}`);
     });
   }
   
@@ -642,16 +608,15 @@ function generateOfficeRentClaims(master) {
     .map(([id, data]) => ({
       name: data.basic?.name?.value || id.charAt(0).toUpperCase() + id.slice(1),
       min: data.costs.officeRent.min,
-      max: data.costs.officeRent.max,
-      source: data.costs.officeRent.meta?.source?.provider || 'Est.'
+      max: data.costs.officeRent.max
     }))
     .sort((a, b) => (b.max || b.min) - (a.max || a.min));
   
   citiesWithRent.forEach(city => {
     if (city.min && city.max) {
-      addClaim(`${city.name} office rent: €${city.min}-${city.max}/m²/month (${city.source})`);
+      addClaim(`${city.name} office rent: €${city.min}-${city.max}/m²/month`);
     } else {
-      addClaim(`${city.name} office rent: €${city.min || city.max}/m²/month (${city.source})`);
+      addClaim(`${city.name} office rent: €${city.min || city.max}/m²/month`);
     }
   });
   
@@ -679,16 +644,15 @@ function generateResidentialRentClaims(master) {
       name: data.basic?.name?.value || id.charAt(0).toUpperCase() + id.slice(1),
       min: data.costs.residentialRent.min,
       max: data.costs.residentialRent.max,
-      type: data.costs.residentialRent.type || 'T1',
-      source: data.costs.residentialRent.meta?.source?.provider || 'Est.'
+      type: data.costs.residentialRent.type || 'T1'
     }))
     .sort((a, b) => (b.max || b.min) - (a.max || a.min));
   
   citiesWithRent.forEach(city => {
     if (city.min && city.max) {
-      addClaim(`${city.name} ${city.type} rent: €${city.min.toLocaleString()}-${city.max.toLocaleString()}/month (${city.source})`);
+      addClaim(`${city.name} ${city.type} rent: €${city.min.toLocaleString()}-${city.max.toLocaleString()}/month`);
     } else {
-      addClaim(`${city.name} ${city.type} rent: €${(city.min || city.max).toLocaleString()}/month (${city.source})`);
+      addClaim(`${city.name} ${city.type} rent: €${(city.min || city.max).toLocaleString()}/month`);
     }
   });
   
@@ -752,9 +716,9 @@ function generateCityDatabaseClaims(master) {
       }
     }
     
-    // COL Index: Numbeo (externally verifiable)
+    // COL+Rent Index: (externally verifiable — Numbeo "Cost of Living Plus Rent Index")
     if (cityData.costs?.colIndex?.value) {
-      addClaim(`${cityName} Cost of Living Index (excl. rent): ${cityData.costs.colIndex.value} (Numbeo, NYC=100)`);
+      addClaim(`${cityName} Cost of Living Plus Rent Index: ${cityData.costs.colIndex.value} (NYC=100, Numbeo COL+Rent — includes domestic rents, NOT the excl-rent index which is ~20% higher)`);
     }
     
     // ─── TALENT & SALARY METRICS (METHODOLOGY CHECKS) ───
@@ -764,7 +728,7 @@ function generateCityDatabaseClaims(master) {
     const coreICT = cityData.talent?.graduates?.coreICT?.value;
     
     if (officialStem) {
-      addClaim(`${cityName} Official STEM graduates (DGEEC, CNAEF 04+05+06+07+72): ${officialStem}/year`, true);
+      addClaim(`${cityName} Official STEM graduates (CNAEF 04+05+06+07+72): ${officialStem}/year`, true);
     }
     if (digitalStemPlus && officialStem) {
       const expected = Math.round(officialStem * 1.27);
@@ -781,7 +745,7 @@ function generateCityDatabaseClaims(master) {
     
     // Salary Index
     if (cityData.costs?.salaryIndex?.value) {
-      addClaim(`${cityName} Salary Index: ${cityData.costs.salaryIndex.value} (Lisbon=100, INE regional wages)`, true);
+      addClaim(`${cityName} Salary Index: ${cityData.costs.salaryIndex.value} (Lisbon=100)`, true);
     }
   }
 
@@ -789,10 +753,10 @@ function generateCityDatabaseClaims(master) {
   if (master.regionalTotals) {
     for (const [regionName, totals] of Object.entries(master.regionalTotals)) {
       if (totals.officialStem != null) {
-        addClaim(`${regionName} region total: ${totals.officialStem} Official STEM graduates (DGEEC 23/24, CNAEF 04+05+06+07+72)`);
+        addClaim(`${regionName} region total: ${totals.officialStem} Official STEM graduates (CNAEF 04+05+06+07+72, 2023/24)`);
       }
       if (totals.coreICT != null) {
-        addClaim(`${regionName} region total: ${totals.coreICT} Core ICT graduates (DGEEC 23/24, CNAEF 481+523)`);
+        addClaim(`${regionName} region total: ${totals.coreICT} Core ICT graduates (CNAEF 481+523, 2023/24)`);
       }
       if (totals.digitalStemPlus != null && totals.officialStem != null) {
         const expected = Math.round(totals.officialStem * 1.27);
@@ -896,13 +860,13 @@ You are verifying a **comparative city database** used in a business analysis of
 - **Cross-check logic:** Lisbon T1 center ~\u20ac1200-1800, Porto ~\u20ac800-1200. Other cities scale down proportionally by COL. Interior cities are typically 40-60% of Lisbon.
 - **Tolerance:** \u00b110% for all tiers.
 
-### 3. COST OF LIVING INDEX (Numbeo, NYC=100, excl. rent)
-**What this is:** Numbeo's "Cost of Living Index" excluding rent, where New York City = 100. Most Portuguese cities score 28\u201350.
+### 3. COST OF LIVING PLUS RENT INDEX (Numbeo, NYC=100, COL+Rent)
+**What this is:** Numbeo's "Cost of Living Plus Rent Index" (COL+Rent), where New York City = 100. This index INCLUDES domestic rental costs \u2014 it is NOT the "Cost of Living Index (excl. rent)" which is ~20% higher. Most Portuguese cities score 28\u201350 on COL+Rent (e.g., Lisbon \u2248 46\u201347).
 
 **Verification approach:**
-- **Best search:** \`Numbeo cost of living index Portugal cities\` \u2014 look for the comparison/ranking page snippet. It often lists multiple cities\u2019 indices in one result.
-- **Per-city:** Search \`Numbeo [city] Portugal cost of living\` \u2014 the snippet typically shows the index value directly (e.g., "Cost of Living Index: 42.3"). You usually do NOT need to open the page.
-- **IMPORTANT:** Numbeo only covers cities with enough contributors. Many Tier 3 cities are NOT on Numbeo. If not listed:
+- **Best search:** \`Numbeo cost of living plus rent index Portugal cities\` \u2014 look for the comparison/ranking page snippet. It often lists multiple cities\u2019 indices in one result. Remember: we want the "Cost of Living Plus Rent Index", NOT the "Cost of Living Index" (excl. rent).
+- **Per-city:** Search \`Numbeo [city] Portugal cost of living\` \u2014 the snippet shows both indices. Look for "Cost of Living Plus Rent Index" (NOT the "Cost of Living Index" which excludes rent and is ~20% higher). Lisbon COL+Rent \u2248 46\u201347 is correct. You usually do NOT need to open the page.
+- **IMPORTANT:** We use Numbeo's **Cost of Living Plus Rent Index** (which includes domestic rents), NOT the "excl. rent" index. Numbeo only covers cities with enough contributors. Many Tier 3 cities are NOT on Numbeo. If not listed:
   - Estimate from the city\u2019s residential rent relative to Lisbon. If rent is 50% of Lisbon\u2019s, COL is roughly 60\u201370% of Lisbon\u2019s index.
   - Portugal\u2019s national COL range: interior towns 28\u201333, mid-size cities 33\u201340, Lisbon metro 45\u201355.
   - Mark with confidence MEDIUM or LOW and show your reasoning.
@@ -1050,18 +1014,22 @@ function generateWorkforceClaims(content, compensation) {
     claimNum++;
   };
   
-  // Workforce statistics
+  // Workforce statistics — use LinkedIn numbers (matches website display)
   const ws = content?.workforceStatistics;
   if (ws?.ictEmployment) addClaim(`ICT employment: ${ws.ictEmployment.value}${ws.ictEmployment.unit} (${ws.ictEmployment.year})`);
-  if (ws?.techWorkforceTotal?.official) addClaim(`Total tech workforce: ~${ws.techWorkforceTotal.official.toLocaleString()} (Eurostat estimate)`);
-  if (ws?.techWorkforceTotal?.linkedin) addClaim(`LinkedIn tech profiles: ~${ws.techWorkforceTotal.linkedin.toLocaleString()}`);
+  if (ws?.techWorkforceTotal?.linkedin) addClaim(`Total IT professionals (LinkedIn): ~${ws.techWorkforceTotal.linkedin.toLocaleString()}`);
   if (ws?.concentration) addClaim(`Tech workforce concentration: ${ws.concentration}`);
+  if (ws?.annualGrowthRate?.value) addClaim(`Tech workforce annual growth rate: ~${ws.annualGrowthRate.value}%`);
   if (ws?.femaleGrowth) addClaim(`Female ICT specialists: ${ws.femaleGrowth.value}%`);
   if (ws?.tertiaryEducation) addClaim(`ICT workers with tertiary education: ${ws.tertiaryEducation.value}%`);
   
-  if (ws?.cityBreakdown) {
-    ws.cityBreakdown.slice(0, 4).forEach(city => {
-      addClaim(`${city.city}: ~${city.official?.toLocaleString() || city.linkedin.toLocaleString()} tech workers`);
+  // City breakdown — use linkedin field (matches website bar chart)
+  if (ws?.cityBreakdown && ws?.techWorkforceTotal?.linkedin) {
+    const total = ws.techWorkforceTotal.linkedin;
+    ws.cityBreakdown.forEach(city => {
+      const pct = Math.round((city.linkedin / total) * 100);
+      const label = city.city === 'Others' ? `Other cities` : city.city;
+      addClaim(`${label}: ~${city.linkedin.toLocaleString()} IT professionals (${pct}%)`);
     });
   }
   
@@ -1105,10 +1073,10 @@ function generateWorkforceClaims(content, compensation) {
         if (auth.senior) parts.push(`Senior ${auth.senior}`);
         if (auth.lead) parts.push(`Lead ${auth.lead}`);
         if (parts.length > 0) {
-          addClaim(`${role.roleType} salary (annual, Lisbon): ${parts.join(', ')} — ${role.meta.source?.provider || 'Glassdoor, Landing.jobs'} (2024)`);
+          addClaim(`${role.roleType} salary (annual, Lisbon): ${parts.join(', ')}`);
         }
       } else if (role.min && role.max) {
-        addClaim(`${role.roleType} base band (monthly, Lisbon): €${role.min.toLocaleString()}–€${role.max.toLocaleString()} — ${role.meta?.source?.provider || 'Glassdoor, Landing.jobs'}`);
+        addClaim(`${role.roleType} base band (monthly, Lisbon): €${role.min.toLocaleString()}–€${role.max.toLocaleString()}`);
       }
     }
   }
@@ -1126,10 +1094,10 @@ function generateWorkforceClaims(content, compensation) {
   // ─── Employer Costs (data-prompt-core from COMPENSATION_DATA) ───
   const ec = compensation?.employerCosts;
   if (ec?.socialSecurity?.employerRate) {
-    addClaim(`Employer social security rate: ${ec.socialSecurity.employerRate}% — Segurança Social`);
+    addClaim(`Employer social security rate: ${ec.socialSecurity.employerRate}%`);
   }
   if (ec?.mealAllowance?.cardMax) {
-    addClaim(`Meal allowance (card, tax-exempt max): €${ec.mealAllowance.cardMax}/day — OE 2025`);
+    addClaim(`Meal allowance (card, tax-exempt max): €${ec.mealAllowance.cardMax}/day`);
   }
   if (ec?.holidayAllowance?.months) {
     addClaim(`Portugal pays ${ec.holidayAllowance.months} extra monthly salaries/year (holiday + Christmas subsidy) — Código do Trabalho`);
@@ -1150,7 +1118,7 @@ function generateWorkforceClaims(content, compensation) {
       if (bachelor14x == null) return;
       const bachelor12x = Math.round(bachelor14x * CONV);
       const pctVsLisbon = ((bachelor14x / lisbonBachelor14x) * 100).toFixed(1);
-      addClaim(`INE average monthly earnings (12× equiv, Bachelor): ${region.name} €${bachelor12x.toLocaleString()} (${pctVsLisbon}% vs Lisbon) — INE ${ine.year}`);
+      addClaim(`Average monthly earnings (12× equiv, Bachelor): ${region.name} €${bachelor12x.toLocaleString()} (${pctVsLisbon}% vs Lisbon)`);
     });
   }
   
@@ -1206,23 +1174,40 @@ function generateStrategicClaims(content) {
   // ─── Cost of Living (data-prompt-core stat-heroes) ───
   const col = content?.costOfLiving;
   if (col?.monthlyEssentials?.value) {
-    addClaim(`Monthly essentials (single, outside Lisbon): €${col.monthlyEssentials.value} ${col.monthlyEssentials.note ? `(${col.monthlyEssentials.note})` : ''} — Numbeo 2024`);
+    addClaim(`Monthly essentials (single, outside Lisbon): €${col.monthlyEssentials.value} ${col.monthlyEssentials.note ? `(${col.monthlyEssentials.note})` : ''}`);
   }
   if (col?.utilities?.value) {
-    addClaim(`Utilities (${col.utilities.includes || 'electricity, water, internet'}): €${col.utilities.value}/month — Numbeo 2024`);
+    addClaim(`Utilities (${col.utilities.includes || 'electricity, water, internet'}): €${col.utilities.value}/month`);
   }
-  // Numbeo comparison claim (hardcoded — displayed on site as stat-hero)
-  addClaim('Cost of living 30–65% cheaper than London/Amsterdam/Munich — Numbeo comparison');
+  if (col?.comparisonToEurope?.value) {
+    addClaim(`Cost of living (COL+Rent Index): ${col.comparisonToEurope.value} ${col.comparisonToEurope.label || 'cheaper than major European cities'}`);
+  }
   
-  // ─── Quality of Life & Security (data-prompt-core cards) ───
-  // Healthcare card
-  addClaim('Portugal: Universal public healthcare (SNS) — free at point of use with small co-pays');
-  addClaim('Portugal private health insurance: €30–80/month, short wait times, English-speaking practitioners');
-  addClaim('Euro Health Consumer Index (EHCI): Portugal ranked 20th / 35 European countries (2018)');
-  // Safety card
-  addClaim('Global Peace Index (GPI): Portugal ranked 7th safest country worldwide (2024)');
-  addClaim('Portugal crime rate: Among the lowest in the EU — Lisbon safer than most European capitals');
-  addClaim('Portugal: EU member since 1986, NATO member since 1949');
+  // ─── Quality of Life & Security (from WEBSITE_CONTENT qualityOfLife) ───
+  const qol = content?.qualityOfLife;
+  // Healthcare
+  if (qol?.healthcare?.publicSystem) {
+    addClaim(`Portugal: Universal public healthcare (${qol.healthcare.publicSystem.name}) — ${qol.healthcare.publicSystem.description}`);
+  }
+  if (qol?.healthcare?.privateInsurance) {
+    addClaim(`Portugal private health insurance: ${qol.healthcare.privateInsurance.costRange} — ${qol.healthcare.privateInsurance.details}`);
+  }
+  if (qol?.healthcare?.ehci) {
+    const e = qol.healthcare.ehci;
+    addClaim(`${e.source}: Portugal ranked ${e.rank}th / ${e.totalCountries} ${e.label} (${e.year})`);
+  }
+  // Safety
+  if (qol?.safety?.gpi) {
+    const g = qol.safety.gpi;
+    addClaim(`${g.source}: Portugal ranked ${g.rank}th ${g.label} (${g.year})`);
+  }
+  if (qol?.safety?.crimeRate) {
+    addClaim(`Portugal crime rate: ${qol.safety.crimeRate.value} — ${qol.safety.crimeRate.detail}`);
+  }
+  if (qol?.safety?.political) {
+    const p = qol.safety.political;
+    addClaim(`Portugal: ${p.description}; EU member since ${p.euMemberSince}, NATO since ${p.natoMemberSince}`);
+  }
   
   return claims;
 }
@@ -1323,8 +1308,8 @@ async function generateCityClaimsFromSource(cityId) {
     claimNum++;
   };
 
-  // Capitalize city name for claim text
-  const cityName = cityId.charAt(0).toUpperCase() + cityId.slice(1);
+  // Use proper city name with diacritics from DB
+  const cityName = cityData?.basic?.name?.value || cityId.charAt(0).toUpperCase() + cityId.slice(1);
 
   // ═══════════════════════════════════════════════════════════════════════════
   // META: TAGLINE & COVER TAGS
@@ -1557,9 +1542,9 @@ async function generateCityClaimsFromSource(cityId) {
       }
     }
     
-    // COL Index: Numbeo (externally verifiable)
+    // COL+Rent Index: (externally verifiable — Numbeo "Cost of Living Plus Rent Index")
     if (cityData.costs?.colIndex?.value) {
-      addClaim(`${cityName} Cost of Living Index (excl. rent): ${cityData.costs.colIndex.value} (Numbeo, NYC=100)`);
+      addClaim(`${cityName} Cost of Living Plus Rent Index: ${cityData.costs.colIndex.value} (NYC=100, Numbeo COL+Rent — includes domestic rents, NOT the excl-rent index which is ~20% higher)`);
     }
     
     // ─── TALENT & SALARY METRICS (METHODOLOGY CHECKS) ───
@@ -1569,7 +1554,7 @@ async function generateCityClaimsFromSource(cityId) {
     const coreICT = cityData.talent?.graduates?.coreICT?.value;
     
     if (officialStem) {
-      addClaim(`${cityName} Official STEM graduates (DGEEC, CNAEF 04+05+06+07+72): ${officialStem}/year`, true);
+      addClaim(`${cityName} Official STEM graduates (CNAEF 04+05+06+07+72): ${officialStem}/year`, true);
     }
     if (digitalStemPlus && officialStem) {
       const expected = Math.round(officialStem * 1.27);
@@ -1586,7 +1571,7 @@ async function generateCityClaimsFromSource(cityId) {
     
     // Salary Index
     if (cityData.costs?.salaryIndex?.value) {
-      addClaim(`${cityName} Salary Index: ${cityData.costs.salaryIndex.value} (Lisbon=100, INE regional wages)`, true);
+      addClaim(`${cityName} Salary Index: ${cityData.costs.salaryIndex.value} (Lisbon=100)`, true);
     }
   }
 
@@ -1653,7 +1638,7 @@ async function generateFactCheckPrompt() {
 |--------|------------|----------------------|
 | **Office Rent** | Prime Class A CBD office space, asking rent €/m²/month | Check JLL, C&W, Savills Portugal reports. Interior cities may have estimates. |
 | **Residential Rent** | T1 (1-bedroom) city center apartments, €/month | Check Idealista.pt, Numbeo. Ranges vary by neighborhood. |
-| **COL Index** | Numbeo Cost of Living Index (New York City = 100) | Search "Numbeo [city] cost of living". Note: smaller cities may lack data. |
+| **COL Index** | Numbeo Cost of Living **Plus Rent** Index (NYC = 100, includes domestic rents) | Search "Numbeo [city] cost of living plus rent". Note: this is NOT the excl-rent index. Smaller cities may lack data. |
 
 ### Internal Calculations (VERIFY IF REASONABLE — not if they exist)
 
