@@ -27,12 +27,12 @@ This is a **data-driven business analysis**, not marketing material.
 
 **Live Site:** https://al-gharb.github.io/nearshoring-cities-portugal/  
 **Build System:** Vite 5.4  
-**Version:** 0.8.0
+**Version:** 0.9.0
 
 **Features:**
 - 20 Portuguese cities (10 featured + 10 secondary)
 - Interactive D3.js bubble chart
-- AI Nearshoring Simulator (V4.8.1 prompt)
+- AI Nearshoring Simulator (V5.0 — deterministic engine + narrative prompt)
 - Fact-Check System v3.2
 - Light/dark mode
 
@@ -107,8 +107,9 @@ This is a **data-driven business analysis**, not marketing material.
 │      ├── contentRenderer.js Populate .db-value spans from JSON              │
 │      ├── calculations.js    Auto-compute salary indices, ICT %              │
 │      ├── themeToggle.js     Light/dark mode toggle                          │
+│      ├── simulatorEngine.js V5.0 deterministic computation (all math)       │
 │      ├── promptGenerator.js AI Simulator + Fact-check generator             │
-│      ├── promptTemplate.js  V4.8.1 prompt template builder                  │
+│      ├── promptTemplate.js  V5.0 prompt template (narrative only)           │
 │      └── coverCityList.js   Cover page city list                            │
 │                                                                             │
 └─────────────────────────────────────────────────────────────────────────────┘
@@ -132,6 +133,7 @@ This is a **data-driven business analysis**, not marketing material.
 │   │       ├── contentRenderer.js
 │   │       ├── calculations.js
 │   │       ├── themeToggle.js
+│   │       ├── simulatorEngine.js
 │   │       ├── promptGenerator.js
 │   │       ├── promptTemplate.js
 │   │       └── coverCityList.js

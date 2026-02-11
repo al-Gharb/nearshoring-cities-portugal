@@ -5,7 +5,7 @@ BUILT WITH AI
 > Data-driven analysis of Portugal's best cities for IT nearshoring, featuring an AI-powered advisor that generates structured recommendations from verified databases.
 
 [![Live Site](https://img.shields.io/badge/Live-al--gharb.github.io-blue)](https://al-gharb.github.io/nearshoring-cities-portugal/)
-[![Version](https://img.shields.io/badge/version-0.8.0-orange)](package.json)
+[![Version](https://img.shields.io/badge/version-0.9.0-orange)](package.json)
 [![Build](https://img.shields.io/badge/build-Vite-646cff)](https://vitejs.dev/)
 
 ---
@@ -59,8 +59,9 @@ npm run preview
 │   │       ├── cityTable.js      # City database table
 │   │       ├── bubbleChart.js    # D3.js visualization
 │   │       ├── cityProfiles.js   # City profile sections
+│   │       ├── simulatorEngine.js # V5.0 deterministic computation
 │   │       ├── promptGenerator.js # AI Simulator
-│   │       ├── promptTemplate.js  # V4.8.1 prompt template
+│   │       ├── promptTemplate.js  # V5.0 prompt template (narrative)
 │   │       ├── contentRenderer.js # Dynamic content
 │   │       ├── calculations.js    # Salary/ICT calculations
 │   │       └── themeToggle.js     # Dark mode
@@ -192,21 +193,30 @@ The fact-check system ensures data accuracy through **multi-source AI verificati
 
 ---
 
-## AI Nearshoring Simulator
+## AI Nearshoring Simulator (V5.0)
 
-The simulator generates structured prompts for AI analysis based on:
+**Architecture:** Separation of concerns — JavaScript handles all financial computation, AI handles narrative reasoning.
 
-- **Client inputs:** Team size, budget, tech stack, work model
-- **Portugal data:** City metrics, salary bands, regional costs
-- **Prompt template:** 15-section deterministic output
+The simulator:
 
-### Prompt Architecture
+1. **Runs deterministic analysis** (JavaScript) — Computes EMC, scores 20 cities, ranks by feasibility
+2. **Generates ~7,000-token prompt** — Pre-computed tables + client context
+3. **AI consumes results** — Reviews Top 5, selects 2-3 best fits, writes deep-dives
+
+### Key Components
+
+- **simulatorEngine.js** — All financial math, scoring rubrics, ranking logic (deterministic)
+- **promptTemplate.js** — Builds narrative prompt with pre-computed results (zero formulas)
+- **promptGenerator.js** — Collects inputs, runs engine, generates final prompt
+
+### Prompt Architecture (V5.0)
 
 ```
-Section 1-5:  Deterministic computation → TOP 5 feasible cities
-Section 6:    Persona shift → Senior advisor selects 2-3
-Section 7-9:  Deep analysis of advisor's picks
-Section 10-15: Supporting details, risks, next steps
+Phase A: Pre-computed results (read-only tables)
+Phase B: Client request + advisory task
+Phase C: Output template (7 sections)
+
+AI performs ZERO arithmetic — only strategic reasoning and narrative analysis.
 ```
 
 ---

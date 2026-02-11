@@ -2405,8 +2405,8 @@
          ║  AI NEARSHORING SIMULATOR                                               ║
          ╚═══════════════════════════════════════════════════════════════════════════╝ -->
     <section id="ai-simulator" class="intro-block section-simulator">
-      <h2><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i> AI Nearshoring Simulator Portugal <span class="badge-beta">Beta v0.8</span></h2>
-      <p>Generate a custom nearshoring analysis prompt from real city data. Fill in your requirements and paste the generated prompt into ChatGPT, Claude, or any LLM.</p>
+      <h2><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i> AI Nearshoring Simulator Portugal <span class="badge-beta">V5.0</span></h2>
+      <p>Generate a custom nearshoring analysis from real city data. Fill in your requirements, get pre-computed rankings and financial projections, then paste the generated prompt into ChatGPT, Claude, or any LLM for expert narrative analysis.</p>
 
       <!-- How It Works — Collapsible -->
       <details class="deeper-dive-container simulator-how-it-works">
@@ -2417,15 +2417,16 @@
           <i class="fa-solid fa-chevron-down deeper-dive-chevron" aria-hidden="true"></i>
         </summary>
         <div class="deeper-dive-content">
-          <p><strong>What it does:</strong> Combines Portugal's 20-city database (talent metrics, cost benchmarks, infrastructure specs) with your specific team needs into a 16,500-token structured analysis prompt.</p>
-          <p><strong>Why deep prompts outperform shallow ones:</strong> Without structured data, AI models default to training data patterns — leading to hallucinated statistics, outdated assumptions, and plausible-sounding shortcuts instead of calculations. This prompt embeds scoring rubrics, salary bands, talent formulas, and decision frameworks directly into context, forcing quantitative analysis with cited sources and transparent reasoning.</p>
+          <p><strong>What it does:</strong> Runs deterministic financial analysis on Portugal's 20-city database (talent metrics, cost benchmarks, salary formulas) in JavaScript, then generates a ~7,000-token prompt with pre-computed results for AI narrative interpretation.</p>
+          <p><strong>V5.0 Architecture — Separation of Concerns:</strong> All salary math, scoring rubrics, city rankings, and budget calculations run client-side before the prompt is built. The AI receives verified tables (Top 5 cities, employer costs, savings comparisons) and performs <strong>zero arithmetic</strong> — only strategic reasoning, narrative analysis, and advisory recommendations. This eliminates formula drift, calculation errors, and hallucinated numbers.</p>
           <p><strong>How it works:</strong></p>
           <ol class="simulator-workflow">
-            <li>Fill out the form below (team size, roles, budget, operational constraints)</li>
-            <li>Click "Generate Prompt" to produce your custom 16,500-token analysis package</li>
-            <li>Paste into DeepSeek R1, Claude Sonnet/Opus 4.5, or GPT-5 Deep Research</li>
-            <li>Receive scored evaluations for all 20 cities + 2-3 optimal recommendations with justification</li>
-            <li>Continue interacting: ask follow-ups, request deeper analysis, explore trade-offs, or adjust constraints in real-time</li>
+            <li>Fill out the form below (team size, budget, roles, work model, priorities)</li>
+            <li>Click "Generate Prompt" — JavaScript computes all financial math, scores 20 cities, ranks by feasibility</li>
+            <li>Receive a ~7,000-token prompt with pre-computed tables + your request context</li>
+            <li>Paste into DeepSeek R1, Claude Sonnet/Opus 4.5, or GPT-5 for expert analysis</li>
+            <li>AI reviews the Top 5, selects 2-3 best fits for your context, writes deep-dives with hiring strategy</li>
+            <li>Continue interacting: ask follow-ups, request budget breakdowns, explore trade-offs in real-time</li>
           </ol>
           <p class="simulator-recommended-models"><i class="fa-solid fa-microchip" aria-hidden="true"></i> <strong>Recommended AI Models:</strong> DeepSeek R1, Claude Sonnet 4.5, Claude Opus 4.5, GPT-5 (Deep Research mode).</p>
           <p class="simulator-disclaimer"><strong>Disclaimer:</strong> This tool is experimental and for directional guidance only. AI-generated recommendations are not verified and should not be used as the sole basis for business or hiring decisions. Conduct independent validation before making operational commitments.</p>
