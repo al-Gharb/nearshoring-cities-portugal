@@ -1,13 +1,15 @@
 /**
- * PROMPT GENERATOR MODULE
+ * PROMPT GENERATOR MODULE — V5.0
  * AI Nearshoring Simulator — collects form inputs + database data,
- * generates V4.8.1 prompt, handles UI (generate, copy, conditional fields).
+ * runs deterministic computation via simulatorEngine, then builds
+ * a narrative-focused prompt. Handles UI (generate, copy, conditional fields).
  *
- * Reads from 4 normalized databases instead of legacy 3-DB system.
+ * Architecture: simulatorEngine → all math. LLM → reasoning & narrative.
  */
 
 import { getStore, getCity, getCityProfile, getNationalData, getCompensationData, getChartConfig, getRegionalTotals } from './database.js';
 import { buildPromptTemplate } from './promptTemplate.js';
+import { computeAnalysis } from './simulatorEngine.js';
 
 /* ═══════════════════════════════════════════════════════════════════════════
  * DATA COLLECTION — Build portugalData from normalized databases
@@ -27,58 +29,10 @@ function getRegionalPool(cityId, cityData) {
   return totals?.digitalStemPlus ?? 500;
 }
 
-/**
- * Extract city metadata (climate, QoL, coworking, airport) from CITY_PROFILES.json.
- * Replaces the former hardcoded CITY_METADATA object.
- * @param {string} cityId
- * @returns {Object} { climate, qolScore, coworking, airportHub, timezone }
- */
-function getCityMeta(cityId) {
-  const profile = getCityProfile(cityId);
-  if (!profile) {
-    return { climate: null, qolScore: null, coworking: null, airportHub: null, timezone: 'WET (UTC+0), 1h behind CET' };
-  }
+// getCityMeta() removed in V5.0 — metadata (climate, coworking, airport) no longer injected into prompt.
+// These are now advisory context the LLM can reference from the city database tags/companies fields.
 
-  // Climate from culture.climate
-  const climateData = profile.culture?.climate;
-  const climate = climateData?.value ?? null;
-
-  // Quality of life from culture.retention + culture.qualityOfLife
-  const retention = profile.culture?.retention;
-  const qolData = profile.culture?.qualityOfLife;
-  const qolScore = qolData?.walkability
-    ? `${qolData.walkability}${qolData.culture ? `, ${qolData.culture}` : ''}`
-    : (retention?.narrative?.substring(0, 80) ?? null);
-
-  // Coworking from ecosystem.coworking
-  const coworkingData = profile.ecosystem?.coworking;
-  let coworking = null;
-  if (coworkingData) {
-    const names = (coworkingData.spaces || []).map(s => s.name).slice(0, 3).join(', ');
-    const total = coworkingData.totalSpaces || coworkingData.description || '';
-    coworking = names ? `${total ? total + '+ spaces' : 'Available'} (${names})` : (coworkingData.description ?? null);
-  }
-
-  // Airport from infrastructure.airport
-  const airportData = profile.infrastructure?.airport;
-  let airportHub = null;
-  if (airportData) {
-    airportHub = airportData.iataCode
-      ? `${airportData.iataCode}${airportData.driveTime ? ` — ${airportData.driveTime}` : ''}`
-      : airportData.name ?? null;
-  }
-
-  return {
-    climate,
-    qolScore,
-    coworking,
-    airportHub,
-    timezone: 'WET (UTC+0), 1h behind CET',
-  };
-}
-
-// Default fallbacks for missing data
-const DEFAULT_RENT = { min: 12, max: 18, mid: 15 };
+// Default fallback for ICT percentage (still used in fact-check generators below)
 const DEFAULT_ICT_PCT = 15;
 
 /**
@@ -186,7 +140,8 @@ function buildStackPremiums(compData) {
 
 /**
  * Prepare city data for AI prompt consumption.
- * Reads from MASTER.json and CITY_PROFILES.json.
+ * Reads from MASTER.json with minimal CITY_PROFILES enrichment (tags, companies).
+ * This is the ONLY data injected into the prompt as JSON.
  * @returns {Array} Array of city objects in prompt-ready format
  */
 function prepareCityDataForAI() {
@@ -203,56 +158,31 @@ function prepareCityDataForAI() {
     const grads = city.talent?.graduates || {};
     const costs = city.costs || {};
     const profile = getCityProfile(cityId);
-    const meta = getCityMeta(cityId);
 
     cities.push({
       id: cityId,
       name: city.basic?.name?.value ?? cityId,
       featured: city.basic?.featured ?? false,
+      region: city.basic?.region?.value ?? 'Unknown',
       universities: city.talent?.universities?.value ?? [],
       stemGrads: grads.digitalStemPlus?.value ?? 0,
       ictGrads: grads.coreICT?.value ?? 0,
-      ictPct: grads.coreICT?.pctOfOfficialStem?.value ?? DEFAULT_ICT_PCT,
       regionalPool: getRegionalPool(cityId, city),
       colIndex: costs.colIndex?.value ?? 35,
       salaryIndex: costs.salaryIndex?.value ?? 80,
-      officeRent: costs.officeRent ? { min: costs.officeRent.min, max: costs.officeRent.max, mid: ((costs.officeRent.min || 12) + (costs.officeRent.max || 18)) / 2 } : DEFAULT_RENT,
-      residentialRent: costs.residentialRent ? { min: costs.residentialRent.min, max: costs.residentialRent.max, mid: ((costs.residentialRent.min || 800) + (costs.residentialRent.max || 1200)) / 2 } : DEFAULT_RENT,
-      coworking: meta.coworking ?? profile?.ecosystem?.coworking?.description ?? null,
-      climate: meta.climate ?? profile?.qualityOfLife?.climate?.value ?? null,
+      officeRent: costs.officeRent ? { min: costs.officeRent.min, max: costs.officeRent.max } : { min: 12, max: 18 },
+      residentialRent: costs.residentialRent ? { min: costs.residentialRent.min, max: costs.residentialRent.max } : { min: 800, max: 1200 },
+      hasAirport: city.flags?.hasAirport ?? false,
       tags: profile?.ecosystem?.domains?.value ?? [],
       majorCompanies: (profile?.ecosystem?.techCompanies?.value ?? []).map(c => c.name),
-      checkScore: profile?.verification?.checkScore ?? null,
-      checkDate: profile?.verification?.checkDate ?? null,
     });
   }
 
   return cities;
 }
 
-/**
- * Collect all scraped data into optimized Data Contract format for AI.
- * @returns {Object} Complete Portugal data object
- */
-function collectAllData() {
-  const preparedCities = prepareCityDataForAI();
-  const nationalData = getNationalData();
-
-  return {
-    cities: preparedCities,
-    national: nationalData ?? null,
-    connectivity: nationalData?.connectivity ?? null,
-    geostrategic: nationalData?.connectivity?.geostrategic ?? null,
-    taxIncentives: nationalData?.taxIncentives ?? null,
-    laborMarket: nationalData?.laborMarket ?? null,
-    techWorkforce: nationalData?.workforceStatistics ?? null,
-    hiringInsights: nationalData?.hiringInsights ?? null,
-    euContext: nationalData?.euContext ?? null,
-    salaryByRegion: nationalData?.salaryByRegion ?? null,
-    graduateFlow: nationalData?.graduateFlow ?? null,
-    costOfLiving: nationalData?.costOfLiving ?? null,
-  };
-}
+// collectAllData() removed in V5.0 — national data no longer injected into prompt.
+// Only MASTER.json city data + minimal CITY_PROFILES enrichment is used.
 
 /* ═══════════════════════════════════════════════════════════════════════════
  * FORM INPUT READING
@@ -299,7 +229,9 @@ function readFormInputs() {
  * ═══════════════════════════════════════════════════════════════════════════ */
 
 /**
- * Generate the V4.8.1 master prompt.
+ * Generate the V5.0 master prompt.
+ * Flow: read form → build compensation lookups → run deterministic engine → build prompt.
+ * All arithmetic happens in simulatorEngine.js. The prompt contains zero formulas.
  * @returns {string} Complete prompt text for AI consumption
  */
 export function generateMasterPrompt() {
@@ -319,20 +251,44 @@ export function generateMasterPrompt() {
   const budgetMatch = inputs.opexBudget.match(/[\d,]+/);
   const budget = budgetMatch ? parseInt(budgetMatch[0].replace(/,/g, '')) : null;
 
-  // Collect all data from databases
-  const portugalData = collectAllData();
-  const todayDate = new Date().toISOString().split('T')[0];
+  // Resolve seniority tier multiplier from form or default to mid (1.00)
+  const tierKey = inputs.hiringStrategy?.includes('senior') ? 'senior'
+    : inputs.hiringStrategy?.includes('junior') ? 'junior'
+    : inputs.hiringStrategy?.includes('lead') ? 'lead'
+    : 'mid';
+  const resolvedTierMultiplier = tierMultipliers[tierKey] ?? 1.00;
 
-  // Delegate to prompt template builder
-  return buildPromptTemplate({
-    inputs,
+  // Resolve stack premium — pick highest from selected stacks
+  const selectedStacks = (inputs.searchedStack || '').toLowerCase();
+  let resolvedStackPremium = 0;
+  for (const [key, premium] of Object.entries(stackPremiums)) {
+    if (selectedStacks.includes(key.replace(/-/g, ' ')) || selectedStacks.includes(key)) {
+      resolvedStackPremium = Math.max(resolvedStackPremium, premium);
+    }
+  }
+
+  // Prepare city data (MASTER.json + minimal CITY_PROFILES)
+  const cityData = prepareCityDataForAI();
+
+  // Run deterministic computation engine — ALL math happens here
+  const computed = computeAnalysis({
     currentBand,
-    salaryBands,
-    tierMultipliers,
-    stackPremiums,
+    tierMultiplier: resolvedTierMultiplier,
+    stackPremium: resolvedStackPremium,
     teamSize,
     budget,
-    portugalData,
+    cities: cityData,
+    industry: inputs.companyFocus || '',
+    teamSizeRaw: teamSize,
+  });
+
+  const todayDate = new Date().toISOString().split('T')[0];
+
+  // Delegate to prompt template builder — receives pre-computed results, no formulas
+  return buildPromptTemplate({
+    inputs,
+    computed,
+    cityData,
     todayDate,
   });
 }
