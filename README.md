@@ -1,3 +1,5 @@
+BUILT WITH AI
+
 # Portugal IT Nearshoring Guide
 
 > Data-driven analysis of Portugal's best cities for IT nearshoring, featuring an AI-powered advisor that generates structured recommendations from verified databases.
@@ -18,7 +20,7 @@
 
 - **20 Portuguese Cities** — 10 featured with full profiles, 10 secondary with key metrics
 - **Interactive D3.js Bubble Chart** — Visualize talent pool vs. cost trade-offs
-- **AI Nearshoring Simulator** — Generate custom analysis prompts for GPT-4/Claude
+- **AI Nearshoring Simulator** — Generate custom nearshoring deep prompts for simulation
 - **Fact-Check System v3.1** — Dynamic claim generation from source databases
 - **Light/Dark Mode** — Full theme support
 - **Print-Ready** — City profiles styled for PDF export
@@ -196,7 +198,7 @@ The simulator generates structured prompts for AI analysis based on:
 
 - **Client inputs:** Team size, budget, tech stack, work model
 - **Portugal data:** City metrics, salary bands, regional costs
-- **Prompt template:** V4.8.1 with 15-section deterministic output
+- **Prompt template:** 15-section deterministic output
 
 ### Prompt Architecture
 
@@ -253,7 +255,7 @@ Uses design tokens with CSS custom properties:
 
 - **Authors:** Claude AI (Opus 4.5)
 - **Research:** Perplexity AI, Gemini Deep Research, GPT-5
-- **Data Sources:** DGEEC/InfoCursos, ANACOM, Eurostat, CFP, JLL Portugal, Cushman & Wakefield
+- **Data Sources:** DGEEC/InfoCursos, ANACOM, Eurostat, CFP, JLL Portugal, Cushman & Wakefield,   idealista and more. See html.
 
 ---
 

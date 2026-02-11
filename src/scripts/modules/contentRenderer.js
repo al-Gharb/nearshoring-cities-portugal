@@ -9,6 +9,7 @@
  */
 
 import { getStore, getCity, getCityProfile } from './database.js';
+import { getCompensationData } from './database.js';
 import { buildConfidenceBarHTML } from '../utils/confidenceBar.js';
 
 /**
@@ -332,12 +333,101 @@ function renderSectionScoreCards() {
 }
 
 /**
+ * Populate the IT Salary Ranges table dynamically from COMPENSATION_DATA.json.
+ * Reads htmlAuthoritative fields (hand-tuned annual ranges) for each role.
+ */
+function populateSalaryTable() {
+  const tbody = document.getElementById('salary-table-body');
+  if (!tbody) return;
+
+  const comp = getCompensationData();
+  const bands = comp?.baseBands;
+  if (!bands) return;
+
+  // Display order: which roles appear in the salary table and in what order
+  const displayRoles = [
+    { key: 'softwareEngineer', label: 'Software Engineer' },
+    { key: 'devops', label: 'DevOps / SRE' },
+    { key: 'mlDataEngineer', label: 'Data Scientist / ML' },
+    { key: 'productManager', label: 'Product Manager' },
+    { key: 'qaTesting', label: 'QA / Testing' },
+    { key: 'uxCreative', label: 'UX/UI Designer' },
+  ];
+
+  const rows = displayRoles.map(({ key, label }) => {
+    const role = bands[key];
+    if (!role) return '';
+    const auth = role.meta?.htmlAuthoritative || {};
+
+    return `
+      <tr data-db="compensation" data-role="${key}">
+        <td><strong>${label}</strong></td>
+        <td class="col-numeric">${auth.junior || '—'}</td>
+        <td class="col-numeric">${auth.mid || '—'}</td>
+        <td class="col-numeric">${auth.senior || '—'}</td>
+        <td class="col-numeric">${auth.lead || '—'}</td>
+        <td class="salary-employer col-numeric">${auth.employerTotal || '—'}</td>
+      </tr>`;
+  }).filter(Boolean);
+
+  tbody.innerHTML = rows.join('');
+}
+
+/**
+ * Populate the Tech Stack Salary Premiums table dynamically from COMPENSATION_DATA.json.
+ * Computes the Senior SW Eng example by applying premium to the SW Eng senior range.
+ */
+function populateTechStackPremiums() {
+  const tbody = document.getElementById('tech-stack-table-body');
+  if (!tbody) return;
+
+  const comp = getCompensationData();
+  const premiums = comp?.techStackPremiums;
+  const sweSenior = comp?.baseBands?.softwareEngineer?.meta?.htmlAuthoritative?.senior;
+  if (!premiums) return;
+
+  // Parse senior SW Eng range like "€55–72k" into [55, 72]
+  let baseLow = 0, baseHigh = 0;
+  if (sweSenior) {
+    const match = sweSenior.match(/€(\d+)–(\d+)k/);
+    if (match) {
+      baseLow = parseInt(match[1], 10);
+      baseHigh = parseInt(match[2], 10);
+    }
+  }
+
+  const rows = Object.entries(premiums).map(([key, stack]) => {
+    const pct = stack.premium;
+    const premiumLabel = pct === 0 ? 'Baseline' : `+${Math.round(pct * 100)}%`;
+
+    // Calculate example: apply premium to senior SW Eng range
+    let example = '—';
+    if (baseLow && baseHigh) {
+      const low = Math.round(baseLow * (1 + pct));
+      const high = Math.round(baseHigh * (1 + pct));
+      example = `€${low}–${high}k`;
+    }
+
+    return `
+      <tr data-db="compensation" data-stack="${key}">
+        <td>${stack.stack}</td>
+        <td class="col-numeric">${premiumLabel}</td>
+        <td class="col-numeric">${example}</td>
+      </tr>`;
+  });
+
+  tbody.innerHTML = rows.join('');
+}
+
+/**
  * Master populate: runs all population passes in sequence.
  * Call once after databases are loaded and rendering is complete.
  */
 export function populateAll() {
   populateDbValues();
   populateMethodology();
+  populateSalaryTable();
+  populateTechStackPremiums();
   renderFactCheckCards();
   renderSectionScoreCards();
   populateCityTags();

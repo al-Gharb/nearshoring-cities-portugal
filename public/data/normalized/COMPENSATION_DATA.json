@@ -39,7 +39,7 @@
         "source": { "type": "survey", "provider": "Glassdoor, Landing.jobs 2024" },
         "verification": { "level": "verified", "checkScore": 82 },
         "lifecycle": { "updateFrequency": "annual", "nextReview": "2026-11-01" },
-        "htmlAuthoritative": { "junior": "€23–33k", "mid": "€35–53k", "senior": "€53–76k", "lead": "€58–85k" },
+        "htmlAuthoritative": { "junior": "€22–36k", "mid": "€38–52k", "senior": "€55–72k", "lead": "€65–85k", "employerTotal": "€29–107k" },
         "_conversionNote": "Converted from original 14x Portuguese values to 12x format (×14/12 ≈ ×1.167) for international comparison"
       }
     },
@@ -51,7 +51,7 @@
       "meta": {
         "source": { "type": "survey", "provider": "Glassdoor, Landing.jobs 2024" },
         "verification": { "level": "verified" },
-        "htmlAuthoritative": { "junior": "€26–35k", "mid": "€39–56k", "senior": "€56–82k", "lead": "€63–91k" },
+        "htmlAuthoritative": { "junior": "€25–37k", "mid": "€40–55k", "senior": "€60–80k", "lead": "€70–90k", "employerTotal": "€33–114k" },
         "_conversionNote": "Converted from original 14x Portuguese values to 12x format (×14/12 ≈ ×1.167) for international comparison"
       }
     },
@@ -63,7 +63,7 @@
       "meta": {
         "source": { "type": "survey", "provider": "Glassdoor, Landing.jobs 2024" },
         "verification": { "level": "verified" },
-        "htmlAuthoritative": { "junior": "€26–35k", "mid": "€41–58k", "senior": "€58–88k", "lead": "€65–98k" },
+        "htmlAuthoritative": { "junior": "€25–39k", "mid": "€42–58k", "senior": "€60–82k", "lead": "€70–95k", "employerTotal": "€33–120k" },
         "_conversionNote": "Converted from original 14x Portuguese values to 12x format (×14/12 ≈ ×1.167) for international comparison"
       }
     },
@@ -99,7 +99,7 @@
       "meta": {
         "source": { "type": "survey", "provider": "Glassdoor, Landing.jobs 2024" },
         "verification": { "level": "verified" },
-        "htmlAuthoritative": { "junior": "€29–37k", "mid": "€41–58k", "senior": "€58–82k", "lead": "€65–91k" },
+        "htmlAuthoritative": { "junior": "€28–39k", "mid": "€42–58k", "senior": "€60–80k", "lead": "€70–90k", "employerTotal": "€37–114k" },
         "_conversionNote": "Converted from original 14x Portuguese values to 12x format (×14/12 ≈ ×1.167) for international comparison"
       }
     },
@@ -111,7 +111,7 @@
       "meta": {
         "source": { "type": "survey", "provider": "Glassdoor, Landing.jobs 2024" },
         "verification": { "level": "verified" },
-        "htmlAuthoritative": { "junior": "€19–26k", "mid": "€28–41k", "senior": "€41–58k", "lead": "€46–65k" },
+        "htmlAuthoritative": { "junior": "€18–27k", "mid": "€30–40k", "senior": "€45–60k", "lead": "€50–65k", "employerTotal": "€25–83k" },
         "_conversionNote": "Converted from original 14x Portuguese values to 12x format (×14/12 ≈ ×1.167) for international comparison"
       }
     },
@@ -135,7 +135,7 @@
       "meta": {
         "source": { "type": "survey", "provider": "Glassdoor, Landing.jobs 2024" },
         "verification": { "level": "verified" },
-        "htmlAuthoritative": { "junior": "€21–29k", "mid": "€33–47k", "senior": "€47–64k", "lead": "€53–72k" },
+        "htmlAuthoritative": { "junior": "€20–31k", "mid": "€34–48k", "senior": "€50–65k", "lead": "€55–75k", "employerTotal": "€27–95k" },
         "_conversionNote": "Converted from original 14x Portuguese values to 12x format (×14/12 ≈ ×1.167) for international comparison"
       }
     },
