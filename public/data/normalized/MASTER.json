@@ -58,7 +58,7 @@
       "officialStem": {
         "description": "DGEEC/Eurostat classification: Natural Sciences, ICT, Engineering",
         "source": "DGEEC InfoCursos",
-        "sourceURL": "https://infocursos.mec.pt/",
+        "sourceURL": "https://estatisticas-educacao.dgeec.medu.pt/eef/2024/ensino_superior/alunos/diplomados.asp",
         "lastUpdated": "June 2024",
         "cnaefCodes": [
           "04 (Life Sciences)",

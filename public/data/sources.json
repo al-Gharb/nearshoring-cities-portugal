@@ -56,7 +56,7 @@
     "dgeec-infocursos-2324": {
       "provider": "DGEEC InfoCursos",
       "title": "InfoCursos Graduate Statistics 2023/24",
-      "url": "https://infocursos.mec.pt/",
+      "url": "https://estatisticas-educacao.dgeec.medu.pt/eef/2024/ensino_superior/alunos/diplomados.asp",
       "type": "official",
       "publishedDate": "2025-01-15",
       "expiresAfter": "12M",
@@ -65,7 +65,7 @@
     "dgeec-universities-2024": {
       "provider": "DGEEC",
       "title": "Higher Education Institutions Database (Ensino Superior)",
-      "url": "https://www.dgeec.medu.pt/art/ensino-superior/bases-de-dados/todas/64f88a56d128bc76d4fba939",
+      "url": "https://estatisticas-educacao.dgeec.medu.pt/eef/2024/ensino_superior/alunos/diplomados.asp",
       "type": "official",
       "publishedDate": "2024-01-01",
       "expiresAfter": "24M",
@@ -74,7 +74,7 @@
     "dgeec-cnaef-2024": {
       "provider": "DGEEC",
       "title": "CNAEF Classification of Studies",
-      "url": "https://www.dgeec.medu.pt/art/ensino-superior/bases-de-dados/todas/64f85364d128bc76d4fba91c",
+      "url": "https://estatisticas-educacao.dgeec.medu.pt/eef/2024/ensino_superior/alunos/diplomados.asp",
       "type": "official",
       "publishedDate": "2024-01-01",
       "expiresAfter": "24M",
