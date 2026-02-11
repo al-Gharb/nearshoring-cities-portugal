@@ -1049,6 +1049,7 @@ a.scorecard-source:hover {
 .cable-map-card {
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 .cable-map-container {
   flex: 1;
@@ -1056,6 +1057,13 @@ a.scorecard-source:hover {
   align-items: center;
   justify-content: center;
   min-height: 300px;
+  overflow: hidden;
+}
+/* Mobile: reduce min-height */
+@media (max-width: 640px) {
+  .cable-map-container {
+    min-height: 200px;
+  }
 }
 .cable-table {
   width: 100%;
@@ -1067,6 +1075,7 @@ a.scorecard-source:hover {
   padding: 0.5rem 0.75rem;
   text-align: left;
   border-bottom: 1px solid var(--border-color);
+  word-break: break-word;
 }
 .cable-table th {
   font-weight: 600;
@@ -1074,6 +1083,20 @@ a.scorecard-source:hover {
   text-transform: uppercase;
   letter-spacing: 0.03em;
   color: var(--light-text);
+  white-space: nowrap;
+}
+/* Mobile: reduce padding and font size for better fit */
+@media (max-width: 640px) {
+  .cable-table {
+    font-size: 0.72rem;
+  }
+  .cable-table th,
+  .cable-table td {
+    padding: 0.4rem 0.5rem;
+  }
+  .cable-table th {
+    font-size: 0.65rem;
+  }
 }
 /* .cable-table-card: Use class="card" in HTML — no extra rules needed */
 
@@ -1479,12 +1502,22 @@ a.scorecard-source:hover {
   padding: var(--sp-xl) 0;
   background: var(--bg-color);
   animation: archiveSlideIn 0.3s ease;
+  overflow-x: hidden;
 }
 .verification-archive.hide-anim {
   animation: archiveSlideOut 0.25s ease forwards;
 }
 .verification-archive.reveal {
   display: block;
+}
+.verification-archive .container {
+  overflow-x: hidden;
+}
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .verification-archive {
+    padding: var(--sp-md) 0;
+  }
 }
 
 @keyframes archiveSlideOut {
@@ -1551,6 +1584,7 @@ a.scorecard-source:hover {
   border: 1px solid rgba(139,92,246,0.2);
   border-radius: var(--radius-lg);
   padding: var(--sp-xl);
+  overflow-x: hidden;
 }
 .factcheck-prompt-section h4 {
   font-size: 1rem;
@@ -1565,11 +1599,35 @@ a.scorecard-source:hover {
   color: #8b5cf6;
   filter: drop-shadow(0 1px 2px rgba(139,92,246,0.3));
 }
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .factcheck-prompt-section {
+    padding: var(--sp-lg);
+  }
+}
+@media (max-width: 640px) {
+  .factcheck-prompt-section {
+    padding: var(--sp-md);
+    border-radius: var(--radius-md);
+  }
+  .factcheck-prompt-section h4 {
+    font-size: 0.9rem;
+  }
+}
 
 .factcheck-generator-intro {
   font-size: 0.9rem;
   color: var(--text-muted);
   margin-bottom: var(--sp-lg);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Mobile: smaller text */
+@media (max-width: 640px) {
+  .factcheck-generator-intro {
+    font-size: 0.85rem;
+  }
 }
 
 .factcheck-section-divider {
@@ -1735,6 +1793,12 @@ a.scorecard-source:hover {
   }
 }
 
+@media (max-width: 400px) {
+  .factcheck-cities {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ─────────────────────────────────────────────────────────────────────────
    SHARED DEEP PROMPT OUTPUT (AI Simulator + Fact-Check prompt areas)
    ───────────────────────────────────────────────────────────────────────── */
@@ -1811,8 +1875,18 @@ a.scorecard-source:hover {
   color: #e0e7ff;
   white-space: pre-wrap;
   word-wrap: break-word;
+  overflow-wrap: break-word;
   max-height: 320px;
   overflow-y: auto;
+  overflow-x: auto;
+}
+/* Mobile: smaller text and padding */
+@media (max-width: 640px) {
+  .prompt-output-text {
+    padding: 0.75rem 0.85rem;
+    font-size: 0.65rem;
+    max-height: 280px;
+  }
 }
 .prompt-output-text:empty::before {
   content: "Your AI-ready prompt will appear here\2026";

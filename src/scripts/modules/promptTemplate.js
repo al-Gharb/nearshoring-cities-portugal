@@ -70,20 +70,24 @@ Match hiring language to team size. A 3-person team needs tactics, not infrastru
 ═══════════════════════════════════════════════════════════════════════════════
 
 ─────────────────────────────────────────────────────────────────────────────
-SECTION 1: AUTHORITATIVE SALARY BANDS (SOURCE OF TRUTH) — v4.6.0
+SECTION 1: AUTHORITATIVE SALARY BANDS (SOURCE OF TRUTH) — v4.7.0
 ─────────────────────────────────────────────────────────────────────────────
 
 PURPOSE: This block is the single source of truth for ALL employer-cost salary math.
 Do NOT reference external salary data — use these bands & rules.
 
-PORTUGAL PAYROLL: 14 salary payments/year (12 regular + vacation July + Christmas Dec).
-Already embedded in gross_annual. Use annual÷12 for monthly budgeting.
+⚠️ SALARY FORMAT: ALL VALUES ARE IN 12x FORMAT
+Portugal mandates 14 salary payments/year (12 regular + holiday + Christmas subsidies).
+For international comparison, we normalize to 12 equal monthly payments.
+All calculations below use 12x format. Do NOT convert to 14x.
 
-A — EMC CALCULATION
-EMC = (gross_annual × 1.2375) + (€175 × 12 meals) → ÷12 for monthly
-Employer Social Security: 23.75%. Mandatory meal subsidy: €175/month.
+A — EMPLOYER MONTHLY COST (EMC) CALCULATION
+EMC_monthly = ((gross_annual_12x ÷ 12) × 1.2375) + €175 meals
+• Employer Social Security: 23.75% of gross salary
+• Mandatory meal allowance: €175/month (€10.20/day × ~17 days avg)
+• Result is total monthly cost per employee to employer
 
-B — BASE BANDS (Lisbon-equivalent EMC; MIDPOINT = mid-level baseline)
+B — BASE BANDS (Lisbon-equivalent, 12x format; MIDPOINT = mid-level baseline)
 | Role Type                    | Min/month | Midpoint | Max/month |
 |------------------------------|-----------|----------|-----------|
 ${Object.values(salaryBands).map(b => `| ${b.label.padEnd(28)} | €${String(b.min).padStart(5)} | €${String(b.mid).padStart(5)}  | €${String(b.max).padStart(5)} |`).join('\n')}
@@ -124,16 +128,25 @@ E — CITY ADJUSTMENT
 EMC_city = EMC_Lisbon_MIDPOINT × (salaryIndex_city ÷ 100)
 Sanity bounds: ±10% of (Lisbon_Min/Max × salaryIndex ÷ 100)
 
-F — FORMULA (show both monthly AND annual)
-tiered_EMC = MIDPOINT × tier_multiplier
-stack_adjusted = tiered_EMC × (1 + stack_premium)
-EMC_city = stack_adjusted × (salaryIndex ÷ 100)
-EMC_annual = EMC_city × 12
+F — CALCULATION FORMULA (12x format throughout)
+1. Base calculation:
+   tiered_gross = MIDPOINT × tier_multiplier
+   stack_adjusted_gross = tiered_gross × (1 + stack_premium)
+   city_gross_monthly = stack_adjusted_gross × (salaryIndex ÷ 100)
+   city_gross_annual = city_gross_monthly × 12
+
+2. Employer Monthly Cost (EMC):
+   EMC_monthly = (city_gross_monthly × 1.2375) + €175
+   EMC_annual = EMC_monthly × 12
+
+IMPORTANT: All values remain in 12x format. Do NOT multiply by 14.
 
 G — OUTPUT RULES
-• State role, tier, stack, EMC once at Section 2 start. Reference 14-payment system once.
-• All salary tables: monthly AND annual columns. Results in tables, not repeated prose.
-• Note deviations: "[UPDATED: applied Senior 1.25 uplift because client said 'senior']"
+• Brief mention once: "Portugal pays 14× yearly (12 regular + 2 subsidies), but we calculate in 12× format for international comparison."
+• State role, tier, stack, gross salary, and EMC at Section 2 start
+• All salary tables: Show BOTH monthly (gross + EMC) AND annual columns
+• Results in tables format, avoid repeating calculations in prose
+• Note deviations: "[UPDATED: applied Senior 1.25× because client specified 'senior engineers']"
 
 ─────────────────────────────────────────────────────────────────────────────
 MANDATORY: ONE-PASS & DETERMINISTIC RULES

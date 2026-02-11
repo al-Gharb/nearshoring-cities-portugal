@@ -45,6 +45,7 @@ body {
   line-height: 1.6;
   color: var(--text-color);
   background-color: var(--bg-color);
+  overflow-x: hidden;
 }
 
 ::selection {
@@ -146,6 +147,7 @@ button:focus-visible,
   max-width: var(--max-width);
   margin: 0 auto;
   padding: var(--sp-lg) var(--sp-lg) 0;
+  overflow-x: hidden;
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
@@ -457,7 +459,23 @@ button:focus-visible,
    TABLE FOUNDATIONS
    ───────────────────────────────────────────────────────────────────────── */
 
-.table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.table-wrapper { 
+  overflow-x: auto; 
+  -webkit-overflow-scrolling: touch;
+  margin-left: calc(-1 * var(--sp-lg));
+  margin-right: calc(-1 * var(--sp-lg));
+  padding-left: var(--sp-lg);
+  padding-right: var(--sp-lg);
+}
+/* On mobile, allow table to use full container width */
+@media (max-width: 640px) {
+  .table-wrapper {
+    margin-left: calc(-1 * var(--sp-md));
+    margin-right: calc(-1 * var(--sp-md));
+    padding-left: var(--sp-md);
+    padding-right: var(--sp-md);
+  }
+}
 
 table { width: 100%; margin-top: var(--sp-sm); font-size: 0.9rem; }
 th, td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid var(--border-color); }
