@@ -895,8 +895,8 @@
           }
         },
         "residentialRent": {
-          "min": 600,
-          "max": 850,
+          "min": 750,
+          "max": 1000,
           "unit": "EUR/month",
           "type": "T1",
           "meta": {
@@ -1125,8 +1125,8 @@
           }
         },
         "residentialRent": {
-          "min": 550,
-          "max": 750,
+          "min": 650,
+          "max": 850,
           "unit": "EUR/month",
           "type": "T1",
           "meta": {
@@ -1356,8 +1356,8 @@
           }
         },
         "residentialRent": {
-          "min": 550,
-          "max": 750,
+          "min": 700,
+          "max": 900,
           "unit": "EUR/month",
           "type": "T1",
           "meta": {
@@ -1586,8 +1586,8 @@
           }
         },
         "residentialRent": {
-          "min": 600,
-          "max": 850,
+          "min": 750,
+          "max": 1000,
           "unit": "EUR/month",
           "type": "T1",
           "meta": {
@@ -1817,7 +1817,7 @@
         },
         "residentialRent": {
           "min": 450,
-          "max": 650,
+          "max": 700,
           "unit": "EUR/month",
           "type": "T1",
           "meta": {
@@ -2046,8 +2046,8 @@
           }
         },
         "residentialRent": {
-          "min": 550,
-          "max": 750,
+          "min": 700,
+          "max": 900,
           "unit": "EUR/month",
           "type": "T1",
           "meta": {
@@ -2276,7 +2276,7 @@
           }
         },
         "residentialRent": {
-          "min": 800,
+          "min": 900,
           "max": 1100,
           "unit": "EUR/month",
           "type": "T1",
@@ -2507,8 +2507,8 @@
           }
         },
         "residentialRent": {
-          "min": 600,
-          "max": 850,
+          "min": 950,
+          "max": 1200,
           "unit": "EUR/month",
           "type": "T1",
           "meta": {
