@@ -2,16 +2,16 @@
   "_meta": {
     "schema": "2.0",
     "description": "Fact-check claims v2.0 — Separated verifiable claims from internal calculations. One authoritative source per category.",
-    "lastUpdated": "2026-02-07",
-    "version": "2.0.0",
+    "lastUpdated": "2026-02-16",
+    "version": "2.1.0",
     "sourceStrategy": {
-      "officeRent": "Cushman & Wakefield (quarterly MarketBeat reports)",
-      "residentialRent": "INE Statistics Portugal / Confidencial Imobiliário",
+      "officeRent": "Idealista live listings (HITL-reviewed practical office benchmark)",
+      "residentialRent": "Idealista live listings (HITL-reviewed practical relocation benchmark)",
       "costOfLiving": "Numbeo (crowdsourced comparative index)",
       "graduates": "DGEEC official NUTS II/III totals only",
       "macroeconomic": "European Commission Autumn Forecast + CFP",
       "infrastructure": "ANACOM (telecom regulator) + Telegeography (cables)",
-      "workforce": "Eurostat Digital Economy & Society database"
+      "workforce": "Eurostat + Damia Group Portugal 2025 benchmark"
     },
     "internalCalculations": {
       "note": "These metrics are derived from official data using our methodology. They should NOT be sent for external verification. Instead, link to the methodology section explaining how they were calculated.",

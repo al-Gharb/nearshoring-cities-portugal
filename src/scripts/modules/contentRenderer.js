@@ -384,91 +384,37 @@ function populateINETable() {
 }
 
 /**
- * Populate the IT Salary Ranges table dynamically from COMPENSATION_DATA.json.
- * Reads htmlAuthoritative fields (hand-tuned annual ranges) for each role.
+ * Populate the salary benchmark table dynamically from WEBSITE_CONTENT.json.
+ * Source path: national.laborMarket.damiaBenchmark.roleSeniorityTable
  */
 function populateSalaryTable() {
   const tbody = document.getElementById('salary-table-body');
   if (!tbody) return;
 
-  const comp = getCompensationData();
-  const bands = comp?.baseBands;
-  if (!bands) return;
+  const store = getStore();
+  const rowsData = store.content?.national?.laborMarket?.damiaBenchmark?.roleSeniorityTable;
+  if (!rowsData) return;
 
-  // Display order: which roles appear in the salary table and in what order
-  const displayRoles = [
-    { key: 'softwareEngineer', label: 'Software Engineer' },
-    { key: 'devops', label: 'DevOps / SRE' },
-    { key: 'mlDataEngineer', label: 'Data Scientist / ML' },
-    { key: 'productManager', label: 'Product Manager' },
-    { key: 'qaTesting', label: 'QA / Testing' },
-    { key: 'uxCreative', label: 'UX/UI Designer' },
-  ];
-
-  const rows = displayRoles.map(({ key, label }) => {
-    const role = bands[key];
-    if (!role) return '';
-    const auth = role.meta?.htmlAuthoritative || {};
-
+  const rows = rowsData.map((row) => {
     return `
-      <tr data-db="compensation" data-role="${key}">
-        <td><strong>${label}</strong></td>
-        <td class="col-numeric">${auth.junior || '—'}</td>
-        <td class="col-numeric">${auth.mid || '—'}</td>
-        <td class="col-numeric">${auth.senior || '—'}</td>
-        <td class="col-numeric">${auth.lead || '—'}</td>
-        <td class="salary-employer col-numeric">${auth.employerTotal || '—'}</td>
-        <td class="salary-employer col-numeric">${auth.monthlyEmployer || '—'}</td>
+      <tr data-db="content" data-role="${row.role}">
+        <td><strong>${row.role || '—'}</strong></td>
+        <td class="col-numeric">${row.junior || '—'}</td>
+        <td class="col-numeric">${row.mid || '—'}</td>
+        <td class="col-numeric">${row.senior || '—'}</td>
+        <td class="col-numeric">${row.lead || '—'}</td>
+        <td>${row.techStack || '—'}</td>
       </tr>`;
-  }).filter(Boolean);
+  });
 
   tbody.innerHTML = rows.join('');
 }
 
 /**
- * Populate the Tech Stack Salary Premiums table dynamically from COMPENSATION_DATA.json.
- * Computes the Senior SW Eng example by applying premium to the SW Eng senior range.
+ * Legacy function kept for compatibility. Premium table removed from Strategic section.
  */
 function populateTechStackPremiums() {
-  const tbody = document.getElementById('tech-stack-table-body');
-  if (!tbody) return;
-
-  const comp = getCompensationData();
-  const premiums = comp?.techStackPremiums;
-  const sweSenior = comp?.baseBands?.softwareEngineer?.meta?.htmlAuthoritative?.senior;
-  if (!premiums) return;
-
-  // Parse senior SW Eng range like "€55–72k" into [55, 72]
-  let baseLow = 0, baseHigh = 0;
-  if (sweSenior) {
-    const match = sweSenior.match(/€(\d+)–(\d+)k/);
-    if (match) {
-      baseLow = parseInt(match[1], 10);
-      baseHigh = parseInt(match[2], 10);
-    }
-  }
-
-  const rows = Object.entries(premiums).map(([key, stack]) => {
-    const pct = stack.premium;
-    const premiumLabel = pct === 0 ? 'Baseline' : `+${Math.round(pct * 100)}%`;
-
-    // Calculate example: apply premium to senior SW Eng range
-    let example = '—';
-    if (baseLow && baseHigh) {
-      const low = Math.round(baseLow * (1 + pct));
-      const high = Math.round(baseHigh * (1 + pct));
-      example = `€${low}–${high}k`;
-    }
-
-    return `
-      <tr data-db="compensation" data-stack="${key}">
-        <td>${stack.stack}</td>
-        <td class="col-numeric">${premiumLabel}</td>
-        <td class="col-numeric">${example}</td>
-      </tr>`;
-  });
-
-  tbody.innerHTML = rows.join('');
+  return;
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -476,98 +422,77 @@ function populateTechStackPremiums() {
 // ═══════════════════════════════════════════════════════════════════════════════
 
 /**
- * Populate macroeconomic hero banner from WEBSITE_CONTENT.json.
- * Targets: #macro-hero-gdp, #macro-hero-pop, #macro-hero-gdppc,
- *          #macro-hero-debt, #macro-hero-trade
+ * Populate macroeconomic EU comparison table from WEBSITE_CONTENT.json.
+ * Targets: #macro-comparison-title, #macro-comparison-subtitle,
+ *          #macro-comparison-body, #macro-comparison-na-note
  */
-function populateMacroHeroes() {
+function populateMacroComparisonTable() {
   const store = getStore();
-  const hero = store.content?.national?.macroeconomicScorecard?.heroMetrics;
-  if (!hero) return;
+  const table = store.content?.national?.macroeconomicScorecard?.comparisonTable;
+  if (!table?.indicators) return;
 
-  const targets = {
-    'macro-hero-gdp': { value: `€${hero.gdpNominal.value}B`, label: `GDP (${hero.gdpNominal.year}, nominal)` },
-    'macro-hero-pop': { value: `${hero.population.value}M`, label: `Population (${hero.population.year})` },
-    'macro-hero-gdppc': { value: `€${fmt(hero.gdpPerCapita.value)}`, label: `GDP per capita (${hero.gdpPerCapita.year})` },
-    'macro-hero-debt': { value: `€${hero.publicDebt.value}B`, label: `Public Debt (${hero.publicDebt.year}, ${hero.publicDebt.pctGdp}% GDP)` },
-    'macro-hero-trade': { value: `€${hero.tradeSurplus.absoluteValue}B`, label: `Trade Surplus (${hero.tradeSurplus.year}, goods & services)` },
-  };
+  const titleEl = document.getElementById('macro-comparison-title');
+  const subtitleEl = document.getElementById('macro-comparison-subtitle');
+  const noteEl = document.getElementById('macro-comparison-na-note');
+  const bodyEl = document.getElementById('macro-comparison-body');
 
-  for (const [id, data] of Object.entries(targets)) {
-    const el = document.getElementById(id);
-    if (!el) continue;
-    const valEl = el.querySelector('.stat-value');
-    const lblEl = el.querySelector('.stat-label');
-    if (valEl) { valEl.textContent = data.value; valEl.setAttribute('data-db', 'content'); }
-    if (lblEl) { lblEl.textContent = data.label; lblEl.setAttribute('data-db', 'content'); }
-  }
-}
-
-/**
- * Populate macroeconomic scorecard forecast rows from WEBSITE_CONTENT.json.
- * Targets: #macro-ea-list, #macro-lc-list, #macro-fpm-list
- */
-function populateMacroScorecard() {
-  const store = getStore();
-  const sc = store.content?.national?.macroeconomicScorecard;
-  if (!sc) return;
-
-  // Helper: format a forecast series into "X% (2024a), Y% (2025f), ..."
-  function fmtSeries(metric) {
-    if (!metric?.values) return '';
-    return metric.values.map(v => {
-      const suffix = v.type === 'actual' ? 'a' : 'f';
-      const val = v.value < 0 ? `–${Math.abs(v.value)}%` : `${v.value}%`;
-      return `${val} (${v.year}${suffix})`;
-    }).join(', ');
+  if (titleEl && table.title) {
+    titleEl.textContent = table.title;
+    titleEl.setAttribute('data-db', 'content');
   }
 
-  // Helper: format a tag from note field
-  function tagHTML(note) {
-    if (!note) return '';
-    // Convert note to lowercase slug for CSS class
-    const text = note.charAt(0).toLowerCase() + note.slice(1);
-    return ` <span class="scorecard-tag">${text}</span>`;
+  if (subtitleEl && table.subtitle) {
+    subtitleEl.textContent = table.subtitle;
+    subtitleEl.setAttribute('data-db', 'content');
   }
 
-  // Economic Activity
-  const eaList = document.getElementById('macro-ea-list');
-  if (eaList && sc.economicActivity) {
-    const ea = sc.economicActivity;
-    eaList.innerHTML = `
-      <li><strong>Real GDP Growth:</strong> ${fmtSeries(ea.realGdpGrowth)} <a href="#src-ec-autumn-2025" class="scorecard-source">EC Autumn</a></li>
-      <li><strong>Gross Fixed Capital Formation:</strong> ${fmtSeries(ea.grossFixedCapitalFormation)} <a href="#src-cfp" class="scorecard-source">CFP</a></li>
-      <li><strong>Private Consumption:</strong> ${fmtSeries(ea.privateConsumption)} <a href="#src-cfp" class="scorecard-source">CFP</a></li>
-      <li><strong>Trade Balance (% GDP):</strong> ${fmtSeries(ea.tradeBalance)} <a href="#src-cfp" class="scorecard-source">CFP</a></li>
+  if (noteEl && table.naNote) {
+    noteEl.textContent = table.naNote;
+    noteEl.setAttribute('data-db', 'content');
+  }
+
+  if (!bodyEl) return;
+
+  const rows = table.indicators.map((item) => {
+    const indicator = `
+      <div class="macro-indicator-title">${item.label}</div>
+      <div class="macro-indicator-meta">(${item.unit})</div>
     `;
-    eaList.setAttribute('data-db', 'content');
+
+    const eu = fmtCountryValue(item.values?.eu, item.years?.eu, item.format);
+    const germany = fmtCountryValue(item.values?.germany, item.years?.germany, item.format);
+    const portugal = fmtCountryValue(item.values?.portugal, item.years?.portugal, item.format);
+
+    return `
+      <tr>
+        <td>${indicator}</td>
+        <td class="col-eu">${eu}</td>
+        <td class="col-de">${germany}</td>
+        <td class="col-pt">${portugal}</td>
+      </tr>
+    `;
+  });
+
+  bodyEl.innerHTML = rows.join('');
+  bodyEl.setAttribute('data-db', 'content');
+
+  function fmtCountryValue(value, year, formatType) {
+    const formatted = formatMacroValue(value, formatType);
+    return `
+      <span class="macro-country-value">${formatted}</span>
+      <div class="macro-country-year">(${year || 'n/a'})</div>
+    `;
   }
 
-  // Labour & Costs
-  const lcList = document.getElementById('macro-lc-list');
-  if (lcList && sc.labourAndCosts) {
-    const lc = sc.labourAndCosts;
-    const tertiary = lc.tertiaryAttainment25to34;
-    lcList.innerHTML = `
-      <li><strong>Unemployment Rate:</strong> ${fmtSeries(lc.unemploymentRate)}${tagHTML(lc.unemploymentRate?.note)} <a href="#src-cfp" class="scorecard-source">CFP</a></li>
-      <li><strong>Employment Rate (20–64):</strong> ${fmtSeries(lc.employmentRate20to64)} <a href="#src-eurostat" class="scorecard-source">Eurostat</a></li>
-      <li><strong>GDP Deflator:</strong> ${fmtSeries(lc.gdpDeflator)}${tagHTML(lc.gdpDeflator?.note)} <a href="#src-cfp" class="scorecard-source">CFP</a></li>
-      <li><strong>Tertiary Attainment (25–34):</strong> ${tertiary?.value}% (${tertiary?.year}a)${tagHTML(tertiary?.note)} <a href="#src-eurostat" class="scorecard-source">Eurostat</a></li>
-    `;
-    lcList.setAttribute('data-db', 'content');
-  }
+  function formatMacroValue(value, formatType) {
+    if (value === null || value === undefined) return 'N/A';
 
-  // Fiscal, Prices & Markets
-  const fpmList = document.getElementById('macro-fpm-list');
-  if (fpmList && sc.fiscalPricesMarkets) {
-    const fpm = sc.fiscalPricesMarkets;
-    fpmList.innerHTML = `
-      <li><strong>Net Lending (% GDP):</strong> ${fmtSeries(fpm.netLending)}${tagHTML(fpm.netLending?.note)} <a href="#src-cfp" class="scorecard-source">CFP</a></li>
-      <li><strong>Public Debt-to-GDP:</strong> ${fmtSeries(fpm.publicDebtToGdp)}${tagHTML(fpm.publicDebtToGdp?.note)} <a href="#src-cfp" class="scorecard-source">CFP</a></li>
-      <li><strong>HICP Inflation:</strong> ${fmtSeries(fpm.hicpInflation)}${tagHTML(fpm.hicpInflation?.note)} <a href="#src-cfp" class="scorecard-source">CFP</a></li>
-      <li><strong>10Y Sovereign Yield:</strong> ${fmtSeries(fpm.sovereignYield10Y)}${tagHTML(fpm.sovereignYield10Y?.note)} <a href="#src-ecb" class="scorecard-source">ECB</a></li>
-    `;
-    fpmList.setAttribute('data-db', 'content');
+    if (formatType === 'percent') return `${Number(value).toFixed(1)}%`;
+    if (formatType === 'currency') return `€${fmt(Math.round(value))}`;
+    if (formatType === 'currency-decimal') return `€${Number(value).toFixed(1)}`;
+    if (formatType === 'integer') return fmt(Math.round(value));
+
+    return String(value);
   }
 }
 
@@ -915,8 +840,7 @@ export function populateAll() {
   populateSectionConfidence();
   populateTocConfidence();
   // National content renderers (previously hardcoded)
-  populateMacroHeroes();
-  populateMacroScorecard();
+  populateMacroComparisonTable();
   populateDigitalInfraHeroes();
   populateTaxIncentives();
   populateCostOfLiving();

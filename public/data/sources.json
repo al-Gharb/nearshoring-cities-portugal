@@ -53,6 +53,15 @@
       "expiresAfter": "12M",
       "covers": ["ictSpecialistsPctEmployment", "ictGraduatesPctAllGraduates", "femaleIctSpecialists", "gdpNominal", "population", "gdpPerCapita"]
     },
+    "eurostat-countryfacts-eu-de-pt": {
+      "provider": "Eurostat",
+      "title": "Country Facts — EU, Germany, Portugal",
+      "url": "https://ec.europa.eu/eurostat/cache/countryfacts/#?geo=EU,DE,PT",
+      "type": "official",
+      "publishedDate": "2026-02-01",
+      "expiresAfter": "12M",
+      "covers": ["macroeconomicComparison", "euCountryComparison"]
+    },
     "dgeec-infocursos-2324": {
       "provider": "DGEEC InfoCursos",
       "title": "InfoCursos Graduate Statistics 2023/24",
@@ -96,28 +105,8 @@
       "type": "survey",
       "publishedDate": "2026-01-01",
       "expiresAfter": "6M",
-      "covers": ["costOfLiving", "colIndex", "residentialRent"],
+      "covers": ["costOfLiving", "colIndex"],
       "note": "Where direct city data unavailable, Numbeo-style estimates derived from regional patterns"
-    },
-    "jll-portugal-2025": {
-      "provider": "JLL Portugal",
-      "title": "Market Pulse Portugal",
-      "url": "https://www.jll.pt/",
-      "type": "survey",
-      "publishedDate": "2025-01-01",
-      "expiresAfter": "12M",
-      "covers": ["officeRent", "residentialRent"],
-      "note": "One of multiple sources for rent data, cross-verified via AI fact-check"
-    },
-    "cushman-wakefield-2025": {
-      "provider": "Cushman & Wakefield",
-      "title": "Cushman & Wakefield Portugal Market Reports",
-      "url": "https://www.cushmanwakefield.com/en/portugal",
-      "type": "survey",
-      "publishedDate": "2025-01-01",
-      "expiresAfter": "12M",
-      "covers": ["officeRent", "residentialRent"],
-      "note": "One of multiple sources for rent data, cross-verified via AI fact-check"
     },
     "idealista-2026": {
       "provider": "Idealista",
@@ -126,8 +115,18 @@
       "type": "survey",
       "publishedDate": "2026-01-01",
       "expiresAfter": "6M",
-      "covers": ["residentialRent"],
-      "note": "One of multiple sources for residential rent, cross-verified via AI fact-check"
+      "covers": ["officeRent", "residentialRent"],
+      "note": "Sole rent source: semi-automated extraction from live listings with HITL review. Office scope: quality central offices (60-300 m2). Residential scope: 1BR modern central apartments (40-60 m2)."
+    },
+    "damia-tech-salary-benchmark-2025": {
+      "provider": "Damia Group Portugal",
+      "title": "2025 Tech Salary Benchmark (powered by SIXT)",
+      "url": "https://www.damiagroup.pt/wp-content/uploads/HTTP-2025-Damia-Group-Portugal.pdf#page=52",
+      "type": "survey",
+      "publishedDate": "2025-01-01",
+      "expiresAfter": "12M",
+      "covers": ["techSalaries", "seniorityBands", "salaryRoleSeniorityTable", "techStackInsights"],
+      "note": "Primary salary benchmark source for role/seniority annual ranges in Strategic Considerations. Methodology states 2018-2024 dataset with 5,358 candidates based on recruitment-stage salary expectations."
     },
     "glassdoor-indeed-2025": {
       "provider": "Glassdoor / Indeed",

@@ -419,8 +419,8 @@
           "meta": {
             "source": {
               "type": "composite",
-              "provider": "Cushman & Wakefield, JLL Portugal, Idealista, AI fact-checked",
-              "methodology": "Derived from multiple real estate sources and cross-verified via AI fact-check consensus"
+              "provider": "Idealista live listings (HITL + agent)",
+              "methodology": "Semi-automated extraction from live Idealista listings; quality offices in central locations (60-300 m2); HITL validation before publication."
             },
             "verification": {
               "level": "verified",
@@ -440,8 +440,8 @@
           "meta": {
             "source": {
               "type": "composite",
-              "provider": "Idealista, Numbeo, Cushman & Wakefield, JLL Portugal, AI fact-checked",
-              "methodology": "Derived from multiple rental listing and cost-of-living sources, cross-verified via AI fact-check consensus"
+              "provider": "Idealista live listings (HITL + agent)",
+              "methodology": "Semi-automated extraction from live Idealista listings; 1-bedroom modern apartments in central areas (40-60 m2); HITL validation before publication."
             },
             "verification": {
               "level": "verified",
@@ -650,8 +650,8 @@
           "meta": {
             "source": {
               "type": "composite",
-              "provider": "Cushman & Wakefield, JLL Portugal, Idealista, AI fact-checked",
-              "methodology": "Derived from multiple real estate sources and cross-verified via AI fact-check consensus"
+              "provider": "Idealista live listings (HITL + agent)",
+              "methodology": "Semi-automated extraction from live Idealista listings; quality offices in central locations (60-300 m2); HITL validation before publication."
             },
             "verification": {
               "level": "verified",
@@ -671,8 +671,8 @@
           "meta": {
             "source": {
               "type": "composite",
-              "provider": "Idealista, Numbeo, Cushman & Wakefield, JLL Portugal, AI fact-checked",
-              "methodology": "Derived from multiple rental listing and cost-of-living sources, cross-verified via AI fact-check consensus"
+              "provider": "Idealista live listings (HITL + agent)",
+              "methodology": "Semi-automated extraction from live Idealista listings; 1-bedroom modern apartments in central areas (40-60 m2); HITL validation before publication."
             },
             "verification": {
               "level": "verified",
@@ -881,8 +881,8 @@
           "meta": {
             "source": {
               "type": "composite",
-              "provider": "Cushman & Wakefield, JLL Portugal, Idealista, AI fact-checked",
-              "methodology": "Derived from multiple real estate sources and cross-verified via AI fact-check consensus"
+              "provider": "Idealista live listings (HITL + agent)",
+              "methodology": "Semi-automated extraction from live Idealista listings; quality offices in central locations (60-300 m2); HITL validation before publication."
             },
             "verification": {
               "level": "verified",
@@ -902,8 +902,8 @@
           "meta": {
             "source": {
               "type": "composite",
-              "provider": "Idealista, Numbeo, Cushman & Wakefield, JLL Portugal, AI fact-checked",
-              "methodology": "Derived from multiple rental listing and cost-of-living sources, cross-verified via AI fact-check consensus"
+              "provider": "Idealista live listings (HITL + agent)",
+              "methodology": "Semi-automated extraction from live Idealista listings; 1-bedroom modern apartments in central areas (40-60 m2); HITL validation before publication."
             },
             "verification": {
               "level": "verified",
@@ -1111,8 +1111,8 @@
           "meta": {
             "source": {
               "type": "composite",
-              "provider": "Cushman & Wakefield, JLL Portugal, Idealista, AI fact-checked",
-              "methodology": "Derived from multiple real estate sources and cross-verified via AI fact-check consensus"
+              "provider": "Idealista live listings (HITL + agent)",
+              "methodology": "Semi-automated extraction from live Idealista listings; quality offices in central locations (60-300 m2); HITL validation before publication."
             },
             "verification": {
               "level": "verified",
@@ -1132,8 +1132,8 @@
           "meta": {
             "source": {
               "type": "composite",
-              "provider": "Idealista, Numbeo, Cushman & Wakefield, JLL Portugal, AI fact-checked",
-              "methodology": "Derived from multiple rental listing and cost-of-living sources, cross-verified via AI fact-check consensus"
+              "provider": "Idealista live listings (HITL + agent)",
+              "methodology": "Semi-automated extraction from live Idealista listings; 1-bedroom modern apartments in central areas (40-60 m2); HITL validation before publication."
             },
             "verification": {
               "level": "verified",
@@ -1342,8 +1342,8 @@
           "meta": {
             "source": {
               "type": "composite",
-              "provider": "Cushman & Wakefield, JLL Portugal, Idealista, AI fact-checked",
-              "methodology": "Derived from multiple real estate sources and cross-verified via AI fact-check consensus"
+              "provider": "Idealista live listings (HITL + agent)",
+              "methodology": "Semi-automated extraction from live Idealista listings; quality offices in central locations (60-300 m2); HITL validation before publication."
             },
             "verification": {
               "level": "verified",
@@ -1363,8 +1363,8 @@
           "meta": {
             "source": {
               "type": "composite",
-              "provider": "Idealista, Numbeo, Cushman & Wakefield, JLL Portugal, AI fact-checked",
-              "methodology": "Derived from multiple rental listing and cost-of-living sources, cross-verified via AI fact-check consensus"
+              "provider": "Idealista live listings (HITL + agent)",
+              "methodology": "Semi-automated extraction from live Idealista listings; 1-bedroom modern apartments in central areas (40-60 m2); HITL validation before publication."
             },
             "verification": {
               "level": "verified",
@@ -1572,8 +1572,8 @@
           "meta": {
             "source": {
               "type": "composite",
-              "provider": "Cushman & Wakefield, JLL Portugal, Idealista, AI fact-checked",
-              "methodology": "Derived from multiple real estate sources and cross-verified via AI fact-check consensus"
+              "provider": "Idealista live listings (HITL + agent)",
+              "methodology": "Semi-automated extraction from live Idealista listings; quality offices in central locations (60-300 m2); HITL validation before publication."
             },
             "verification": {
               "level": "verified",
@@ -1593,8 +1593,8 @@
           "meta": {
             "source": {
               "type": "composite",
-              "provider": "Idealista, Numbeo, Cushman & Wakefield, JLL Portugal, AI fact-checked",
-              "methodology": "Derived from multiple rental listing and cost-of-living sources, cross-verified via AI fact-check consensus"
+              "provider": "Idealista live listings (HITL + agent)",
+              "methodology": "Semi-automated extraction from live Idealista listings; 1-bedroom modern apartments in central areas (40-60 m2); HITL validation before publication."
             },
             "verification": {
               "level": "verified",
@@ -1802,8 +1802,8 @@
           "meta": {
             "source": {
               "type": "composite",
-              "provider": "Cushman & Wakefield, JLL Portugal, Idealista, AI fact-checked",
-              "methodology": "Derived from multiple real estate sources and cross-verified via AI fact-check consensus"
+              "provider": "Idealista live listings (HITL + agent)",
+              "methodology": "Semi-automated extraction from live Idealista listings; quality offices in central locations (60-300 m2); HITL validation before publication."
             },
             "verification": {
               "level": "verified",
@@ -1823,8 +1823,8 @@
           "meta": {
             "source": {
               "type": "composite",
-              "provider": "Idealista, Numbeo, Cushman & Wakefield, JLL Portugal, AI fact-checked",
-              "methodology": "Derived from multiple rental listing and cost-of-living sources, cross-verified via AI fact-check consensus"
+              "provider": "Idealista live listings (HITL + agent)",
+              "methodology": "Semi-automated extraction from live Idealista listings; 1-bedroom modern apartments in central areas (40-60 m2); HITL validation before publication."
             },
             "verification": {
               "level": "verified",
@@ -2032,8 +2032,8 @@
           "meta": {
             "source": {
               "type": "composite",
-              "provider": "Cushman & Wakefield, JLL Portugal, Idealista, AI fact-checked",
-              "methodology": "Derived from multiple real estate sources and cross-verified via AI fact-check consensus"
+              "provider": "Idealista live listings (HITL + agent)",
+              "methodology": "Semi-automated extraction from live Idealista listings; quality offices in central locations (60-300 m2); HITL validation before publication."
             },
             "verification": {
               "level": "verified",
@@ -2053,8 +2053,8 @@
           "meta": {
             "source": {
               "type": "composite",
-              "provider": "Idealista, Numbeo, Cushman & Wakefield, JLL Portugal, AI fact-checked",
-              "methodology": "Derived from multiple rental listing and cost-of-living sources, cross-verified via AI fact-check consensus"
+              "provider": "Idealista live listings (HITL + agent)",
+              "methodology": "Semi-automated extraction from live Idealista listings; 1-bedroom modern apartments in central areas (40-60 m2); HITL validation before publication."
             },
             "verification": {
               "level": "verified",
@@ -2262,8 +2262,8 @@
           "meta": {
             "source": {
               "type": "composite",
-              "provider": "Cushman & Wakefield, JLL Portugal, Idealista, AI fact-checked",
-              "methodology": "Derived from multiple real estate sources and cross-verified via AI fact-check consensus"
+              "provider": "Idealista live listings (HITL + agent)",
+              "methodology": "Semi-automated extraction from live Idealista listings; quality offices in central locations (60-300 m2); HITL validation before publication."
             },
             "verification": {
               "level": "verified",
@@ -2283,8 +2283,8 @@
           "meta": {
             "source": {
               "type": "composite",
-              "provider": "Idealista, Numbeo, Cushman & Wakefield, JLL Portugal, AI fact-checked",
-              "methodology": "Derived from multiple rental listing and cost-of-living sources, cross-verified via AI fact-check consensus"
+              "provider": "Idealista live listings (HITL + agent)",
+              "methodology": "Semi-automated extraction from live Idealista listings; 1-bedroom modern apartments in central areas (40-60 m2); HITL validation before publication."
             },
             "verification": {
               "level": "verified",
@@ -2493,8 +2493,8 @@
           "meta": {
             "source": {
               "type": "composite",
-              "provider": "Cushman & Wakefield, JLL Portugal, Idealista, AI fact-checked",
-              "methodology": "Derived from multiple real estate sources and cross-verified via AI fact-check consensus"
+              "provider": "Idealista live listings (HITL + agent)",
+              "methodology": "Semi-automated extraction from live Idealista listings; quality offices in central locations (60-300 m2); HITL validation before publication."
             },
             "verification": {
               "level": "verified",
@@ -2514,8 +2514,8 @@
           "meta": {
             "source": {
               "type": "composite",
-              "provider": "Idealista, Numbeo, Cushman & Wakefield, JLL Portugal, AI fact-checked",
-              "methodology": "Derived from multiple rental listing and cost-of-living sources, cross-verified via AI fact-check consensus"
+              "provider": "Idealista live listings (HITL + agent)",
+              "methodology": "Semi-automated extraction from live Idealista listings; 1-bedroom modern apartments in central areas (40-60 m2); HITL validation before publication."
             },
             "verification": {
               "level": "verified",
@@ -2723,8 +2723,8 @@
           "meta": {
             "source": {
               "type": "composite",
-              "provider": "Cushman & Wakefield, JLL Portugal, Idealista, AI fact-checked",
-              "methodology": "Derived from multiple real estate sources and cross-verified via AI fact-check consensus"
+              "provider": "Idealista live listings (HITL + agent)",
+              "methodology": "Semi-automated extraction from live Idealista listings; quality offices in central locations (60-300 m2); HITL validation before publication."
             },
             "verification": {
               "level": "verified",
@@ -2744,8 +2744,8 @@
           "meta": {
             "source": {
               "type": "composite",
-              "provider": "Idealista, Numbeo, Cushman & Wakefield, JLL Portugal, AI fact-checked",
-              "methodology": "Derived from multiple rental listing and cost-of-living sources, cross-verified via AI fact-check consensus"
+              "provider": "Idealista live listings (HITL + agent)",
+              "methodology": "Semi-automated extraction from live Idealista listings; 1-bedroom modern apartments in central areas (40-60 m2); HITL validation before publication."
             },
             "verification": {
               "level": "verified",
@@ -2953,8 +2953,8 @@
           "meta": {
             "source": {
               "type": "composite",
-              "provider": "Cushman & Wakefield, JLL Portugal, Idealista, AI fact-checked",
-              "methodology": "Derived from multiple real estate sources and cross-verified via AI fact-check consensus"
+              "provider": "Idealista live listings (HITL + agent)",
+              "methodology": "Semi-automated extraction from live Idealista listings; quality offices in central locations (60-300 m2); HITL validation before publication."
             },
             "verification": {
               "level": "verified",
@@ -2974,8 +2974,8 @@
           "meta": {
             "source": {
               "type": "composite",
-              "provider": "Idealista, Numbeo, Cushman & Wakefield, JLL Portugal, AI fact-checked",
-              "methodology": "Derived from multiple rental listing and cost-of-living sources, cross-verified via AI fact-check consensus"
+              "provider": "Idealista live listings (HITL + agent)",
+              "methodology": "Semi-automated extraction from live Idealista listings; 1-bedroom modern apartments in central areas (40-60 m2); HITL validation before publication."
             },
             "verification": {
               "level": "verified",
@@ -3183,8 +3183,8 @@
           "meta": {
             "source": {
               "type": "composite",
-              "provider": "Cushman & Wakefield, JLL Portugal, Idealista, AI fact-checked",
-              "methodology": "Derived from multiple real estate sources and cross-verified via AI fact-check consensus"
+              "provider": "Idealista live listings (HITL + agent)",
+              "methodology": "Semi-automated extraction from live Idealista listings; quality offices in central locations (60-300 m2); HITL validation before publication."
             },
             "verification": {
               "level": "verified",
@@ -3204,8 +3204,8 @@
           "meta": {
             "source": {
               "type": "composite",
-              "provider": "Idealista, Numbeo, Cushman & Wakefield, JLL Portugal, AI fact-checked",
-              "methodology": "Derived from multiple rental listing and cost-of-living sources, cross-verified via AI fact-check consensus"
+              "provider": "Idealista live listings (HITL + agent)",
+              "methodology": "Semi-automated extraction from live Idealista listings; 1-bedroom modern apartments in central areas (40-60 m2); HITL validation before publication."
             },
             "verification": {
               "level": "verified",
@@ -3413,8 +3413,8 @@
           "meta": {
             "source": {
               "type": "composite",
-              "provider": "Cushman & Wakefield, JLL Portugal, Idealista, AI fact-checked",
-              "methodology": "Derived from multiple real estate sources and cross-verified via AI fact-check consensus"
+              "provider": "Idealista live listings (HITL + agent)",
+              "methodology": "Semi-automated extraction from live Idealista listings; quality offices in central locations (60-300 m2); HITL validation before publication."
             },
             "verification": {
               "level": "verified",
@@ -3434,8 +3434,8 @@
           "meta": {
             "source": {
               "type": "composite",
-              "provider": "Idealista, Numbeo, Cushman & Wakefield, JLL Portugal, AI fact-checked",
-              "methodology": "Derived from multiple rental listing and cost-of-living sources, cross-verified via AI fact-check consensus"
+              "provider": "Idealista live listings (HITL + agent)",
+              "methodology": "Semi-automated extraction from live Idealista listings; 1-bedroom modern apartments in central areas (40-60 m2); HITL validation before publication."
             },
             "verification": {
               "level": "verified",
@@ -3643,8 +3643,8 @@
           "meta": {
             "source": {
               "type": "composite",
-              "provider": "Cushman & Wakefield, JLL Portugal, Idealista, AI fact-checked",
-              "methodology": "Derived from multiple real estate sources and cross-verified via AI fact-check consensus"
+              "provider": "Idealista live listings (HITL + agent)",
+              "methodology": "Semi-automated extraction from live Idealista listings; quality offices in central locations (60-300 m2); HITL validation before publication."
             },
             "verification": {
               "level": "verified",
@@ -3664,8 +3664,8 @@
           "meta": {
             "source": {
               "type": "composite",
-              "provider": "Idealista, Numbeo, Cushman & Wakefield, JLL Portugal, AI fact-checked",
-              "methodology": "Derived from multiple rental listing and cost-of-living sources, cross-verified via AI fact-check consensus"
+              "provider": "Idealista live listings (HITL + agent)",
+              "methodology": "Semi-automated extraction from live Idealista listings; 1-bedroom modern apartments in central areas (40-60 m2); HITL validation before publication."
             },
             "verification": {
               "level": "verified",
@@ -3873,8 +3873,8 @@
           "meta": {
             "source": {
               "type": "composite",
-              "provider": "Cushman & Wakefield, JLL Portugal, Idealista, AI fact-checked",
-              "methodology": "Derived from multiple real estate sources and cross-verified via AI fact-check consensus"
+              "provider": "Idealista live listings (HITL + agent)",
+              "methodology": "Semi-automated extraction from live Idealista listings; quality offices in central locations (60-300 m2); HITL validation before publication."
             },
             "verification": {
               "level": "verified",
@@ -3894,8 +3894,8 @@
           "meta": {
             "source": {
               "type": "composite",
-              "provider": "Idealista, Numbeo, Cushman & Wakefield, JLL Portugal, AI fact-checked",
-              "methodology": "Derived from multiple rental listing and cost-of-living sources, cross-verified via AI fact-check consensus"
+              "provider": "Idealista live listings (HITL + agent)",
+              "methodology": "Semi-automated extraction from live Idealista listings; 1-bedroom modern apartments in central areas (40-60 m2); HITL validation before publication."
             },
             "verification": {
               "level": "verified",
@@ -4103,8 +4103,8 @@
           "meta": {
             "source": {
               "type": "composite",
-              "provider": "Cushman & Wakefield, JLL Portugal, Idealista, AI fact-checked",
-              "methodology": "Derived from multiple real estate sources and cross-verified via AI fact-check consensus"
+              "provider": "Idealista live listings (HITL + agent)",
+              "methodology": "Semi-automated extraction from live Idealista listings; quality offices in central locations (60-300 m2); HITL validation before publication."
             },
             "verification": {
               "level": "verified",
@@ -4124,8 +4124,8 @@
           "meta": {
             "source": {
               "type": "composite",
-              "provider": "Idealista, Numbeo, Cushman & Wakefield, JLL Portugal, AI fact-checked",
-              "methodology": "Derived from multiple rental listing and cost-of-living sources, cross-verified via AI fact-check consensus"
+              "provider": "Idealista live listings (HITL + agent)",
+              "methodology": "Semi-automated extraction from live Idealista listings; 1-bedroom modern apartments in central areas (40-60 m2); HITL validation before publication."
             },
             "verification": {
               "level": "verified",
@@ -4333,8 +4333,8 @@
           "meta": {
             "source": {
               "type": "composite",
-              "provider": "Cushman & Wakefield, JLL Portugal, Idealista, AI fact-checked",
-              "methodology": "Derived from multiple real estate sources and cross-verified via AI fact-check consensus"
+              "provider": "Idealista live listings (HITL + agent)",
+              "methodology": "Semi-automated extraction from live Idealista listings; quality offices in central locations (60-300 m2); HITL validation before publication."
             },
             "verification": {
               "level": "verified",
@@ -4354,8 +4354,8 @@
           "meta": {
             "source": {
               "type": "composite",
-              "provider": "Idealista, Numbeo, Cushman & Wakefield, JLL Portugal, AI fact-checked",
-              "methodology": "Derived from multiple rental listing and cost-of-living sources, cross-verified via AI fact-check consensus"
+              "provider": "Idealista live listings (HITL + agent)",
+              "methodology": "Semi-automated extraction from live Idealista listings; 1-bedroom modern apartments in central areas (40-60 m2); HITL validation before publication."
             },
             "verification": {
               "level": "verified",
@@ -4563,8 +4563,8 @@
           "meta": {
             "source": {
               "type": "composite",
-              "provider": "Cushman & Wakefield, JLL Portugal, Idealista, AI fact-checked",
-              "methodology": "Derived from multiple real estate sources and cross-verified via AI fact-check consensus"
+              "provider": "Idealista live listings (HITL + agent)",
+              "methodology": "Semi-automated extraction from live Idealista listings; quality offices in central locations (60-300 m2); HITL validation before publication."
             },
             "verification": {
               "level": "verified",
@@ -4584,8 +4584,8 @@
           "meta": {
             "source": {
               "type": "composite",
-              "provider": "Idealista, Numbeo, Cushman & Wakefield, JLL Portugal, AI fact-checked",
-              "methodology": "Derived from multiple rental listing and cost-of-living sources, cross-verified via AI fact-check consensus"
+              "provider": "Idealista live listings (HITL + agent)",
+              "methodology": "Semi-automated extraction from live Idealista listings; 1-bedroom modern apartments in central areas (40-60 m2); HITL validation before publication."
             },
             "verification": {
               "level": "verified",
@@ -4793,8 +4793,8 @@
           "meta": {
             "source": {
               "type": "composite",
-              "provider": "Cushman & Wakefield, JLL Portugal, Idealista, AI fact-checked",
-              "methodology": "Derived from multiple real estate sources and cross-verified via AI fact-check consensus"
+              "provider": "Idealista live listings (HITL + agent)",
+              "methodology": "Semi-automated extraction from live Idealista listings; quality offices in central locations (60-300 m2); HITL validation before publication."
             },
             "verification": {
               "level": "verified",
@@ -4814,8 +4814,8 @@
           "meta": {
             "source": {
               "type": "composite",
-              "provider": "Idealista, Numbeo, Cushman & Wakefield, JLL Portugal, AI fact-checked",
-              "methodology": "Derived from multiple rental listing and cost-of-living sources, cross-verified via AI fact-check consensus"
+              "provider": "Idealista live listings (HITL + agent)",
+              "methodology": "Semi-automated extraction from live Idealista listings; 1-bedroom modern apartments in central areas (40-60 m2); HITL validation before publication."
             },
             "verification": {
               "level": "verified",

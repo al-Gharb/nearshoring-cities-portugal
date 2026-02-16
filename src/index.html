@@ -268,7 +268,7 @@
       <!-- AI Simulator CTA Button (overlay at right edge of map) -->
       <div class="ai-simulator-column">
         <a href="#ai-simulator" class="ai-simulator-cta ai-simulator-cta-center">
-          <span class="ai-cta-badge">BETA</span>
+          <span class="ai-cta-badge">Experimental v3</span>
           <span class="ai-cta-icon"><i class="fa-solid fa-robot"></i></span>
           <span class="ai-cta-text">
             <span class="ai-cta-title">AI Nearshoring Simulator <i>Portugal</i></span>
@@ -299,7 +299,7 @@
        ╚═══════════════════════════════════════════════════════════════════════════╝ -->
   <header class="main-header">
     <div class="container">
-      <h3 class="header-verification">v0.8 work in progress...</h3>
+      <h3 class="header-verification">work in progress.... v0.9</h3>
       <p class="header-verification">
          Expect curated insights, directional data, carefully derived estimates, and user-friendly presented information, designed to help you ask the right questions when navigating Portugal as a nearshoring destination - built for operators, not scientists.  
       </p>
@@ -319,7 +319,7 @@
         <span class="header-meta-sep">|</span>
         <span class="header-meta-item">
           <i class="fa-regular fa-calendar-check" aria-hidden="true"></i>
-          <strong>Last Update:</strong> <span aria-label="Last updated February 11, 2026">Feb. 08, 2026</span>
+          <strong>Last Update:</strong> <span aria-label="Last updated February 11, 2026">Feb. 16, 2026</span>
         </span>
         <span class="header-meta-sep">|</span>
         <span class="header-meta-item">
@@ -369,7 +369,7 @@
 
             <!-- 1. Portugal Macro & Basic Stats -->
             <div class="toc-row toc-row-main toc-section-macro">
-              <a href="#executive-summary" class="toc-link-main"><span class="toc-number">1</span><i class="fa-solid fa-chart-line toc-icon-accent" aria-hidden="true"></i>Portugal: Macroeconomic Scorecard &amp; Forecast</a>
+              <a href="#executive-summary" class="toc-link-main"><span class="toc-number">1</span><i class="fa-solid fa-chart-line toc-icon-accent" aria-hidden="true"></i>Portugal: Macroeconomic Scorecard &amp; EU Comparison</a>
               <span class="toc-confidence" data-toc-section="macroeconomic"></span>
             </div>
 
@@ -474,8 +474,8 @@
                   <th scope="col" class="col-numeric col-ict col-with-badge" title="Auto-calculated: (Core ICT ÷ Official STEM) × 100 — shows what share of STEM graduates specialize in ICT"><span class="th-content"><span class="th-text">ICT %</span><span class="badge-auto" title="Auto-calculated: (Core ICT ÷ Official STEM) × 100">auto</span></span></th>
                   <th scope="col" class="col-numeric col-stemplus col-with-badge" title="Digital STEM+ — ≈estimated: round(Official STEM × 1.27), using INCoDe.2030 expansion factor to include adjacent digital programs (Info Systems, UX/UI, CTeSP vocational)"><span class="th-content"><span class="th-text"><i class="fa-solid fa-user-graduate" aria-hidden="true"></i><i class="fa-solid fa-user" aria-hidden="true"></i> STEM+/yr</span><span class="badge-auto" title="Auto-calculated: round(Official STEM × 1.27) — INCoDe.2030 expansion factor">auto</span></span></th>
                   <th scope="col" class="col-numeric col-with-badge" title="Salary Index — auto-calculated: INE baseline compressed 45% toward 100 (IT convergence) + COL adjustment ±0.65/pt"><span class="th-content"><span class="th-text">Salary Index</span><span class="badge-auto" title="Auto-calculated: compressed baseline + (COL − 33) × 0.65, cap 100">auto</span></span></th>
-                  <th scope="col" class="col-numeric" title="Office rent per m²/month — Derived from multiple sources: Cushman & Wakefield, JLL Portugal, Idealista. AI fact-checked.">Office €/m²</th>
-                  <th scope="col" class="col-numeric" title="Residential rent per month — Derived from multiple sources: Idealista, Numbeo, C&W, JLL. 1-bedroom ~50 m², city center. AI fact-checked.">Res. Rent €</th>
+                  <th scope="col" class="col-numeric" title="Office rent per m²/month — Source: Idealista live listings, semi-automated HITL+agent extraction. Scope: quality offices in central locations, 60–300 m².">Office €/m²</th>
+                  <th scope="col" class="col-numeric" title="Residential rent per month — Source: Idealista live listings, semi-automated HITL+agent extraction. Scope: 1-bedroom modern apartments, central areas, 40–60 m².">Res. Rent €</th>
                   <th scope="col" class="col-numeric" title="Cost of Living + Rent Index — Source: Numbeo (NYC = 100). Where unavailable, Numbeo-style estimate derived from regional cost patterns, AI fact-checked.">COL + Rent Index</th>
                 </tr>
               </thead>
@@ -605,6 +605,18 @@
             </ul>
             <a href="https://ec.europa.eu/eurostat" target="_blank" rel="noopener" class="source-link-external">
               <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://ec.europa.eu/eurostat
+            </a>
+          </div>
+
+          <div class="source-entry" id="src-eurostat-countryfacts">
+            <h4>Eurostat — Country Facts (EU, Germany, Portugal)</h4>
+            <p class="source-description">Eurostat comparative dataset for selected indicators, used for the macroeconomic EU-vs-Germany-vs-Portugal table.</p>
+            <ul class="source-metrics">
+              <li><strong>Metrics:</strong> Population, minimum wage, poverty risk, inflation, unemployment, youth unemployment, GDP per capita, debt, deficit/surplus, renewables, electricity prices</li>
+              <li><strong>Update frequency:</strong> Continuous (as indicators are refreshed by Eurostat)</li>
+            </ul>
+            <a href="https://ec.europa.eu/eurostat/cache/countryfacts/#?geo=EU,DE,PT" target="_blank" rel="noopener" class="source-link-external">
+              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://ec.europa.eu/eurostat/cache/countryfacts/#?geo=EU,DE,PT
             </a>
           </div>
 
@@ -765,9 +777,9 @@
 
           <div class="source-entry" id="src-numbeo">
             <h4>Numbeo</h4>
-            <p class="source-description">Crowdsourced cost of living database. Primary source for COL + Rent Index. Also used as one of several inputs for residential rent estimates.</p>
+            <p class="source-description">Crowdsourced cost of living database. Primary source for COL + Rent Index.</p>
             <ul class="source-metrics">
-              <li><strong>Metrics:</strong> Cost of Living + Rent Index, residential rent cross-reference</li>
+              <li><strong>Metrics:</strong> Cost of Living + Rent Index</li>
               <li><strong>Update frequency:</strong> Monthly (crowdsourced)</li>
               <li><strong>Data accessed:</strong> Jan 2026</li>
               <li><strong>Note:</strong> Where direct Numbeo data was unavailable for smaller cities, Numbeo-style estimates were derived from regional cost patterns and AI fact-checked</li>
@@ -777,29 +789,33 @@
             </a>
           </div>
 
-          <div class="source-entry" id="src-jll">
-            <h4>JLL Portugal / Cushman &amp; Wakefield</h4>
-            <p class="source-description">Commercial real estate advisory firms. One of several inputs for office and residential rent estimates. Data cross-verified with other sources and AI fact-checked.</p>
-            <ul class="source-metrics">
-              <li><strong>Metrics:</strong> Office rent €/m²/month, residential rent cross-reference</li>
-              <li><strong>Update frequency:</strong> Quarterly</li>
-              <li><strong>Data quarter:</strong> Q4 2024</li>
-            </ul>
-            <a href="https://www.jll.pt" target="_blank" rel="noopener" class="source-link-external">
-              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://www.jll.pt
-            </a>
-          </div>
-
           <div class="source-entry" id="src-idealista">
             <h4>Idealista</h4>
-            <p class="source-description">Portugal's largest real estate platform. One of several inputs for residential rent estimates, cross-referenced with Numbeo, C&amp;W, JLL and AI fact-checked.</p>
+            <p class="source-description">Portugal's largest real estate platform. Sole source for office and residential rent metrics in this analysis, using semi-automated live-listing extraction in HITL collaboration (agent + human review).</p>
             <ul class="source-metrics">
-              <li><strong>Metrics:</strong> Residential rent €/month by city</li>
+              <li><strong>Metrics:</strong> Office rent €/m²/month; residential rent €/month by city</li>
               <li><strong>Update frequency:</strong> Real-time listings</li>
               <li><strong>Data accessed:</strong> Jan 2026</li>
+              <li><strong>Office scope:</strong> Quality offices in central locations, 60–300 m²</li>
+              <li><strong>Residential scope:</strong> 1-bedroom modern apartments in central areas, 40–60 m²</li>
+              <li><strong>Method:</strong> Semi-automated extraction from live listings with HITL validation before publication</li>
             </ul>
             <a href="https://www.idealista.pt" target="_blank" rel="noopener" class="source-link-external">
               <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://www.idealista.pt
+            </a>
+          </div>
+
+          <div class="source-entry" id="src-damia-2025">
+            <h4>Damia Group Portugal — 2025 Tech Salary Benchmark</h4>
+            <p class="source-description">Primary salary benchmark source for role/seniority salary ranges in this section. The report uses anonymized recruitment-stage salary expectations (Portuguese tech market), focused on practical hiring competitiveness.</p>
+            <ul class="source-metrics">
+              <li><strong>Metrics:</strong> Annual gross salary ranges by role and seniority, market demand/pay context by stack</li>
+              <li><strong>Methodology:</strong> 2018–2024 dataset, 5,358 candidates, live interview expectations (no survey forms)</li>
+              <li><strong>Edition:</strong> 2025</li>
+              <li><strong>Reference page:</strong> Salary benchmark table (page 52)</li>
+            </ul>
+            <a href="https://www.damiagroup.pt/wp-content/uploads/HTTP-2025-Damia-Group-Portugal.pdf#page=52" target="_blank" rel="noopener" class="source-link-external">
+              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://www.damiagroup.pt/wp-content/uploads/HTTP-2025-Damia-Group-Portugal.pdf#page=52
             </a>
           </div>
 
@@ -1116,86 +1132,36 @@
         <span class="section-number">1</span>
         <i class="fa-solid fa-chart-line section-icon" aria-hidden="true"></i>
         <span class="deeper-dive-title">Portugal: Macroeconomic Scorecard</span>
-        <span class="deeper-dive-subtitle">— GDP, employment, fiscal outlook, and multi-year forecasts</span>
+        <span class="deeper-dive-subtitle">— EU comparison across macroeconomic and social indicators</span>
         <span class="section-confidence" data-section="macroeconomic"></span>
         <i class="fa-solid fa-chevron-down deeper-dive-chevron" aria-hidden="true"></i>
       </summary>
       <div class="deeper-dive-content">
+        <div class="macro-comparison-card" data-db="content" data-prompt-core="true">
+          <h3 class="macro-comparison-title" id="macro-comparison-title">Portugal in European Context</h3>
+          <p class="macro-comparison-subtitle" id="macro-comparison-subtitle">Selected indicators compared with EU and Germany</p>
 
-        <!-- 5-Stat Hero Banner -->
-        <div class="hero-stat-banner" data-db="content" data-prompt-core="true">
-          <div class="grid-auto-180">
-            <div class="stat-hero" id="macro-hero-gdp">
-              <div class="stat-value">€264.6B</div>
-              <div class="stat-label">GDP (2024, nominal)</div>
-              <div class="stat-source"><a href="#src-eurostat" class="source-link">Eurostat</a></div>
-            </div>
-            <div class="stat-hero" id="macro-hero-pop">
-              <div class="stat-value">10.5M</div>
-              <div class="stat-label">Population (2024)</div>
-              <div class="stat-source"><a href="#src-eurostat" class="source-link">Eurostat</a></div>
-            </div>
-            <div class="stat-hero" id="macro-hero-gdppc">
-              <div class="stat-value">€25,200</div>
-              <div class="stat-label">GDP per capita (2024)</div>
-              <div class="stat-source"><a href="#src-eurostat" class="source-link">Eurostat</a></div>
-            </div>
-            <div class="stat-hero" id="macro-hero-debt">
-              <div class="stat-value">€275.0B</div>
-              <div class="stat-label">Public Debt (2024, 94.9% GDP)</div>
-              <div class="stat-source"><a href="#src-eurostat" class="source-link">Eurostat</a></div>
-            </div>
-            <div class="stat-hero" id="macro-hero-trade">
-              <div class="stat-value">€28.9B</div>
-              <div class="stat-label">Trade Surplus (2024, goods &amp; services)</div>
-              <div class="stat-source"><a href="#src-eurostat" class="source-link">Eurostat</a></div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- 3-Column Scorecard with Multi-Year Projections -->
-              <div id="macro-highlights" class="highlight-box" data-db="content" data-prompt-core="true">
-                <div class="grid-auto-260">
-
-                  <!-- Economic Activity -->
-                  <div>
-                    <p class="scorecard-column-title"><i class="fa-solid fa-arrow-trend-up"></i> Economic Activity</p>
-                    <ul class="scorecard-list" id="macro-ea-list">
-                      <li><strong>Real GDP Growth:</strong> 1.9% (2024a), 1.9% (2025f), 2.2% (2026f), 2.1% (2027f) <a href="#src-ec-autumn-2025" class="scorecard-source">EC Autumn</a></li>
-                      <li><strong>Gross Fixed Capital Formation:</strong> 3.1% (2024a), 3.6% (2025f), 5.5% (2026f), –1.1% (2027f) <a href="#src-cfp" class="scorecard-source">CFP</a></li>
-                      <li><strong>Private Consumption:</strong> 3.2% (2024a), 3.3% (2025f), 2.3% (2026f), 2.3% (2027f) <a href="#src-cfp" class="scorecard-source">CFP</a></li>
-                      <li><strong>Trade Balance (% GDP):</strong> 1.8% (2024a), 0.8% (2025f), 0.1% (2026f), 0.5% (2027f) <a href="#src-cfp" class="scorecard-source">CFP</a></li>
-                    </ul>
-                  </div>
-
-                  <!-- Labour & Costs -->
-                  <div>
-                    <p class="scorecard-column-title"><i class="fa-solid fa-users"></i> Labour &amp; Costs</p>
-                    <ul class="scorecard-list" id="macro-lc-list">
-                      <li><strong>Unemployment Rate:</strong> 6.5% (2024a), 6.1% (2025f), 6.0% (2026f), 5.9% (2027f) <span class="scorecard-tag">below EU avg</span> <a href="#src-cfp" class="scorecard-source">CFP</a></li>
-                      <li><strong>Employment Rate (20–64):</strong> 76.3% (2024a), 76.9% (2025f), 77.4% (2026f), 77.8% (2027f) <a href="#src-eurostat" class="scorecard-source">Eurostat</a></li>
-                      <li><strong>GDP Deflator:</strong> 4.4% (2024a), 3.6% (2025f), 2.4% (2026f), 2.2% (2027f) <span class="scorecard-tag">moderating</span> <a href="#src-cfp" class="scorecard-source">CFP</a></li>
-                      <li><strong>Tertiary Attainment (25–34):</strong> 43.2% (2024a) <span class="scorecard-tag">nearing EU-27 avg</span> <a href="#src-eurostat" class="scorecard-source">Eurostat</a></li>
-                    </ul>
-                  </div>
-
-                  <!-- Fiscal, Prices & Markets -->
-                  <div>
-                    <p class="scorecard-column-title"><i class="fa-solid fa-landmark"></i> Fiscal, Prices &amp; Markets</p>
-                    <ul class="scorecard-list" id="macro-fpm-list">
-                      <li><strong>Net Lending (% GDP):</strong> 2.8% (2024a), 2.1% (2025f), 1.5% (2026f), 1.7% (2027f) <span class="scorecard-tag">surplus</span> <a href="#src-cfp" class="scorecard-source">CFP</a></li>
-                      <li><strong>Public Debt-to-GDP:</strong> 94.9% (2024a), 91.2% (2025f), 89.4% (2026f), 88.1% (2027f) <span class="scorecard-tag">declining trend</span> <a href="#src-cfp" class="scorecard-source">CFP</a></li>
-                      <li><strong>HICP Inflation:</strong> 2.7% (2024a), 2.3% (2025f), 2.1% (2026f), 2.0% (2027f) <span class="scorecard-tag">at ECB target</span> <a href="#src-cfp" class="scorecard-source">CFP</a></li>
-                      <li><strong>10Y Sovereign Yield:</strong> 3.0% (2024a), 2.8% (2025f), 2.7% (2026f), 2.7% (2027f) <span class="scorecard-tag">stable</span> <a href="#src-ecb" class="scorecard-source">ECB</a></li>
-                    </ul>
-                  </div>
-                </div>
-                <p class="scorecard-footer">
-                  <strong>Source:</strong> <a href="#src-cfp" class="source-link">CFP Economic and Fiscal Outlook 2025–2029</a> (Update), <a href="#src-eurostat" class="source-link">Eurostat</a>, <a href="#src-ecb" class="source-link">ECB</a>
-                </p>
-              </div>
-            </div>
+          <div class="table-wrapper macro-comparison-wrapper">
+            <table class="macro-comparison-table" aria-label="EU Germany Portugal comparison table">
+              <thead>
+                <tr>
+                  <th scope="col">Selected indicators</th>
+                  <th scope="col" class="col-country col-eu"><span class="country-head">🇪🇺 European Union</span></th>
+                  <th scope="col" class="col-country col-de"><span class="country-head">🇩🇪 Germany</span></th>
+                  <th scope="col" class="col-country col-pt"><span class="country-head">🇵🇹 Portugal</span></th>
+                </tr>
+              </thead>
+              <tbody id="macro-comparison-body">
+                <!-- Dynamically rendered from WEBSITE_CONTENT.json by contentRenderer.js -->
+              </tbody>
+            </table>
           </div>
+
+          <p class="macro-comparison-footnote" id="macro-comparison-na-note">N/A = Data not available</p>
+          <p class="macro-comparison-footer">
+            <strong>Source:</strong>
+            <a href="#src-eurostat-countryfacts" class="source-link">Eurostat — Country Facts (EU, Germany, Portugal)</a>
+          </p>
         </div>
       </details>
 
@@ -1253,7 +1219,7 @@
               <!-- Subsea Cable Map -->
               <div class="grid-2">
                 <div class="card cable-map-card">
-                  <h3 class="cable-card-title"><i class="fa-solid fa-anchor"></i> Sines — Subsea Cable Hub</h3>
+                  <h3 class="cable-card-title"><i class="fa-solid fa-anchor"></i> Portugal - European Subsea Cable Hub</h3>
                   <div class="cable-map-container">
                     <!-- SVG Map - Apple-quality with accurate cable routes -->
                             <svg viewBox="0 0 520 780" class="subsea-cable-map" aria-label="Portugal subsea cable infrastructure map">
@@ -1332,7 +1298,7 @@
                                       fill="none" stroke="#cbd5e1" stroke-width="5" opacity="0.3" stroke-linecap="round"/>
                                 
                                 <!-- Geographic labels -->
-                                <text class="geo-label-light" x="400" y="350" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif" font-size="16" font-weight="300" fill="#94a3b8" letter-spacing="3">SPAIN</text>
+                                <text class="geo-label-light" x="400" y="350" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif" font-size="16" font-weight="300" fill="#94a3b8" letter-spacing="3">Portugal</text>
                                 <text class="geo-label-muted" x="80" y="380" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif" font-size="14" font-weight="300" fill="#64748b" letter-spacing="2" opacity="0.7">ATLANTIC</text>
                                 <text class="geo-label-muted" x="85" y="398" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif" font-size="14" font-weight="300" fill="#64748b" letter-spacing="2" opacity="0.7">OCEAN</text>
                                 
@@ -1762,51 +1728,69 @@
 
                 <!-- Salary Table -->
                 <div class="card">
-                  <h4><i class="fa-solid fa-money-bill-wave" aria-hidden="true"></i> IT Salary Ranges by Role (Annual Gross, €)</h4>
+                  <h4><i class="fa-solid fa-money-bill-wave" aria-hidden="true"></i> Salary Benchmark by Role, Seniority &amp; Tech Stack (Annual Gross, €)</h4>
                   <div class="table-wrapper">
-                    <table class="salary-table" data-db="compensation" data-prompt-core="true" aria-label="IT salary ranges in Portugal">
+                    <table class="salary-table" data-db="content" data-prompt-core="true" aria-label="Portugal salary benchmark by role and seniority">
                       <thead>
                         <tr>
                           <th>Role</th>
-                          <th class="col-numeric">Junior (0–2yr)</th>
-                          <th class="col-numeric">Mid (3–5yr)</th>
-                          <th class="col-numeric">Senior (5+yr)</th>
-                          <th class="col-numeric">Lead / Principal</th>
-                          <th class="salary-employer col-numeric">Employer Total*</th>
-                          <th class="salary-employer col-numeric">Monthly Employer*</th>
+                          <th class="col-numeric">Junior (0–3yr)</th>
+                          <th class="col-numeric">Mid (&gt;3–5yr)</th>
+                          <th class="col-numeric">Senior (&gt;5yr)</th>
+                          <th class="col-numeric">Lead / Management</th>
+                          <th>Tech Stack Context</th>
                         </tr>
                       </thead>
                       <tbody id="salary-table-body">
-                        <!-- Dynamically populated from COMPENSATION_DATA.json -->
+                        <!-- Dynamically populated from WEBSITE_CONTENT.json (laborMarket.damiaBenchmark.roleSeniorityTable) -->
                       </tbody>
                     </table>
                   </div>
-                  <p class="scorecard-footer" id="employer-costs-note"><strong>Note:</strong> <strong>All values are in 12× format</strong> (converted from Portugal's original 14-payment data for international comparison). *Employer Total = Gross annual × 1.2375 (23.75% Social Security) + meal allowance (~€2,244/yr), showing full range from Junior to Lead. Lead/Principal = Senior × 1.12 (40% vs 25% above midpoint). <strong>Source:</strong> <a href="#src-glassdoor" class="source-link">Glassdoor</a>, <a href="#src-landingjobs" class="source-link">Landing.jobs</a> (2024).</p>
-                  <div class="callout-info" data-db="compensation">
-                    <strong><i class="fa-solid fa-info-circle"></i> Portugal's 14× Payment System (Context Only):</strong>
-                    Portuguese law mandates 14 salary payments per year — 12 regular months plus mandatory holiday subsidy (July) and Christmas subsidy (December), each equal to one month's base pay. <strong>For international comparison, all salary figures in this document are already normalized to 12× monthly equivalents.</strong> You do not need to convert values. When we reference INE source data, we note that the original 14× format has been converted (×14/12 ≈ ×1.167). These regional baselines feed into the per-city <a href="#src-salary-index" class="source-link">Salary Index</a> calculation via COL + Rent adjustment.
-                  </div>
-                </div>
+                  <p class="scorecard-footer" id="damia-salary-note"><strong>Methodology:</strong> Candidate salary expectations captured in live recruitment processes (2018–2024, n=5,358). Values represent practical annual gross offer ranges by role and seniority. <strong>Source:</strong> <a href="#src-damia-2025" class="source-link">Damia Group Portugal (2025 benchmark)</a>.</p>
 
-                <!-- Tech Stack Salary Premiums -->
-                <div class="card" data-db="compensation">
-                  <h4><i class="fa-solid fa-layer-group" aria-hidden="true"></i> Tech Stack Salary Premiums</h4>
-                  <p>Applied on top of base role salary. Use highest applicable premium only (do not stack).</p>
-                  <div class="table-wrapper">
-                    <table class="salary-table" data-prompt-core="true" aria-label="Tech stack salary premiums in Portugal">
-                      <thead>
-                        <tr>
-                          <th>Tech Stack</th>
-                          <th class="col-numeric">Premium</th>
-                          <th class="col-numeric">Senior SW Eng (example)</th>
-                        </tr>
-                      </thead>
-                      <tbody id="tech-stack-table-body">
-                        <!-- Dynamically populated from COMPENSATION_DATA.json -->
-                      </tbody>
-                    </table>
+                  <h5><i class="fa-solid fa-table-cells-large" aria-hidden="true"></i> Key Facts from Damia 2025 Benchmark</h5>
+                  <div class="grid-auto-260" data-prompt-core="true">
+                    <div class="insight-card">
+                      <div class="insight-title"><i class="fa-solid fa-database"></i> Sample Size</div>
+                      <div class="insight-text">5,358 candidates in the Portuguese tech market dataset.</div>
+                    </div>
+                    <div class="insight-card">
+                      <div class="insight-title"><i class="fa-solid fa-calendar-days"></i> Time Window</div>
+                      <div class="insight-text">Seven years of data (2018–2024) used for the 2025 benchmark edition.</div>
+                    </div>
+                    <div class="insight-card">
+                      <div class="insight-title"><i class="fa-solid fa-comments-dollar"></i> Data Basis</div>
+                      <div class="insight-text">Live recruitment-stage salary expectations, not static survey forms.</div>
+                    </div>
+                    <div class="insight-card">
+                      <div class="insight-title"><i class="fa-solid fa-user-tie"></i> Seniority Mix</div>
+                      <div class="insight-text">Candidate sample is 75% senior, 17% mid, 8% junior.</div>
+                    </div>
+                    <div class="insight-card">
+                      <div class="insight-title"><i class="fa-solid fa-location-dot"></i> Talent Geography</div>
+                      <div class="insight-text">55% of candidates in Greater Lisbon and 20% in Greater Porto.</div>
+                    </div>
+                    <div class="insight-card">
+                      <div class="insight-title"><i class="fa-solid fa-robot"></i> AI Skills Shift</div>
+                      <div class="insight-text">AI/ML-skilled candidates doubled in 2024; ~65% include NLP/LLM skills.</div>
+                    </div>
+                    <div class="insight-card">
+                      <div class="insight-title"><i class="fa-solid fa-server"></i> Backend 2024 Senior</div>
+                      <div class="insight-text">Average €59,879 (min €40,000; max €110,000).</div>
+                    </div>
+                    <div class="insight-card">
+                      <div class="insight-title"><i class="fa-solid fa-code"></i> Frontend 2024 Senior</div>
+                      <div class="insight-text">Average €67,067 with 11.5% YoY increase.</div>
+                    </div>
+                    <div class="insight-card">
+                      <div class="insight-title"><i class="fa-solid fa-cloud"></i> DevOps/SRE 2024 Senior</div>
+                      <div class="insight-text">Average €71,043 (min €55,000; max €86,000).</div>
+                    </div>
+                    <div class="insight-card">
+                      <div class="insight-title"><i class="fa-solid fa-mobile-screen-button"></i> Mobile 2024 Senior</div>
+                      <div class="insight-text">Average €52,214 with 16.4% YoY growth.</div>
+                    </div>
                   </div>
-                  <p class="scorecard-footer">Apply single highest applicable premium — do not stack. Example shows effect on Senior Software Engineer (Lisbon baseline). <strong>Source:</strong> <a href="#src-landingjobs" class="source-link">Landing.jobs</a>, <a href="#src-glassdoor" class="source-link">Glassdoor</a> market analysis (2024).</p>
                 </div>
 
                 <!-- INE Earnings by Region -->
@@ -2417,7 +2401,7 @@
          ║  AI NEARSHORING SIMULATOR                                               ║
          ╚═══════════════════════════════════════════════════════════════════════════╝ -->
     <section id="ai-simulator" class="intro-block section-simulator">
-      <h2><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i> AI Nearshoring Simulator Portugal <span class="badge-beta">V5.0</span></h2>
+      <h2><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i> AI Nearshoring Simulator Portugal <span class="badge-beta">Experimental v3</span></h2>
       <p>Generate a custom nearshoring analysis from real city data. Fill in your requirements, get pre-computed rankings and financial projections, then paste the generated prompt into ChatGPT, Claude, or any LLM for expert narrative analysis.</p>
 
       <!-- How It Works — Collapsible -->
@@ -2430,14 +2414,14 @@
         </summary>
         <div class="deeper-dive-content">
           <p><strong>What it does:</strong> Runs deterministic financial analysis on Portugal's 20-city database (talent metrics, cost benchmarks, salary formulas) in JavaScript, then generates a ~7,000-token prompt with pre-computed results for AI narrative interpretation.</p>
-          <p><strong>V5.0 Architecture — Separation of Concerns:</strong> All salary math, scoring rubrics, city rankings, and budget calculations run client-side before the prompt is built. The AI receives verified tables (Top 5 cities, employer costs, savings comparisons) and performs <strong>zero arithmetic</strong> — only strategic reasoning, narrative analysis, and advisory recommendations. This eliminates formula drift, calculation errors, and hallucinated numbers.</p>
+          <p><strong>Experimental v3 Architecture — Separation of Concerns:</strong> All salary math, scoring rubrics, city rankings, and budget calculations run client-side before the prompt is built. The AI receives verified tables (Top 5 cities, employer costs, savings comparisons) and performs <strong>zero arithmetic</strong> — only strategic reasoning, narrative analysis, and advisory recommendations. This eliminates formula drift, calculation errors, and hallucinated numbers.</p>
           <p><strong>How it works:</strong></p>
           <ol class="simulator-workflow">
             <li>Fill out the form below (team size, budget, roles, work model, priorities)</li>
-            <li>Click "Generate Prompt" — JavaScript computes all financial math, scores 20 cities, ranks by feasibility</li>
+            <li>Click "Generate Prompt" — JavaScript computes all financial math, scores all 20 cities, applies objective weights and dealbreaker penalties, then ranks by feasibility</li>
             <li>Receive a ~7,000-token prompt with pre-computed tables + your request context</li>
             <li>Paste into DeepSeek R1, Claude Sonnet/Opus 4.5, or GPT-5 for expert analysis</li>
-            <li>AI reviews the Top 5, selects 2-3 best fits for your context, writes deep-dives with hiring strategy</li>
+            <li>AI reviews all-city ranking context and returns a final Top 5 recommendation set, with deep-dives for the best 2-3 fits</li>
             <li>Continue interacting: ask follow-ups, request budget breakdowns, explore trade-offs in real-time</li>
           </ol>
           <p class="simulator-recommended-models"><i class="fa-solid fa-microchip" aria-hidden="true"></i> <strong>Recommended AI Models:</strong> DeepSeek R1, Claude Sonnet 4.5, Claude Opus 4.5, GPT-5 (Deep Research mode).</p>
@@ -2453,7 +2437,7 @@
           <div class="simulator-grid">
             <div class="simulator-field simulator-field-full">
               <label for="sim-purpose"><i class="fa-solid fa-bullseye" aria-hidden="true"></i> What do you want to build?</label>
-              <textarea id="sim-purpose" name="purpose" rows="2" placeholder="Build a nearshore engineering hub for cloud platform development. Extend our German team with Portuguese talent for cost efficiency."></textarea>
+              <textarea id="sim-purpose" name="purpose" rows="2" maxlength="600" spellcheck="false" placeholder="Build a nearshore engineering hub for cloud platform development. Extend our German team with Portuguese talent for cost efficiency."></textarea>
               <span class="simulator-hint">Describe the team function: R&amp;D lab, product squad, DevOps center, support hub, etc.</span>
             </div>
 
@@ -2480,7 +2464,7 @@
 
             <div class="simulator-field">
               <label for="sim-timezone"><i class="fa-solid fa-globe" aria-hidden="true"></i> HQ Location / Timezone</label>
-              <input type="text" id="sim-timezone" name="timezone" placeholder="CET (Frankfurt, Germany)">
+              <input type="text" id="sim-timezone" name="timezone" placeholder="CET (Frankfurt, Germany)" maxlength="120" autocomplete="off" spellcheck="false">
               <span class="simulator-hint">Portugal is WET (UTC+0), 1h behind CET</span>
             </div>
 
@@ -2513,20 +2497,20 @@
           <div class="simulator-grid">
             <div class="simulator-field">
               <label for="sim-opex-budget"><i class="fa-solid fa-repeat" aria-hidden="true"></i> Monthly OpEx Budget</label>
-              <input type="text" id="sim-opex-budget" name="opexBudget" placeholder="€45,000–€65,000">
-              <span class="simulator-hint">Range OK — salaries, rent, overhead per month</span>
+              <input type="text" id="sim-opex-budget" name="opexBudget" placeholder="55000" inputmode="numeric" pattern="[0-9.,\s€]+" maxlength="20" autocomplete="off" title="Use numbers only (example: 55000)">
+              <span class="simulator-hint">Monthly total budget. Accepts 55000 / 55,000 / 55.000 and auto-normalizes.</span>
             </div>
 
             <div class="simulator-field">
               <label for="sim-capex-budget"><i class="fa-solid fa-hammer" aria-hidden="true"></i> Setup CapEx Budget</label>
-              <input type="text" id="sim-capex-budget" name="capexBudget" placeholder="€30,000–€50,000">
-              <span class="simulator-hint">One-time: equipment, legal, recruitment fees</span>
+              <input type="text" id="sim-capex-budget" name="capexBudget" placeholder="50000" inputmode="numeric" pattern="[0-9.,\s€]+" maxlength="20" autocomplete="off" title="Use numbers only (example: 50000)">
+              <span class="simulator-hint">One-time setup costs (equipment, legal, recruitment). Auto-normalized to integer.</span>
             </div>
 
             <div class="simulator-field">
               <label for="sim-team-size"><i class="fa-solid fa-users" aria-hidden="true"></i> Target Team Size</label>
-              <input type="text" id="sim-team-size" name="teamSize" placeholder="6–12 people" pattern=".*\d+.*" title="Must contain at least one number">
-              <span class="simulator-hint">Range OK — used for cost calculations</span>
+              <input type="text" id="sim-team-size" name="teamSize" placeholder="10" inputmode="numeric" pattern=".*\d+.*" maxlength="20" autocomplete="off" title="Must contain at least one number">
+              <span class="simulator-hint">Base hiring size as integer. If you type a range, first value is used.</span>
             </div>
 
             <div class="simulator-field">
@@ -2568,7 +2552,7 @@
                 <label class="checkbox-label"><input type="checkbox" name="stack" value="MongoDB"> MongoDB</label>
                 <label class="checkbox-label"><input type="checkbox" name="stack" value="Redis"> Redis</label>
               </div>
-              <input type="text" id="sim-searched-stack-other" name="searchedStackOther" placeholder="Other roles/skills (e.g., DevOps, ML Engineers, Terraform, Rust...)">
+              <input type="text" id="sim-searched-stack-other" name="searchedStackOther" placeholder="Other roles/skills (e.g., DevOps, ML Engineers, Terraform, Rust...)" maxlength="180" autocomplete="off" spellcheck="false">
               <span class="simulator-hint">Select technologies and add specific roles you're hiring for</span>
             </div>
 
@@ -2593,7 +2577,7 @@
 
             <div class="simulator-field simulator-field-full">
               <label for="sim-dealbreakers"><i class="fa-solid fa-ban" aria-hidden="true"></i> Deal Breakers <span class="simulator-hint">(optional)</span></label>
-              <input type="text" id="sim-dealbreakers" name="dealbreakers" placeholder="Must have direct airport, need coworking space, English proficiency required">
+              <input type="text" id="sim-dealbreakers" name="dealbreakers" placeholder="Must have direct airport, need coworking space, English proficiency required" maxlength="260" autocomplete="off" spellcheck="false">
               <span class="simulator-hint">Hard requirements that eliminate cities from consideration</span>
             </div>
           </div>
@@ -2763,9 +2747,9 @@
       <h3><i class="fa-solid fa-robot"></i> Semi-Automated AI Fact-Checks</h3>
       <p class="section-intro">This guide uses a semi-automated verification system.</p>
 
-      <!-- Fact-Check Prompt Generator v2.0 -->
+      <!-- Fact-Check Prompt Generator Experimental v3 -->
       <div class="factcheck-prompt-section" id="factcheck-generator">
-        <h4><i class="fa-solid fa-wand-magic-sparkles"></i> Fact-Check Prompt Generator <span class="badge badge-sm badge-factcheck">Beta v0.8</span></h4>
+        <h4><i class="fa-solid fa-wand-magic-sparkles"></i> Fact-Check Prompt Generator <span class="badge badge-sm badge-factcheck">Experimental v3</span></h4>
         
         <p class="factcheck-generator-intro">Select a data category or city profile to generate a verification prompt. Each has ONE primary authoritative source for consistency.</p>
         

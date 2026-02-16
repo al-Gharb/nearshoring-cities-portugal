@@ -176,12 +176,250 @@
         }
       },
       "salaryTrends": {
-        "value": "Senior developer compensation grown steadily since 2021",
+        "value": "Damia 2025 benchmark indicates salary expectations remain elevated for senior and AI-linked profiles in Portugal",
         "meta": {
           "source": {
             "type": "survey",
-            "provider": "Portugal Tech Salary Report"
+            "provider": "Damia Group Portugal"
+          },
+          "sourceRef": "damia-tech-salary-benchmark-2025",
+          "verifiedDate": "2026-02-16",
+          "expiresAfter": "12M"
+        }
+      },
+      "damiaBenchmark": {
+        "title": "2025 Portuguese Tech Salary Benchmark",
+        "subtitle": "Annual gross salary ranges by role and seniority, with tech-stack context",
+        "currency": "EUR",
+        "salaryPeriod": "annual gross",
+        "methodology": {
+          "window": "2018-2024",
+          "sampleSize": 5358,
+          "basis": "Candidate salary expectations captured during live recruitment processes (not survey forms)",
+          "seniorityBands": {
+            "junior": "0-3 years",
+            "mid": ">3-5 years",
+            "senior": ">5 years"
           }
+        },
+        "roleSeniorityTable": [
+          {
+            "role": "Backend Developer",
+            "junior": "€17,000–€30,000",
+            "mid": "€35,000–€64,000",
+            "senior": "€40,000–€110,000",
+            "lead": "—",
+            "techStack": "Java most demanded; Python strongest salary pressure"
+          },
+          {
+            "role": "Frontend Developer",
+            "junior": "€26,000–€38,000",
+            "mid": "€38,000–€55,000",
+            "senior": "€45,000–€98,000",
+            "lead": "—",
+            "techStack": "React dominates demand; TypeScript rising"
+          },
+          {
+            "role": "Fullstack Developer",
+            "junior": "€20,000–€32,000",
+            "mid": "€33,000–€58,000",
+            "senior": "€40,000–€95,000",
+            "lead": "—",
+            "techStack": "Node/React demand high; Python pays highest in benchmark"
+          },
+          {
+            "role": "Android Developer",
+            "junior": "€30,000–€38,000",
+            "mid": "€40,000–€53,000",
+            "senior": "€40,000–€62,000",
+            "lead": "—",
+            "techStack": "Kotlin growth made Java relatively cheaper"
+          },
+          {
+            "role": "iOS Developer",
+            "junior": "€23,000–€38,000",
+            "mid": "€42,000–€55,000",
+            "senior": "€43,000–€75,000",
+            "lead": "—",
+            "techStack": "Swift preferred over Objective-C"
+          },
+          {
+            "role": "Mobile Developer (Cross-Platform)",
+            "junior": "€32,000–€40,000",
+            "mid": "€40,000–€60,000",
+            "senior": "—",
+            "lead": "—",
+            "techStack": "Flutter salary trend increased in 2024"
+          },
+          {
+            "role": "QA Functional",
+            "junior": "€20,000–€28,000",
+            "mid": "€28,000–€39,000",
+            "senior": "—",
+            "lead": "—",
+            "techStack": "Hybrid QA profiles increasing"
+          },
+          {
+            "role": "QA Automation",
+            "junior": "€28,000–€32,000",
+            "mid": "€31,000–€50,000",
+            "senior": "€40,000–€75,000",
+            "lead": "—",
+            "techStack": "Selenium demand leader; Appium rising"
+          },
+          {
+            "role": "Data Scientist",
+            "junior": "€30,000–€42,000",
+            "mid": "€30,000–€55,000",
+            "senior": "€55,000–€80,000",
+            "lead": "—",
+            "techStack": "AI/ML and NLP/LLM demand increased"
+          },
+          {
+            "role": "Machine Learning Engineer",
+            "junior": "€34,000–€42,000",
+            "mid": "€42,000–€60,000",
+            "senior": "—",
+            "lead": "—",
+            "techStack": "AI product integration demand expanding"
+          },
+          {
+            "role": "Data Engineer",
+            "junior": "€28,000–€42,000",
+            "mid": "€36,000–€65,000",
+            "senior": "—",
+            "lead": "—",
+            "techStack": "Pipeline and platform engineering demand"
+          },
+          {
+            "role": "Data Analyst",
+            "junior": "€28,000–€35,000",
+            "mid": "€35,000–€45,000",
+            "senior": "€55,000–€85,000",
+            "lead": "—",
+            "techStack": "Analytics-to-AI transition in many teams"
+          },
+          {
+            "role": "DevOps Engineer",
+            "junior": "€28,000–€45,000",
+            "mid": "€45,000–€75,000",
+            "senior": "€55,000–€86,000",
+            "lead": "—",
+            "techStack": "AWS demand highest; IaC/Terraform dominant"
+          },
+          {
+            "role": "Security Analyst",
+            "junior": "€20,000–€30,000",
+            "mid": "€35,000–€47,000",
+            "senior": "€43,000–€63,000",
+            "lead": "—",
+            "techStack": "Security hiring remains selective"
+          },
+          {
+            "role": "Security Engineer",
+            "junior": "€35,000–€43,000",
+            "mid": "€43,000–€56,000",
+            "senior": "€60,000–€100,000",
+            "lead": "—",
+            "techStack": "AppSec and cloud security valued"
+          },
+          {
+            "role": "Product Manager",
+            "junior": "€35,000–€42,000",
+            "mid": "€40,000–€55,000",
+            "senior": "€53,000–€85,000",
+            "lead": "—",
+            "techStack": "AI/data skills increased in PM profiles"
+          },
+          {
+            "role": "Project Manager",
+            "junior": "—",
+            "mid": "—",
+            "senior": "€40,000–€75,000",
+            "lead": "—",
+            "techStack": "Delivery and coordination focus"
+          },
+          {
+            "role": "Business Analyst",
+            "junior": "—",
+            "mid": "€36,000–€55,000",
+            "senior": "€42,000–€62,000",
+            "lead": "—",
+            "techStack": "Domain specialization drives spread"
+          },
+          {
+            "role": "UX Designer",
+            "junior": "€17,000–€23,000",
+            "mid": "€25,000–€37,000",
+            "senior": "€35,000–€55,000",
+            "lead": "—",
+            "techStack": "Design + product collaboration demand"
+          },
+          {
+            "role": "Product Designer",
+            "junior": "€28,000–€34,000",
+            "mid": "€32,000–€45,000",
+            "senior": "€48,000–€85,000",
+            "lead": "—",
+            "techStack": "Cross-functional product design premium"
+          },
+          {
+            "role": "Solutions Architect",
+            "junior": "—",
+            "mid": "—",
+            "senior": "€77,000–€88,000",
+            "lead": "—",
+            "techStack": "Architecture and cloud systems depth"
+          },
+          {
+            "role": "Tech Lead",
+            "junior": "—",
+            "mid": "—",
+            "senior": "—",
+            "lead": "€55,000–€100,000",
+            "techStack": "Leadership + high-ownership engineering"
+          },
+          {
+            "role": "Engineering Manager",
+            "junior": "—",
+            "mid": "—",
+            "senior": "—",
+            "lead": "€60,000–€120,000",
+            "techStack": "People and delivery leadership"
+          },
+          {
+            "role": "Engineering C-Level",
+            "junior": "—",
+            "mid": "—",
+            "senior": "—",
+            "lead": "€100,000–>€150,000",
+            "techStack": "Executive leadership scope"
+          },
+          {
+            "role": "Head of Product",
+            "junior": "—",
+            "mid": "—",
+            "senior": "—",
+            "lead": "€75,000–€105,000",
+            "techStack": "Product strategy and portfolio ownership"
+          }
+        ],
+        "techStackSignals": [
+          "Backend demand mix: Java 32%, Python 21%, C# 18%, Node.js 13%, PHP 7%, C++ 6%, Ruby 3%.",
+          "Frontend demand mix: React 80%, TypeScript 13%, Angular 7%.",
+          "Fullstack demand mix: Node.js 30%, PHP 19%, React 18%, C# 9%, Java 8%, Ruby 7%, Python 5%, Vanilla JavaScript 4%.",
+          "Mobile demand mix: Swift 38%, Kotlin 24%, Java 24%, Flutter 14%.",
+          "QA tools demand mix: Selenium 63%, Cypress 14%, Playwright 14%, Appium 9%.",
+          "DevOps cloud demand mix: AWS 67%, Azure 27%, GCP 6%."
+        ],
+        "meta": {
+          "source": {
+            "type": "survey",
+            "provider": "Damia Group Portugal"
+          },
+          "sourceRef": "damia-tech-salary-benchmark-2025",
+          "verifiedDate": "2026-02-16",
+          "expiresAfter": "12M"
         }
       }
     },
@@ -239,452 +477,262 @@
       }
     },
     "macroeconomicScorecard": {
-      "_description": "Executive summary metrics from CFP Economic and Fiscal Outlook 2025-2029",
-      "heroMetrics": {
-        "gdpNominal": {
-          "value": 264.6,
-          "unit": "EUR billion",
-          "year": 2024,
-          "meta": {
-            "source": {
-              "type": "official",
-              "provider": "Eurostat"
-            }
+      "_description": "Eurostat Country Facts comparison: EU, Germany, Portugal",
+      "comparisonTable": {
+        "title": "Portugal in European Context",
+        "subtitle": "Selected indicators compared with EU and Germany",
+        "naNote": "N/A = Data not available",
+        "sourceDatasetLabel": "View source data",
+        "sourceDatasetUrl": "https://ec.europa.eu/eurostat/cache/countryfacts/#?geo=EU,DE,PT",
+        "countries": {
+          "eu": {
+            "label": "European Union",
+            "flag": "🇪🇺"
+          },
+          "germany": {
+            "label": "Germany",
+            "flag": "🇩🇪"
+          },
+          "portugal": {
+            "label": "Portugal",
+            "flag": "🇵🇹"
           }
         },
-        "population": {
-          "value": 10.5,
-          "unit": "million",
-          "year": 2024,
-          "meta": {
-            "source": {
-              "type": "official",
-              "provider": "Eurostat"
-            }
-          }
-        },
-        "gdpPerCapita": {
-          "value": 25200,
-          "unit": "EUR",
-          "year": 2024,
-          "meta": {
-            "source": {
-              "type": "official",
-              "provider": "Eurostat"
-            }
-          }
-        },
-        "publicDebt": {
-          "value": 275.0,
-          "unit": "EUR billion",
-          "pctGdp": 94.9,
-          "year": 2024,
-          "meta": {
-            "source": {
-              "type": "official",
-              "provider": "CFP/Statistics Portugal"
-            }
-          }
-        },
-        "tradeSurplus": {
-          "value": 1.8,
-          "unit": "% GDP",
-          "year": 2024,
-          "note": "Goods + services balance (tourism surplus offsets goods deficit)",
-          "meta": {
-            "source": {
-              "type": "official",
-              "provider": "CFP"
+        "indicators": [
+          {
+            "id": "population",
+            "label": "Population on 1 January",
+            "unit": "absolute number",
+            "format": "integer",
+            "values": {
+              "eu": 450380320,
+              "germany": 83577140,
+              "portugal": 10749635
+            },
+            "years": {
+              "eu": "2025",
+              "germany": "2025",
+              "portugal": "2025"
             }
           },
-          "absoluteValue": 28.9,
-          "absoluteUnit": "EUR billion"
-        }
-      },
-      "economicActivity": {
-        "realGdpGrowth": {
-          "values": [
-            {
-              "year": 2024,
-              "value": 1.9,
-              "type": "actual"
+          {
+            "id": "youth-population",
+            "label": "Youth population (15 - 29 years)",
+            "unit": "as percentage of the total population",
+            "format": "percent",
+            "values": {
+              "eu": 16.4,
+              "germany": 15.9,
+              "portugal": 15.7
             },
-            {
-              "year": 2025,
-              "value": 1.9,
-              "type": "forecast"
-            },
-            {
-              "year": 2026,
-              "value": 2.2,
-              "type": "forecast"
-            },
-            {
-              "year": 2027,
-              "value": 2.1,
-              "type": "forecast"
+            "years": {
+              "eu": "2025",
+              "germany": "2025",
+              "portugal": "2025"
             }
-          ],
-          "unit": "%",
-          "meta": {
-            "source": {
-              "type": "official",
-              "provider": "European Commission",
-              "url": "https://economy-finance.ec.europa.eu/economic-forecast-and-surveys/economic-forecasts_en"
+          },
+          {
+            "id": "first-time-asylum-applicants",
+            "label": "First time asylum applicants",
+            "unit": "absolute number",
+            "format": "integer",
+            "values": {
+              "eu": 912425,
+              "germany": 229695,
+              "portugal": 2675
             },
-            "sourceRef": "ec-autumn-2025",
-            "verifiedDate": "2026-02-07",
-            "expiresAfter": "3M",
-            "lifecycle": {
-              "updateFrequency": "quarterly"
-            },
-            "note": "Updated from CFP (1.8%/1.6%) to EC Autumn 2025 forecast (2.2%/2.1%) per fact-check"
-          }
-        },
-        "grossFixedCapitalFormation": {
-          "values": [
-            {
-              "year": 2024,
-              "value": 3.1,
-              "type": "actual"
-            },
-            {
-              "year": 2025,
-              "value": 3.6,
-              "type": "forecast"
-            },
-            {
-              "year": 2026,
-              "value": 5.5,
-              "type": "forecast"
-            },
-            {
-              "year": 2027,
-              "value": -1.1,
-              "type": "forecast"
+            "years": {
+              "eu": "2024",
+              "germany": "2024",
+              "portugal": "2024"
             }
-          ],
-          "unit": "%",
-          "meta": {
-            "source": {
-              "type": "official",
-              "provider": "CFP"
+          },
+          {
+            "id": "minimum-wage",
+            "label": "Minimum wage",
+            "unit": "Euro per month",
+            "format": "currency",
+            "values": {
+              "eu": null,
+              "germany": 2343,
+              "portugal": 1073
+            },
+            "years": {
+              "eu": "2026-S1",
+              "germany": "2026-S1",
+              "portugal": "2026-S1"
             }
-          }
-        },
-        "privateConsumption": {
-          "values": [
-            {
-              "year": 2024,
-              "value": 3.2,
-              "type": "actual"
+          },
+          {
+            "id": "poverty-risk",
+            "label": "People at risk of poverty or social exclusion",
+            "unit": "as percentage of the population",
+            "format": "percent",
+            "values": {
+              "eu": 21.0,
+              "germany": 21.2,
+              "portugal": 19.7
             },
-            {
-              "year": 2025,
-              "value": 3.3,
-              "type": "forecast"
-            },
-            {
-              "year": 2026,
-              "value": 2.3,
-              "type": "forecast"
-            },
-            {
-              "year": 2027,
-              "value": 2.3,
-              "type": "forecast"
+            "years": {
+              "eu": "2024",
+              "germany": "2025",
+              "portugal": "2024"
             }
-          ],
-          "unit": "%",
-          "meta": {
-            "source": {
-              "type": "official",
-              "provider": "CFP"
+          },
+          {
+            "id": "inflation",
+            "label": "Inflation rate",
+            "unit": "percentage change compared to previous year",
+            "format": "percent",
+            "values": {
+              "eu": 2.5,
+              "germany": 2.3,
+              "portugal": 2.2
+            },
+            "years": {
+              "eu": "2025",
+              "germany": "2025",
+              "portugal": "2025"
             }
-          }
-        },
-        "tradeBalance": {
-          "values": [
-            {
-              "year": 2024,
-              "value": 1.8,
-              "type": "actual"
+          },
+          {
+            "id": "unemployment",
+            "label": "Unemployment rate",
+            "unit": "as percentage of the labour force aged 15 - 74 years",
+            "format": "percent",
+            "values": {
+              "eu": 5.9,
+              "germany": 3.4,
+              "portugal": 6.5
             },
-            {
-              "year": 2025,
-              "value": 0.8,
-              "type": "forecast"
-            },
-            {
-              "year": 2026,
-              "value": 0.1,
-              "type": "forecast"
-            },
-            {
-              "year": 2027,
-              "value": 0.5,
-              "type": "forecast"
+            "years": {
+              "eu": "2024",
+              "germany": "2024",
+              "portugal": "2024"
             }
-          ],
-          "unit": "% GDP",
-          "meta": {
-            "source": {
-              "type": "official",
-              "provider": "CFP"
+          },
+          {
+            "id": "youth-unemployment",
+            "label": "Youth unemployment rate",
+            "unit": "percentage of labour force aged less than 25",
+            "format": "percent",
+            "values": {
+              "eu": 14.9,
+              "germany": 6.5,
+              "portugal": 21.6
+            },
+            "years": {
+              "eu": "2024",
+              "germany": "2024",
+              "portugal": "2024"
             }
-          }
-        }
-      },
-      "labourAndCosts": {
-        "unemploymentRate": {
-          "values": [
-            {
-              "year": 2024,
-              "value": 6.5,
-              "type": "actual"
+          },
+          {
+            "id": "gdp-per-capita",
+            "label": "GDP per capita",
+            "unit": "Euro per inhabitant",
+            "format": "currency",
+            "values": {
+              "eu": 33650,
+              "germany": 43200,
+              "portugal": 22350
             },
-            {
-              "year": 2025,
-              "value": 6.1,
-              "type": "forecast"
-            },
-            {
-              "year": 2026,
-              "value": 6.0,
-              "type": "forecast"
-            },
-            {
-              "year": 2027,
-              "value": 5.9,
-              "type": "forecast"
+            "years": {
+              "eu": "2024",
+              "germany": "2025",
+              "portugal": "2024"
             }
-          ],
-          "unit": "%",
-          "note": "Below EU average",
-          "meta": {
-            "source": {
-              "type": "official",
-              "provider": "CFP"
+          },
+          {
+            "id": "government-debt",
+            "label": "Government gross debt",
+            "unit": "as percentage of GDP",
+            "format": "percent",
+            "values": {
+              "eu": 80.7,
+              "germany": 62.2,
+              "portugal": 93.6
             },
-            "lifecycle": {
-              "updateFrequency": "quarterly"
+            "years": {
+              "eu": "2024",
+              "germany": "2024",
+              "portugal": "2024"
             }
-          }
-        },
-        "employmentRate20to64": {
-          "values": [
-            {
-              "year": 2024,
-              "value": 76.3,
-              "type": "actual"
+          },
+          {
+            "id": "government-balance",
+            "label": "Government deficit / surplus",
+            "unit": "as percentage of GDP",
+            "format": "percent",
+            "values": {
+              "eu": -3.1,
+              "germany": -2.7,
+              "portugal": 0.5
             },
-            {
-              "year": 2025,
-              "value": 76.9,
-              "type": "forecast"
-            },
-            {
-              "year": 2026,
-              "value": 77.4,
-              "type": "forecast"
-            },
-            {
-              "year": 2027,
-              "value": 77.8,
-              "type": "forecast"
+            "years": {
+              "eu": "2024",
+              "germany": "2024",
+              "portugal": "2024"
             }
-          ],
-          "unit": "%",
-          "meta": {
-            "source": {
-              "type": "official",
-              "provider": "Eurostat"
+          },
+          {
+            "id": "renewable-energy",
+            "label": "Renewable energy",
+            "unit": "as percentage in gross final energy consumption",
+            "format": "percent",
+            "values": {
+              "eu": 25.2,
+              "germany": 22.5,
+              "portugal": 36.3
+            },
+            "years": {
+              "eu": "2024",
+              "germany": "2024",
+              "portugal": "2024"
             }
-          }
-        },
-        "gdpDeflator": {
-          "values": [
-            {
-              "year": 2024,
-              "value": 4.4,
-              "type": "actual"
+          },
+          {
+            "id": "electricity-prices",
+            "label": "Electricity prices",
+            "unit": "Euro per MWh, incl. taxes",
+            "format": "currency-decimal",
+            "values": {
+              "eu": 287.2,
+              "germany": 383.5,
+              "portugal": 239.0
             },
-            {
-              "year": 2025,
-              "value": 3.6,
-              "type": "forecast"
-            },
-            {
-              "year": 2026,
-              "value": 2.4,
-              "type": "forecast"
-            },
-            {
-              "year": 2027,
-              "value": 2.2,
-              "type": "forecast"
+            "years": {
+              "eu": "2025-S1",
+              "germany": "2025-S1",
+              "portugal": "2025-S1"
             }
-          ],
-          "unit": "%",
-          "note": "Moderating",
-          "meta": {
-            "source": {
-              "type": "official",
-              "provider": "CFP"
+          },
+          {
+            "id": "energy-imports-dependency",
+            "label": "Energy imports dependency",
+            "unit": "percentage of gross available energy",
+            "format": "percent",
+            "values": {
+              "eu": 56.9,
+              "germany": 66.8,
+              "portugal": 64.5
+            },
+            "years": {
+              "eu": "2024",
+              "germany": "2024",
+              "portugal": "2024"
             }
           }
-        },
-        "tertiaryAttainment25to34": {
-          "value": 43.2,
-          "unit": "%",
-          "year": 2024,
-          "note": "Nearing EU-27 average",
-          "meta": {
-            "source": {
-              "type": "official",
-              "provider": "Eurostat"
-            }
-          }
-        }
-      },
-      "fiscalPricesMarkets": {
-        "netLending": {
-          "values": [
-            {
-              "year": 2024,
-              "value": 2.8,
-              "type": "actual"
-            },
-            {
-              "year": 2025,
-              "value": 2.1,
-              "type": "forecast"
-            },
-            {
-              "year": 2026,
-              "value": 1.5,
-              "type": "forecast"
-            },
-            {
-              "year": 2027,
-              "value": 1.7,
-              "type": "forecast"
-            }
-          ],
-          "unit": "% GDP",
-          "note": "Primary balance surplus",
-          "meta": {
-            "source": {
-              "type": "official",
-              "provider": "CFP"
-            }
-          }
-        },
-        "publicDebtToGdp": {
-          "values": [
-            {
-              "year": 2024,
-              "value": 94.9,
-              "type": "actual"
-            },
-            {
-              "year": 2025,
-              "value": 91.2,
-              "type": "forecast"
-            },
-            {
-              "year": 2026,
-              "value": 89.4,
-              "type": "forecast"
-            },
-            {
-              "year": 2027,
-              "value": 88.1,
-              "type": "forecast"
-            }
-          ],
-          "unit": "%",
-          "note": "Declining trend",
-          "meta": {
-            "source": {
-              "type": "official",
-              "provider": "CFP"
-            }
-          }
-        },
-        "hicpInflation": {
-          "values": [
-            {
-              "year": 2024,
-              "value": 2.7,
-              "type": "actual"
-            },
-            {
-              "year": 2025,
-              "value": 2.3,
-              "type": "forecast"
-            },
-            {
-              "year": 2026,
-              "value": 2.1,
-              "type": "forecast"
-            },
-            {
-              "year": 2027,
-              "value": 2.0,
-              "type": "forecast"
-            }
-          ],
-          "unit": "%",
-          "note": "At ECB target",
-          "meta": {
-            "source": {
-              "type": "official",
-              "provider": "CFP"
-            }
-          }
-        },
-        "sovereignYield10Y": {
-          "values": [
-            {
-              "year": 2024,
-              "value": 3.0,
-              "type": "actual"
-            },
-            {
-              "year": 2025,
-              "value": 2.8,
-              "type": "forecast"
-            },
-            {
-              "year": 2026,
-              "value": 2.7,
-              "type": "forecast"
-            },
-            {
-              "year": 2027,
-              "value": 2.7,
-              "type": "forecast"
-            }
-          ],
-          "unit": "%",
-          "note": "Stable",
-          "meta": {
-            "source": {
-              "type": "official",
-              "provider": "ECB"
-            }
-          }
-        }
-      },
-      "meta": {
-        "source": {
-          "type": "official",
-          "provider": "CFP Economic and Fiscal Outlook 2025-2029, Eurostat, ECB"
-        },
-        "confidence": 80,
-        "lifecycle": {
-          "updateFrequency": "quarterly"
+        ],
+        "meta": {
+          "source": {
+            "type": "official",
+            "provider": "Eurostat",
+            "url": "https://ec.europa.eu/eurostat/cache/countryfacts/#?geo=EU,DE,PT"
+          },
+          "sourceRef": "eurostat-countryfacts-eu-de-pt",
+          "verifiedDate": "2026-02-16",
+          "expiresAfter": "12M"
         }
       }
     },

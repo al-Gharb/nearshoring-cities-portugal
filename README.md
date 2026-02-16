@@ -21,7 +21,7 @@ BUILT WITH AI
 - **20 Portuguese Cities** — 10 featured with full profiles, 10 secondary with key metrics
 - **Interactive D3.js Bubble Chart** — Visualize talent pool vs. cost trade-offs
 - **AI Nearshoring Simulator** — Generate custom nearshoring deep prompts for simulation
-- **Fact-Check System v3.2** — Dynamic claim generation from source databases
+- **Fact-Check System (Experimental v3)** — Dynamic claim generation from source databases
 - **Light/Dark Mode** — Full theme support
 - **Print-Ready** — City profiles styled for PDF export
 
@@ -59,9 +59,9 @@ npm run preview
 │   │       ├── cityTable.js      # City database table
 │   │       ├── bubbleChart.js    # D3.js visualization
 │   │       ├── cityProfiles.js   # City profile sections
-│   │       ├── simulatorEngine.js # V5.0 deterministic computation
+│   │       ├── simulatorEngine.js # Experimental v3 deterministic computation
 │   │       ├── promptGenerator.js # AI Simulator
-│   │       ├── promptTemplate.js  # V5.0 prompt template (narrative)
+│   │       ├── promptTemplate.js  # Experimental v3 prompt template (narrative)
 │   │       ├── contentRenderer.js # Dynamic content
 │   │       ├── calculations.js    # Salary/ICT calculations
 │   │       └── themeToggle.js     # Dark mode
@@ -105,8 +105,8 @@ npm run preview
 |------|---------|------------|
 | `MASTER.json` | City metrics | `graduates.digitalStemPlus`, `costs.officeRent`, `costs.salaryIndex` |
 | `CITY_PROFILES.json` | Rich context | `ecosystem.majorCompanies`, `culture.climate`, `infrastructure.airport` |
-| `WEBSITE_CONTENT.json` | Section content | `macroeconomic.heroMetrics`, `digitalInfra.connectivity` |
-| `COMPENSATION_DATA.json` | Salary math | `salaryBands`, `tierMultipliers`, `stackPremiums` |
+| `WEBSITE_CONTENT.json` | Section content | `macroeconomic.heroMetrics`, `digitalInfra.connectivity`, `laborMarket.damiaBenchmark` |
+| `COMPENSATION_DATA.json` | Compensation + INE baseline inputs | `baseBands`, `seniorityMultipliers`, `techStackPremiums`, `ineRegionalEarnings` |
 | `FACTCHECK_CLAIMS_v2.json` | Verification | `verificationMethodology` (status codes, output format) |
 
 ### Debug Tool — Claim Source Highlighting
@@ -156,7 +156,7 @@ These metrics are derived from official data using our methodology:
 
 ---
 
-## Fact-Check System v3.1 (Dynamic + HITL Gate)
+## Fact-Check System (Experimental v3)
 
 The fact-check system ensures data accuracy through **multi-source AI verification**. Claims are generated dynamically from source databases — no separate claims file to maintain.
 
@@ -167,6 +167,7 @@ The fact-check system ensures data accuracy through **multi-source AI verificati
 3. **Consensus Matrix** — Compare all results, implement only where 4+ sources agree
 4. **HITL Gate** — Human must say "GO" before any database changes
 5. **Tolerance ±5%** — Values within 5% of claimed = SUPPORTED
+6. **Structured JSONL contract** — Prompts require source_url/source_ref/data_period + confidence and practical_confidence_pct per claim
 
 ### Source Strategy
 
@@ -174,12 +175,17 @@ The fact-check system ensures data accuracy through **multi-source AI verificati
 |----------|-----------|---------------|
 | Macroeconomic | `WEBSITE_CONTENT.json` | EC Autumn Forecast |
 | Digital Infrastructure | `WEBSITE_CONTENT.json` | ANACOM |
-| Office Rent | `MASTER.json` | JLL Portugal / C&W |
-| Residential Rent | `MASTER.json` | Idealista / Numbeo |
-| Workforce | `WEBSITE_CONTENT.json` | Eurostat |
+| Office Rent | `MASTER.json` | Idealista live listings (HITL + agent extraction) |
+| Residential Rent | `MASTER.json` | Idealista live listings (HITL + agent extraction) |
+| Workforce / Salary Benchmark | `WEBSITE_CONTENT.json` | Eurostat + Damia Group Portugal (salary benchmark) |
 | Tax Incentives | `WEBSITE_CONTENT.json` | ANI (SIFIDE II) |
 | Graduates | `WEBSITE_CONTENT.json` | DGEEC InfoCursos |
 | City Profiles | `CITY_PROFILES.json` + `MASTER.json` | Company/university sites |
+
+**Rent methodology scope (Idealista only):**
+- **Office rent:** quality offices in central locations, 60-300 m2
+- **Residential rent:** 1-bedroom modern apartments in central areas, 40-60 m2
+- **Process:** Semi-automated extraction from live listings with human-in-the-loop (HITL) review before publication
 
 ### Verification Workflow
 
@@ -193,15 +199,16 @@ The fact-check system ensures data accuracy through **multi-source AI verificati
 
 ---
 
-## AI Nearshoring Simulator (V5.0)
+## AI Nearshoring Simulator (Experimental v3)
 
 **Architecture:** Separation of concerns — JavaScript handles all financial computation, AI handles narrative reasoning.
 
 The simulator:
 
-1. **Runs deterministic analysis** (JavaScript) — Computes EMC, scores 20 cities, ranks by feasibility
+1. **Runs deterministic analysis** (JavaScript) — Computes EMC, scores all 20 cities, applies objective-specific weights and dealbreaker penalties, ranks by feasibility
 2. **Generates ~7,000-token prompt** — Pre-computed tables + client context
-3. **AI consumes results** — Reviews Top 5, selects 2-3 best fits, writes deep-dives
+3. **AI consumes results** — Considers all-city ranking context, returns final Top 5 recommendations, writes deep-dives for best 2-3
+4. **Prompt-side compliance gate** — Requires strict 1→7 section order, table-only sections where specified, 2-3 deep-dives max, and unchanged numeric values in JSON
 
 ### Key Components
 
@@ -209,14 +216,46 @@ The simulator:
 - **promptTemplate.js** — Builds narrative prompt with pre-computed results (zero formulas)
 - **promptGenerator.js** — Collects inputs, runs engine, generates final prompt
 
-### Prompt Architecture (V5.0)
+### Prompt Architecture (Experimental v3)
 
 ```
 Phase A: Pre-computed results (read-only tables)
 Phase B: Client request + advisory task
 Phase C: Output template (7 sections)
+```
 
 AI performs ZERO arithmetic — only strategic reasoning and narrative analysis.
+
+### Prompt Guardrails (Experimental v3)
+
+- **Output-style aware:** `executive` and `detailed` modes set explicit word targets in prompt rules.
+- **Data boundary rule:** prompt data remains authoritative; optional external context must be clearly labeled as `[External context]` and must not replace prompt financials.
+- **Compliance checklist:** model is instructed to self-validate section order, table-only blocks, deep-dive count limits, and valid JSON syntax before finalizing.
+- **UI error transparency:** simulator generation uses explicit runtime checks and displays actionable errors in the output panel instead of failing silently.
+
+### Simulator Troubleshooting
+
+- If **Generate Simulation Deep Prompt** appears unresponsive, check the output panel for a diagnostic message.
+- Common causes: databases not finished loading, stale browser state, or partial script execution after hot reload.
+- Fast recovery: refresh page, wait for full initialization, then generate again.
+
+### Form Input Hardening
+
+- **Locale-safe numeric parsing:** budgets accept `55000`, `55,000`, `55.000`, `€55 000` and normalize to integer values.
+- **Input sanitization:** key free-text fields normalize whitespace and strip control/high-risk delimiter characters.
+- **Select normalization:** out-of-range/tampered select values are forced to safe defaults.
+- **Role sync from compensation DB:** simulator role options are generated from `COMPENSATION_DATA.json` bands, reducing drift after salary-role updates.
+
+### Feasibility Methodology (Simulator)
+
+- **All-city deterministic pass:** every city is scored before recommendations are produced.
+- **Objective-specific weights:**
+  - `cost`: strategic 15% / financial 60% / talent 25%
+  - `quality`: strategic 40% / financial 20% / talent 40%
+  - `speed`: strategic 20% / financial 35% / talent 45%
+  - `balanced`: strategic 25% / financial 40% / talent 35%
+- **Dealbreaker penalties (heavy, deterministic):** airport constraints, talent-pool depth constraints, coastal/warm constraints, low-cost constraints, and office/work-model constraint conflicts reduce weighted scores.
+- **Feasibility band per city:** `HIGH`, `MEDIUM`, or `LOW` based on verdict, constraint pressure, and weighted score.
 ```
 
 ---
@@ -265,7 +304,7 @@ Uses design tokens with CSS custom properties:
 
 - **Authors:** Claude AI (Opus 4.5)
 - **Research:** Perplexity AI, Gemini Deep Research, GPT-5
-- **Data Sources:** DGEEC/InfoCursos, ANACOM, Eurostat, CFP, JLL Portugal, Cushman & Wakefield,   idealista and more. See html.
+- **Data Sources:** DGEEC/InfoCursos, ANACOM, Eurostat, CFP, Idealista (rent data), and other official datasets documented in `src/index.html`.
 
 ---
 

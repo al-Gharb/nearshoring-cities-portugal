@@ -191,21 +191,9 @@ WEBSITE_CONTENT.json → national
 ```
 COMPENSATION_DATA.json
 │
-├── baseBands
-│   └── [role].meta.htmlAuthoritative ────► #salary-table-body (IT Salary Ranges table)
-│       includes: junior, mid, senior, lead, employerTotal, monthlyEmployer
-│                                           ✅ DYNAMIC via contentRenderer.js
-│       Also feeds: promptTemplate.js Section B2 (annual salary table in AI prompt)
-│
-├── techStackPremiums ────────────────────► #tech-stack-table-body (premiums table)
-│                                           ✅ DYNAMIC via contentRenderer.js
-│
-├── employerCosts
-│   ├── socialSecurity ───────────────────► #employer-costs-note
-│   │                                       ✅ DYNAMIC via contentRenderer.js → populateEmployerCosts()
-│   ├── mealAllowance ───────────────────► #employer-costs-note
-│   │                                       ✅ DYNAMIC via contentRenderer.js → populateEmployerCosts()
-│   └── holidayAllowance ────────────────► 14-payment explanation
+├── baseBands / seniorityMultipliers / techStackPremiums
+│                                           ✅ USED by simulator computation input mapping in promptGenerator.js
+│                                           (role midpoint, tier multiplier, stack premium resolution)
 │
 ├── ineRegionalEarnings ──────────────────► #ine-table-body (INE Regional Earnings table)
 │   └── regions[key] × displayOrder       ✅ DYNAMIC via contentRenderer.js
@@ -216,8 +204,25 @@ COMPENSATION_DATA.json
     └── baseBands + seniorityMultipliers ──► promptTemplate.js (Section B + B2 tables)
 ```
 
-**Module:** `contentRenderer.js → populateINETable(), populateSalaryTable(), populateTechStackPremiums()`
+**Module:** `contentRenderer.js → populateINETable()`
 **Module:** `calculations.js` reads INE baselines + MASTER COL indices to auto-compute salary indices
+
+---
+
+## WEBSITE_CONTENT.json → Strategic Salary Table (Damia)
+
+```
+WEBSITE_CONTENT.json → national.laborMarket.damiaBenchmark
+│
+├── roleSeniorityTable ───────────────────► #salary-table-body
+│                                           ✅ DYNAMIC via contentRenderer.js → populateSalaryTable()
+│
+├── methodology (window/sample/seniority) ─► #damia-salary-note
+│                                           ✅ Static section copy + DB-backed table rows
+│
+└── techStackSignals ─────────────────────► promptGenerator.js workforce claims
+                                            ✅ Included in dynamic fact-check claims
+```
 
 ---
 
@@ -270,8 +275,7 @@ COMPENSATION_DATA.json
 | City database table | MASTER | `cityTable.js` | ✅ Dynamic |
 | Bubble chart | MASTER | `bubbleChart.js` | ✅ Dynamic |
 | `.db-value` spans | MASTER | `contentRenderer.js` | ✅ Dynamic |
-| Salary ranges table | COMPENSATION_DATA | `contentRenderer.js` | ✅ Dynamic |
-| Tech stack premiums | COMPENSATION_DATA | `contentRenderer.js` | ✅ Dynamic |
+| Salary ranges table | WEBSITE_CONTENT (`laborMarket.damiaBenchmark`) | `contentRenderer.js` | ✅ Dynamic |
 | INE earnings table | COMPENSATION_DATA | `contentRenderer.js` | ✅ Dynamic |
 | Section confidence bars | WEBSITE_CONTENT | `contentRenderer.js` | ✅ Dynamic |
 | City fact-check cards | CITY_PROFILES | `contentRenderer.js` | ✅ Dynamic |
@@ -286,6 +290,31 @@ COMPENSATION_DATA.json
 | Tax incentives | WEBSITE_CONTENT | `contentRenderer.js` | ✅ Dynamic |
 | Cost of living heroes | WEBSITE_CONTENT | `contentRenderer.js` | ✅ Dynamic |
 | Quality of Life cards | WEBSITE_CONTENT | `contentRenderer.js` | ✅ Dynamic |
-| Employer costs footer | COMPENSATION_DATA | `contentRenderer.js` | ✅ Dynamic |
+| Employer costs footer (legacy block) | — | — | Removed from Strategic salary section |
+
+---
+
+## Simulator Deterministic Flow (All-City)
+
+```
+Form inputs (index.html)
+    └─► promptGenerator.js
+             ├─ role band / seniority / stack resolution (COMPENSATION_DATA)
+             ├─ city payload prep (MASTER + CITY_PROFILES)
+             └─► simulatorEngine.computeAnalysis()
+                         ├─ EMC math per city (20/20 cities)
+                         ├─ objective-specific weights (cost/quality/speed/balanced)
+                         ├─ deterministic dealbreaker penalties
+                         ├─ feasibility band assignment (HIGH/MEDIUM/LOW)
+                         └─ ranked all-city output + weighted_order_all_cities
+```
+
+Prompt template then instructs advisor to consider all cities and return final Top 5 recommendations with deep-dives for best 2-3.
+
+Prompt template guardrails also enforce:
+- output-style specific word targets (`executive` vs `detailed`),
+- strict section contract (1→7, table-only blocks where required),
+- data boundary behavior (prompt figures are authoritative; optional external context must be explicitly labeled),
+- JSON integrity requirement (valid syntax and unchanged numeric values).
 
 **All data is now dynamically rendered from JSON databases.** Update the source database and rebuild — all HTML values will update automatically.

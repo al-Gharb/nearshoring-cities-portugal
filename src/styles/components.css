@@ -359,6 +359,112 @@
 }
 .methodology-table .col-numeric { text-align: right; }
 
+/* ─────────────────────────────────────────────────────────────────────────
+   MACROECONOMIC EU COMPARISON TABLE
+   ───────────────────────────────────────────────────────────────────────── */
+
+.macro-comparison-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-lg);
+}
+
+.macro-comparison-title {
+  margin: 0 0 var(--sp-xs);
+  color: var(--text-color);
+}
+
+.macro-comparison-subtitle {
+  margin: 0 0 var(--sp-lg);
+  color: var(--light-text);
+  font-size: var(--fs-sm);
+}
+
+.macro-comparison-wrapper {
+  margin-top: var(--sp-sm);
+}
+
+.macro-comparison-table {
+  width: 100%;
+  min-width: 980px;
+  font-size: var(--fs-sm);
+}
+
+.macro-comparison-table th {
+  white-space: nowrap;
+}
+
+.macro-comparison-table th,
+.macro-comparison-table td {
+  vertical-align: top;
+}
+
+.country-head {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.macro-indicator-title {
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 0.15rem;
+}
+
+.macro-indicator-meta {
+  color: var(--light-text);
+  font-size: 0.72rem;
+}
+
+.macro-country-value {
+  display: inline-block;
+  font-weight: 700;
+  color: var(--text-color);
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 0.15rem;
+}
+
+.macro-country-year {
+  color: var(--light-text);
+  font-size: 0.72rem;
+}
+
+.macro-comparison-table .col-pt,
+.macro-comparison-table td.col-pt {
+  background: color-mix(in oklab, var(--accent-color) 16%, var(--card-bg));
+}
+
+[data-theme="dark"] .macro-comparison-table .col-pt,
+[data-theme="dark"] .macro-comparison-table td.col-pt {
+  background: color-mix(in oklab, var(--accent-color) 30%, var(--card-bg));
+}
+
+.macro-comparison-footnote {
+  margin: var(--sp-md) 0 0;
+  font-size: 0.75rem;
+  color: var(--light-text);
+}
+
+.macro-comparison-footer {
+  margin: var(--sp-sm) 0 0;
+  font-size: var(--fs-sm);
+}
+
+@media (max-width: 900px) {
+  .macro-comparison-card {
+    padding: var(--sp-md);
+  }
+
+  .macro-comparison-title {
+    font-size: 1.1rem;
+  }
+
+  .macro-comparison-subtitle {
+    font-size: 0.78rem;
+  }
+}
+
 /* Methodology card variants */
 .meth-card {
   background: var(--card-bg);

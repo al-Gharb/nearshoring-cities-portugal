@@ -18,6 +18,21 @@
 7. Rebuild            → npm run build → verify on site
 ```
 
+### JSONL Contract (required)
+
+Each verification line should include:
+- `claim_id`
+- `status`
+- `verified_value`
+- `source_url` (or `N/A`)
+- `source_ref`
+- `data_period`
+- `confidence` (`HIGH|MEDIUM|LOW`)
+- `practical_confidence_pct` (0-100)
+- `notes`
+
+After JSONL, include a short summary with score, corrections, confidence assessment, and average practical confidence.
+
 ---
 
 ## Categories

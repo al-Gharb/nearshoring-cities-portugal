@@ -72,61 +72,61 @@ const SVG_PRINT = '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" s
  */
 const IDEALISTA_CONFIG = {
   lisbon: {
-    officeUrl: 'https://www.idealista.pt/arrendar-escritorios/lisboa/com-tamanho-min_100,tamanho-max_300/mapa-google',
+    officeUrl: 'https://www.idealista.pt/arrendar-escritorios/lisboa/com-tamanho-min_60,tamanho-max_300/mapa-google',
     aptUrl: 'https://www.idealista.pt/arrendar-casas/lisboa/com-tamanho-min_40,tamanho-max_60,arrendamento-longa-duracao/mapa-google',
     officeAreas: 'Parque das Nações · Saldanha · Avenidas Novas · Alcântara',
     aptAreas: 'Central city · Long-term rental',
   },
   porto: {
-    officeUrl: 'https://www.idealista.pt/arrendar-escritorios/porto/com-tamanho-min_100,tamanho-max_300/mapa-google',
+    officeUrl: 'https://www.idealista.pt/arrendar-escritorios/porto/com-tamanho-min_60,tamanho-max_300/mapa-google',
     aptUrl: 'https://www.idealista.pt/arrendar-casas/porto/com-tamanho-min_40,tamanho-max_60,arrendamento-longa-duracao/mapa-google',
     officeAreas: 'Boavista · Campanhã · Matosinhos · Maia',
     aptAreas: 'Central city · Long-term rental',
   },
   braga: {
-    officeUrl: 'https://www.idealista.pt/arrendar-escritorios/braga/com-tamanho-min_100,tamanho-max_300/mapa-google',
+    officeUrl: 'https://www.idealista.pt/arrendar-escritorios/braga/com-tamanho-min_60,tamanho-max_300/mapa-google',
     aptUrl: 'https://www.idealista.pt/arrendar-casas/braga/com-tamanho-min_40,tamanho-max_60,arrendamento-longa-duracao/mapa-google',
     officeAreas: 'Centro · Lamaçães · Nogueira',
     aptAreas: 'Central city · Long-term rental',
   },
   guimaraes: {
-    officeUrl: 'https://www.idealista.pt/arrendar-escritorios/guimaraes/com-tamanho-min_100,tamanho-max_300/mapa-google',
+    officeUrl: 'https://www.idealista.pt/arrendar-escritorios/guimaraes/com-tamanho-min_60,tamanho-max_300/mapa-google',
     aptUrl: 'https://www.idealista.pt/arrendar-casas/guimaraes/com-tamanho-min_40,tamanho-max_60,arrendamento-longa-duracao/mapa-google',
     officeAreas: 'Centro Histórico · Azurém (UMinho campus)',
     aptAreas: 'Central city · Long-term rental',
   },
   coimbra: {
-    officeUrl: 'https://www.idealista.pt/arrendar-escritorios/coimbra/com-tamanho-min_100,tamanho-max_300/mapa-google',
+    officeUrl: 'https://www.idealista.pt/arrendar-escritorios/coimbra/com-tamanho-min_60,tamanho-max_300/mapa-google',
     aptUrl: 'https://www.idealista.pt/arrendar-casas/coimbra/com-tamanho-min_40,tamanho-max_60,arrendamento-longa-duracao/mapa-google',
     officeAreas: 'Baixa · Solum · IPN Incubator area',
     aptAreas: 'Central city · Long-term rental',
   },
   aveiro: {
-    officeUrl: 'https://www.idealista.pt/arrendar-escritorios/aveiro/com-tamanho-min_100,tamanho-max_300/mapa-google',
+    officeUrl: 'https://www.idealista.pt/arrendar-escritorios/aveiro/com-tamanho-min_60,tamanho-max_300/mapa-google',
     aptUrl: 'https://www.idealista.pt/arrendar-casas/aveiro/com-tamanho-min_40,tamanho-max_60,arrendamento-longa-duracao/mapa-google',
     officeAreas: 'Centro · Glicínias · Zona Industrial',
     aptAreas: 'Central city · Long-term rental',
   },
   covilha: {
-    officeUrl: 'https://www.idealista.pt/arrendar-escritorios/covilha/com-tamanho-min_100,tamanho-max_300/mapa-google',
+    officeUrl: 'https://www.idealista.pt/arrendar-escritorios/covilha/com-tamanho-min_60,tamanho-max_300/mapa-google',
     aptUrl: 'https://www.idealista.pt/arrendar-casas/covilha/com-tamanho-min_40,tamanho-max_60,arrendamento-longa-duracao/mapa-google',
     officeAreas: 'Centro · UBI campus area',
     aptAreas: 'Central city · Long-term rental',
   },
   evora: {
-    officeUrl: 'https://www.idealista.pt/arrendar-escritorios/evora/com-tamanho-min_100,tamanho-max_300/mapa-google',
+    officeUrl: 'https://www.idealista.pt/arrendar-escritorios/evora/com-tamanho-min_60,tamanho-max_300/mapa-google',
     aptUrl: 'https://www.idealista.pt/arrendar-casas/evora/com-tamanho-min_40,tamanho-max_60,arrendamento-longa-duracao/mapa-google',
     officeAreas: 'Centro Histórico · PITE Technology Park',
     aptAreas: 'Historic center · Long-term rental',
   },
   faro: {
-    officeUrl: 'https://www.idealista.pt/arrendar-escritorios/faro/com-tamanho-min_100,tamanho-max_300/mapa-google',
+    officeUrl: 'https://www.idealista.pt/arrendar-escritorios/faro/com-tamanho-min_60,tamanho-max_300/mapa-google',
     aptUrl: 'https://www.idealista.pt/arrendar-casas/faro/com-tamanho-min_40,tamanho-max_60,arrendamento-longa-duracao/mapa-google',
     officeAreas: 'Centro · Montenegro · Gambelas (UAlg)',
     aptAreas: 'Central city · Long-term rental',
   },
   setubal: {
-    officeUrl: 'https://www.idealista.pt/arrendar-escritorios/setubal/com-tamanho-min_100,tamanho-max_300/mapa-google',
+    officeUrl: 'https://www.idealista.pt/arrendar-escritorios/setubal/com-tamanho-min_60,tamanho-max_300/mapa-google',
     aptUrl: 'https://www.idealista.pt/arrendar-casas/setubal/com-tamanho-min_40,tamanho-max_60,arrendamento-longa-duracao/mapa-google',
     officeAreas: 'Centro · Praça do Bocage · Zona Industrial',
     aptAreas: 'Central city · Long-term rental',
@@ -505,12 +505,12 @@ function buildMetricsTable(masterCity) {
     <div class="metric-stat">
       <i class="fa-solid fa-building icon-accent"></i>
       <span class="db-value">${costs.officeRent ? formatRange(costs.officeRent.min, costs.officeRent.max, '€', '/m²') : '—'}</span>
-      <span class="metric-label">Office Rent <a href="#src-jll" class="source-link"><i class="fa-solid fa-circle-info"></i></a></span>
+      <span class="metric-label">Office Rent <a href="#src-idealista" class="source-link"><i class="fa-solid fa-circle-info"></i></a></span>
     </div>
     <div class="metric-stat">
       <i class="fa-solid fa-house icon-accent"></i>
       <span class="db-value">${costs.residentialRent ? formatRange(costs.residentialRent.min, costs.residentialRent.max, '€', '/mo') : '—'}</span>
-      <span class="metric-label">Residential Rent <a href="#src-numbeo" class="source-link"><i class="fa-solid fa-circle-info"></i></a></span>
+      <span class="metric-label">Residential Rent <a href="#src-idealista" class="source-link"><i class="fa-solid fa-circle-info"></i></a></span>
     </div>
     <div class="metric-stat">
       <i class="fa-solid fa-coins icon-col"></i>
@@ -646,20 +646,14 @@ function buildCitySection(cityId) {
       </div>
       <div class="grid-item cost" data-db="master,profiles" data-prompt-core="true">
         <h3><i class="fa-solid fa-coins"></i> Cost & Retention</h3>
-        <p><strong>Salary Index:</strong> <span class="db-value" data-city="${cityId}" data-field="salary-index" data-db="master">${masterCity.costs?.salaryIndex?.value ?? '—'}</span> (Lisbon = 100)</p>
-        <p><strong>COL + Rent Index:</strong> <span class="db-value" data-city="${cityId}" data-field="col-index" data-db="master">${masterCity.costs?.colIndex?.value ?? '—'}</span> (NYC = 100)</p>
-        <p><strong>Office Rent:</strong> <span class="db-value" data-city="${cityId}" data-field="office-rent" data-db="master">${masterCity.costs?.officeRent ? formatRange(masterCity.costs.officeRent.min, masterCity.costs.officeRent.max, '€', '/m²') : '—'}</span></p>
-        <p><strong>Residential Rent:</strong> <span class="db-value" data-city="${cityId}" data-field="residential-rent" data-db="master">${masterCity.costs?.residentialRent ? formatRange(masterCity.costs.residentialRent.min, masterCity.costs.residentialRent.max, '€', '/mo') : '—'}</span></p>
-        ${profile?.culture?.qualityOfLife ? `
+        <p><strong>Salary Index:</strong> <span class="db-value" data-city="${cityId}" data-field="salary-index" data-db="master">${masterCity.costs?.salaryIndex?.value ?? '—'}</span> (Lisbon = 100) <a href="#src-salary-index" class="source-link"><i class="fa-solid fa-circle-info"></i></a></p>
+        <p><strong>COL + Rent Index:</strong> <span class="db-value" data-city="${cityId}" data-field="col-index" data-db="master">${masterCity.costs?.colIndex?.value ?? '—'}</span> (NYC = 100) <a href="#src-col-index" class="source-link"><i class="fa-solid fa-circle-info"></i></a></p>
+        <p><strong>Office Rent:</strong> <span class="db-value" data-city="${cityId}" data-field="office-rent" data-db="master">${masterCity.costs?.officeRent ? formatRange(masterCity.costs.officeRent.min, masterCity.costs.officeRent.max, '€', '/m²') : '—'}</span> · central, quality offices, 60-200m²</p>
+        <p><strong>Residential Rent:</strong> <span class="db-value" data-city="${cityId}" data-field="residential-rent" data-db="master">${masterCity.costs?.residentialRent ? formatRange(masterCity.costs.residentialRent.min, masterCity.costs.residentialRent.max, '€', '/mo') : '—'}</span> · central, modern 1BR apartments, 40-60m²</p>
         <div class="cost-qol" data-db="profiles" data-prompt-core="true">
-          <h4><i class="fa-solid fa-heart"></i> Quality of Life</h4>
-          <ul class="qol-list">
-            ${profile.culture.qualityOfLife.walkability ? `<li><i class="fa-solid fa-person-walking"></i> ${profile.culture.qualityOfLife.walkability}</li>` : ''}
-            ${profile.culture.qualityOfLife.healthcare ? `<li><i class="fa-solid fa-hospital"></i> ${profile.culture.qualityOfLife.healthcare}</li>` : ''}
-            ${profile.culture.qualityOfLife.culture ? `<li><i class="fa-solid fa-masks-theater"></i> ${profile.culture.qualityOfLife.culture}</li>` : ''}
-          </ul>
+          <h4><i class="fa-solid fa-map-location-dot"></i> Property Search</h4>
+          ${buildIdealista(cityId)}
         </div>
-        ` : ''}
         ${profile?.culture?.retention ? `
         <div class="cost-retention" data-db="profiles" data-prompt-core="true">
           <h4><i class="fa-solid fa-user-check"></i> Retention Profile</h4>
@@ -675,8 +669,16 @@ function buildCitySection(cityId) {
         ` : ''}
         <h3><i class="fa-solid fa-tags"></i> Tech Domains</h3>
         ${buildDomainTags(domains)}
-        <h4 class="idealista-subheading"><i class="fa-solid fa-map-location-dot"></i> Property Search</h4>
-        ${buildIdealista(cityId)}
+        ${profile?.culture?.qualityOfLife ? `
+        <div class="cost-qol" data-db="profiles" data-prompt-core="true">
+          <h4><i class="fa-solid fa-heart"></i> Quality of Life</h4>
+          <ul class="qol-list">
+            ${profile.culture.qualityOfLife.walkability ? `<li><i class="fa-solid fa-person-walking"></i> ${profile.culture.qualityOfLife.walkability}</li>` : ''}
+            ${profile.culture.qualityOfLife.healthcare ? `<li><i class="fa-solid fa-hospital"></i> ${profile.culture.qualityOfLife.healthcare}</li>` : ''}
+            ${profile.culture.qualityOfLife.culture ? `<li><i class="fa-solid fa-masks-theater"></i> ${profile.culture.qualityOfLife.culture}</li>` : ''}
+          </ul>
+        </div>
+        ` : ''}
       </div>
       <div class="grid-item metrics full-width" data-db="master">
         <h3><i class="fa-solid fa-table"></i> Key Metrics</h3>

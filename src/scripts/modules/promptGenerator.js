@@ -1,5 +1,5 @@
 /**
- * PROMPT GENERATOR MODULE — V5.0
+ * PROMPT GENERATOR MODULE — Experimental v3
  * AI Nearshoring Simulator — collects form inputs + database data,
  * runs deterministic computation via simulatorEngine, then builds
  * a narrative-focused prompt. Handles UI (generate, copy, conditional fields).
@@ -29,7 +29,7 @@ function getRegionalPool(cityId, cityData) {
   return totals?.digitalStemPlus ?? 500;
 }
 
-// getCityMeta() removed in V5.0 — metadata (climate, coworking, airport) no longer injected into prompt.
+// getCityMeta() removed in Experimental v3 — metadata (climate, coworking, airport) no longer injected into prompt.
 // These are now advisory context the LLM can reference from the city database tags/companies fields.
 
 // Default fallback for ICT percentage (still used in fact-check generators below)
@@ -181,7 +181,7 @@ function prepareCityDataForAI() {
   return cities;
 }
 
-// collectAllData() removed in V5.0 — national data no longer injected into prompt.
+// collectAllData() removed in Experimental v3 — national data no longer injected into prompt.
 // Only MASTER.json city data + minimal CITY_PROFILES enrichment is used.
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -190,6 +190,73 @@ function prepareCityDataForAI() {
 
 function getValue(id) {
   return document.getElementById(id)?.value.trim() || '';
+}
+
+/**
+ * Sanitize free-text user input for prompt safety and consistency.
+ * Removes control characters and high-risk delimiter chars used in prompt injection.
+ * @param {string} value
+ * @param {number} maxLen
+ * @returns {string}
+ */
+function sanitizeFreeText(value, maxLen = 300) {
+  if (!value) return '';
+  return String(value)
+    .normalize('NFKC')
+    .replace(/[\u0000-\u001F\u007F]/g, ' ')
+    .replace(/[<>`]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, maxLen);
+}
+
+/**
+ * Parse human-entered currency/number strings safely across locale formats.
+ * Examples handled:
+ * - 55000
+ * - 55,000
+ * - 55.000
+ * - €55 000
+ * - 55.000,00 (drops decimal cents for budget usage)
+ * @param {string} raw
+ * @returns {number|null}
+ */
+function parseLocalizedInteger(raw) {
+  if (!raw) return null;
+
+  let cleaned = String(raw).replace(/[^\d.,\s]/g, '').replace(/\s+/g, '');
+  if (!cleaned) return null;
+
+  // If trailing decimal separator exists (e.g., 55.000,00), drop decimal part for integer budget logic.
+  cleaned = cleaned.replace(/[.,](\d{1,2})$/, '');
+
+  const digitsOnly = cleaned.replace(/[^\d]/g, '');
+  if (!digitsOnly) return null;
+
+  const parsed = Number.parseInt(digitsOnly, 10);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : null;
+}
+
+/**
+ * Parse team size from flexible user text (e.g., "8-10 people" -> 8).
+ * @param {string} raw
+ * @returns {number|null}
+ */
+function parseTeamSize(raw) {
+  if (!raw) return null;
+  const match = String(raw).match(/(\d{1,4})/);
+  if (!match) return null;
+  const parsed = Number.parseInt(match[1], 10);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : null;
+}
+
+function clampInteger(value, min, max) {
+  if (!Number.isFinite(value)) return null;
+  return Math.min(max, Math.max(min, Math.round(value)));
+}
+
+function normalizeSelect(value, allowed, fallback) {
+  return allowed.includes(value) ? value : fallback;
 }
 
 function getStackSelection() {
@@ -201,26 +268,37 @@ function getStackSelection() {
 }
 
 function readFormInputs() {
+  const allowedPrimaryObjectives = ['cost', 'quality', 'speed', 'balanced'];
+  const allowedWorkModels = ['fully-remote', 'remote-first', 'hybrid', 'office-first', 'fully-onsite'];
+  const allowedOfficeQuality = ['budget', 'standard', 'premium'];
+  const allowedOfficeStrategies = ['city-center', 'business-park', 'university-adjacent', 'low-profile', 'no-preference'];
+  const allowedHiringStrategies = ['balanced-practical', 'specialized-research', 'practical-delivery', 'senior-qol', 'junior-trainable'];
+  const allowedTimeline = ['asap', '3-6months', '6-12months', 'flexible'];
+  const allowedScaling = ['stable', 'gradual', 'double', 'aggressive', 'hub-build', 'flexible'];
+  const allowedLifestyle = ['any', 'major-metro', 'secondary-city', 'coastal-warm', 'university-town', 'low-cost', 'nature-outdoor'];
+  const allowedEntity = ['undecided', 'eor', 'subsidiary', 'contractors'];
+  const allowedOutputStyle = ['executive', 'detailed'];
+
   return {
-    purpose: getValue('sim-purpose'),
-    opexBudget: getValue('sim-opex-budget'),
-    capexBudget: getValue('sim-capex-budget'),
-    teamSize: getValue('sim-team-size'),
+    purpose: sanitizeFreeText(getValue('sim-purpose'), 600),
+    opexBudget: sanitizeFreeText(getValue('sim-opex-budget'), 40),
+    capexBudget: sanitizeFreeText(getValue('sim-capex-budget'), 40),
+    teamSize: sanitizeFreeText(getValue('sim-team-size'), 40),
     roleType: getValue('sim-role-type'),
-    companyFocus: getValue('sim-company-focus'),
-    searchedStack: getStackSelection(),
-    dealbreakers: getValue('sim-dealbreakers'),
-    workModel: getValue('sim-work-model'),
-    officeQuality: getValue('sim-office-quality'),
-    officeStrategy: getValue('sim-office-strategy'),
-    hiringStrategy: getValue('sim-hiring-strategy'),
-    timeline: getValue('sim-timeline'),
-    scaling: getValue('sim-scaling'),
-    timezone: getValue('sim-timezone'),
-    lifestyle: getValue('sim-lifestyle'),
-    entity: getValue('sim-entity'),
-    primaryObjective: getValue('sim-primary-objective'),
-    outputStyle: getValue('sim-output-style'),
+    companyFocus: sanitizeFreeText(getValue('sim-company-focus'), 80),
+    searchedStack: sanitizeFreeText(getStackSelection(), 300),
+    dealbreakers: sanitizeFreeText(getValue('sim-dealbreakers'), 260),
+    workModel: normalizeSelect(getValue('sim-work-model'), allowedWorkModels, 'hybrid'),
+    officeQuality: normalizeSelect(getValue('sim-office-quality'), allowedOfficeQuality, 'standard'),
+    officeStrategy: normalizeSelect(getValue('sim-office-strategy'), allowedOfficeStrategies, 'no-preference'),
+    hiringStrategy: normalizeSelect(getValue('sim-hiring-strategy'), allowedHiringStrategies, 'balanced-practical'),
+    timeline: normalizeSelect(getValue('sim-timeline'), allowedTimeline, '6-12months'),
+    scaling: normalizeSelect(getValue('sim-scaling'), allowedScaling, 'gradual'),
+    timezone: sanitizeFreeText(getValue('sim-timezone'), 120),
+    lifestyle: normalizeSelect(getValue('sim-lifestyle'), allowedLifestyle, 'any'),
+    entity: normalizeSelect(getValue('sim-entity'), allowedEntity, 'undecided'),
+    primaryObjective: normalizeSelect(getValue('sim-primary-objective'), allowedPrimaryObjectives, 'balanced'),
+    outputStyle: normalizeSelect(getValue('sim-output-style'), allowedOutputStyle, 'detailed'),
   };
 }
 
@@ -229,7 +307,7 @@ function readFormInputs() {
  * ═══════════════════════════════════════════════════════════════════════════ */
 
 /**
- * Generate the V5.0 master prompt.
+ * Generate the Experimental v3 master prompt.
  * Flow: read form → build compensation lookups → run deterministic engine → build prompt.
  * All arithmetic happens in simulatorEngine.js. The prompt contains zero formulas.
  * @returns {string} Complete prompt text for AI consumption
@@ -245,11 +323,18 @@ export function generateMasterPrompt() {
 
   const currentBand = salaryBands[inputs.roleType] || salaryBands['software-engineer'];
 
+  if (!salaryBands[inputs.roleType]) {
+    inputs.roleType = 'software-engineer';
+  }
+
   // Extract raw numeric values
-  const teamSizeMatch = inputs.teamSize.match(/(\d+)/);
-  const teamSize = teamSizeMatch ? parseInt(teamSizeMatch[1]) : null;
-  const budgetMatch = inputs.opexBudget.match(/[\d,]+/);
-  const budget = budgetMatch ? parseInt(budgetMatch[0].replace(/,/g, '')) : null;
+  const teamSize = clampInteger(parseTeamSize(inputs.teamSize), 1, 1000);
+  const budget = clampInteger(parseLocalizedInteger(inputs.opexBudget), 1000, 100000000);
+  const capex = clampInteger(parseLocalizedInteger(inputs.capexBudget), 0, 100000000);
+
+  if (budget) inputs.opexBudget = String(budget);
+  if (capex !== null) inputs.capexBudget = String(capex);
+  if (teamSize) inputs.teamSize = String(teamSize);
 
   // Resolve seniority tier multiplier from form or default to mid (1.00)
   const tierKey = inputs.hiringStrategy?.includes('senior') ? 'senior'
@@ -280,6 +365,11 @@ export function generateMasterPrompt() {
     cities: cityData,
     industry: inputs.companyFocus || '',
     teamSizeRaw: teamSize,
+    primaryObjective: inputs.primaryObjective || 'balanced',
+    dealbreakers: inputs.dealbreakers || '',
+    workModel: inputs.workModel || '',
+    officeStrategy: inputs.officeStrategy || '',
+    lifestyle: inputs.lifestyle || '',
   });
 
   const todayDate = new Date().toISOString().split('T')[0];
@@ -380,96 +470,34 @@ function generateMacroeconomicClaims(content) {
     claims.push({ id: `MAC-${String(claimNum).padStart(2, '0')}`, claim: text.trim() });
     claimNum++;
   };
-  
-  const macro = content?.macroeconomicScorecard;
-  if (!macro) return claims;
-  
-  // Hero metrics
-  const hero = macro.heroMetrics;
-  if (hero?.gdpNominal) addClaim(`GDP Nominal ${hero.gdpNominal.year}: €${hero.gdpNominal.value}B`);
-  if (hero?.population) addClaim(`Population ${hero.population.year}: ${hero.population.value}M`);
-  if (hero?.gdpPerCapita) addClaim(`GDP Per Capita ${hero.gdpPerCapita.year}: €${hero.gdpPerCapita.value.toLocaleString()}`);
-  if (hero?.publicDebt) addClaim(`Public Debt ${hero.publicDebt.year}: €${hero.publicDebt.value}B (${hero.publicDebt.pctGdp}% GDP)`);
-  if (hero?.tradeSurplus) addClaim(`Trade Surplus ${hero.tradeSurplus.year}: €${hero.tradeSurplus.absoluteValue}B (+${hero.tradeSurplus.value}% GDP, goods+services)`);
-  
-  // Economic Activity
-  const econ = macro.economicActivity;
-  if (econ?.realGdpGrowth?.values) {
-    econ.realGdpGrowth.values.forEach(v => {
-      const type = v.type === 'forecast' ? ' forecast' : '';
-      addClaim(`Real GDP Growth ${v.year}: ${v.value}%${type}`);
-    });
+
+  const table = content?.macroeconomicScorecard?.comparisonTable;
+  if (!table?.indicators) return claims;
+
+  table.indicators.forEach((indicator) => {
+    const unit = indicator.unit;
+    const format = indicator.format;
+    const label = indicator.label;
+
+    addClaim(`European Union ${label}: ${formatClaimValue(indicator.values?.eu, format)} (${indicator.years?.eu})`);
+    addClaim(`Germany ${label}: ${formatClaimValue(indicator.values?.germany, format)} (${indicator.years?.germany})`);
+    addClaim(`Portugal ${label}: ${formatClaimValue(indicator.values?.portugal, format)} (${indicator.years?.portugal})`);
+    addClaim(`${label} unit: ${unit}`);
+  });
+
+  if (table.naNote) {
+    addClaim(`Macroeconomic comparison note: ${table.naNote}`);
   }
-  if (econ?.privateConsumption?.values) {
-    econ.privateConsumption.values.forEach(v => {
-      const type = v.type === 'forecast' ? ' forecast' : '';
-      addClaim(`Private Consumption Growth ${v.year}: ${v.value}%${type}`);
-    });
+
+  function formatClaimValue(value, formatType) {
+    if (value === null || value === undefined) return 'N/A';
+    if (formatType === 'percent') return `${Number(value).toFixed(1)}%`;
+    if (formatType === 'currency') return `€${Math.round(value).toLocaleString()}`;
+    if (formatType === 'currency-decimal') return `€${Number(value).toFixed(1)}`;
+    if (formatType === 'integer') return `${Math.round(value).toLocaleString()}`;
+    return String(value);
   }
-  if (econ?.grossFixedCapitalFormation?.values) {
-    econ.grossFixedCapitalFormation.values.forEach(v => {
-      const type = v.type === 'forecast' ? ' forecast' : '';
-      addClaim(`Gross Fixed Capital Formation ${v.year}: ${v.value}%${type}`);
-    });
-  }
-  if (econ?.tradeBalance?.values) {
-    econ.tradeBalance.values.forEach(v => {
-      const type = v.type === 'forecast' ? ' forecast' : '';
-      addClaim(`Trade Balance ${v.year}: ${v.value}% GDP${type}`);
-    });
-  }
-  
-  // Labour & Costs
-  const labour = macro.labourAndCosts;
-  if (labour?.unemploymentRate?.values) {
-    labour.unemploymentRate.values.forEach(v => {
-      const type = v.type === 'forecast' ? ' forecast' : '';
-      addClaim(`Unemployment Rate ${v.year}: ${v.value}%${type}`);
-    });
-  }
-  if (labour?.employmentRate20to64?.values) {
-    labour.employmentRate20to64.values.forEach(v => {
-      const type = v.type === 'forecast' ? ' forecast' : '';
-      addClaim(`Employment Rate (20-64) ${v.year}: ${v.value}%${type}`);
-    });
-  }
-  if (labour?.tertiaryAttainment25to34) {
-    addClaim(`Tertiary Attainment (25-34): ${labour.tertiaryAttainment25to34.value}%`);
-  }
-  if (labour?.gdpDeflator?.values) {
-    labour.gdpDeflator.values.forEach(v => {
-      const type = v.type === 'forecast' ? ' forecast' : '';
-      addClaim(`GDP Deflator ${v.year}: ${v.value}%${type}`);
-    });
-  }
-  
-  // Fiscal, Prices, Markets
-  const fiscal = macro.fiscalPricesMarkets;
-  if (fiscal?.hicpInflation?.values) {
-    fiscal.hicpInflation.values.forEach(v => {
-      const type = v.type === 'forecast' ? ' forecast' : '';
-      addClaim(`HICP Inflation ${v.year}: ${v.value}%${type}`);
-    });
-  }
-  if (fiscal?.publicDebtToGdp?.values) {
-    fiscal.publicDebtToGdp.values.forEach(v => {
-      const type = v.type === 'forecast' ? ' forecast' : '';
-      addClaim(`Public Debt ${v.year}: ${v.value}% GDP${type}`);
-    });
-  }
-  if (fiscal?.netLending?.values) {
-    fiscal.netLending.values.forEach(v => {
-      const type = v.type === 'forecast' ? ' forecast' : '';
-      addClaim(`Net Lending (Budget) ${v.year}: +${v.value}% GDP${type}`);
-    });
-  }
-  if (fiscal?.sovereignYield10Y?.values) {
-    fiscal.sovereignYield10Y.values.slice(0, 2).forEach(v => {
-      const type = v.type === 'forecast' ? ' forecast' : '';
-      addClaim(`Sovereign Yield (10Y) ${v.year}: ${v.value}%${type}`);
-    });
-  }
-  
+
   return claims;
 }
 
@@ -733,170 +761,36 @@ function generateCityDatabaseClaims(master) {
  * @returns {string} Complete fact-check prompt
  */
 function buildCityDatabasePrompt(allClaims, methodology) {
-  const externalClaims = allClaims.filter(c => !c.internal);
-  const internalClaims = allClaims.filter(c => c.internal);
+  const internalMethodSummary = internalClaims.length > 0
+    ? `\nInternal methodology claims are included for reasonableness/arithmetic audit. For these, verify plausibility and formula consistency.`
+    : '';
 
-  const externalTable = externalClaims.map(c =>
-    `| ${c.id} | ${c.claim} |`
-  ).join('\n');
+  const statusCodesTable = statusCodes.length > 0
+    ? statusCodes.map(s => `| **${s.code}** | ${s.description} |`).join('\n')
+    : '| **SUPPORTED** | Value confirmed within tolerance |\n| **PARTIALLY_SUPPORTED** | Directionally correct with material variance |\n| **CONTRADICTED** | Reliable source materially disagrees |\n| **UNVERIFIABLE** | No defensible verification basis |\n| **OUTDATED** | Source found but data period is stale |';
 
-  const internalTable = internalClaims.map(c =>
-    `| ${c.id} | ${c.claim} |`
-  ).join('\n');
-
-  return `# FACT-CHECK: City Database (All Metrics) — v3.0
-> **${allClaims.length} claims** across 20 Portuguese cities: ${externalClaims.length} cost metrics (external) + ${internalClaims.length} talent/salary metrics (methodology audit)
+  return `# FACT-CHECK VERIFICATION PROMPT — Experimental v3
+## Category: City Database (All Metrics)
+> **Claims to verify:** ${allClaims.length} (${externalClaims.length} external + ${internalClaims.length} methodology)
 
 ---
 
 ## YOUR TASK
 
-You are verifying a **comparative city database** used in a business analysis of IT nearshoring locations in Portugal. The database covers 20 cities — from major metros (Lisbon, Porto) to small interior university towns (Covilh\u00e3, Bragan\u00e7a).
+Verify every claim using independent evidence (web/official/public sources + defensible reasoning when direct sources are unavailable).
+Treat claims as source-free input: do not treat prompt wording as evidence.${internalMethodSummary}
 
-**Your job is to verify every claim.** Use web search, training data, reasoning from comparable data, or any other method. We need your expert judgment on ALL claims, not just the ones with obvious sources.
+### RULES
 
----
-
-## ⚠️ CRITICAL: WEB SEARCH STRATEGY (Read This First!)
-
-**Most Portuguese real estate and data sites (Idealista, JLL, Savills, Imovirtual, CustoJusto, DGEEC portals) BLOCK automated page reads.** Do NOT waste your context window trying to open pages that fail.
-
-**The 2-Strike Rule:**
-1. When you search, **read the search result snippets/titles/meta descriptions first** — they often contain the numbers you need (e.g., "Prime rents at €21/sqm" or "T1 centro €850-1100").
-2. If you must open a page, try **at most 2 pages per search query**. If both fail → STOP trying to open pages for that query.
-3. **Switch immediately** to one of these fallback approaches:
-   - **Search snippet extraction** — Search results often show prices, statistics, and summaries in the preview text. Use those numbers directly as sources (cite as "search result snippet: [query]").
-   - **Training data** — You have extensive knowledge of Portuguese real estate markets, university systems, and regional economics. State what you know and cite "training data, [year]".
-   - **Cross-referencing** — Use a verified value from one city to estimate another (e.g., Porto prime rent confirmed at €21 → below-prime is €13-17).
-   - **Ratio-based reasoning** — Office-to-residential rent ratios (1.0-1.8×), city cost scaling from Lisbon, salary-to-COL consistency checks.
-   - **Numbeo** — numbeo.com pages may load; try those first for COL index. But if they fail too, estimate from known city patterns.
-
-**Efficient batch strategy for 140 claims:**
-- Do NOT verify one city at a time end-to-end. Instead, batch by metric type:
-  1. First pass: COL index — search Numbeo for all cities that have pages (Lisbon, Porto, Braga, Coimbra, Faro, maybe 2-3 more). Estimate the rest.
-  2. Second pass: Office rent — search for JLL/CBRE Portugal market reports (one search covers Lisbon + Porto prime rents). Derive below-prime. For smaller cities, use residential rent ratios.
-  3. Third pass: Residential rent — one search for "average rent T1 Portugal cities 2024" or "Idealista rent prices Portugal" may give you a comparison table.
-  4. Fourth pass: Arithmetic checks — Digital STEM+ and Core ICT are pure math. No web search needed. Calculate directly.
-  5. Fifth pass: Salary index — check INE regional wage data. One search may cover all regions.
-  6. Sixth pass: STEM graduates — plausibility check against known university sizes.
-
-**Remember: A reasoned estimate with MEDIUM confidence citing training data is infinitely more useful than 50 failed page-open attempts followed by UNVERIFIABLE.**
+1. **±5% default tolerance** for numeric checks unless claim type requires broader practical bounds.
+2. **Freshness window:** prefer 2024-2026 evidence. Use OUTDATED when evidence for a current-market claim is materially older than 24 months.
+3. **Reasoned fallback allowed:** if direct source is unavailable, provide best defensible estimate with explicit confidence and rationale.
+4. **UNVERIFIABLE last:** use only when you genuinely have no defensible basis.
+5. **Arithmetic checks required** for internal formula-style metrics (Digital STEM+, Core ICT ratios, salary-index logic checks).
 
 ---
 
-## CITY TIERS (data availability guide)
-
-| Tier | Cities | What to expect |
-|------|--------|----------------|
-| **1 \u2014 Major metros** | Lisbon, Porto | JLL/C&W/CBRE quarterly reports, Numbeo, Idealista. Direct verification expected. |
-| **2 \u2014 Regional hubs** | Braga, Coimbra, Aveiro, Faro, Leiria, Set\u00fabal | Some broker mentions, Idealista listings, partial Numbeo. Mix of direct + reasoned. |
-| **3 \u2014 Small/university towns** | Guimar\u00e3es, \u00c9vora, Covilh\u00e3, Viseu, Viana do Castelo, Santar\u00e9m, Castelo Branco, Vila Real, Tomar, Bragan\u00e7a, Beja, Portalegre | Idealista may have listings. Office data rare. Numbeo sparse. Reasoning required. |
-
----
-
-## METRIC-BY-METRIC VERIFICATION GUIDE
-
-### 1. OFFICE RENT (\u20ac/m\u00b2/month)
-**What this is:** Good-quality, modern office space suitable for a tech team (business parks, renovated commercial buildings, coworking-grade). This is **NOT prime Class A CBD** \u2014 it is the tier below: lower specification, peripheral locations, or smaller cities where "Class A" does not exist. Expect these values to be **20\u201340% below prime CBD rates** in cities where prime data exists.
-
-**Verification approach:**
-- **Tier 1:** Search \`JLL Portugal office rent prime 2024\` or \`CBRE Lisbon Porto office market\`. The search snippets usually quote prime CBD rent (Lisbon ~\u20ac28-30, Porto ~\u20ac21-24). Our below-prime figures should be 20-40% below those.
-- **Tier 2-3:** Search \`office rent [city] Portugal \u20ac/m\u00b2\` \u2014 check if any snippet quotes a range. If not, estimate from the city\u2019s residential rent: office rent per m\u00b2 \u2248 1.0\u20131.8\u00d7 residential rent per m\u00b2.
-- **Scaling shortcut:** A city 50km from Porto is typically 30-50% cheaper for office space. Interior cities can be 50-70% below Lisbon prime.
-- **Do NOT repeatedly try to open idealista/JLL/Savills pages** \u2014 they block bots. Use search snippets or training data.
-- **Tolerance:** \u00b115% for Tier 3 cities, \u00b110% for Tier 2, \u00b15% for Tier 1.
-
-### 2. RESIDENTIAL RENT (\u20ac/month)
-**What this is:** A **1-bedroom apartment (~50 m\u00b2) in or near the city center**. Standard professional quality \u2014 not luxury, not student housing.
-
-**Verification approach:**
-- **Best single search:** \`average rent 1 bedroom Portugal cities 2024\` or \`pre\u00e7o renda T1 cidades Portugal\` \u2014 look for comparison tables or city rankings in the search snippets.
-- **Per-city:** Search \`rent 1 bedroom [city] Portugal \u20ac\` \u2014 Numbeo snippets often show the figure directly ("Apartment 1 bedroom City Centre: \u20acXXX").
-- **Do NOT try to open idealista listing pages** \u2014 they block automated access. The search snippet may quote a price range; that\u2019s sufficient.
-- **Cross-check logic:** Lisbon T1 center ~\u20ac1200-1800, Porto ~\u20ac800-1200. Other cities scale down proportionally by COL. Interior cities are typically 40-60% of Lisbon.
-- **Tolerance:** \u00b110% for all tiers.
-
-### 3. COST OF LIVING PLUS RENT INDEX (Numbeo, NYC=100, COL+Rent)
-**What this is:** Numbeo's "Cost of Living Plus Rent Index" (COL+Rent), where New York City = 100. This index INCLUDES domestic rental costs \u2014 it is NOT the "Cost of Living Index (excl. rent)" which is ~20% higher. Most Portuguese cities score 28\u201350 on COL+Rent (e.g., Lisbon \u2248 46\u201347).
-
-**Verification approach:**
-- **Best search:** \`Numbeo cost of living plus rent index Portugal cities\` \u2014 look for the comparison/ranking page snippet. It often lists multiple cities\u2019 indices in one result. Remember: we want the "Cost of Living Plus Rent Index", NOT the "Cost of Living Index" (excl. rent).
-- **Per-city:** Search \`Numbeo [city] Portugal cost of living\` \u2014 the snippet shows both indices. Look for "Cost of Living Plus Rent Index" (NOT the "Cost of Living Index" which excludes rent and is ~20% higher). Lisbon COL+Rent \u2248 46\u201347 is correct. You usually do NOT need to open the page.
-- **IMPORTANT:** We use Numbeo's **Cost of Living Plus Rent Index** (which includes domestic rents), NOT the "excl. rent" index. Numbeo only covers cities with enough contributors. Many Tier 3 cities are NOT on Numbeo. If not listed:
-  - Estimate from the city\u2019s residential rent relative to Lisbon. If rent is 50% of Lisbon\u2019s, COL is roughly 60\u201370% of Lisbon\u2019s index.
-  - Portugal\u2019s national COL range: interior towns 28\u201333, mid-size cities 33\u201340, Lisbon metro 45\u201355.
-  - Mark with confidence MEDIUM or LOW and show your reasoning.
-- **Tolerance:** \u00b110% for Tier 2-3, \u00b15% for Tier 1.
-
-### 4. OFFICIAL STEM GRADUATES (DGEEC data) \u2014 CAN be verified
-**What this is:** Annual graduates (conclus\u00f5es) from higher education institutions IN THIS CITY, across CNAEF classification areas:
-- **04** \u2014 Business, Administration & Law (management/business informatics programs)
-- **05** \u2014 Natural Sciences, Mathematics & Statistics
-- **06** \u2014 Information & Communication Technologies
-- **07** \u2014 Engineering, Manufacturing & Construction
-- **72** \u2014 Health Technologies (biomedical engineering, medical imaging, etc.)
-
-**How to verify (search-first approach):**
-- **Search:** \`DGEEC diplomados ensino superior [city] 2023\` or \`site:dgeec.mec.pt diplomados CNAEF\` \u2014 snippets may show aggregate tables or PDF links with totals.
-- **InfoCursos:** Search \`infocursos [university name] diplomados\` \u2014 snippets sometimes show graduate counts.
-- **Do NOT spend time trying to navigate dgeec.mec.pt or infocursos.mec.pt interactively** \u2014 use search snippets + your training data about Portuguese university sizes.
-- **Known institution sizes (use for plausibility):**
-  - Lisbon: ULisboa (incl. IST, FCUL), NOVA (FCT, NOVA IMS), ISCTE, IPL, Universidade Lus\u00f3fona
-  - Porto: U.Porto (FEUP, FCUP), ISEP (IPP), Universidade Lus\u00f3fona Porto
-  - Coimbra: Universidade de Coimbra (FCTUC, DEI), IPC
-  - Braga/Guimar\u00e3es: Universidade do Minho (main campus Braga, engineering campus Guimar\u00e3es)
-  - Aveiro: Universidade de Aveiro (strong engineering)
-  - Covilh\u00e3: Universidade da Beira Interior (UBI \u2014 engineering, textile, CS)
-  - Set\u00fabal: IPS + nearby NOVA FCT (Almada campus counts toward Lisbon metro)
-  - Faro: Universidade do Algarve
-  - \u00c9vora: Universidade de \u00c9vora
-  - Vila Real: UTAD (agriculture + engineering)
-  - Leiria: Polit\u00e9cnico de Leiria (ESTG \u2014 large engineering school)
-  - Beja, Bragan\u00e7a, Castelo Branco, Portalegre, Santar\u00e9m, Tomar, Viseu, Viana do Castelo: Polytechnic institutes
-- **Plausibility check:** Larger universities = more grads. Lisbon 7000+, Porto 5000+, Coimbra 1500+. Small polytechnic cities: 100\u2013600.
-- **CRITICAL: Verify the number makes sense for the institutions in that city.**
-
-### 5. DIGITAL STEM+ (calculated metric) \u2014 AUDIT THE MATH
-**What this is:** An expanded graduate count. Formula: \`Official STEM \u00d7 1.27\`
-
-The 1.27 multiplier accounts for:
-- **CTeSP** (Cursos T\u00e9cnicos Superiores Profissionais) \u2014 2-year vocational higher ed programs in tech fields (~15% addition)
-- **Adjacent digital fields** \u2014 CNAEF areas not in our STEM core but with digital relevance (digital design, digital media, etc. ~12% addition)
-
-**How to verify:** The claim text includes the formula. Check: \`Does value \u2248 Official STEM \u00d7 1.27?\` If the deviation is >8%, mark NEEDS_UPDATE. This is a pure arithmetic check.
-
-### 6. CORE ICT (subset metric) \u2014 CHECK THE PROPORTION
-**What this is:** Graduates from CNAEF 481 (Computer Science / Inform\u00e1tica) + CNAEF 523 (Electronics & Automation) only. The purest IT-relevant subset.
-
-**How to verify:** The claim text shows the percentage of Digital STEM+. Check:
-- Core ICT should be **8\u201322% of Digital STEM+**
-- Cities with strong CS departments (Porto FEUP/ISEP, Lisbon IST, Braga U.Minho): higher end (15\u201322%)
-- Agriculture/tourism-focused cities (Beja, Faro, \u00c9vora): lower end (8\u201313%)
-- If outside this range, mark NEEDS_UPDATE.
-
-### 7. SALARY INDEX (Lisbon=100) \u2014 VERIFY REGIONAL LOGIC
-**What this is:** Derived from INE (Statistics Portugal) "Ganho M\u00e9dio Mensal" (average monthly earnings) by NUTS III region, indexed so Lisbon Metropolitan Area = 100.
-
-**How to verify:**
-- Lisbon = 100 by definition (baseline)
-- Expected ranges: Porto metro 85\u201392, dynamic secondary cities 75\u201385, interior towns 68\u201378
-- **Red flags:** Any value below 65 (Portugal has a national minimum wage floor) or above 95 (outside Lisbon metro)
-- **Cross-check:** INE publishes regional wage tables (Quadros de Pessoal / Ganho m\u00e9dio). Also check if the salary index is internally consistent: a city with COL index 30 should not have salary index 90.
-
----
-
-## ABSOLUTE RULES
-
-1. **DO NOT default to UNVERIFIABLE.** You have training data covering Portuguese real estate markets, university systems, and regional economics. Use it.
-2. **UNVERIFIABLE is a last resort** \u2014 only valid when you genuinely have zero basis for estimation (not even comparable cities). You must still explain WHY in your notes.
-3. **Reasoning counts.** If you can\u2019t find a direct source, you MUST reason from the best available evidence (comparable city, residential-to-office ratio, university enrollment, regional patterns) and give a **confidence level**.
-4. **\u00b15% tolerance for Tier 1, \u00b110% for Tier 2, \u00b115% for Tier 3** cost metrics.
-5. **Arithmetic checks are mandatory** for Digital STEM+ (must \u2248 Official STEM \u00d7 1.27) and Core ICT (must be 8-22% of STEM+).
-6. **2023\u20132025 data preferred.** Flag anything relying on pre-2023 data as OUTDATED.
-
----
-
-## CLAIMS TO VERIFY \u2014 COST METRICS (External Sources)
+## CLAIMS TO VERIFY — COST METRICS (External Sources)
 
 | ID | Claim |
 |----|-------|
@@ -904,9 +798,7 @@ ${externalTable}
 
 ---
 
-## CLAIMS TO VERIFY \u2014 TALENT & SALARY (Methodology Audit)
-
-For these claims, verify: (a) the base number is plausible for the city\u2019s institutions, (b) the arithmetic is correct, (c) the proportions make sense.
+## CLAIMS TO VERIFY — TALENT & SALARY (Methodology Audit)
 
 | ID | Claim |
 |----|-------|
@@ -914,48 +806,45 @@ ${internalTable}
 
 ---
 
-## REQUIRED OUTPUT FORMAT
+## REQUIRED OUTPUT FORMAT (JSONL)
 
-**One JSON object per line (JSONL).** Include ALL fields. No text outside the JSONL block except the summary at the end.
+Return a JSONL block first, then a short summary section.
+Each JSON object MUST include:
+- claim_id
+- status
+- verified_value
+- source_url (URL if available, else "N/A")
+- source_ref (publisher/report/query-snippet identifier)
+- data_period (e.g., "2025", "Q1 2026", "2019-2024")
+- confidence (HIGH|MEDIUM|LOW)
+- practical_confidence_pct (integer 0-100)
+- notes
 
 \`\`\`jsonl
-{"claim_id":"CDB-01","status":"SUPPORTED","verified_value":"\u20ac16-20/m\u00b2","source":"JLL Porto Q3 2024 (-30% from prime \u20ac24)","confidence":"HIGH","notes":"Prime is \u20ac24; below-prime at \u20ac16-20 is consistent"}
-{"claim_id":"CDB-17","status":"PARTIALLY_SUPPORTED","verified_value":"~34 estimated","source":"Reasoning: Guimar\u00e3es rent is ~70% of Porto; Porto COL is 45; 45\u00d70.75\u224834","confidence":"MEDIUM","notes":"Numbeo has no page for Guimar\u00e3es; estimate based on rent ratio to Porto"}
-{"claim_id":"CDB-47","status":"NEEDS_UPDATE","verified_value":"1915","source":"Arithmetic check: 1508\u00d71.27=1915","confidence":"HIGH","notes":"Claimed 1775 but formula gives 1915; \u0394=7.3% exceeds 5% tolerance"}
+{"claim_id":"CDB-01","status":"SUPPORTED","verified_value":"€16-20/m²","source_url":"https://example.com/report","source_ref":"JLL Portugal office snapshot","data_period":"Q1 2026","confidence":"HIGH","practical_confidence_pct":87,"notes":"Below-prime band is consistent with metro benchmark and city tier."}
+{"claim_id":"CDB-17","status":"PARTIALLY_SUPPORTED","verified_value":"~34 estimated","source_url":"N/A","source_ref":"Search snippet + regional comparable reasoning","data_period":"2026 estimate","confidence":"MEDIUM","practical_confidence_pct":64,"notes":"No direct city source found; estimate derived from rent/COL scaling."}
+{"claim_id":"CDB-47","status":"CONTRADICTED","verified_value":"1915","source_url":"N/A","source_ref":"Arithmetic audit","data_period":"Derived from claim inputs","confidence":"HIGH","practical_confidence_pct":92,"notes":"Claimed value fails formula check: 1508×1.27=1915."}
 \`\`\`
 
-### STATUS CODES
+### STATUS CODES (use exactly these)
 
 | Code | When to Use |
 |------|-------------|
-| **SUPPORTED** | Value confirmed within tolerance (direct source OR strong reasoning) |
-| **PARTIALLY_SUPPORTED** | Directionally correct but outside tolerance, or estimated with medium confidence |
-| **NEEDS_UPDATE** | Value appears wrong \u2014 contradicted by source data or failed arithmetic check |
-| **CONTRADICTED** | Directly contradicted by a reliable primary source (>15% off) |
-| **OUTDATED** | Source found but data is from before 2023 |
-| **UNVERIFIABLE** | Genuinely zero basis for estimation \u2014 MUST explain why in notes |
-
-### CONFIDENCE LEVELS (required for every claim)
-
-| Level | Meaning |
-|-------|---------|
-| **HIGH** | Direct source found, or arithmetic check with known inputs |
-| **MEDIUM** | Estimated from comparable cities, regional data, or known patterns |
-| **LOW** | Rough estimate; limited evidence; high uncertainty |
+${statusCodesTable}
 
 ---
 
 ## AFTER JSONL, PROVIDE SUMMARY
 
-1. **Score:** X/${allClaims.length} SUPPORTED or PARTIALLY_SUPPORTED
-2. **Corrections Needed:** List claims that need updating, with the corrected value and source
-3. **Arithmetic Failures:** List any Digital STEM+ or Core ICT claims that fail their formula checks
-4. **Confidence Assessment:** Overall reliability rating for this database, and which cities/metrics are weakest
-5. **Data Gaps:** Which cities or metrics had the least available verification data?
+1. **Score:** X/${allClaims.length} SUPPORTED + PARTIALLY_SUPPORTED
+2. **Corrections Needed:** Claims that should be updated with corrected values
+3. **Arithmetic Failures:** Any internal formula checks that fail
+4. **Confidence Assessment:** Overall reliability and weakest metric clusters
+5. **Data Gaps:** Claims with lowest evidence availability
 
 ---
 
-Begin verification. Remember: we need your assessment of EVERY claim, not just the easy ones.`;
+Begin verification.`;
 }
 
 /**
@@ -1017,46 +906,38 @@ function generateWorkforceClaims(content, compensation) {
   const lm = content?.laborMarket;
   if (lm?.retention?.medianTenure) addClaim(`Median tenure (Startup Portugal): ${lm.retention.medianTenure.value} ${lm.retention.medianTenure.unit}`);
   
-  // ─── IT Salary Ranges (data-prompt-core salary-table from COMPENSATION_DATA) ───
-  if (compensation?.baseBands) {
-    for (const [roleKey, role] of Object.entries(compensation.baseBands)) {
-      const auth = role.meta?.htmlAuthoritative;
-      if (auth) {
-        // Use authoritative HTML display values (hand-tuned annual ranges)
-        const parts = [];
-        if (auth.junior) parts.push(`Junior ${auth.junior}`);
-        if (auth.mid) parts.push(`Mid ${auth.mid}`);
-        if (auth.senior) parts.push(`Senior ${auth.senior}`);
-        if (auth.lead) parts.push(`Lead ${auth.lead}`);
-        if (parts.length > 0) {
-          addClaim(`${role.roleType} salary (annual, Lisbon): ${parts.join(', ')}`);
-        }
-      } else if (role.min && role.max) {
-        addClaim(`${role.roleType} base band (monthly, Lisbon): €${role.min.toLocaleString()}–€${role.max.toLocaleString()}`);
+  // ─── Damia salary benchmark (data-prompt-core from WEBSITE_CONTENT laborMarket) ───
+  const damia = lm?.damiaBenchmark;
+  if (damia?.methodology?.window && damia?.methodology?.sampleSize) {
+    addClaim(`Damia salary benchmark methodology: ${damia.methodology.window} dataset with ${damia.methodology.sampleSize.toLocaleString()} candidates`);
+  }
+  if (damia?.methodology?.basis) {
+    addClaim(`Damia salary benchmark basis: ${damia.methodology.basis}`);
+  }
+  if (damia?.methodology?.seniorityBands?.junior) {
+    addClaim(`Damia seniority bands: Junior ${damia.methodology.seniorityBands.junior}, Mid ${damia.methodology.seniorityBands.mid}, Senior ${damia.methodology.seniorityBands.senior}`);
+  }
+
+  if (damia?.roleSeniorityTable) {
+    damia.roleSeniorityTable.forEach((row) => {
+      const levels = [];
+      if (row.junior && row.junior !== '—') levels.push(`Junior ${row.junior}`);
+      if (row.mid && row.mid !== '—') levels.push(`Mid ${row.mid}`);
+      if (row.senior && row.senior !== '—') levels.push(`Senior ${row.senior}`);
+      if (row.lead && row.lead !== '—') levels.push(`Lead/Management ${row.lead}`);
+      if (levels.length > 0) {
+        addClaim(`${row.role} salary range (annual gross): ${levels.join(', ')}`);
       }
-    }
-  }
-  
-  // ─── Tech Stack Premiums (data-prompt-core salary-table from COMPENSATION_DATA) ───
-  if (compensation?.techStackPremiums) {
-    for (const [stackKey, stack] of Object.entries(compensation.techStackPremiums)) {
-      if (stack.premium != null) {
-        const pctStr = stack.premium === 0 ? 'Baseline (0%)' : `+${Math.round(stack.premium * 100)}%`;
-        addClaim(`Tech stack premium — ${stack.stack}: ${pctStr}`);
+      if (row.techStack && row.techStack !== '—') {
+        addClaim(`${row.role} tech-stack context: ${row.techStack}`);
       }
-    }
+    });
   }
-  
-  // ─── Employer Costs (data-prompt-core from COMPENSATION_DATA) ───
-  const ec = compensation?.employerCosts;
-  if (ec?.socialSecurity?.employerRate) {
-    addClaim(`Employer social security rate: ${ec.socialSecurity.employerRate}%`);
-  }
-  if (ec?.mealAllowance?.cardMax) {
-    addClaim(`Meal allowance (card, tax-exempt max): €${ec.mealAllowance.cardMax}/day`);
-  }
-  if (ec?.holidayAllowance?.months) {
-    addClaim(`Portugal pays ${ec.holidayAllowance.months} extra monthly salaries/year (holiday + Christmas subsidy) — Código do Trabalho`);
+
+  if (damia?.techStackSignals) {
+    damia.techStackSignals.forEach((signal) => {
+      addClaim(`Tech-stack market signal: ${signal}`);
+    });
   }
   
   // ─── INE Regional Earnings (data-prompt-core ine-earnings-card — from COMPENSATION_DATA) ───
@@ -1536,7 +1417,7 @@ async function generateCityClaimsFromSource(cityId) {
 
 /**
  * Generate a fact-check verification prompt for the selected category.
- * v2.2 — Dynamic claims from source DBs for city profiles.
+ * v2.3 — Dynamic claims from source DBs with unified JSONL output contract.
  * @returns {Promise<string>} The formatted fact-check prompt
  */
 async function generateFactCheckPrompt() {
@@ -1546,6 +1427,7 @@ async function generateFactCheckPrompt() {
   }
 
   const categoryKey = selected.value;
+  let categoryTaskContext = '';
   const claimsDb = await loadFactcheckClaims();
   
   // Get methodology from claims DB
@@ -1607,7 +1489,7 @@ These metrics use our **internal methodology**. You cannot find these exact numb
 | **Core ICT** | CNAEF 481 (CS) + 523 (Electronics) — pure IT specialists | Typically 10-20% of Digital STEM+. |
 | **Salary Index** | Regional wages indexed to Lisbon=100, adjusted for cost of living | Interior cities should be 70-85. Porto/Lisbon area 90-100. |
 
-**For internal calculations:** Mark as SUPPORTED if the numbers are **reasonable given the city's profile** (university count, population, COL). Mark as NEEDS_UPDATE only if clearly implausible.
+**For internal calculations:** Mark as SUPPORTED if numbers are **reasonable given the city's profile** (university count, population, COL). Mark as CONTRADICTED if clearly implausible or mathematically inconsistent.
 `;
     }
   } else {
@@ -1627,6 +1509,34 @@ These metrics use our **internal methodology**. You cannot find these exact numb
     
     verifiableClaims = generateDataCategoryClaims(categoryKey);
     categoryLabel = categoryLabels[categoryKey] || categoryKey;
+
+    if (categoryKey === 'officeRent') {
+      categoryTaskContext = `
+
+### CATEGORY CONTEXT — OFFICE RENT (Read First)
+
+- These office-rent values are derived from **Idealista live listings (Q1 2026)** using semi-automated extraction with HITL review.
+- Scope is **practical offices** that real SMEs and operating teams typically rent: **central locations, quality offices, ~60–300 m²**.
+- This is **not a prime-CBD institutional benchmark** (e.g., brokerage prime series used for large corporations).
+- Treat this as a **practical operating benchmark, not a scientific market index**.
+- If direct city-level sources are missing, switch to **reasoning mode**: act as a Portuguese real-estate market insider, use nearby-city comparables and market structure, and estimate whether the range is realistic for practical use right now.
+- Use **UNVERIFIABLE only as last resort** when you genuinely have no defensible basis for estimation.
+`;
+    }
+
+    if (categoryKey === 'residentialRent') {
+      categoryTaskContext = `
+
+### CATEGORY CONTEXT — RESIDENTIAL RENT (Read First)
+
+- These residential-rent values are derived from **Idealista live listings (Q1 2026)** using semi-automated extraction with HITL review.
+- Scope is **practical 1-bedroom housing** that companies and hires commonly use for relocation planning: **modern 1BR units, central areas, ~40–60 m²**.
+- This is intended for **real hiring/relocation budgeting**, not for luxury or investor-grade segmentation.
+- Treat this as a **practical operating benchmark, not a scientific housing index**.
+- If direct city-level sources are missing, switch to **reasoning mode**: act as a Portuguese real-estate market insider, use nearby-city comparables and market structure, and estimate whether the range is realistic for practical use right now.
+- Use **UNVERIFIABLE only as last resort** when you genuinely have no defensible basis for estimation.
+`;
+    }
     
     if (verifiableClaims.length === 0) {
       return `⚠️ No claims could be generated for "${categoryKey}". Check WEBSITE_CONTENT.json or MASTER.json data.`;
@@ -1673,7 +1583,7 @@ ${internalClaimsOnly.map(c => `| ${c.id} | ${c.claim} |`).join('\n')}`;
     `| ${s.code} | ${s.description} |`
   ).join('\n');
 
-  const prompt = `# FACT-CHECK VERIFICATION PROMPT v2.3
+  const prompt = `# FACT-CHECK VERIFICATION PROMPT — Experimental v3
 ## Category: ${categoryLabel}
 > **Claims to verify:** ${verifiableClaims.length} (${externalClaimsOnly.length} external + ${internalClaimsOnly.length} methodology)
 
@@ -1681,13 +1591,17 @@ ${internalClaimsOnly.map(c => `| ${c.id} | ${c.claim} |`).join('\n')}`;
 
 ## YOUR TASK
 
-Verify each claim below using **any method you have available** — your training knowledge, web search, or any reliable source you can access. We don't prescribe HOW you verify; we only need accurate results.
+Verify each claim below using independent evidence (web/official/public sources + defensible reasoning where direct sources are unavailable). Treat claim text as source-free input; do not use prompt wording itself as proof.
+${categoryTaskContext}
 
 ### RULES
 
 1. **±5% TOLERANCE** — Values within 5% of claimed = SUPPORTED
-2. **2023-2025 DATA** — Flag anything using data older than 2023
-3. **BE HONEST** — If you can't verify a claim, mark it UNVERIFIABLE. Don't guess.
+2. **FRESHNESS WINDOW** — Prefer 2024-2026 evidence. Use OUTDATED when evidence for a current-market claim is materially older than 24 months.
+3. **REASON FIRST** — If direct data is unavailable, estimate from the best available evidence (comparables, regional patterns, known market anchors). Do not stop early.
+4. **UNVERIFIABLE LAST** — Use UNVERIFIABLE only when you truly have no defensible basis for estimation.
+5. **PRACTICAL JUDGMENT** — Judge practical market plausibility: can a good central quality office/apartment be rented at that range now?
+6. **SOURCE TRANSPARENCY** — For each claim include source_url (or N/A), source_ref, and data_period.
 ${internalWarning}
 
 ---
@@ -1703,11 +1617,26 @@ ${internalClaimsSection}
 
 ## REQUIRED OUTPUT FORMAT (JSONL)
 
-Respond with **one JSON object per line**, no other text before or after the JSONL block:
+Return a JSONL block first, then the summary section. Include exactly one JSON object per claim.
+Each JSON object MUST include:
+- claim_id
+- status
+- verified_value
+- source_url (URL if available, else "N/A")
+- source_ref
+- data_period
+- confidence (HIGH|MEDIUM|LOW)
+- practical_confidence_pct (integer 0-100)
+- notes
 
 \`\`\`jsonl
-{"claim_id":"${verifiableClaims[0]?.id || 'XXX-01'}","status":"SUPPORTED","verified_value":"<actual value you found>","source":"<where you found it>","notes":"<brief explanation>"}
+{"claim_id":"${verifiableClaims[0]?.id || 'XXX-01'}","status":"SUPPORTED","verified_value":"<actual value you found or estimate>","source_url":"<url or N/A>","source_ref":"<publisher/report/query-snippet>","data_period":"<year/quarter/range>","confidence":"MEDIUM","practical_confidence_pct":82,"notes":"<brief explanation of evidence + practical plausibility>"}
 \`\`\`
+
+The field practical_confidence_pct is **required** for every claim and must be an integer **0-100**:
+- **100** = practically certain and market-realistic now
+- **0** = completely unlikely/unreasonable for practical use
+- Use intermediate scores when uncertainty exists
 
 ### STATUS CODES (use exactly these)
 
@@ -1719,9 +1648,10 @@ ${statusCodes}
 
 ## AFTER JSONL, PROVIDE SUMMARY
 
-1. **Score:** X/Y SUPPORTED (e.g., "7/9 claims verified")
+1. **Score:** X/Y SUPPORTED + PARTIALLY_SUPPORTED (e.g., "7/9 acceptable")
 2. **Corrections Needed:** List any claims that need updating, with the correct value
 3. **Confidence Assessment:** Based on your findings, is this category reliable?
+4. **Average Practical Confidence:** Mean of all practical_confidence_pct values (0-100%)
 
 ---
 
@@ -1738,14 +1668,140 @@ export function initSimulator() {
   const copyBtn = document.getElementById('copy-prompt-btn');
   const outputEl = document.getElementById('simulator-output');
 
-  if (!generateBtn || !outputEl) return;
+  if (!generateBtn || !outputEl) {
+    console.error('[Simulator] Missing required UI elements for prompt generation.');
+    return;
+  }
+
+  /**
+   * Harden free-text and numeric user input fields.
+   * - Normalizes budget/capex/team-size to deterministic integer form on blur.
+   * - Sanitizes text fields to reduce injection-style payload risk in generated prompts.
+   */
+  function initInputHardening() {
+    const numericFieldIds = ['sim-opex-budget', 'sim-capex-budget'];
+    const textFieldConfig = [
+      { id: 'sim-purpose', maxLen: 600 },
+      { id: 'sim-timezone', maxLen: 120 },
+      { id: 'sim-searched-stack-other', maxLen: 180 },
+      { id: 'sim-dealbreakers', maxLen: 260 },
+    ];
+
+    numericFieldIds.forEach((id) => {
+      const field = document.getElementById(id);
+      if (!field) return;
+
+      field.addEventListener('input', () => {
+        field.value = field.value.replace(/[^\d.,\s€]/g, '');
+      });
+
+      field.addEventListener('blur', () => {
+        const parsed = parseLocalizedInteger(field.value);
+        field.value = parsed ? String(parsed) : '';
+      });
+    });
+
+    const teamSizeField = document.getElementById('sim-team-size');
+    if (teamSizeField) {
+      teamSizeField.addEventListener('input', () => {
+        teamSizeField.value = teamSizeField.value.replace(/[^\d\-–\speople]/gi, '');
+      });
+
+      teamSizeField.addEventListener('blur', () => {
+        const parsed = parseTeamSize(teamSizeField.value);
+        teamSizeField.value = parsed ? String(parsed) : '';
+      });
+    }
+
+    textFieldConfig.forEach(({ id, maxLen }) => {
+      const field = document.getElementById(id);
+      if (!field) return;
+      field.addEventListener('blur', () => {
+        field.value = sanitizeFreeText(field.value, maxLen);
+      });
+    });
+  }
+
+  /**
+   * Keep role options aligned with COMPENSATION_DATA baseBands.
+   * This ensures newly added salary roles appear automatically in the form.
+   */
+  function syncRoleOptionsFromCompensation() {
+    const roleSelect = document.getElementById('sim-role-type');
+    if (!roleSelect) return;
+
+    const bands = buildSalaryBands(getCompensationData());
+    const currentValue = roleSelect.value;
+
+    const preferredOrder = [
+      'software-engineer',
+      'devops-sre',
+      'ml-data-engineer',
+      'mobile-engineer',
+      'engineering-manager',
+      'product-manager',
+      'data-analyst',
+      'qa-testing',
+      'tech-support',
+      'creative',
+      'admin-backoffice',
+      'mixed',
+    ];
+
+    const dynamicKeys = Object.keys(bands);
+    const orderedKeys = [
+      ...preferredOrder.filter((key) => dynamicKeys.includes(key)),
+      ...dynamicKeys.filter((key) => !preferredOrder.includes(key)),
+    ];
+
+    roleSelect.innerHTML = '';
+    orderedKeys.forEach((key) => {
+      const band = bands[key];
+      if (!band?.mid) return;
+      const option = document.createElement('option');
+      option.value = key;
+      option.textContent = band.label || key;
+      if (key === 'software-engineer') option.textContent = 'Software Engineer (ICT/CS)';
+      if (key === 'mixed') option.textContent = 'Mixed roles (blended)';
+      roleSelect.appendChild(option);
+    });
+
+    roleSelect.value = bands[currentValue] ? currentValue : 'software-engineer';
+  }
+
+  /**
+   * Validate simulator prerequisites before prompt generation.
+   * Throws with actionable error messages so users never get a silent failure.
+   */
+  function assertSimulatorReady() {
+    const store = getStore();
+    if (!store?.master?.cities || Object.keys(store.master.cities).length === 0) {
+      throw new Error('City database not loaded yet. Please wait 1-2 seconds and try again.');
+    }
+    if (!store?.compensation?.baseBands) {
+      throw new Error('Compensation database not loaded. Please refresh and try again.');
+    }
+  }
 
   // Generate prompt
   generateBtn.addEventListener('click', () => {
-    const prompt = generateMasterPrompt();
-    outputEl.textContent = prompt;
-    if (copyBtn) copyBtn.disabled = false;
-    outputEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    try {
+      assertSimulatorReady();
+
+      const prompt = generateMasterPrompt();
+      if (!prompt || typeof prompt !== 'string' || prompt.trim().length === 0) {
+        throw new Error('Prompt generation returned empty output.');
+      }
+
+      outputEl.textContent = prompt;
+      if (copyBtn) copyBtn.disabled = false;
+      outputEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Unknown simulator error.';
+      console.error('[Simulator] Prompt generation failed:', err);
+      outputEl.textContent = `❌ Simulator prompt generation failed.\n\nReason: ${msg}\n\nTry: reload the page, wait for data to finish loading, and click Generate again.`;
+      if (copyBtn) copyBtn.disabled = true;
+    }
   });
 
   // Copy to clipboard
@@ -1790,11 +1846,21 @@ export function initSimulator() {
     });
   }
 
-  // Form conditional logic — dim office fields when fully remote
-  initFormConditionalLogic();
-  
-  // Initialize separate fact-check generator
-  initFactCheckGenerator();
+  // Form conditional logic is non-critical; never block simulator if it fails
+  try {
+    syncRoleOptionsFromCompensation();
+    initInputHardening();
+    initFormConditionalLogic();
+  } catch (err) {
+    console.warn('[Simulator] Conditional UI init failed:', err);
+  }
+
+  // Fact-check generator is independent; isolate failures from simulator button path
+  try {
+    initFactCheckGenerator();
+  } catch (err) {
+    console.warn('[Simulator] Fact-check init failed:', err);
+  }
 }
 
 /**

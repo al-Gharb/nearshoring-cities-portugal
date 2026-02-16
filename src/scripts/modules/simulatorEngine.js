@@ -1,5 +1,5 @@
 /**
- * SIMULATOR ENGINE — V5.0
+ * SIMULATOR ENGINE — Experimental v3
  *
  * Deterministic computation engine for the AI Nearshoring Simulator.
  * ALL financial math, scoring, ranking, and mode determination happens here.
@@ -45,7 +45,16 @@ const CITY_TIERS = {
   beja: 4, portalegre: 4, santarem: 4,
 };
 
-const TIER_BASE_SCORES = { 1: 9, 2: 7, 3: 6, 4: 5 };
+const OBJECTIVE_WEIGHT_PROFILES = {
+  cost: { strategic: 0.15, financial: 0.60, talent: 0.25 },
+  quality: { strategic: 0.40, financial: 0.20, talent: 0.40 },
+  speed: { strategic: 0.20, financial: 0.35, talent: 0.45 },
+  balanced: { strategic: 0.25, financial: 0.40, talent: 0.35 },
+};
+
+function clamp(value, min, max) {
+  return Math.min(max, Math.max(min, value));
+}
 
 /* ═══════════════════════════════════════════════════════════════════════════
  * SCORING LOOKUP TABLES
@@ -57,13 +66,8 @@ const TIER_BASE_SCORES = { 1: 9, 2: 7, 3: 6, 4: 5 };
  * @returns {number} score 1–10
  */
 function getFinancialScoreModeA(bufferPct) {
-  if (bufferPct >= 30) return 10;
-  if (bufferPct >= 20) return 9;
-  if (bufferPct >= 10) return 8;
-  if (bufferPct >= 5) return 6;
-  if (bufferPct >= 0) return 5;
-  if (bufferPct >= -10) return 3;
-  return 1;
+  const raw = 5 + (bufferPct / 6);
+  return Math.round(clamp(raw, 1, 10) * 100) / 100;
 }
 
 /**
@@ -72,12 +76,8 @@ function getFinancialScoreModeA(bufferPct) {
  * @returns {number} score 1–10
  */
 function getFinancialScoreModeB(ratio) {
-  if (ratio >= 1.25) return 10;
-  if (ratio >= 1.00) return 8;
-  if (ratio >= 0.90) return 5;
-  if (ratio >= 0.75) return 3;
-  if (ratio >= 0.65) return 2;
-  return 1;
+  const raw = 1 + ((ratio - 0.50) / 1.0) * 9;
+  return Math.round(clamp(raw, 1, 10) * 100) / 100;
 }
 
 /**
@@ -86,12 +86,116 @@ function getFinancialScoreModeB(ratio) {
  * @returns {number} score 3–10
  */
 function getTalentScore(pressure) {
-  if (pressure < 3) return 10;
-  if (pressure < 5) return 9;
-  if (pressure < 8) return 8;
-  if (pressure < 12) return 7;
-  if (pressure < 20) return 5;
-  return 3;
+  const raw = 10 - (pressure / 4);
+  return Math.round(clamp(raw, 3, 10) * 100) / 100;
+}
+
+function getStrategicScore(city, context) {
+  const {
+    tier,
+    industryLower,
+    objectiveKey,
+    workModel,
+    officeStrategy,
+    lifestyle,
+    stemMin,
+    stemMax,
+    ictMin,
+    ictMax,
+  } = context;
+
+  const tierBase = { 1: 7.8, 2: 7.0, 3: 6.4, 4: 5.8 };
+  let score = tierBase[tier] || 5.8;
+
+  const stemNorm = (city.stemGrads - stemMin) / Math.max(1, (stemMax - stemMin));
+  const ictNorm = (city.ictGrads - ictMin) / Math.max(1, (ictMax - ictMin));
+  const ecosystemDepth = Math.log10(1 + (city.majorCompanies?.length || 0));
+
+  score += stemNorm * 0.7;
+  score += ictNorm * 0.6;
+  score += ecosystemDepth * 0.45;
+
+  if (getDomainFit(city.id, industryLower)) {
+    score += 0.6;
+  }
+
+  if (city.featured) {
+    score += 0.2;
+  }
+
+  const onsiteHeavy = ['hybrid', 'office-first', 'fully-onsite'].includes(workModel);
+  if (onsiteHeavy && city.hasAirport) {
+    score += 0.2;
+  }
+
+  if (officeStrategy === 'university-adjacent' && city.stemGrads >= 1200) {
+    score += 0.25;
+  }
+
+  if (officeStrategy === 'city-center' && city.officeRent?.max <= 15) {
+    score += 0.15;
+  }
+
+  if (lifestyle === 'coastal-warm' && ['lisbon', 'porto', 'setubal', 'faro', 'aveiro', 'vianacastelo'].includes(city.id)) {
+    score += 0.2;
+  }
+
+  if (objectiveKey === 'speed' && tier === 1) {
+    score += 0.2;
+  }
+
+  if (objectiveKey === 'cost' && city.colIndex <= 34) {
+    score += 0.15;
+  }
+
+  return Math.round(clamp(score, 3, 10) * 100) / 100;
+}
+
+function getTalentScoreComposite(city, context) {
+  const {
+    effectiveTeamSize,
+    teamScaleFactor,
+    pressureThreshold,
+    ictMin,
+    ictMax,
+    stemMin,
+    stemMax,
+    objectiveKey,
+  } = context;
+
+  const demand = effectiveTeamSize * teamScaleFactor;
+  const adjustedPressure = (demand / Math.max(1, city.ictGrads || 1)) * 100;
+  const pressureScore = getTalentScore(adjustedPressure);
+
+  const ictNorm = (city.ictGrads - ictMin) / Math.max(1, (ictMax - ictMin));
+  const stemNorm = (city.stemGrads - stemMin) / Math.max(1, (stemMax - stemMin));
+  const ecosystemDepth = Math.log10(1 + (city.majorCompanies?.length || 0));
+
+  let score = (pressureScore * 0.55)
+    + ((3 + ictNorm * 7) * 0.25)
+    + ((3 + stemNorm * 7) * 0.15)
+    + (Math.min(10, 4 + ecosystemDepth * 3.2) * 0.05);
+
+  if (objectiveKey === 'quality' || objectiveKey === 'speed') {
+    score += ictNorm * 0.25;
+  }
+
+  if (adjustedPressure > pressureThreshold) {
+    score -= 0.4;
+  }
+
+  return {
+    score: Math.round(clamp(score, 3, 10) * 100) / 100,
+    adjustedPressure: Math.round(adjustedPressure * 10) / 10,
+  };
+}
+
+function getFeasibilityBand(city) {
+  if (city.verdict === 'INFEASIBLE') return 'LOW';
+  if (city.dealbreakerPenalty >= 2.5) return 'LOW';
+  if (city.weighted >= 8.4 && city.bufferPct >= 8) return 'HIGH';
+  if (city.weighted >= 6.8 && city.bufferPct >= 0) return 'MEDIUM';
+  return 'LOW';
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -142,6 +246,11 @@ export function computeAnalysis({
   cities,
   industry = '',
   teamSizeRaw = null,
+  primaryObjective = 'balanced',
+  dealbreakers = '',
+  workModel = '',
+  officeStrategy = '',
+  lifestyle = '',
 }) {
   const effectiveTeamSize = teamSize || 5;
   const headcount = teamSizeRaw || effectiveTeamSize;
@@ -213,49 +322,108 @@ export function computeAnalysis({
 
   // ── Scoring ────────────────────────────────────────────────────────────
   const industryLower = (industry || '').toLowerCase();
+  const dealbreakersLower = (dealbreakers || '').toLowerCase();
   const isLargeTeam = headcount >= 50;
 
-  // Weight split
+  const objectiveKey = ['cost', 'quality', 'speed', 'balanced'].includes(primaryObjective)
+    ? primaryObjective
+    : 'balanced';
+
+  const ictValues = cityResults.map(c => c.ictGrads || 0);
+  const stemValues = cityResults.map(c => c.stemGrads || 0);
+  const ictMin = Math.min(...ictValues);
+  const ictMax = Math.max(...ictValues);
+  const stemMin = Math.min(...stemValues);
+  const stemMax = Math.max(...stemValues);
+
+  const teamScaleFactor = objectiveKey === 'speed' ? 1.1 : objectiveKey === 'cost' ? 0.95 : 1.0;
+  const pressureThreshold = headcount <= 15 ? 20 : headcount <= 30 ? 15 : 10;
+
+  const baseWeights = OBJECTIVE_WEIGHT_PROFILES[objectiveKey];
   const weights = isLargeTeam
-    ? { strategic: 0.30, financial: 0.35, talent: 0.35 }
-    : { strategic: 0.25, financial: 0.40, talent: 0.35 };
+    ? {
+        strategic: Math.min(baseWeights.strategic + 0.05, 0.50),
+        financial: Math.max(baseWeights.financial - 0.05, 0.15),
+        talent: baseWeights.talent,
+      }
+    : { ...baseWeights };
+
+  // normalize to sum=1 after large-team adjustment
+  const totalWeight = weights.strategic + weights.financial + weights.talent;
+  weights.strategic = weights.strategic / totalWeight;
+  weights.financial = weights.financial / totalWeight;
+  weights.talent = weights.talent / totalWeight;
 
   const scoredCities = cityResults.map(city => {
-    // Strategic base
+    // Strategic score
     const tier = CITY_TIERS[city.id] || 4;
-    let strategicBase = TIER_BASE_SCORES[tier] || 5;
-
-    // Domain fit (+1)
-    const domainFit = getDomainFit(city.id, industryLower) ? 1 : 0;
-
-    // Strategic score (no airport penalty, no caps — moved to advisory per critique #12)
-    const strategicScore = Math.min(strategicBase + domainFit, 10);
+    const strategicScore = getStrategicScore(city, {
+      tier,
+      industryLower,
+      objectiveKey,
+      workModel,
+      officeStrategy,
+      lifestyle,
+      stemMin,
+      stemMax,
+      ictMin,
+      ictMax,
+    });
 
     // Financial score
     const financialScore = mode === 'MODE_A'
       ? getFinancialScoreModeA(city.bufferPct)
       : getFinancialScoreModeB(city.maxFeasible / effectiveTeamSize);
 
-    // Talent score
-    const talentScore = getTalentScore(city.hiringPressure);
+    // Talent score (composite + adjusted pressure)
+    const talentComposite = getTalentScoreComposite(city, {
+      effectiveTeamSize,
+      teamScaleFactor,
+      pressureThreshold,
+      ictMin,
+      ictMax,
+      stemMin,
+      stemMax,
+      objectiveKey,
+    });
+    const talentScore = talentComposite.score;
 
-    // Weighted score
-    const weighted = Math.round(
+    // Dealbreaker penalty (heavy, deterministic)
+    const dealbreaker = evaluateDealbreakerPenalty(city, {
+      dealbreakersLower,
+      workModel,
+      officeStrategy,
+      lifestyle,
+    });
+
+    // Weighted score (before/after penalties)
+    const weightedRaw = Math.round(
       ((strategicScore * weights.strategic) +
        (financialScore * weights.financial) +
        (talentScore * weights.talent)) * 100
     ) / 100;
 
+    const weighted = Math.max(1, Math.round((weightedRaw - dealbreaker.penalty) * 100) / 100);
+
     return {
       ...city,
       tier,
-      strategicBase,
-      domainFit,
+      strategicBase: strategicScore,
+      domainFit: getDomainFit(city.id, industryLower) ? 1 : 0,
       strategicScore,
       financialScore,
       talentScore,
+      hiringPressure: talentComposite.adjustedPressure,
+      dealbreakerPenalty: dealbreaker.penalty,
+      dealbreakerHits: dealbreaker.hits,
+      weightedRaw,
       weighted,
+      feasibilityBand: 'MEDIUM',
     };
+  });
+
+  scoredCities.forEach((city) => {
+    city.feasibilityBand = getFeasibilityBand(city);
   });
 
   // ── Ranking (critique #5 — simplified tie-break) ──────────────────────
@@ -277,13 +445,10 @@ export function computeAnalysis({
   // Assign ranks
   scoredCities.forEach((city, i) => { city.rank = i + 1; });
 
-  // Top 5
-  const top5 = scoredCities.slice(0, 5);
-
   // ── Confidence flags (critique #7 — flag, don't recalculate) ──────────
   const riskFlags = [];
 
-  top5.forEach(city => {
+  scoredCities.forEach(city => {
     // Savings cross-check
     const expectedSavingsPerHead = (lisbonEMC.emcAnnual - city.emcAnnual);
     const actualSavingsPerHead = city.savingsAnnual / effectiveTeamSize;
@@ -291,21 +456,22 @@ export function computeAnalysis({
       riskFlags.push({ city: city.id, flag: 'savings_mismatch', confidence: 'LOW' });
     }
 
-    // Dealbreaker-level hiring pressure
-    if (city.hiringPressure >= 20) {
-      riskFlags.push({ city: city.id, flag: 'high_hiring_pressure', note: `${city.hiringPressure}% of ICT pool` });
+    // Infeasible city
+    if (city.verdict === 'INFEASIBLE') {
+      riskFlags.push({ city: city.id, flag: 'infeasible_city' });
     }
 
-    // Infeasible in top 5
-    if (city.verdict === 'INFEASIBLE') {
-      riskFlags.push({ city: city.id, flag: 'infeasible_in_top5' });
+    if (city.dealbreakerPenalty > 0) {
+      riskFlags.push({ city: city.id, flag: 'dealbreaker_penalty', note: city.dealbreakerHits.join(', ') });
     }
+
   });
 
   // ── Assemble results ──────────────────────────────────────────────────
   return {
-    version: '5.0',
+    version: 'experimental-v3',
     mode,
+    objective: objectiveKey,
     budgetAssumed,
     effectiveBudget,
     lisbonBaseline: {
@@ -321,8 +487,66 @@ export function computeAnalysis({
     tierMultiplier,
     stackPremium,
     allCities: scoredCities,
-    top5,
     riskFlags,
+  };
+}
+
+function evaluateDealbreakerPenalty(city, context) {
+  const { dealbreakersLower = '', workModel = '', officeStrategy = '', lifestyle = '' } = context;
+  const hits = [];
+  let penalty = 0;
+
+  if (!dealbreakersLower) {
+    return { penalty, hits };
+  }
+
+  const requiresAirport = /airport|direct\s*flight|international\s*flight/.test(dealbreakersLower);
+  if (requiresAirport && !city.hasAirport) {
+    penalty += 1.6;
+    hits.push('no-airport');
+  }
+
+  const requiresUniversity = /university|graduate\s*pipeline|campus/.test(dealbreakersLower);
+  if (requiresUniversity && (city.stemGrads < 1000 && city.regionalPool < 2500)) {
+    penalty += 1.2;
+    hits.push('weak-university-pipeline');
+  }
+
+  const requiresLargePool = /large\s*talent|big\s*pool|deep\s*pool|high\s*volume/.test(dealbreakersLower);
+  if (requiresLargePool && city.ictGrads < 800) {
+    penalty += 1.1;
+    hits.push('limited-ict-pool');
+  }
+
+  const requiresCoastal = /coastal|beach|seaside|warm/.test(dealbreakersLower) || lifestyle === 'coastal-warm';
+  if (requiresCoastal && !['lisbon', 'porto', 'setubal', 'faro', 'aveiro', 'vianacastelo'].includes(city.id)) {
+    penalty += 1.0;
+    hits.push('non-coastal-fit');
+  }
+
+  const lowCostPriority = /low\s*cost|budget|cost\s*first|cost\s*sensitive/.test(dealbreakersLower) || lifestyle === 'low-cost';
+  if (lowCostPriority && city.colIndex > 42) {
+    penalty += 1.0;
+    hits.push('high-col-for-low-cost-priority');
+  }
+
+  const officeCentric = ['hybrid', 'office-first', 'fully-onsite'].includes(workModel);
+  const requiresCityCenter = officeStrategy === 'city-center' || /city\s*center|city\s*centre|central\s*office/.test(dealbreakersLower);
+  if (officeCentric && requiresCityCenter && city.officeRent?.max > 24) {
+    penalty += 1.1;
+    hits.push('high-central-office-cost');
+  }
+
+  const remoteFirst = ['fully-remote', 'remote-first'].includes(workModel);
+  const heavyOfficeDependency = /must\s*be\s*onsite|onsite\s*mandatory|office\s*every\s*day/.test(dealbreakersLower);
+  if (remoteFirst && heavyOfficeDependency) {
+    penalty += 0.8;
+    hits.push('remote-vs-onsite-constraint-conflict');
+  }
+
+  return {
+    penalty: Math.min(Math.round(penalty * 100) / 100, 4.0),
+    hits,
   };
 }
 
@@ -361,49 +585,16 @@ function getDomainFit(cityId, industryLower) {
  * ═══════════════════════════════════════════════════════════════════════════ */
 
 /**
- * Format the pre-computed results as a markdown table for prompt injection.
- * @param {Object} results — from computeAnalysis()
- * @returns {string} Markdown table
- */
-export function formatResultsTable(results) {
-  const header = '| Rank | City | salaryIdx | EMC/mo | EMC/yr | Team/yr | Buffer% | MaxFeas | FinScore | TalentSc | StratSc | Weighted | Verdict |';
-  const sep = '|------|------|-----------|--------|--------|---------|---------|---------|----------|----------|---------|----------|---------|';
-
-  const rows = results.top5.map(c =>
-    `| ${c.rank} | ${c.name} | ${c.salaryIndex} | €${c.emcMonthly.toLocaleString()} | €${c.emcAnnual.toLocaleString()} | €${c.teamTotalAnnual.toLocaleString()} | ${c.bufferPct}% | ${c.maxFeasible} | ${c.financialScore} | ${c.talentScore} | ${c.strategicScore} | ${c.weighted} | ${c.verdict} |`
-  );
-
-  return [header, sep, ...rows].join('\n');
-}
-
-/**
- * Format savings comparison table.
- * @param {Object} results — from computeAnalysis()
- * @returns {string} Markdown table
- */
-export function formatSavingsTable(results) {
-  const header = '| City | EMC/yr | Savings vs Lisbon/yr | Savings per Head/yr |';
-  const sep = '|------|--------|----------------------|---------------------|';
-
-  const rows = results.top5.map(c => {
-    const perHead = Math.round(c.savingsAnnual / results.teamSize);
-    return `| ${c.name} | €${c.emcAnnual.toLocaleString()} | €${c.savingsAnnual.toLocaleString()} | €${perHead.toLocaleString()} |`;
-  });
-
-  return [header, sep, ...rows].join('\n');
-}
-
-/**
  * Format the all-cities scoring table (full 20 cities).
  * @param {Object} results — from computeAnalysis()
  * @returns {string} Markdown table
  */
 export function formatAllCitiesTable(results) {
-  const header = '| # | City | Idx | EMC/mo | Buffer% | Fin | Talent | Strat | Weighted | Verdict |';
-  const sep = '|---|------|-----|--------|---------|-----|--------|-------|----------|---------|';
+  const header = '| # | City | Idx | EMC/mo | Buffer% | Fin | Talent | Strat | Dbreak | Band | Weighted | Verdict |';
+  const sep = '|---|------|-----|--------|---------|-----|--------|-------|--------|------|----------|---------|';
 
   const rows = results.allCities.map(c =>
-    `| ${c.rank} | ${c.name} | ${c.salaryIndex} | €${c.emcMonthly.toLocaleString()} | ${c.bufferPct}% | ${c.financialScore} | ${c.talentScore} | ${c.strategicScore} | ${c.weighted} | ${c.verdict} |`
+    `| ${c.rank} | ${c.name} | ${c.salaryIndex} | €${c.emcMonthly.toLocaleString()} | ${c.bufferPct}% | ${c.financialScore} | ${c.talentScore} | ${c.strategicScore} | ${c.dealbreakerPenalty} | ${c.feasibilityBand} | ${c.weighted} | ${c.verdict} |`
   );
 
   return [header, sep, ...rows].join('\n');
@@ -417,12 +608,16 @@ export function formatAllCitiesTable(results) {
  */
 export function buildJSONSummary(results) {
   const scores = {};
-  results.top5.forEach(c => {
+  results.allCities.forEach(c => {
     scores[c.id] = {
       weighted: c.weighted,
+      weighted_raw: c.weightedRaw,
       financial_score: c.financialScore,
       talent_score: c.talentScore,
       strategic_score: c.strategicScore,
+      dealbreaker_penalty: c.dealbreakerPenalty,
+      dealbreaker_hits: c.dealbreakerHits,
+      feasibility_band: c.feasibilityBand,
       buffer_pct: c.bufferPct,
       emc_monthly: c.emcMonthly,
       emc_annual: c.emcAnnual,
@@ -437,16 +632,18 @@ export function buildJSONSummary(results) {
     mode: results.mode,
     budget_assumed: results.budgetAssumed,
     effective_budget_monthly: results.effectiveBudget,
+    primary_objective: results.objective,
     team_size: results.teamSize,
     role: results.roleLabel,
     lisbon_baseline_emc_annual: results.lisbonBaseline.emcAnnual,
     lisbon_team_annual: results.lisbonBaseline.teamAnnual,
-    top_5: results.top5.map(c => c.id),
+    considered_cities: results.allCities.map(c => c.id),
+    weighted_order_all_cities: results.allCities.map(c => c.id),
     scores,
     risk_flags: results.riskFlags,
     // LLM fills these:
-    advisor_picks: '«LLM: select 2-3 from top_5, add strategy/best_if/lifestyle_tag»',
-    passed_over: '«LLM: list cities not picked with reason»',
+    advisor_picks: '«LLM: return final ranked Top 5 after considering all 20, with strategy/best_if/lifestyle_tag»',
+    passed_over: '«LLM: list notable cities not in final Top 5 and why»',
     advisor_override: null,
   }, null, 2);
 }
