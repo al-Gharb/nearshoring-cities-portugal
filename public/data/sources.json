@@ -128,16 +128,6 @@
       "covers": ["techSalaries", "seniorityBands", "salaryRoleSeniorityTable", "techStackInsights"],
       "note": "Primary salary benchmark source for role/seniority annual ranges in Strategic Considerations. Methodology states 2018-2024 dataset with 5,358 candidates based on recruitment-stage salary expectations."
     },
-    "glassdoor-indeed-2025": {
-      "provider": "Glassdoor / Indeed",
-      "title": "Salary Survey Data — Portugal Tech Roles",
-      "url": null,
-      "type": "survey",
-      "publishedDate": "2025-01-01",
-      "expiresAfter": "12M",
-      "covers": ["techSalaries", "seniorityBands"],
-      "note": "Cross-validation source for salary index and compensation data"
-    },
     "ani-sifide": {
       "provider": "ANI",
       "title": "SIFIDE II — System of Tax Incentives for Business R&D",
@@ -166,6 +156,16 @@
       "expiresAfter": "24M",
       "covers": ["ifici"],
       "note": "20% flat IRS rate for 10 years, replaces NHR from 2024"
+    },
+    "pwc-cit-rates-reduction-2025": {
+      "provider": "PwC Portugal",
+      "title": "CIT - General Corporate Income tax rates reduction",
+      "url": "https://www.pwc.pt/en/pwcinforfisco/flash/cit/cit-general-corporate-income-tax-rates-reduction.html",
+      "type": "official",
+      "publishedDate": "2025-11-07",
+      "expiresAfter": "24M",
+      "covers": ["corporateTax", "ircRates", "smeRate"],
+      "note": "Law 64/2025: standard CIT rate 19% (2026), 18% (2027), 17% (2028); SMEs and Small Mid Caps 15% on first €50,000 from 2026."
     },
     "aicep-irc": {
       "provider": "AICEP Portugal Global",
@@ -223,16 +223,6 @@
       "expiresAfter": "12M",
       "covers": ["fiveGCoverage", "digitalDecade", "connectivity"],
       "note": "5G and digital infrastructure country data. Referenced by WEBSITE_CONTENT.json"
-    },
-    "landingjobs-2024": {
-      "provider": "Landing.jobs",
-      "title": "Portugal Tech Hiring Survey 2024",
-      "url": null,
-      "type": "survey",
-      "publishedDate": "2024-01-01",
-      "expiresAfter": "24M",
-      "covers": ["timeToHire", "retention", "techSalaries"],
-      "note": "Proprietary data, not publicly accessible"
     },
     "eu-education-monitor-2025": {
       "provider": "EU Education Monitor",

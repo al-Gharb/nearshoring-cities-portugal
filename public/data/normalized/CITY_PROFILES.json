@@ -201,7 +201,7 @@
           "value": "Portugal's capital and largest tech hub",
           "regionalShare": "42% of national tech workforce (2024)",
           "meta": {
-            "source": { "type": "survey", "provider": "Landing.Jobs 2024" },
+            "source": { "type": "survey", "provider": "LinkedIn Talent Insights" },
             "note": "Down from 52% in 2023 as remote work distributes talent"
           }
         }

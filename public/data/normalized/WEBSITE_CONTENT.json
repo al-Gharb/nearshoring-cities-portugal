@@ -120,18 +120,20 @@
         }
       },
       "corporateTax": {
-        "standard": 21,
-        "smeRate": 16,
+        "standard": 19,
+        "standardSchedule": "19% (from 2026), 18% (from 2027), 17% (from 2028)",
+        "smeRate": 15,
         "smeThreshold": "€50,000",
+        "effectiveFrom": "Tax periods beginning on or after 1 January 2026",
         "surtaxes": "Municipal surtax: up to 1.5%; State surtax: 3–9% on higher profit brackets",
         "unit": "%",
         "meta": {
           "source": {
             "type": "official",
-            "provider": "AICEP Portugal Global"
+            "provider": "PwC Portugal"
           },
-          "sourceRef": "aicep-irc",
-          "verifiedDate": "2026-02-07",
+          "sourceRef": "pwc-cit-rates-reduction-2025",
+          "verifiedDate": "2026-02-16",
           "expiresAfter": "12M"
         }
       }
@@ -1220,7 +1222,7 @@
         "meta": {
           "source": {
             "type": "survey",
-            "provider": "Landing.jobs"
+            "provider": "IDC Portugal"
           }
         }
       },
@@ -1274,7 +1276,7 @@
         "meta": {
           "source": {
             "type": "survey",
-            "provider": "Landing.jobs"
+            "provider": "IDC Portugal"
           }
         }
       },

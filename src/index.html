@@ -758,15 +758,16 @@
             </a>
           </div>
 
-          <div class="source-entry" id="src-aicep-irc">
-            <h4>AICEP Portugal Global — Corporate Tax (IRC)</h4>
-            <p class="source-description">Portugal's trade and investment agency. Official reference for corporate income tax rates: 21% standard, 16% SME on first €50k, municipal and state surtaxes.</p>
+          <div class="source-entry" id="src-pwc-cit-irc">
+            <h4>PwC Portugal — CIT General Corporate Income Tax Rates Reduction</h4>
+            <p class="source-description">PwC Portugal tax flash summarizing Law 64/2025 of 7 November: reduction of general CIT rates from 2026 onward and updated SME treatment.</p>
             <ul class="source-metrics">
-              <li><strong>Metrics:</strong> IRC rates (21% standard, 16% SME), surtaxes (municipal up to 1.5%, state 3–9%)</li>
-              <li><strong>Update frequency:</strong> Annual (budgetary)</li>
+              <li><strong>Metrics:</strong> Standard IRC 19% (2026), 18% (2027), 17% (2028); SMEs and Small Mid Caps 15% on first €50,000 from 2026; surtaxes unchanged</li>
+              <li><strong>Published:</strong> 07/11/2025</li>
+              <li><strong>Update frequency:</strong> Annual (budgetary / legal updates)</li>
             </ul>
-            <a href="https://investinportugal.portugalglobal.pt/doing-business/taxation/corporate-income-tax/" target="_blank" rel="noopener" class="source-link-external">
-              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://investinportugal.portugalglobal.pt/doing-business/taxation/corporate-income-tax/
+            <a href="https://www.pwc.pt/en/pwcinforfisco/flash/cit/cit-general-corporate-income-tax-rates-reduction.html" target="_blank" rel="noopener" class="source-link-external">
+              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://www.pwc.pt/en/pwcinforfisco/flash/cit/cit-general-corporate-income-tax-rates-reduction.html
             </a>
           </div>
         </div>
@@ -816,28 +817,6 @@
             </ul>
             <a href="https://www.damiagroup.pt/wp-content/uploads/HTTP-2025-Damia-Group-Portugal.pdf#page=52" target="_blank" rel="noopener" class="source-link-external">
               <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://www.damiagroup.pt/wp-content/uploads/HTTP-2025-Damia-Group-Portugal.pdf#page=52
-            </a>
-          </div>
-
-          <div class="source-entry" id="src-glassdoor">
-            <h4>Glassdoor / Indeed</h4>
-            <p class="source-description">Salary survey platforms. Used for cross-validation of salary index calculations against actual reported salaries.</p>
-            <ul class="source-metrics">
-              <li><strong>Metrics:</strong> Reported tech salaries by city and seniority</li>
-              <li><strong>Role:</strong> Validation source (not primary data)</li>
-            </ul>
-          </div>
-
-          <div class="source-entry" id="src-landingjobs">
-            <h4>Landing.jobs</h4>
-            <p class="source-description">Portuguese tech hiring platform. Primary source for IT salary ranges, seniority benchmarks, and tech stack premiums in Portugal.</p>
-            <ul class="source-metrics">
-              <li><strong>Metrics:</strong> IT salary ranges by role and seniority, tech stack premiums, hiring metrics</li>
-              <li><strong>Update frequency:</strong> Continuous (job listings + annual salary report)</li>
-              <li><strong>Data year:</strong> 2024</li>
-            </ul>
-            <a href="https://landing.jobs" target="_blank" rel="noopener" class="source-link-external">
-              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://landing.jobs
             </a>
           </div>
 
@@ -908,7 +887,7 @@
                   <li><strong>Inputs:</strong> INE regional Bachelor earnings (COMPENSATION_DATA.json) + Numbeo COL index (MASTER.json per city)</li>
                   <li><strong>Method:</strong> Derived calculation with IT convergence assumption (modeling)</li>
                   <li><strong>Range:</strong> 81.3 (Covilhã, Castelo Branco) to 100 (Lisbon)</li>
-                  <li><strong>Validation:</strong> Cross-checked with Glassdoor/Indeed salary surveys, Numbeo COL indices</li>
+                  <li><strong>Validation:</strong> Cross-checked with Damia salary benchmark and Numbeo COL indices</li>
                   <li><strong>Implementation:</strong> <code>computeAllSalaryIndices()</code> in calculations.js — runs at startup, auto-updates on data change</li>
                 </ul>
               </div>
@@ -1821,7 +1800,7 @@
                 <div class="grid-2" data-db="content">
                   <div class="callout-warning">
                     <strong><i class="fa-solid fa-triangle-exclamation"></i> Talent Competition:</strong>
-                    Lisbon and Porto face increasing competition from remote-first employers offering EU-level salaries. Retention rates for senior engineers have dropped to ~18 months average tenure in 2024 (<a href="#src-landingjobs" class="source-link">Landing.jobs</a>).
+                    Lisbon and Porto face increasing competition from remote-first employers offering EU-level salaries. Retention pressure remains elevated in the most competitive hubs (<a href="#src-idc" class="source-link">IDC Portugal</a>).
                   </div>
                   <div class="callout-success">
                     <strong><i class="fa-solid fa-check-circle"></i> Workforce Quality:</strong>
@@ -2356,7 +2335,7 @@
                 <div class="grid-auto-260">
                   <div class="insight-card" id="hiring-time" data-prompt-core="true">
                     <div class="insight-title"><i class="fa-solid fa-clock"></i> Time to Hire</div>
-                    <div class="insight-text">Average 4-6 weeks for mid-level roles. Senior/niche roles: 8-12 weeks. Lisbon most competitive. <a href="#src-landingjobs" class="source-link"><i class="fa-solid fa-circle-info"></i></a></div>
+                    <div class="insight-text">Average 4-6 weeks for mid-level roles. Senior/niche roles: 8-12 weeks. Lisbon most competitive. <a href="#src-idc" class="source-link"><i class="fa-solid fa-circle-info"></i></a></div>
                   </div>
                   <div class="insight-card" id="hiring-education" data-prompt-core="true">
                     <div class="insight-title"><i class="fa-solid fa-user-graduate"></i> Education Level</div>
@@ -2368,7 +2347,7 @@
                   </div>
                   <div class="insight-card" id="hiring-retention" data-prompt-core="true">
                     <div class="insight-title"><i class="fa-solid fa-arrow-right-arrow-left"></i> Retention</div>
-                    <div class="insight-text">Average tenure: 2.1 years (Lisbon), 2.8 years (Porto), 3.5+ years (secondary cities). Remote offers increasing churn. <a href="#src-landingjobs" class="source-link"><i class="fa-solid fa-circle-info"></i></a></div>
+                    <div class="insight-text">Average tenure: 2.1 years (Lisbon), 2.8 years (Porto), 3.5+ years (secondary cities). Remote offers increasing churn. <a href="#src-idc" class="source-link"><i class="fa-solid fa-circle-info"></i></a></div>
                   </div>
                 </div>
               </div>

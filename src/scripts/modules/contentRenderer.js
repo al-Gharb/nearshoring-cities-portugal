@@ -568,10 +568,14 @@ function populateTaxIncentives() {
   const irc = document.getElementById('tax-irc-body');
   if (irc && tax.corporateTax) {
     const ct = tax.corporateTax;
+    const scheduleLine = ct.standardSchedule ? `<p><strong>Rate path:</strong> ${ct.standardSchedule}.</p>` : '';
+    const effectiveLine = ct.effectiveFrom ? `<p><strong>Effective:</strong> ${ct.effectiveFrom}.</p>` : '';
     irc.innerHTML = `
       <p><strong>Standard IRC:</strong> ${ct.standard}% on taxable profit. <strong>SMEs:</strong> ${ct.smeRate}% on the first ${ct.smeThreshold}; ${ct.standard}% thereafter.</p>
+      ${scheduleLine}
+      ${effectiveLine}
       <p>${ct.surtaxes}.</p>
-      <p class="scorecard-source"><a href="#src-aicep-irc" class="source-link">AICEP Portugal Global</a></p>
+      <p class="scorecard-source"><a href="#src-pwc-cit-irc" class="source-link">PwC Portugal</a></p>
     `;
     irc.setAttribute('data-db', 'content');
   }
@@ -618,7 +622,7 @@ function populateEmployerCosts() {
   const mealAnnual = Math.round(meal * 220);
   const multiplier = (1 + ss / 100).toFixed(4);
 
-  el.innerHTML = `<strong>Note:</strong> <strong>All values are in 12× format</strong> (converted from Portugal's original 14-payment data for international comparison). *Employer Total = Gross annual × ${multiplier} (${ss}% Social Security) + meal allowance (~€${fmt(mealAnnual)}/yr), showing full range from Junior to Lead. Lead/Principal = Senior × 1.12 (40% vs 25% above midpoint). <strong>Source:</strong> <a href="#src-glassdoor" class="source-link">Glassdoor</a>, <a href="#src-landingjobs" class="source-link">Landing.jobs</a> (2024).`;
+  el.innerHTML = `<strong>Note:</strong> <strong>All values are in 12× format</strong> (converted from Portugal's original 14-payment data for international comparison). *Employer Total = Gross annual × ${multiplier} (${ss}% Social Security) + meal allowance (~€${fmt(mealAnnual)}/yr), showing full range from Junior to Lead. Lead/Principal = Senior × 1.12 (40% vs 25% above midpoint). <strong>Source:</strong> <a href="#src-ine" class="source-link">INE</a> + Portuguese employer cost rules.`;
   el.setAttribute('data-db', 'compensation');
 }
 
@@ -740,10 +744,10 @@ function populateHiringInsights() {
   if (!hi) return;
 
   const targets = [
-    { id: 'hiring-time', text: hi.timeToHire?.value, sourceRef: '#src-landingjobs' },
+    { id: 'hiring-time', text: hi.timeToHire?.value, sourceRef: '#src-idc' },
     { id: 'hiring-education', text: hi.educationLevel?.value, sourceRef: '#src-idc' },
     { id: 'hiring-age', text: hi.ageDistribution?.value, sourceRef: '#src-idc' },
-    { id: 'hiring-retention', text: hi.retention?.value, sourceRef: '#src-landingjobs' },
+    { id: 'hiring-retention', text: hi.retention?.value, sourceRef: '#src-idc' },
   ];
 
   for (const t of targets) {
