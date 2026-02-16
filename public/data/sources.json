@@ -167,16 +167,6 @@
       "covers": ["corporateTax", "ircRates", "smeRate"],
       "note": "Law 64/2025: standard CIT rate 19% (2026), 18% (2027), 17% (2028); SMEs and Small Mid Caps 15% on first €50,000 from 2026."
     },
-    "aicep-irc": {
-      "provider": "AICEP Portugal Global",
-      "title": "Corporate Income Tax (IRC) — Doing Business in Portugal",
-      "url": "https://investinportugal.portugalglobal.pt/doing-business/taxation/corporate-income-tax/",
-      "type": "official",
-      "publishedDate": "2025-01-01",
-      "expiresAfter": "12M",
-      "covers": ["corporateTax", "ircRates"],
-      "note": "21% standard, 16% SME on first €50k"
-    },
     "aws-cloudping": {
       "provider": "AWS CloudPing",
       "title": "AWS Inter-Region Latency",

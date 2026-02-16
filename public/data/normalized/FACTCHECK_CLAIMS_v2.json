@@ -242,12 +242,12 @@
     "taxIncentives": {
       "id": "06",
       "label": "Strategic & Tax",
-      "description": "R&D credits, visa programs — verifiable against ANI/AICEP official docs",
+      "description": "R&D credits, visa programs — verifiable against ANI/PwC and official tax documentation",
       "confidenceScore": 88,
       "primarySource": {
         "name": "ANI (Agência Nacional de Inovação) - SIFIDE II",
         "url": "https://www.ani.pt/pt/financiamento/incentivos-fiscais/sifide/",
-        "backups": ["AICEP Portugal Global", "AT (Tax Authority)"]
+        "backups": ["PwC Portugal", "AT (Tax Authority)"]
       },
       "claims": [
         { "id": "TAX-01", "claim": "SIFIDE II: R&D tax credit up to 82.5% of eligible expenses", "source": "ANI official", "verifiable": true },
@@ -259,10 +259,10 @@
         { "id": "TAX-20", "claim": "Corporate Tax: 21% standard rate", "source": "Autoridade Tributária", "verifiable": true },
         { "id": "TAX-21", "claim": "Corporate Tax: 17% for first €25k (SME rate)", "source": "Autoridade Tributária", "verifiable": true },
         { "id": "TAX-22", "claim": "Municipal surcharge (Derrama): 0-1.5% additional", "source": "AT", "verifiable": true },
-        { "id": "TAX-23", "claim": "Large operations can negotiate incentive packages", "source": "AICEP", "verifiable": true },
-        { "id": "TAX-30", "claim": "IFICI regime: Tax Incentive for Scientific Research and Innovation", "source": "AICEP", "verifiable": true },
-        { "id": "TAX-31", "claim": "IFICI replaces NHR for qualifying activities (NHR 2.0)", "source": "AICEP", "verifiable": true },
-        { "id": "TAX-40", "claim": "Interior regions: Additional tax benefits", "source": "AICEP", "verifiable": true },
+        { "id": "TAX-23", "claim": "Large operations can negotiate incentive packages", "source": "Investment promotion framework", "verifiable": true },
+        { "id": "TAX-30", "claim": "IFICI regime: Tax Incentive for Scientific Research and Innovation", "source": "PwC Portugal", "verifiable": true },
+        { "id": "TAX-31", "claim": "IFICI replaces NHR for qualifying activities (NHR 2.0)", "source": "PwC Portugal", "verifiable": true },
+        { "id": "TAX-40", "claim": "Interior regions: Additional tax benefits", "source": "AT", "verifiable": true },
         { "id": "TAX-41", "claim": "Free Trade Zones: Madeira/Azores reduced rates", "source": "AT", "verifiable": true },
         { "id": "TAX-50", "claim": "Portugal 2030: EU structural funds available for tech investment", "source": "Portugal 2030", "verifiable": true },
         { "id": "TAX-51", "claim": "PRR Recovery Plan: Digital transformation grants", "source": "PRR Portugal", "verifiable": true }

@@ -189,7 +189,7 @@ This is a **data-driven business analysis**, not marketing material.
 
 ### Key Changes from v3.1
 
-1. **Source-Free Claims** — Claim text no longer includes source attributions (no Numbeo, DGEEC, INE, Eurostat, Glassdoor etc. in claim strings). The 3rd-party AI must find its own sources independently.
+1. **Source-Free Claims** — Claim text no longer includes source attributions (no Numbeo, DGEEC, INE, Eurostat, salary-board labels, etc. in claim strings). The 3rd-party AI must find its own sources independently.
 2. **Dynamic Claim Generation** — Claims are extracted directly from source databases at runtime
 3. **Single Source of Truth** — No separate claims file to sync; update source DB → claims auto-update
 4. **Internal Calculations Excluded** — Digital STEM+, Salary Index flagged as internal (not sent to AI)
@@ -240,7 +240,7 @@ This is a **data-driven business analysis**, not marketing material.
 | Digital Infrastructure | ANACOM | `WEBSITE_CONTENT.json` |
 | Office Rent | JLL Portugal / C&W | `MASTER.json` |
 | Residential Rent | Idealista / Numbeo | `MASTER.json` |
-| Workforce + Compensation | Eurostat, Glassdoor, Landing.jobs | `WEBSITE_CONTENT.json` + `COMPENSATION_DATA.json` |
+| Workforce + Compensation | Eurostat, compensation benchmark datasets | `WEBSITE_CONTENT.json` + `COMPENSATION_DATA.json` |
 | Tax Incentives + COL + QoL | ANI, Numbeo, EHCI, GPI | `WEBSITE_CONTENT.json` |
 | Graduates | DGEEC InfoCursos | `WEBSITE_CONTENT.json` |
 | City Profiles | Company/university sites | `CITY_PROFILES.json` + `MASTER.json` |

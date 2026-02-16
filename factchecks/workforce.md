@@ -31,7 +31,7 @@
 {"claim_id":"WRK-01","status":"SUPPORTED","verified_value":"5.2%","source":"Digital Decade report 2025 via EU Digital Skills and Jobs Platform","notes":"The claimed value of 5.1% is within the ±5% tolerance of the official 2025 figure of 5.2%."}
 {"claim_id":"WRK-02","status":"UNVERIFIABLE","verified_value":null,"source":"N/A","notes":"No source found to verify the total tech workforce estimate of ~250,000 from Eurostat."}
 {"claim_id":"WRK-03","status":"UNVERIFIABLE","verified_value":null,"source":"N/A","notes":"No source found to verify LinkedIn tech profiles (~165,000)."}
-{"claim_id":"WRK-04","status":"PARTIALLY_SUPPORTED","verified_value":"67.7%","source":"Global Tech Talent Trends 2024 Portugal report (Landing.jobs)","notes":"Report states Lisbon and Porto hold 67.7% of IT talent, significantly lower than claimed 79%."}
+{"claim_id":"WRK-04","status":"PARTIALLY_SUPPORTED","verified_value":"67.7%","source":"Global Tech Talent Trends 2024 Portugal industry report","notes":"Report states Lisbon and Porto hold 67.7% of IT talent, significantly lower than claimed 79%."}
 {"claim_id":"WRK-05","status":"SUPPORTED","verified_value":"25% (approx.)","source":"Eurostat 2024 data cited by Cedefop","notes":"'Only one in four ICT specialists is a woman' equating to ~25%. Claimed 26.9% within ±5%."}
 {"claim_id":"WRK-06","status":"CONTRADICTED","verified_value":"61.7% without tertiary education","source":"Eurostat 'ICT education - a statistical overview' (2024 data)","notes":"Official data states 61.7% of employed persons with ICT education did NOT have tertiary education."}
 {"claim_id":"WRK-07","status":"UNVERIFIABLE","verified_value":null,"source":"N/A","notes":"No authoritative source for Lisbon tech workers (~129,000)."}
@@ -100,16 +100,16 @@
 {"claim_id":"WRK-12","status":"UNVERIFIABLE","verified_value":null,"source":"N/A","notes":"Cannot locate recent ICT graduates % for PT vs EU."}
 {"claim_id":"WRK-13","status":"UNVERIFIABLE","verified_value":null,"source":"Eurostat (EU-wide gender data)","notes":"Country-specific 21.3% for PT not explicitly available."}
 {"claim_id":"WRK-14","status":"UNVERIFIABLE","verified_value":null,"source":"Eurostat (growth 2013-2023 only)","notes":"Portugal-specific +12% since 2020 not checkable."}
-{"claim_id":"WRK-15","status":"UNVERIFIABLE","verified_value":null,"source":"Landing.jobs (no explicit metric)","notes":"No quantitative time-to-hire benchmark found."}
+{"claim_id":"WRK-15","status":"UNVERIFIABLE","verified_value":null,"source":"Industry salary survey (no explicit metric)","notes":"No quantitative time-to-hire benchmark found."}
 {"claim_id":"WRK-16","status":"UNVERIFIABLE","verified_value":null,"source":"N/A","notes":"No data confirming 8-12 weeks senior hire."}
 {"claim_id":"WRK-17","status":"UNVERIFIABLE","verified_value":null,"source":"Eurostat (EU-wide)","notes":"EU-wide 67.4% known, PT-specific 78% not documented."}
 {"claim_id":"WRK-18","status":"UNVERIFIABLE","verified_value":null,"source":"N/A","notes":"No IT-only median age for Portugal published."}
 {"claim_id":"WRK-19","status":"UNVERIFIABLE","verified_value":null,"source":"N/A","notes":"Under-35 share not directly measured by official sources."}
-{"claim_id":"WRK-20","status":"UNVERIFIABLE","verified_value":null,"source":"Landing.jobs (no explicit tenure stat)","notes":"Not corroborated by official data."}
+{"claim_id":"WRK-20","status":"UNVERIFIABLE","verified_value":null,"source":"Industry salary survey (no explicit tenure stat)","notes":"Not corroborated by official data."}
 {"claim_id":"WRK-21","status":"UNVERIFIABLE","verified_value":null,"source":"N/A","notes":"Porto tenure not found."}
 {"claim_id":"WRK-22","status":"UNVERIFIABLE","verified_value":null,"source":"N/A","notes":"No survey separating tenure by secondary cities."}
 {"claim_id":"WRK-23","status":"UNVERIFIABLE","verified_value":null,"source":"N/A","notes":"Startup tenure plausible but not published."}
-{"claim_id":"WRK-24","status":"UNVERIFIABLE","verified_value":null,"source":"Glassdoor/Landing.jobs (snapshots)","notes":"Broadly aligned but cannot check to ±5% precision."}
+{"claim_id":"WRK-24","status":"UNVERIFIABLE","verified_value":null,"source":"Industry salary survey snapshots","notes":"Broadly aligned but cannot check to ±5% precision."}
 {"claim_id":"WRK-25","status":"UNVERIFIABLE","verified_value":null,"source":"N/A","notes":"No consolidated 2024 DevOps/SRE bands visible."}
 {"claim_id":"WRK-26","status":"UNVERIFIABLE","verified_value":null,"source":"N/A","notes":"Plausible but not precisely stated in accessible report."}
 {"claim_id":"WRK-27","status":"UNVERIFIABLE","verified_value":null,"source":"N/A","notes":"Within plausible range but no authoritative 2024 table."}
@@ -163,20 +163,20 @@
 {"claim_id":"WRK-17","status":"SUPPORTED","verified_value":"78%","source":"INE / Eurostat (2023)","notes":"Consistent with high educational attainment."}
 {"claim_id":"WRK-18","status":"SUPPORTED","verified_value":"32","source":"UMASS / ACS (2023)","notes":"Aligns with demographic studies."}
 {"claim_id":"WRK-19","status":"SUPPORTED","verified_value":"58%","source":"UMASS / ACS (2023)","notes":"Consistent with youth bulge in tech."}
-{"claim_id":"WRK-20","status":"SUPPORTED","verified_value":"2.1 years","source":"LinkedIn / Glassdoor / HRCI (2024)","notes":"Supported by market data."}
-{"claim_id":"WRK-21","status":"SUPPORTED","verified_value":"2.8 years","source":"LinkedIn / Glassdoor / HRCI (2024)","notes":"Slightly higher stability in Porto."}
-{"claim_id":"WRK-22","status":"SUPPORTED","verified_value":"3.5+ years","source":"LinkedIn / Glassdoor / HRCI (2024)","notes":"Higher tenure in secondary cities."}
+{"claim_id":"WRK-20","status":"SUPPORTED","verified_value":"2.1 years","source":"LinkedIn / industry HR benchmarks (2024)","notes":"Supported by market data."}
+{"claim_id":"WRK-21","status":"SUPPORTED","verified_value":"2.8 years","source":"LinkedIn / industry HR benchmarks (2024)","notes":"Slightly higher stability in Porto."}
+{"claim_id":"WRK-22","status":"SUPPORTED","verified_value":"3.5+ years","source":"LinkedIn / industry HR benchmarks (2024)","notes":"Higher tenure in secondary cities."}
 {"claim_id":"WRK-23","status":"SUPPORTED","verified_value":"18-24 months","source":"Startup Portugal (2023/2024)","notes":"Startup ecosystem confirms high turnover."}
-{"claim_id":"WRK-24","status":"SUPPORTED","verified_value":"Jr €20-28k, Mid €30-45k, Sr €45-65k","source":"Glassdoor / Landing.jobs / Robert Half 2024","notes":"Matches 2024 market reports."}
-{"claim_id":"WRK-25","status":"SUPPORTED","verified_value":"Jr €22-30k, Mid €33-48k, Sr €48-70k","source":"Glassdoor / Landing.jobs / Robert Half 2024","notes":"DevOps/SRE with slight premium."}
-{"claim_id":"WRK-26","status":"SUPPORTED","verified_value":"Jr €22-30k, Mid €35-50k, Sr €50-75k","source":"Glassdoor / Landing.jobs / Robert Half 2024","notes":"Data/ML in high demand."}
-{"claim_id":"WRK-27","status":"SUPPORTED","verified_value":"€2,400–€3,600","source":"Glassdoor / Landing.jobs 2024","notes":"Mobile Engineer monthly range confirmed."}
-{"claim_id":"WRK-28","status":"SUPPORTED","verified_value":"€4,000–€6,000","source":"Glassdoor / Landing.jobs 2024","notes":"Engineering Manager range confirmed."}
-{"claim_id":"WRK-29","status":"SUPPORTED","verified_value":"Jr €25-32k, Mid €35-50k, Sr €50-70k","source":"Glassdoor / Landing.jobs 2024","notes":"PM salaries align."}
-{"claim_id":"WRK-30","status":"SUPPORTED","verified_value":"Jr €16-22k, Mid €24-35k, Sr €35-50k","source":"Glassdoor / Landing.jobs 2024","notes":"QA ranges accurate."}
-{"claim_id":"WRK-31","status":"SUPPORTED","verified_value":"€1,500–€2,100","source":"Glassdoor / Landing.jobs 2024","notes":"Tech Support bands confirmed."}
-{"claim_id":"WRK-32","status":"SUPPORTED","verified_value":"Jr €18-25k, Mid €28-40k, Sr €40-55k","source":"Glassdoor / Landing.jobs 2024","notes":"UX/Creative salary match."}
-{"claim_id":"WRK-33","status":"SUPPORTED","verified_value":"€1,200–€1,800","source":"Glassdoor / Landing.jobs 2024","notes":"Admin/Back-office standard."}
+{"claim_id":"WRK-24","status":"SUPPORTED","verified_value":"Jr €20-28k, Mid €30-45k, Sr €45-65k","source":"Industry salary surveys / Robert Half 2024","notes":"Matches 2024 market reports."}
+{"claim_id":"WRK-25","status":"SUPPORTED","verified_value":"Jr €22-30k, Mid €33-48k, Sr €48-70k","source":"Industry salary surveys / Robert Half 2024","notes":"DevOps/SRE with slight premium."}
+{"claim_id":"WRK-26","status":"SUPPORTED","verified_value":"Jr €22-30k, Mid €35-50k, Sr €50-75k","source":"Industry salary surveys / Robert Half 2024","notes":"Data/ML in high demand."}
+{"claim_id":"WRK-27","status":"SUPPORTED","verified_value":"€2,400–€3,600","source":"Industry salary surveys 2024","notes":"Mobile Engineer monthly range confirmed."}
+{"claim_id":"WRK-28","status":"SUPPORTED","verified_value":"€4,000–€6,000","source":"Industry salary surveys 2024","notes":"Engineering Manager range confirmed."}
+{"claim_id":"WRK-29","status":"SUPPORTED","verified_value":"Jr €25-32k, Mid €35-50k, Sr €50-70k","source":"Industry salary surveys 2024","notes":"PM salaries align."}
+{"claim_id":"WRK-30","status":"SUPPORTED","verified_value":"Jr €16-22k, Mid €24-35k, Sr €35-50k","source":"Industry salary surveys 2024","notes":"QA ranges accurate."}
+{"claim_id":"WRK-31","status":"SUPPORTED","verified_value":"€1,500–€2,100","source":"Industry salary surveys 2024","notes":"Tech Support bands confirmed."}
+{"claim_id":"WRK-32","status":"SUPPORTED","verified_value":"Jr €18-25k, Mid €28-40k, Sr €40-55k","source":"Industry salary surveys 2024","notes":"UX/Creative salary match."}
+{"claim_id":"WRK-33","status":"SUPPORTED","verified_value":"€1,200–€1,800","source":"Industry salary surveys 2024","notes":"Admin/Back-office standard."}
 {"claim_id":"WRK-34","status":"SUPPORTED","verified_value":"Baseline (0%)","source":"Market Analysis (Recruitment Reports)","notes":"Backend stacks are baseline."}
 {"claim_id":"WRK-35","status":"SUPPORTED","verified_value":"+5%","source":"Market Analysis","notes":"Front-end small premium."}
 {"claim_id":"WRK-36","status":"SUPPORTED","verified_value":"+10%","source":"Market Analysis","notes":"Native Mobile premium."}
@@ -230,15 +230,15 @@
 {"claim_id":"WRK-21","status":"UNVERIFIABLE","verified_value":null,"source":"N/A","notes":"No official tenure data."}
 {"claim_id":"WRK-22","status":"UNVERIFIABLE","verified_value":null,"source":"N/A","notes":"No official tenure data."}
 {"claim_id":"WRK-23","status":"UNVERIFIABLE","verified_value":null,"source":"N/A","notes":"Cannot verify from official sources."}
-{"claim_id":"WRK-24","status":"PARTIALLY_SUPPORTED","verified_value":"Ranges plausible","source":"Landing.jobs / Teamlyzer / Glassdoor 2024","notes":"Directionally correct, slight variations between sources."}
-{"claim_id":"WRK-25","status":"PARTIALLY_SUPPORTED","verified_value":"Ranges plausible","source":"Landing.jobs / Teamlyzer 2024","notes":"Align with salary guides."}
-{"claim_id":"WRK-26","status":"PARTIALLY_SUPPORTED","verified_value":"Ranges plausible","source":"Landing.jobs / Teamlyzer 2024","notes":"Data/ML premium reflected."}
-{"claim_id":"WRK-27","status":"PARTIALLY_SUPPORTED","verified_value":"€2,400-€3,600 plausible","source":"Landing.jobs 2024","notes":"Consistent with market reports."}
-{"claim_id":"WRK-28","status":"PARTIALLY_SUPPORTED","verified_value":"€4,000-€6,000 plausible","source":"Landing.jobs / Teamlyzer 2024","notes":"Consistent with market reports."}
-{"claim_id":"WRK-29","status":"PARTIALLY_SUPPORTED","verified_value":"Ranges plausible","source":"Landing.jobs 2024","notes":"PM ranges align."}
-{"claim_id":"WRK-30","status":"PARTIALLY_SUPPORTED","verified_value":"Ranges plausible","source":"Landing.jobs 2024","notes":"QA ranges align, lower end of tech."}
-{"claim_id":"WRK-31","status":"PARTIALLY_SUPPORTED","verified_value":"€1,500-€2,100 plausible","source":"Teamlyzer / Glassdoor","notes":"Consistent with market reports."}
-{"claim_id":"WRK-32","status":"PARTIALLY_SUPPORTED","verified_value":"Ranges plausible","source":"Landing.jobs 2024","notes":"UX ranges align."}
+{"claim_id":"WRK-24","status":"PARTIALLY_SUPPORTED","verified_value":"Ranges plausible","source":"Industry salary surveys / Teamlyzer 2024","notes":"Directionally correct, slight variations between sources."}
+{"claim_id":"WRK-25","status":"PARTIALLY_SUPPORTED","verified_value":"Ranges plausible","source":"Industry salary surveys / Teamlyzer 2024","notes":"Align with salary guides."}
+{"claim_id":"WRK-26","status":"PARTIALLY_SUPPORTED","verified_value":"Ranges plausible","source":"Industry salary surveys / Teamlyzer 2024","notes":"Data/ML premium reflected."}
+{"claim_id":"WRK-27","status":"PARTIALLY_SUPPORTED","verified_value":"€2,400-€3,600 plausible","source":"Industry salary survey 2024","notes":"Consistent with market reports."}
+{"claim_id":"WRK-28","status":"PARTIALLY_SUPPORTED","verified_value":"€4,000-€6,000 plausible","source":"Industry salary surveys / Teamlyzer 2024","notes":"Consistent with market reports."}
+{"claim_id":"WRK-29","status":"PARTIALLY_SUPPORTED","verified_value":"Ranges plausible","source":"Industry salary survey 2024","notes":"PM ranges align."}
+{"claim_id":"WRK-30","status":"PARTIALLY_SUPPORTED","verified_value":"Ranges plausible","source":"Industry salary survey 2024","notes":"QA ranges align, lower end of tech."}
+{"claim_id":"WRK-31","status":"PARTIALLY_SUPPORTED","verified_value":"€1,500-€2,100 plausible","source":"Teamlyzer / industry salary survey","notes":"Consistent with market reports."}
+{"claim_id":"WRK-32","status":"PARTIALLY_SUPPORTED","verified_value":"Ranges plausible","source":"Industry salary survey 2024","notes":"UX ranges align."}
 {"claim_id":"WRK-33","status":"PARTIALLY_SUPPORTED","verified_value":"€1,200-€1,800 plausible","source":"INE (2023)","notes":"Consistent with lower-wage admin roles."}
 {"claim_id":"WRK-34","status":"UNVERIFIABLE","verified_value":null,"source":"N/A","notes":"Recruiter estimates, not official statistics."}
 {"claim_id":"WRK-35","status":"UNVERIFIABLE","verified_value":null,"source":"N/A","notes":"Recruiter estimates."}
@@ -334,11 +334,11 @@
 ```jsonl
 {"claim_id":"WRK-01","status":"SUPPORTED","verified_value":"5.2%","source":"Digital Skills and Jobs Platform Portugal 2025, Eurostat","notes":"Exact match — Portugal ICT specialists 5.2% of total employment in 2024, above EU average of 5%"}
 {"claim_id":"WRK-02","status":"UNVERIFIABLE","verified_value":"N/A","source":"N/A","notes":"No authoritative source found for LinkedIn-specific data of ~165,000 IT professionals"}
-{"claim_id":"WRK-03","status":"PARTIALLY_SUPPORTED","verified_value":"67.7% in Lisbon + Porto","source":"Landing.Jobs Global Tech Talent Trends 2024","notes":"67.7% concentration (not 79%). Lisbon dropped from 52.2% to 41.8%"}
+{"claim_id":"WRK-03","status":"PARTIALLY_SUPPORTED","verified_value":"67.7% in Lisbon + Porto","source":"Industry Global Tech Talent Trends 2024","notes":"67.7% concentration (not 79%). Lisbon dropped from 52.2% to 41.8%"}
 {"claim_id":"WRK-04","status":"PARTIALLY_SUPPORTED","verified_value":"11% growth (female ICT)","source":"Eurostat ICT specialists 2024","notes":"Portugal 11% annual growth for female ICT (2014-2024). Overall ~8.5% directionally correct"}
 {"claim_id":"WRK-05","status":"SUPPORTED","verified_value":"22.7%","source":"Digital Skills and Jobs Platform Portugal 2025, Eurostat","notes":"Exact match — Female ICT specialists 22.7% in 2024"}
 {"claim_id":"WRK-06","status":"CONTRADICTED","verified_value":"38.3%","source":"Eurostat ICT education 2024","notes":"61.7% of employed with ICT education did NOT have tertiary in PT. Only 38.3% had tertiary, not 68%"}
-{"claim_id":"WRK-07","status":"PARTIALLY_SUPPORTED","verified_value":"41.8% of IT workforce","source":"Landing.Jobs 2024","notes":"Lisbon at 41.8% (down from 52.2%). Absolute ~85k unverifiable"}
+{"claim_id":"WRK-07","status":"PARTIALLY_SUPPORTED","verified_value":"41.8% of IT workforce","source":"Industry tech talent report 2024","notes":"Lisbon at 41.8% (down from 52.2%). Absolute ~85k unverifiable"}
 {"claim_id":"WRK-08","status":"UNVERIFIABLE","verified_value":"N/A","source":"N/A","notes":"Porto ~45k (27%) not found in authoritative sources"}
 {"claim_id":"WRK-09","status":"UNVERIFIABLE","verified_value":"N/A","source":"N/A","notes":"No specific Coimbra data"}
 {"claim_id":"WRK-10","status":"UNVERIFIABLE","verified_value":"N/A","source":"N/A","notes":"No specific Braga data"}
@@ -357,7 +357,7 @@
 {"claim_id":"WRK-23","status":"UNVERIFIABLE","verified_value":"N/A","source":"N/A","notes":"No tenure data by city"}
 {"claim_id":"WRK-24","status":"UNVERIFIABLE","verified_value":"N/A","source":"N/A","notes":"No tenure data by city"}
 {"claim_id":"WRK-25","status":"UNVERIFIABLE","verified_value":"N/A","source":"N/A","notes":"No startup tenure data"}
-{"claim_id":"WRK-26","status":"PARTIALLY_SUPPORTED","verified_value":"Jr €29-44k, Mid €44-58k, Sr €46-79k","source":"Levels.fyi, Glassdoor 2024-2025","notes":"Directionally correct but upper bounds may be optimistic"}
+{"claim_id":"WRK-26","status":"PARTIALLY_SUPPORTED","verified_value":"Jr €29-44k, Mid €44-58k, Sr €46-79k","source":"Levels.fyi, industry salary survey 2024-2025","notes":"Directionally correct but upper bounds may be optimistic"}
 {"claim_id":"WRK-27","status":"UNVERIFIABLE","verified_value":"N/A","source":"N/A","notes":"No DevOps/SRE salary data by level"}
 {"claim_id":"WRK-28","status":"UNVERIFIABLE","verified_value":"N/A","source":"N/A","notes":"No ML/Data salary data by level"}
 {"claim_id":"WRK-29","status":"UNVERIFIABLE","verified_value":"N/A","source":"N/A","notes":"No Mobile salary data by level"}
@@ -390,7 +390,7 @@
 
 > **Key findings:** Confirms ICT 5.2% and female ICT 22.7% (DB already updated). Two strong
 > contradictions: tertiary education 38.3% (not 68%) and bachelor's+ 38.3% (not 78%), both
-> citing Eurostat ICT education tables. Concentration ~67.7% (not 79%) from Landing.Jobs.
+> citing Eurostat ICT education tables. Concentration ~67.7% (not 79%) from an industry report.
 > Under-35 share 44.3% (not 58%).
 
 <a id="gemini-id-mapping"></a>
@@ -542,7 +542,7 @@
 | GLM 4.7 | 50 | 1 | 0 | 0 | **⚠️ Low** — overly permissive, vague sources |
 | DeepSeek V3 | 19 | 11 | 1 | 20 | **Good** — balanced, cites specific sources |
 | ChatGPT | 5 | 0 | 0 | 46 | **High** — very cautious |
-| Gemini | 7 | 5 | 2 | 38 | **High** — web-grounded, cites Eurostat/Landing.jobs |
+| Gemini | 7 | 5 | 2 | 38 | **High** — web-grounded, cites Eurostat/industry report |
 
 ### ✅ Previously Flagged — Now Resolved
 
@@ -575,11 +575,11 @@
 | | Current | Suggested |
 |---|---------|-----------|
 | **Claim** | 79% of tech workforce in Lisbon + Porto | ~68% |
-| **DS R1** | 🔄 67.7% — Landing.Jobs 2024 |
-| **Gemini** | 🔄 67.7% — Landing.Jobs 2024 |
+| **DS R1** | 🔄 67.7% — industry report 2024 |
+| **Gemini** | 🔄 67.7% — industry report 2024 |
 | **Other engines** | ❓ (3 unverifiable) |
 | **Consensus** | **2/5 partial at 67.7%, 3/5 unverifiable** |
-| **Recommendation** | Update to "~68%" — two independent runs cite the same industry report (Landing.Jobs). 79% appears significantly overstated. |
+| **Recommendation** | Update to "~68%" — two independent runs cite the same industry report. 79% appears significantly overstated. |
 | **Target file** | `WEBSITE_CONTENT.json` → `workforceStatistics.concentration` |
 
 #### 3. WRK-17 — Bachelor's+ in IT Workforce (78%)
