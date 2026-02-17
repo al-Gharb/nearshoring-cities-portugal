@@ -216,7 +216,7 @@ export function renderBubbleChart() {
     .attr('text-anchor', 'middle')
     .attr('font-size', '14px')
     .attr('font-weight', '700')
-    .text('← Annual Digital STEM+ Output (symlog scale)');
+    .text('Annual Digital STEM+ Output (symlog scale) →');
 
   g.append('text')
     .attr('transform', 'rotate(-90)')

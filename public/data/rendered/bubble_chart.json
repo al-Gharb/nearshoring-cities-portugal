@@ -17,21 +17,6 @@
   },
   "points": [
     {
-      "id": "lisbon",
-      "name": "Lisbon",
-      "region": "Lisbon Metropolitan Area",
-      "featured": true,
-      "x": 100,
-      "y": 10273,
-      "r": 1103,
-      "col": 46,
-      "labelOffset": {
-        "position": "above",
-        "extraPad": 6,
-        "anchor": "middle"
-      }
-    },
-    {
       "id": "porto",
       "name": "Porto",
       "region": "Norte",
@@ -75,6 +60,39 @@
         "extraPad": 12,
         "anchor": "middle"
       }
+    },
+    {
+      "id": "vilareal",
+      "name": "Vila Real",
+      "region": "Norte",
+      "featured": false,
+      "x": 86.7,
+      "y": 884,
+      "r": 65,
+      "col": 32,
+      "labelOffset": {}
+    },
+    {
+      "id": "vianacastelo",
+      "name": "Viana do Castelo",
+      "region": "Norte",
+      "featured": false,
+      "x": 87.4,
+      "y": 655,
+      "r": 44,
+      "col": 33,
+      "labelOffset": {}
+    },
+    {
+      "id": "braganca",
+      "name": "Bragança",
+      "region": "Norte",
+      "featured": false,
+      "x": 84.1,
+      "y": 843,
+      "r": 56,
+      "col": 28,
+      "labelOffset": {}
     },
     {
       "id": "coimbra",
@@ -122,106 +140,6 @@
       }
     },
     {
-      "id": "evora",
-      "name": "Évora",
-      "region": "Alentejo",
-      "featured": true,
-      "x": 85.3,
-      "y": 387,
-      "r": 29,
-      "col": 32,
-      "labelOffset": {
-        "position": "above",
-        "extraPad": 5,
-        "anchor": "middle"
-      }
-    },
-    {
-      "id": "faro",
-      "name": "Faro",
-      "region": "Algarve",
-      "featured": true,
-      "x": 85.7,
-      "y": 911,
-      "r": 33,
-      "col": 38,
-      "labelOffset": {
-        "position": "right",
-        "extraPad": 3,
-        "anchor": "start"
-      }
-    },
-    {
-      "id": "setubal",
-      "name": "Setúbal",
-      "region": "Península de Setúbal",
-      "featured": true,
-      "x": 91.9,
-      "y": 3179,
-      "r": 195,
-      "col": 36,
-      "labelOffset": {
-        "position": "below",
-        "extraPad": 12,
-        "anchor": "middle"
-      }
-    },
-    {
-      "id": "vilareal",
-      "name": "Vila Real",
-      "region": "Norte",
-      "featured": false,
-      "x": 86.7,
-      "y": 884,
-      "r": 65,
-      "col": 32,
-      "labelOffset": {}
-    },
-    {
-      "id": "vianacastelo",
-      "name": "Viana do Castelo",
-      "region": "Norte",
-      "featured": false,
-      "x": 87.4,
-      "y": 655,
-      "r": 44,
-      "col": 33,
-      "labelOffset": {}
-    },
-    {
-      "id": "braganca",
-      "name": "Bragança",
-      "region": "Norte",
-      "featured": false,
-      "x": 84.1,
-      "y": 843,
-      "r": 56,
-      "col": 28,
-      "labelOffset": {}
-    },
-    {
-      "id": "leiria",
-      "name": "Leiria",
-      "region": "Centro",
-      "featured": false,
-      "x": 84.5,
-      "y": 1488,
-      "r": 86,
-      "col": 35,
-      "labelOffset": {}
-    },
-    {
-      "id": "santarem",
-      "name": "Santarém",
-      "region": "Oeste and Vale do Tejo",
-      "featured": false,
-      "x": 81.4,
-      "y": 44,
-      "r": 23,
-      "col": 30,
-      "labelOffset": {}
-    },
-    {
       "id": "viseu",
       "name": "Viseu",
       "region": "Centro",
@@ -244,15 +162,82 @@
       "labelOffset": {}
     },
     {
+      "id": "leiria",
+      "name": "Leiria",
+      "region": "Centro",
+      "featured": false,
+      "x": 84.5,
+      "y": 1488,
+      "r": 86,
+      "col": 35,
+      "labelOffset": {}
+    },
+    {
+      "id": "santarem",
+      "name": "Santarém",
+      "region": "Oeste and Vale do Tejo",
+      "featured": false,
+      "x": 81.4,
+      "y": 170,
+      "r": 76,
+      "col": 30,
+      "labelOffset": {}
+    },
+    {
       "id": "tomar",
       "name": "Tomar",
       "region": "Oeste and Vale do Tejo",
       "featured": false,
       "x": 81.4,
-      "y": 74,
-      "r": 22,
+      "y": 287,
+      "r": 73,
       "col": 30,
       "labelOffset": {}
+    },
+    {
+      "id": "lisbon",
+      "name": "Lisbon",
+      "region": "Lisbon Metropolitan Area",
+      "featured": true,
+      "x": 100,
+      "y": 10273,
+      "r": 1103,
+      "col": 46,
+      "labelOffset": {
+        "position": "above",
+        "extraPad": 6,
+        "anchor": "middle"
+      }
+    },
+    {
+      "id": "setubal",
+      "name": "Setúbal",
+      "region": "Península de Setúbal",
+      "featured": true,
+      "x": 91.9,
+      "y": 3179,
+      "r": 195,
+      "col": 36,
+      "labelOffset": {
+        "position": "below",
+        "extraPad": 12,
+        "anchor": "middle"
+      }
+    },
+    {
+      "id": "evora",
+      "name": "Évora",
+      "region": "Alentejo",
+      "featured": true,
+      "x": 85.3,
+      "y": 387,
+      "r": 29,
+      "col": 32,
+      "labelOffset": {
+        "position": "above",
+        "extraPad": 5,
+        "anchor": "middle"
+      }
     },
     {
       "id": "beja",
@@ -275,6 +260,21 @@
       "r": 7,
       "col": 28,
       "labelOffset": {}
+    },
+    {
+      "id": "faro",
+      "name": "Faro",
+      "region": "Algarve",
+      "featured": true,
+      "x": 85.7,
+      "y": 911,
+      "r": 33,
+      "col": 38,
+      "labelOffset": {
+        "position": "right",
+        "extraPad": 3,
+        "anchor": "start"
+      }
     }
   ]
 }

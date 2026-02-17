@@ -220,9 +220,9 @@
       "coreICT": 496
     },
     "Oeste and Vale do Tejo": {
-      "officialStem": 93,
-      "digitalStemPlus": 118,
-      "coreICT": 45
+      "officialStem": 360,
+      "digitalStemPlus": 457,
+      "coreICT": 149
     },
     "Lisbon Metropolitan Area": {
       "officialStem": 8089,
@@ -3528,7 +3528,7 @@
         },
         "graduates": {
           "officialStem": {
-            "value": 35,
+            "value": 135,
             "year": 2023,
             "meta": {
               "source": {
@@ -3548,7 +3548,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 44,
+            "value": 170,
             "year": 2023,
             "meta": {
               "source": {
@@ -3567,10 +3567,10 @@
             }
           },
           "coreICT": {
-            "value": 23,
+            "value": 76,
             "year": 2023,
             "pctOfDigitalStem": {
-              "value": 52.3,
+              "value": 44.7,
               "meta": {
                 "source": {
                   "type": "derived",
@@ -3584,7 +3584,7 @@
               }
             },
             "pctOfOfficialStem": {
-              "value": 65.7,
+              "value": 56.3,
               "meta": {
                 "source": {
                   "type": "derived",
@@ -4218,7 +4218,7 @@
         },
         "graduates": {
           "officialStem": {
-            "value": 58,
+            "value": 225,
             "year": 2023,
             "meta": {
               "source": {
@@ -4238,7 +4238,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 74,
+            "value": 287,
             "year": 2023,
             "meta": {
               "source": {
@@ -4257,10 +4257,10 @@
             }
           },
           "coreICT": {
-            "value": 22,
+            "value": 73,
             "year": 2023,
             "pctOfDigitalStem": {
-              "value": 29.7,
+              "value": 25.4,
               "meta": {
                 "source": {
                   "type": "derived",
@@ -4274,7 +4274,7 @@
               }
             },
             "pctOfOfficialStem": {
-              "value": 37.9,
+              "value": 32.4,
               "meta": {
                 "source": {
                   "type": "derived",

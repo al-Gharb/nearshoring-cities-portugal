@@ -30,9 +30,9 @@
     {
       "region": "Oeste and Vale do Tejo",
       "cityCount": 2,
-      "stemTotal": 118,
-      "ictTotal": 45,
-      "ictPct": 38.1
+      "stemTotal": 457,
+      "ictTotal": 149,
+      "ictPct": 32.6
     },
     {
       "region": "Lisbon Metropolitan Area",
@@ -97,7 +97,7 @@
       "ictPct": 14.4,
       "salaryIndex": 88.7,
       "officeRent": "11-14",
-      "residentialRent": "600-850",
+      "residentialRent": "750-1000",
       "colIndex": 35
     },
     {
@@ -114,7 +114,7 @@
       "ictPct": 11.7,
       "salaryIndex": 87.4,
       "officeRent": "9-12",
-      "residentialRent": "550-750",
+      "residentialRent": "650-850",
       "colIndex": 33
     },
     {
@@ -183,7 +183,7 @@
       "ictPct": 8.7,
       "salaryIndex": 83.9,
       "officeRent": "10-13",
-      "residentialRent": "550-750",
+      "residentialRent": "700-900",
       "colIndex": 34
     },
     {
@@ -200,7 +200,7 @@
       "ictPct": 10.2,
       "salaryIndex": 85.8,
       "officeRent": "12-15",
-      "residentialRent": "600-850",
+      "residentialRent": "750-1000",
       "colIndex": 37
     },
     {
@@ -217,7 +217,7 @@
       "ictPct": 5.3,
       "salaryIndex": 81.3,
       "officeRent": "7-10",
-      "residentialRent": "450-650",
+      "residentialRent": "450-700",
       "colIndex": 30
     },
     {
@@ -280,9 +280,9 @@
       "universities": [
         "IPS"
       ],
-      "stemGrads": 44,
-      "ictGrads": 23,
-      "ictPct": 65.7,
+      "stemGrads": 170,
+      "ictGrads": 76,
+      "ictPct": 56.3,
       "salaryIndex": 81.4,
       "officeRent": "11-14",
       "residentialRent": "450-700",
@@ -297,9 +297,9 @@
       "universities": [
         "IPT"
       ],
-      "stemGrads": 74,
-      "ictGrads": 22,
-      "ictPct": 37.9,
+      "stemGrads": 287,
+      "ictGrads": 73,
+      "ictPct": 32.4,
       "salaryIndex": 81.4,
       "officeRent": "7-10",
       "residentialRent": "400-600",
@@ -340,7 +340,7 @@
       "ictPct": 7.8,
       "salaryIndex": 91.9,
       "officeRent": "10-13",
-      "residentialRent": "600-850",
+      "residentialRent": "950-1200",
       "colIndex": 36
     },
     {
@@ -357,7 +357,7 @@
       "ictPct": 9.5,
       "salaryIndex": 85.3,
       "officeRent": "8-11",
-      "residentialRent": "550-750",
+      "residentialRent": "700-900",
       "colIndex": 32
     },
     {
@@ -408,13 +408,13 @@
       "ictPct": 4.6,
       "salaryIndex": 85.7,
       "officeRent": "12-15",
-      "residentialRent": "800-1100",
+      "residentialRent": "900-1100",
       "colIndex": 38
     }
   ],
   "totals": {
     "cities": 20,
-    "stemGrads": 34143,
-    "ictGrads": 3163
+    "stemGrads": 34482,
+    "ictGrads": 3267
   }
 }
