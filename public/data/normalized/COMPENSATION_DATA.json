@@ -27,7 +27,11 @@
       },
       "rationale": "IT salaries vary less between Portuguese regions than all-sector averages due to remote work, national talent competition, and employer COL adjustments. The convergence factor (0.45) compresses INE all-sector baselines toward 100, while the COL adjustment (±0.65 per Numbeo point) captures local cost-of-living pressure.",
       "autoCalculated": true,
-      "implementation": "computeAllSalaryIndices() in calculations.js runs at startup, reading INE baselines from COMPENSATION_DATA.json and COL from each city in MASTER.json"
+      "implementation": "computeAllSalaryIndices() in calculations.js runs at startup, reading INE baselines from COMPENSATION_DATA.json and COL from each city in MASTER.json",
+      "roundingPolicy": {
+        "salaryIndex": "Round to 1 decimal using Math.round(value * 10) / 10; cap at 100 after adjustment.",
+        "exampleGrossMonthly": "Round final monthly result to nearest integer euro using Math.round on full-precision computation."
+      }
     },
     "notes": [
       "CRITICAL: All values are in 12x format (14 Portuguese payments normalized to 12 for international comparison)",
@@ -38,7 +42,8 @@
       "HTML display values are authoritative — the htmlAuthoritative field stores the hand-tuned annual ranges shown on the website",
       "Lead/Principal = Senior × 1.12 (ratio of 1.40/1.25 multipliers)",
       "Employer Total Cost = (gross_annual_12x × 1.2375) + (€10.20/day × 220 days) meal allowance",
-      "Social Security: 23.75% employer contribution (included in total cost calculation)"
+      "Social Security: 23.75% employer contribution (included in total cost calculation)",
+      "Rounding policy: salaryIndex to 1 decimal; scenario grossMonthly rounded to nearest whole euro from full-precision final formula."
     ]
   },
   "baseBands": {
@@ -305,7 +310,7 @@
     },
     "midLevel": {
       "tier": "Mid-level",
-      "multiplier": 1.0,
+      "multiplier": 1,
       "description": "Base = MIDPOINT",
       "meta": {
         "source": {
@@ -349,7 +354,7 @@
   "techStackPremiums": {
     "coreBackend": {
       "stack": "Core backend (Java, .NET, Python)",
-      "premium": 0.0,
+      "premium": 0,
       "description": "Baseline — no premium",
       "meta": {
         "source": {
@@ -463,7 +468,7 @@
   "employerCosts": {
     "socialSecurity": {
       "employerRate": 23.75,
-      "employeeRate": 11.0,
+      "employeeRate": 11,
       "unit": "%",
       "meta": {
         "source": {
@@ -474,7 +479,7 @@
     },
     "mealAllowance": {
       "cardMax": 10.2,
-      "cashMax": 6.0,
+      "cashMax": 6,
       "unit": "EUR/day",
       "meta": {
         "source": {
@@ -485,7 +490,7 @@
     },
     "workInsurance": {
       "mandatory": true,
-      "avgRate": 1.0,
+      "avgRate": 1,
       "unit": "%",
       "meta": {
         "source": {
@@ -587,7 +592,7 @@
         "profCourse": 1271.5,
         "preBologna": 1832.99,
         "bachelor": 1763.35,
-        "master": 1978.0
+        "master": 1978
       },
       "grandeLisboa": {
         "name": "G. Lisboa",
@@ -655,10 +660,10 @@
         "aveiro",
         "covilha",
         "viseu",
-        "castelobranco"
+        "castelobranco",
+        "leiria"
       ],
       "oesteTejo": [
-        "leiria",
         "santarem",
         "tomar"
       ],
@@ -681,7 +686,7 @@
         "tier": "senior",
         "tierMultiplier": 1.25,
         "techStack": "coreBackend",
-        "techPremium": 0.0,
+        "techPremium": 0,
         "city": "Porto",
         "cityIndex": 91.9,
         "_salaryIndexCalculation": "INE Norte baseline 77.0% → compressed 87.35 → +COL(40−33)×0.65 = +4.55 → 91.9"
@@ -692,7 +697,7 @@
         "step3": "4558 × (91.9 / 100) = 4189 EUR/month (12x format)"
       },
       "result": {
-        "grossMonthly": 4189,
+        "grossMonthly": 4188,
         "unit": "EUR"
       }
     },
@@ -702,7 +707,7 @@
         "role": "mlDataEngineer",
         "baseMidpoint": 4132,
         "tier": "midLevel",
-        "tierMultiplier": 1.0,
+        "tierMultiplier": 1,
         "techStack": "dataML",
         "techPremium": 0.25,
         "city": "Braga",

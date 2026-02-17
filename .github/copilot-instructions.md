@@ -561,7 +561,7 @@ Test after edits: Évora, Covilhã, Guimarães, Setúbal, Península
 | Bragança | `braganca` | Norte |
 | Viseu | `viseu` | Centro |
 | Castelo Branco | `castelobranco` | Centro |
-| Leiria | `leiria` | Oeste |
+| Leiria | `leiria` | Centro |
 | Santarém | `santarem` | Oeste |
 | Tomar | `tomar` | Oeste |
 | Beja | `beja` | Alentejo |
