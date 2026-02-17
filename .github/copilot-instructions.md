@@ -238,8 +238,8 @@ This is a **data-driven business analysis**, not marketing material.
 |----------|---------------|-----------|
 | Macroeconomic | EC Autumn Forecast | `WEBSITE_CONTENT.json` |
 | Digital Infrastructure | ANACOM | `WEBSITE_CONTENT.json` |
-| Office Rent | JLL Portugal / C&W | `MASTER.json` |
-| Residential Rent | Idealista / Numbeo | `MASTER.json` |
+| Office Rent | Live market listings + plausibility verification | `MASTER.json` |
+| Residential Rent | Live market listings + plausibility verification | `MASTER.json` |
 | Workforce + Compensation | Eurostat, compensation benchmark datasets | `WEBSITE_CONTENT.json` + `COMPENSATION_DATA.json` |
 | Tax Incentives + COL + QoL | ANI, Numbeo, EHCI, GPI | `WEBSITE_CONTENT.json` |
 | Graduates | DGEEC InfoCursos | `WEBSITE_CONTENT.json` |
@@ -583,4 +583,4 @@ npm run test:all      # Both
 
 - **Authors:** Claude AI (Opus 4.5)
 - **Research:** Perplexity AI, Gemini Deep Research, GPT-5
-- **Data:** DGEEC, ANACOM, Eurostat, CFP, Cushman & Wakefield
+- **Data:** DGEEC, ANACOM, Eurostat, CFP, live listings and public institutional datasets

@@ -18,6 +18,12 @@
 7. Rebuild            → npm run build → verify on site
 ```
 
+### Prompt Policy
+
+- Verification prompts are **source-free**: they must not prescribe named source lists.
+- Engines must find independent public/official evidence and provide defensible reasoning when direct data is missing.
+- For office/residential rent checks, use a practical market lens (good-quality central non-prime office; central T1 residential range).
+
 ### JSONL Contract (required)
 
 Each verification line should include:
