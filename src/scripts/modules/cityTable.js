@@ -127,12 +127,12 @@ function createCityRow(rowData) {
   }
   tr.appendChild(ictPctCell);
 
-  // Digital STEM+ — internal calc, always approximate (≈)
+  // Digital STEM+ — internal estimate, always approximate (≈)
   const stemCell = document.createElement('td');
   stemCell.classList.add('col-numeric', 'col-stemplus', 'approximate-value');
   if (rowData.stemPlus != null) {
     stemCell.textContent = formatNumber(rowData.stemPlus);
-    stemCell.title = 'Estimate — Official STEM × 1.27 (INCoDe.2030 expansion factor)';
+    stemCell.title = 'Internal benchmark estimate (approximate), not an official DGEEC classification';
   } else {
     stemCell.textContent = '—';
   }
@@ -238,7 +238,7 @@ function createRegionSummaryRow(regionName, totals) {
   stemCell.classList.add('col-numeric', 'col-stemplus', 'approximate-value');
   if (totals?.digitalStemPlus != null) {
     stemCell.textContent = formatNumber(totals.digitalStemPlus);
-    stemCell.title = 'Estimate — sum of city estimates (Official STEM × 1.27 INCoDe.2030 factor)';
+    stemCell.title = 'Internal benchmark estimate — sum of city estimates (approximate)';
   } else {
     stemCell.textContent = '—';
   }
@@ -284,7 +284,7 @@ function createGrandTotalsRow(allRegionalTotals) {
   officialStemCell.classList.add('col-numeric', 'col-stem-official');
   officialStemCell.id = 'total-official-stem';
   officialStemCell.textContent = formatNumber(totalOfficialStem);
-  officialStemCell.title = 'Sum of official DGEEC regional totals (CNAEF 04+05+06+07+72)';
+  officialStemCell.title = 'Sum of official DGEEC regional totals (CNAEF 05+06+07)';
   tr.appendChild(officialStemCell);
 
   // ICT
@@ -306,7 +306,7 @@ function createGrandTotalsRow(allRegionalTotals) {
   stemCell.classList.add('col-numeric', 'col-stemplus', 'approximate-value');
   stemCell.id = 'total-stem-grads';
   stemCell.textContent = formatNumber(totalStemPlus);
-  stemCell.title = 'Estimate — sum of all Digital STEM+ estimates (Official STEM × 1.27)';
+  stemCell.title = 'Internal benchmark estimate — sum of all Digital STEM+ values (approximate)';
   tr.appendChild(stemCell);
 
   // Salary — N/A

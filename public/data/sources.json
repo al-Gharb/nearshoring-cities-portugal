@@ -269,15 +269,6 @@
       "expiresAfter": "24M",
       "covers": ["universityAccreditation", "programAccreditation"]
     },
-    "incode-2030": {
-      "provider": "INCoDe.2030",
-      "title": "Portugal National Digital Competences Initiative",
-      "url": "https://www.incode2030.gov.pt",
-      "type": "official",
-      "publishedDate": "2024-01-01",
-      "expiresAfter": "24M",
-      "covers": ["digitalStemPlus", "digitalCompetences"]
-    },
     "gpi-2024": {
       "provider": "Institute for Economics & Peace",
       "title": "Global Peace Index 2024",

@@ -267,6 +267,43 @@ function getStackSelection() {
   return selected.length > 0 ? selected.join(', ') : '';
 }
 
+function mapRoleLabelToBandKey(roleLabel) {
+  const role = String(roleLabel || '').toLowerCase();
+
+  if (role.includes('backend') || role.includes('frontend') || role.includes('fullstack')) return 'software-engineer';
+  if (role.includes('android') || role.includes('ios') || role.includes('mobile')) return 'mobile-engineer';
+  if (role.includes('qa')) return 'qa-testing';
+  if (role.includes('machine learning') || role.includes('data scientist') || role.includes('data engineer')) return 'ml-data-engineer';
+  if (role.includes('data analyst')) return 'data-analyst';
+  if (role.includes('devops')) return 'devops-sre';
+  if (role.includes('security')) return 'devops-sre';
+  if (role.includes('product manager') || role.includes('project manager') || role.includes('business analyst') || role.includes('head of product')) return 'product-manager';
+  if (role.includes('ux') || role.includes('designer')) return 'creative';
+  if (role.includes('solutions architect') || role.includes('tech lead') || role.includes('engineering manager') || role.includes('engineering c-level')) return 'engineering-manager';
+
+  return 'software-engineer';
+}
+
+function getRoleTypeSelection() {
+  const checkboxes = document.querySelectorAll('input[name="roleType"]:checked');
+  const selected = Array.from(checkboxes).map((cb) => ({
+    label: cb.value,
+    bandKey: cb.dataset.bandKey || 'software-engineer',
+  }));
+
+  if (selected.length === 0) {
+    return {
+      labels: ['Software Engineer (ICT/CS)'],
+      bandKeys: ['software-engineer'],
+    };
+  }
+
+  return {
+    labels: selected.map((entry) => entry.label),
+    bandKeys: selected.map((entry) => entry.bandKey),
+  };
+}
+
 function readFormInputs() {
   const allowedPrimaryObjectives = ['cost', 'quality', 'speed', 'balanced'];
   const allowedWorkModels = ['fully-remote', 'remote-first', 'hybrid', 'office-first', 'fully-onsite'];
@@ -278,13 +315,16 @@ function readFormInputs() {
   const allowedLifestyle = ['any', 'major-metro', 'secondary-city', 'coastal-warm', 'university-town', 'low-cost', 'nature-outdoor'];
   const allowedEntity = ['undecided', 'eor', 'subsidiary', 'contractors'];
   const allowedOutputStyle = ['executive', 'detailed'];
+  const roleSelection = getRoleTypeSelection();
 
   return {
     purpose: sanitizeFreeText(getValue('sim-purpose'), 600),
     opexBudget: sanitizeFreeText(getValue('sim-opex-budget'), 40),
     capexBudget: sanitizeFreeText(getValue('sim-capex-budget'), 40),
     teamSize: sanitizeFreeText(getValue('sim-team-size'), 40),
-    roleType: getValue('sim-role-type'),
+    roleType: roleSelection.bandKeys[0] || 'software-engineer',
+    roleTypes: roleSelection.labels,
+    roleTypeBandKeys: roleSelection.bandKeys,
     companyFocus: sanitizeFreeText(getValue('sim-company-focus'), 80),
     searchedStack: sanitizeFreeText(getStackSelection(), 300),
     dealbreakers: sanitizeFreeText(getValue('sim-dealbreakers'), 260),
@@ -321,11 +361,25 @@ export function generateMasterPrompt() {
   const tierMultipliers = buildTierMultipliers(compData);
   const stackPremiums = buildStackPremiums(compData);
 
-  const currentBand = salaryBands[inputs.roleType] || salaryBands['software-engineer'];
+  const selectedBandKeys = Array.isArray(inputs.roleTypeBandKeys) && inputs.roleTypeBandKeys.length > 0
+    ? inputs.roleTypeBandKeys
+    : ['software-engineer'];
 
-  if (!salaryBands[inputs.roleType]) {
-    inputs.roleType = 'software-engineer';
-  }
+  const selectedBands = selectedBandKeys
+    .map((key) => salaryBands[key])
+    .filter(Boolean);
+
+  const fallbackBand = salaryBands['software-engineer'];
+  const bandsForCalc = selectedBands.length > 0 ? selectedBands : [fallbackBand];
+
+  const currentBand = {
+    min: Math.round(bandsForCalc.reduce((sum, band) => sum + (band.min || 0), 0) / bandsForCalc.length),
+    mid: Math.round(bandsForCalc.reduce((sum, band) => sum + (band.mid || 0), 0) / bandsForCalc.length),
+    max: Math.round(bandsForCalc.reduce((sum, band) => sum + (band.max || 0), 0) / bandsForCalc.length),
+    label: Array.isArray(inputs.roleTypes) && inputs.roleTypes.length > 0
+      ? inputs.roleTypes.join(', ')
+      : (fallbackBand?.label || 'Software Engineer (ICT/CS)'),
+  };
 
   // Extract raw numeric values
   const teamSize = clampInteger(parseTeamSize(inputs.teamSize), 1, 1000);
@@ -712,13 +766,10 @@ function generateCityDatabaseClaims(master) {
     const coreICT = cityData.talent?.graduates?.coreICT?.value;
     
     if (officialStem) {
-      addClaim(`${cityName} Official STEM graduates (CNAEF 04+05+06+07+72): ${officialStem}/year`, true);
+      addClaim(`${cityName} Official STEM graduates (CNAEF 05+06+07): ${officialStem}/year`, true);
     }
-    if (digitalStemPlus && officialStem) {
-      const expected = Math.round(officialStem * 1.27);
-      addClaim(`${cityName} Digital STEM+ graduates: ${digitalStemPlus}/year (formula: Official STEM ${officialStem} \u00d7 1.27 = ${expected})`, true);
-    } else if (digitalStemPlus) {
-      addClaim(`${cityName} Digital STEM+ graduates: ${digitalStemPlus}/year (= Official STEM \u00d7 1.27)`, true);
+    if (digitalStemPlus) {
+      addClaim(`${cityName} Digital STEM+ graduates: ${digitalStemPlus}/year (internal benchmark estimate)`, true);
     }
     if (coreICT && officialStem) {
       const ictPct = ((coreICT / officialStem) * 100).toFixed(1);
@@ -737,14 +788,13 @@ function generateCityDatabaseClaims(master) {
   if (master.regionalTotals) {
     for (const [regionName, totals] of Object.entries(master.regionalTotals)) {
       if (totals.officialStem != null) {
-        addClaim(`${regionName} region total: ${totals.officialStem} Official STEM graduates (CNAEF 04+05+06+07+72, 2023/24)`);
+        addClaim(`${regionName} region total: ${totals.officialStem} Official STEM graduates (CNAEF 05+06+07, 2023/24)`);
       }
       if (totals.coreICT != null) {
         addClaim(`${regionName} region total: ${totals.coreICT} Core ICT graduates (CNAEF 481+523, 2023/24)`);
       }
-      if (totals.digitalStemPlus != null && totals.officialStem != null) {
-        const expected = Math.round(totals.officialStem * 1.27);
-        addClaim(`${regionName} region total: ${totals.digitalStemPlus} Digital STEM+ graduates (formula: ${totals.officialStem} × 1.27 = ${expected})`, true);
+      if (totals.digitalStemPlus != null) {
+        addClaim(`${regionName} region total: ${totals.digitalStemPlus} Digital STEM+ graduates (internal benchmark estimate)`, true);
       }
     }
   }
@@ -834,7 +884,7 @@ Each JSON object MUST include:
 \`\`\`jsonl
 {"claim_id":"CDB-01","status":"SUPPORTED","verified_value":"€16-20/m²","source_url":"https://example.com/report","source_ref":"Independent market listing sample","data_period":"Q1 2026","confidence":"HIGH","practical_confidence_pct":87,"notes":"Range is consistent with current practical non-prime central market conditions."}
 {"claim_id":"CDB-17","status":"PARTIALLY_SUPPORTED","verified_value":"~34 estimated","source_url":"N/A","source_ref":"Search snippet + regional comparable reasoning","data_period":"2026 estimate","confidence":"MEDIUM","practical_confidence_pct":64,"notes":"No direct city source found; estimate derived from rent/COL scaling."}
-{"claim_id":"CDB-47","status":"CONTRADICTED","verified_value":"1915","source_url":"N/A","source_ref":"Arithmetic audit","data_period":"Derived from claim inputs","confidence":"HIGH","practical_confidence_pct":92,"notes":"Claimed value fails formula check: 1508×1.27=1915."}
+{"claim_id":"CDB-47","status":"CONTRADICTED","verified_value":"N/A","source_url":"N/A","source_ref":"Internal consistency audit","data_period":"Derived from claim inputs","confidence":"HIGH","practical_confidence_pct":92,"notes":"Claimed value is inconsistent with the documented internal metric definition."}
 \`\`\`
 
 ### STATUS CODES (use exactly these)
@@ -1402,13 +1452,10 @@ async function generateCityClaimsFromSource(cityId) {
     const coreICT = cityData.talent?.graduates?.coreICT?.value;
     
     if (officialStem) {
-      addClaim(`${cityName} Official STEM graduates (CNAEF 04+05+06+07+72): ${officialStem}/year`, true);
+      addClaim(`${cityName} Official STEM graduates (CNAEF 05+06+07): ${officialStem}/year`, true);
     }
-    if (digitalStemPlus && officialStem) {
-      const expected = Math.round(officialStem * 1.27);
-      addClaim(`${cityName} Digital STEM+ graduates: ${digitalStemPlus}/year (formula: Official STEM ${officialStem} \u00d7 1.27 = ${expected})`, true);
-    } else if (digitalStemPlus) {
-      addClaim(`${cityName} Digital STEM+ graduates: ${digitalStemPlus}/year (= Official STEM \u00d7 1.27)`, true);
+    if (digitalStemPlus) {
+      addClaim(`${cityName} Digital STEM+ graduates: ${digitalStemPlus}/year (internal benchmark estimate)`, true);
     }
     if (coreICT && officialStem) {
       const ictPct = ((coreICT / officialStem) * 100).toFixed(1);
@@ -1495,8 +1542,8 @@ These metrics use our **internal methodology**. You cannot find these exact numb
 
 | Metric | Our Definition | How to Verify Reasonableness |
 |--------|----------------|------------------------------|
-| **Official STEM** | DGEEC graduates in CNAEF codes 04,05,06,07,72 | Check if city has universities offering STEM. Compare to city size. |
-| **Digital STEM+** | Official STEM × 1.27 expansion factor (includes CTeSP, adjacent fields) | Should be ~27% higher than Official STEM. |
+| **Official STEM** | DGEEC graduates in CNAEF codes 05,06,07 | Check if city has universities offering STEM in quantitative sciences, ICT, and engineering. Compare to city size. |
+| **Digital STEM+** | Internal benchmark estimate for hiring-relevant digital talent | Validate directional plausibility against university mix, local specialization, and labor-market context. |
 | **Core ICT** | CNAEF 481 (CS) + 523 (Electronics) — pure IT specialists | Typically 10-20% of Digital STEM+. |
 | **Salary Index** | Regional wages indexed to Lisbon=100, adjusted for cost of living | Interior cities should be 70-85. Porto/Lisbon area 90-100. |
 
@@ -1738,47 +1785,36 @@ export function initSimulator() {
    * Keep role options aligned with COMPENSATION_DATA baseBands.
    * This ensures newly added salary roles appear automatically in the form.
    */
-  function syncRoleOptionsFromCompensation() {
-    const roleSelect = document.getElementById('sim-role-type');
-    if (!roleSelect) return;
+  function syncRoleTypeCheckboxes() {
+    const roleGroup = document.getElementById('sim-role-type-group');
+    if (!roleGroup) return;
 
-    const bands = buildSalaryBands(getCompensationData());
-    const currentValue = roleSelect.value;
+    const roleRows = getStore()?.content?.national?.laborMarket?.damiaBenchmark?.roleSeniorityTable || [];
+    const roleLabels = roleRows
+      .map((row) => row?.role)
+      .filter(Boolean);
 
-    const preferredOrder = [
-      'software-engineer',
-      'devops-sre',
-      'ml-data-engineer',
-      'mobile-engineer',
-      'engineering-manager',
-      'product-manager',
-      'data-analyst',
-      'qa-testing',
-      'tech-support',
-      'creative',
-      'admin-backoffice',
-      'mixed',
-    ];
+    const baseRole = 'Software Engineer (ICT/CS)';
+    const allRoles = roleLabels.length > 0
+      ? [baseRole, ...roleLabels.filter((role) => role !== baseRole)]
+      : [baseRole];
 
-    const dynamicKeys = Object.keys(bands);
-    const orderedKeys = [
-      ...preferredOrder.filter((key) => dynamicKeys.includes(key)),
-      ...dynamicKeys.filter((key) => !preferredOrder.includes(key)),
-    ];
+    roleGroup.innerHTML = '';
+    allRoles.forEach((roleLabel, index) => {
+      const label = document.createElement('label');
+      label.className = 'checkbox-label';
 
-    roleSelect.innerHTML = '';
-    orderedKeys.forEach((key) => {
-      const band = bands[key];
-      if (!band?.mid) return;
-      const option = document.createElement('option');
-      option.value = key;
-      option.textContent = band.label || key;
-      if (key === 'software-engineer') option.textContent = 'Software Engineer (ICT/CS)';
-      if (key === 'mixed') option.textContent = 'Mixed roles (blended)';
-      roleSelect.appendChild(option);
+      const input = document.createElement('input');
+      input.type = 'checkbox';
+      input.name = 'roleType';
+      input.value = roleLabel;
+      input.dataset.bandKey = mapRoleLabelToBandKey(roleLabel);
+      input.checked = roleLabel === baseRole;
+
+      label.appendChild(input);
+      label.append(` ${roleLabel}`);
+      roleGroup.appendChild(label);
     });
-
-    roleSelect.value = bands[currentValue] ? currentValue : 'software-engineer';
   }
 
   /**
@@ -1860,7 +1896,7 @@ export function initSimulator() {
 
   // Form conditional logic is non-critical; never block simulator if it fails
   try {
-    syncRoleOptionsFromCompensation();
+    syncRoleTypeCheckboxes();
     initInputHardening();
     initFormConditionalLogic();
   } catch (err) {

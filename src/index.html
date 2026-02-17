@@ -469,10 +469,10 @@
               <tr>
                 <th scope="col" title="City name — ★ = featured city with full profile below">City</th>
                 <th scope="col" title="Higher education institutions (HEIs) located in or near this city">Universities</th>
-                  <th scope="col" class="col-numeric col-stem-official" title="Official STEM graduates/year — DGEEC CNAEF codes 04+05+06+07+72. City values are ≈estimates proportionally derived from official DGEEC regional totals; subtotals (*) are the actual DGEEC figures."><i class="fa-solid fa-user-graduate" aria-hidden="true"></i> Official STEM</th>
+                  <th scope="col" class="col-numeric col-stem-official" title="Official STEM graduates/year — DGEEC CNAEF codes 05+06+07. City values are ≈estimates proportionally derived from official DGEEC regional totals; subtotals (*) are the actual DGEEC figures."><i class="fa-solid fa-user-graduate" aria-hidden="true"></i> Official STEM</th>
                   <th scope="col" class="col-numeric col-ict" title="Core ICT graduates/year — DGEEC CNAEF codes 481 (CS) + 523 (Electronics). City values are ≈estimates proportionally derived from official DGEEC regional totals; subtotals (*) are the actual DGEEC figures."><i class="fa-solid fa-user-graduate" aria-hidden="true"></i> ICT/yr</th>
                   <th scope="col" class="col-numeric col-ict col-with-badge" title="Auto-calculated: (Core ICT ÷ Official STEM) × 100 — shows what share of STEM graduates specialize in ICT"><span class="th-content"><span class="th-text">ICT %</span><span class="badge-auto" title="Auto-calculated: (Core ICT ÷ Official STEM) × 100">auto</span></span></th>
-                  <th scope="col" class="col-numeric col-stemplus col-with-badge" title="Digital STEM+ — ≈estimated: round(Official STEM × 1.27), using INCoDe.2030 expansion factor to include adjacent digital programs (Info Systems, UX/UI, CTeSP vocational)"><span class="th-content"><span class="th-text"><i class="fa-solid fa-user-graduate" aria-hidden="true"></i><i class="fa-solid fa-user" aria-hidden="true"></i> STEM+/yr</span><span class="badge-auto" title="Auto-calculated: round(Official STEM × 1.27) — INCoDe.2030 expansion factor">auto</span></span></th>
+                  <th scope="col" class="col-numeric col-stemplus col-with-badge" title="Digital STEM+ graduates/year — internal estimate shown as approximate (≈), not an official DGEEC classification"><span class="th-content"><span class="th-text"><i class="fa-solid fa-user-graduate" aria-hidden="true"></i><i class="fa-solid fa-user" aria-hidden="true"></i> STEM+/yr</span><span class="badge-auto" title="Internal estimate from MASTER.json (approximate)">auto</span></span></th>
                   <th scope="col" class="col-numeric col-with-badge" title="Salary Index — auto-calculated: INE baseline compressed 45% toward 100 (IT convergence) + COL adjustment ±0.65/pt"><span class="th-content"><span class="th-text">Salary Index</span><span class="badge-auto" title="Auto-calculated: compressed baseline + (COL − 33) × 0.65, cap 100">auto</span></span></th>
                   <th scope="col" class="col-numeric" title="Office rent per m²/month — Source: Idealista live listings, semi-automated HITL+agent extraction. Scope: quality offices in central locations, 60–300 m².">Office €/m²</th>
                   <th scope="col" class="col-numeric" title="Residential rent per month — Source: Idealista live listings, semi-automated HITL+agent extraction. Scope: 1-bedroom modern apartments, central areas, 40–60 m².">Res. Rent €</th>
@@ -556,18 +556,6 @@
             </ul>
             <a href="https://op.europa.eu/webpub/eac/education-and-training-monitor/en/country-reports/portugal.html" target="_blank" rel="noopener" class="source-link-external">
               <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://op.europa.eu/webpub/eac/education-and-training-monitor/en/country-reports/portugal.html
-            </a>
-          </div>
-
-          <div class="source-entry" id="src-incode">
-            <h4>INCoDe.2030</h4>
-            <p class="source-description">Portugal's National Digital Competences Initiative. Defines the methodology for classifying digital-relevant STEM programs.</p>
-            <ul class="source-metrics">
-              <li><strong>Metrics:</strong> Digital STEM+ program classification criteria</li>
-              <li><strong>Relevance:</strong> Basis for the Digital STEM+ graduate definition used in this analysis</li>
-            </ul>
-            <a href="https://www.incode2030.gov.pt" target="_blank" rel="noopener" class="source-link-external">
-              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://www.incode2030.gov.pt
             </a>
           </div>
 
@@ -901,29 +889,29 @@
               </summary>
               <div style="padding-top: 1rem;">
                 <div class="callout-success">
-                  <strong><i class="fa-solid fa-sync-alt"></i> Formula-derived:</strong>
-                  Digital STEM+ = Official STEM × 1.27 (INCoDe.2030 expansion factor). Values auto-calculated from Official STEM graduates. Updating Official STEM will require recalculation.
+                  <strong><i class="fa-solid fa-sync-alt"></i> Internal metric:</strong>
+                  Digital STEM+ values are internal estimates stored in the database and displayed as approximate values (≈). They are not an official DGEEC classification.
                 </div>
-                <p><strong>Formula:</strong></p>
+                <p><strong>Definition:</strong></p>
                 <div class="formula-block">
-                  <code>Digital STEM+ = round(Official STEM × 1.27)</code><br>
-                  <span class="formula-note">INCoDe.2030 expansion factor · Applied uniformly to all 20 cities</span>
+                  <code>Digital STEM+ = internal benchmark for hiring-relevant digital talent</code><br>
+                  <span class="formula-note">Includes Official STEM plus adjacent digital and vocational tracks used in this analysis</span>
                 </div>
                 <p class="source-description">Methodology and the particularities of the Portuguese educational system</p>
 
                 <!-- Introduction -->
                 <p>
-                  This document uses <strong>two complementary metrics</strong>: <span class="meth-card-red meth-card-title meth-inline">Official STEM</span> (~27,990 graduates/year from DGEEC) and <span class="meth-card-blue meth-card-title meth-inline">Digital STEM+</span> (<span id="meth-intro-stem" class="meth-dynamic">~36,840</span> graduates/year). Official STEM follows Eurostat methodology; Digital STEM+ reflects the practical <em>hiring-relevant</em> talent pool for technology employers.
+                  This document uses <strong>two complementary metrics</strong>: <span class="meth-card-red meth-card-title meth-inline">Official STEM</span> (~27,990 graduates/year from DGEEC) and <span class="meth-card-blue meth-card-title meth-inline">Digital STEM+</span> (<span id="meth-intro-stem" class="meth-dynamic">~36,840</span> graduates/year). Official STEM is the official DGEEC count (CNAEF 05+06+07); Digital STEM+ is an internal <em>hiring-relevant</em> benchmark.
                 </p>
 
                 <!-- Why Two Metrics -->
                 <div class="card">
                   <h5><i class="fa-solid fa-layer-group" aria-hidden="true"></i> Why Two Metrics?</h5>
                   <p>
-                    <strong class="meth-card-red meth-card-title"><i class="fa-solid fa-user-graduate"></i> Official STEM</strong> (~27,990) uses DGEEC/Eurostat classification: Natural Sciences, ICT, and Engineering. Ideal for cross-country comparisons and official statistics.
+                    <strong class="meth-card-red meth-card-title"><i class="fa-solid fa-user-graduate"></i> Official STEM</strong> (~27,990) uses DGEEC CNAEF codes 05+06+07 (Quantitative Sciences, ICT, Engineering). Ideal for official comparisons.
                   </p>
                   <p>
-                    <strong class="meth-card-blue meth-card-title"><i class="fa-solid fa-user-graduate"></i><i class="fa-solid fa-user"></i> Digital STEM+</strong> expands this with adjacent programs tech employers actually hire from: Information Systems, UX/UI Design, Technology Management, Digital Health, and CTeSP vocational diplomas. These graduates fill product, operations, and technical roles.
+                    <strong class="meth-card-blue meth-card-title"><i class="fa-solid fa-user-graduate"></i><i class="fa-solid fa-user"></i> Digital STEM+</strong> is an internal benchmark that additionally includes adjacent programs tech employers hire from (for example: Information Systems, UX/UI, Technology Management, Digital Health, and CTeSP vocational diplomas).
                   </p>
                 </div>
 
@@ -960,7 +948,7 @@
                 <!-- Breakdown Table -->
                 <div class="card">
                   <div><strong>Digital STEM+ Composition</strong> <span class="meth-card-source">20 cities</span></div>
-                  <p><em>Core ICT uses actual database totals; other categories use illustrative shares based on INCoDe.2030 methodology.</em></p>
+                  <p><em>Core ICT uses actual database totals; other categories are internal illustrative shares used for decomposition.</em></p>
                   <div class="table-wrapper">
                     <table class="methodology-table">
                       <thead>
@@ -1034,7 +1022,7 @@
                       <ul>
                         <li>CTeSP (2-year) counts as higher education (EQF 5)</li>
                         <li>Adjacent programs often in university system</li>
-                        <li>STEM → Digital STEM+ expansion: ~1.3×</li>
+                        <li>Digital STEM+ includes adjacent and vocational digital tracks beyond Official STEM</li>
                       </ul>
                     </div>
                     <div class="comparison-card comparison-card-neutral">
@@ -1064,13 +1052,13 @@
                 <!-- Estimate Note -->
                 <div class="callout-warning">
                   <strong><i class="fa-solid fa-calculator"></i> Estimate:</strong>
-                  Digital STEM+ (~36,840) is an <strong>expanded estimate</strong> based on Official STEM (~27,990 from DGEEC) plus adjacent programs. It does not represent all STEM graduates and uses illustrative shares for non-ICT categories.
+                  Digital STEM+ (~36,840) is an <strong>internal benchmark estimate</strong> used for this report's hiring lens. It is not an official DGEEC metric and uses illustrative shares for non-ICT categories.
                 </div>
 
                 <!-- Source Footer -->
                 <div class="scorecard-footer" data-db="content">
                   <strong>Sources:</strong>
-                  DGEEC 2023/24 graduate data · EU Education Monitor 2025 · INCoDe.2030 methodology · CNAEF codes (Portaria 256/2005)
+                  DGEEC 2023/24 graduate data · EU Education Monitor 2025 · CNAEF codes (Portaria 256/2005)
                 </div>
               </div>
             </details>
@@ -2543,22 +2531,11 @@
               <span class="simulator-hint">Select technologies and add specific roles you're hiring for</span>
             </div>
 
-            <div class="simulator-field">
-              <label for="sim-role-type"><i class="fa-solid fa-user-tag" aria-hidden="true"></i> Role Type</label>
-              <select id="sim-role-type" name="roleType">
-                <option value="software-engineer" selected>Software Engineers (ICT/CS)</option>
-                <option value="devops-sre">DevOps / SRE</option>
-                <option value="ml-data-engineer">ML / Data Engineer</option>
-                <option value="mobile-engineer">Mobile Engineer (iOS/Android)</option>
-                <option value="data-analyst">Data Analysts / BI</option>
-                <option value="engineering-manager">Engineering Manager</option>
-                <option value="product-manager">Product Manager</option>
-                <option value="tech-support">Tech Support (L1/L2)</option>
-                <option value="creative">Creative/Design (UX, UI, Product)</option>
-                <option value="qa-testing">QA / Testing</option>
-                <option value="admin-backoffice">Admin / Back-office</option>
-                <option value="mixed">Mixed roles</option>
-              </select>
+            <div class="simulator-field simulator-field-full">
+              <label for="sim-role-type-group"><i class="fa-solid fa-user-tag" aria-hidden="true"></i> Role Type</label>
+              <div id="sim-role-type-group" class="checkbox-grid" role="group" aria-label="Role Type selection">
+                <!-- Dynamically populated from salary table roles (WEBSITE_CONTENT.json) -->
+              </div>
               <span class="simulator-hint">Affects talent pool relevance and salary estimates</span>
             </div>
 
