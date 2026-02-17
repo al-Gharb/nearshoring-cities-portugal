@@ -152,7 +152,7 @@ function createCityRow(rowData) {
   officeCell.classList.add('col-numeric');
   officeCell.dataset.promptCore = 'true';
   officeCell.textContent = rowData.officeRent;
-  officeCell.title = 'Derived from multiple sources: Cushman & Wakefield, JLL Portugal, Idealista — AI fact-checked';
+  officeCell.title = 'Derived from live market listings and validated through AI-assisted plausibility checks';
   tr.appendChild(officeCell);
 
   // Residential Rent — prompt-core: rent generators + city generators
@@ -160,7 +160,7 @@ function createCityRow(rowData) {
   resCell.classList.add('col-numeric');
   resCell.dataset.promptCore = 'true';
   resCell.textContent = rowData.residentialRent;
-  resCell.title = 'Derived from multiple sources: Idealista, Numbeo, C&W, JLL — 1-bedroom ~50 m², city center — AI fact-checked';
+  resCell.title = 'Derived from live market listings and plausibility-validated for 1-bedroom central-city rental ranges';
   tr.appendChild(resCell);
 
   // COL Index — prompt-core: city generators

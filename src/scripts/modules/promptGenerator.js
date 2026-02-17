@@ -700,9 +700,9 @@ function generateCityDatabaseClaims(master) {
       }
     }
     
-    // COL+Rent Index: (externally verifiable — Numbeo "Cost of Living Plus Rent Index")
+    // COL+Rent Index: externally verifiable comparative cost index (plus-rent variant)
     if (cityData.costs?.colIndex?.value) {
-      addClaim(`${cityName} Cost of Living Plus Rent Index: ${cityData.costs.colIndex.value} (NYC=100, Numbeo COL+Rent — includes domestic rents, NOT the excl-rent index which is ~20% higher)`);
+      addClaim(`${cityName} Cost of Living Plus Rent Index: ${cityData.costs.colIndex.value} (NYC=100, includes domestic rents; distinct from excl-rent index)`);
     }
     
     // ─── TALENT & SALARY METRICS (METHODOLOGY CHECKS) ───
@@ -761,6 +761,16 @@ function generateCityDatabaseClaims(master) {
  * @returns {string} Complete fact-check prompt
  */
 function buildCityDatabasePrompt(allClaims, methodology) {
+  const externalClaims = allClaims.filter(c => !c.internal);
+  const internalClaims = allClaims.filter(c => c.internal);
+  const externalTable = externalClaims.length > 0
+    ? externalClaims.map(c => `| ${c.id} | ${c.claim} |`).join('\n')
+    : '| — | No external claims generated |';
+  const internalTable = internalClaims.length > 0
+    ? internalClaims.map(c => `| ${c.id} | ${c.claim} |`).join('\n')
+    : '| — | No internal methodology claims generated |';
+  const statusCodes = methodology?.statusCodes || [];
+
   const internalMethodSummary = internalClaims.length > 0
     ? `\nInternal methodology claims are included for reasonableness/arithmetic audit. For these, verify plausibility and formula consistency.`
     : '';
@@ -778,7 +788,7 @@ function buildCityDatabasePrompt(allClaims, methodology) {
 ## YOUR TASK
 
 Verify every claim using independent evidence (web/official/public sources + defensible reasoning when direct sources are unavailable).
-Treat claims as source-free input: do not treat prompt wording as evidence.${internalMethodSummary}
+Treat claims as source-free input: do not treat prompt wording as evidence. Do not rely on any predefined source list; independently discover and evaluate evidence.${internalMethodSummary}
 
 ### RULES
 
@@ -787,6 +797,7 @@ Treat claims as source-free input: do not treat prompt wording as evidence.${int
 3. **Reasoned fallback allowed:** if direct source is unavailable, provide best defensible estimate with explicit confidence and rationale.
 4. **UNVERIFIABLE last:** use only when you genuinely have no defensible basis.
 5. **Arithmetic checks required** for internal formula-style metrics (Digital STEM+, Core ICT ratios, salary-index logic checks).
+6. **Practical market lens:** for office/residential ranges, judge whether a good-quality central non-prime option is realistically achievable now.
 
 ---
 
@@ -821,7 +832,7 @@ Each JSON object MUST include:
 - notes
 
 \`\`\`jsonl
-{"claim_id":"CDB-01","status":"SUPPORTED","verified_value":"€16-20/m²","source_url":"https://example.com/report","source_ref":"JLL Portugal office snapshot","data_period":"Q1 2026","confidence":"HIGH","practical_confidence_pct":87,"notes":"Below-prime band is consistent with metro benchmark and city tier."}
+{"claim_id":"CDB-01","status":"SUPPORTED","verified_value":"€16-20/m²","source_url":"https://example.com/report","source_ref":"Independent market listing sample","data_period":"Q1 2026","confidence":"HIGH","practical_confidence_pct":87,"notes":"Range is consistent with current practical non-prime central market conditions."}
 {"claim_id":"CDB-17","status":"PARTIALLY_SUPPORTED","verified_value":"~34 estimated","source_url":"N/A","source_ref":"Search snippet + regional comparable reasoning","data_period":"2026 estimate","confidence":"MEDIUM","practical_confidence_pct":64,"notes":"No direct city source found; estimate derived from rent/COL scaling."}
 {"claim_id":"CDB-47","status":"CONTRADICTED","verified_value":"1915","source_url":"N/A","source_ref":"Arithmetic audit","data_period":"Derived from claim inputs","confidence":"HIGH","practical_confidence_pct":92,"notes":"Claimed value fails formula check: 1508×1.27=1915."}
 \`\`\`
@@ -1379,9 +1390,9 @@ async function generateCityClaimsFromSource(cityId) {
       }
     }
     
-    // COL+Rent Index: (externally verifiable — Numbeo "Cost of Living Plus Rent Index")
+    // COL+Rent Index: externally verifiable comparative cost index (plus-rent variant)
     if (cityData.costs?.colIndex?.value) {
-      addClaim(`${cityName} Cost of Living Plus Rent Index: ${cityData.costs.colIndex.value} (NYC=100, Numbeo COL+Rent — includes domestic rents, NOT the excl-rent index which is ~20% higher)`);
+      addClaim(`${cityName} Cost of Living Plus Rent Index: ${cityData.costs.colIndex.value} (NYC=100, includes domestic rents; distinct from excl-rent index)`);
     }
     
     // ─── TALENT & SALARY METRICS (METHODOLOGY CHECKS) ───
@@ -1470,13 +1481,13 @@ async function generateFactCheckPrompt() {
 
 ## METRIC DEFINITIONS (READ CAREFULLY)
 
-### Cost Metrics (VERIFY via real estate portals, Numbeo, JLL reports)
+### Cost Metrics (VERIFY via independent market evidence)
 
 | Metric | Definition | Verification Approach |
 |--------|------------|----------------------|
-| **Office Rent** | Prime Class A CBD office space, asking rent €/m²/month | Check JLL, C&W, Savills Portugal reports. Interior cities may have estimates. |
-| **Residential Rent** | T1 (1-bedroom) city center apartments, €/month | Check Idealista.pt, Numbeo. Ranges vary by neighborhood. |
-| **COL Index** | Numbeo Cost of Living **Plus Rent** Index (NYC = 100, includes domestic rents) | Search "Numbeo [city] cost of living plus rent". Note: this is NOT the excl-rent index. Smaller cities may lack data. |
+| **Office Rent** | Good-quality central non-prime office asking rent, €/m²/month | Verify practical achievability using independent public market evidence and local comparables. |
+| **Residential Rent** | T1 (1-bedroom) central apartments, €/month | Verify practical ranges from independent public evidence; account for neighborhood variance. |
+| **COL Index** | Cost of Living **Plus Rent** Index (NYC = 100, includes domestic rents) | Verify index plausibility from independent comparative datasets; ensure it's the plus-rent variant. |
 
 ### Internal Calculations (VERIFY IF REASONABLE — not if they exist)
 
@@ -1515,11 +1526,11 @@ These metrics use our **internal methodology**. You cannot find these exact numb
 
 ### CATEGORY CONTEXT — OFFICE RENT (Read First)
 
-- These office-rent values are derived from **Idealista live listings (Q1 2026)** using semi-automated extraction with HITL review.
-- Scope is **practical offices** that real SMEs and operating teams typically rent: **central locations, quality offices, ~60–300 m²**.
+- These office-rent values are from a database pipeline based on live market observations and human review.
+- Scope is **practical offices** that real SMEs and operating teams typically rent: **central locations, good-quality non-prime offices, ~60–300 m²**.
 - This is **not a prime-CBD institutional benchmark** (e.g., brokerage prime series used for large corporations).
 - Treat this as a **practical operating benchmark, not a scientific market index**.
-- If direct city-level sources are missing, switch to **reasoning mode**: act as a Portuguese real-estate market insider, use nearby-city comparables and market structure, and estimate whether the range is realistic for practical use right now.
+- If direct city-level sources are missing, switch to **reasoning mode**: use nearby-city comparables and market structure, and estimate whether the range is realistic for practical use right now.
 - Use **UNVERIFIABLE only as last resort** when you genuinely have no defensible basis for estimation.
 `;
     }
@@ -1529,11 +1540,11 @@ These metrics use our **internal methodology**. You cannot find these exact numb
 
 ### CATEGORY CONTEXT — RESIDENTIAL RENT (Read First)
 
-- These residential-rent values are derived from **Idealista live listings (Q1 2026)** using semi-automated extraction with HITL review.
+- These residential-rent values are from a database pipeline based on live market observations and human review.
 - Scope is **practical 1-bedroom housing** that companies and hires commonly use for relocation planning: **modern 1BR units, central areas, ~40–60 m²**.
 - This is intended for **real hiring/relocation budgeting**, not for luxury or investor-grade segmentation.
 - Treat this as a **practical operating benchmark, not a scientific housing index**.
-- If direct city-level sources are missing, switch to **reasoning mode**: act as a Portuguese real-estate market insider, use nearby-city comparables and market structure, and estimate whether the range is realistic for practical use right now.
+- If direct city-level sources are missing, switch to **reasoning mode**: use nearby-city comparables and market structure, and estimate whether the range is realistic for practical use right now.
 - Use **UNVERIFIABLE only as last resort** when you genuinely have no defensible basis for estimation.
 `;
     }
@@ -1602,6 +1613,7 @@ ${categoryTaskContext}
 4. **UNVERIFIABLE LAST** — Use UNVERIFIABLE only when you truly have no defensible basis for estimation.
 5. **PRACTICAL JUDGMENT** — Judge practical market plausibility: can a good central quality office/apartment be rented at that range now?
 6. **SOURCE TRANSPARENCY** — For each claim include source_url (or N/A), source_ref, and data_period.
+7. **NO PRESET SOURCES** — Do not assume any predefined source list; independently find and evaluate evidence.
 ${internalWarning}
 
 ---
