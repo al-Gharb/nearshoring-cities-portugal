@@ -206,7 +206,7 @@ export function renderFactCheckCards() {
       <div class="score-card" data-score="${score ?? 'null'}" data-db="profiles">
         <div class="score-card-header">
           <span class="score-card-name"><i class="fa-solid ${card.icon}"></i> ${card.name}</span>
-          ${buildConfidenceBarHTML(score)}
+          ${buildConfidenceBarHTML(score, card.checkDate)}
         </div>
         <div class="score-card-date">Checked: ${dateStr}</div>
       </div>
@@ -251,8 +251,7 @@ function populateSectionConfidence() {
     span.setAttribute('data-db', 'content');
 
     if (section) {
-      const tooltip = `${section.label}: ${section.checkScore}% confidence — ${section.methodology}`;
-      span.innerHTML = buildConfidenceBarHTML(section.checkScore, tooltip);
+      span.innerHTML = buildConfidenceBarHTML(section.checkScore, section.checkDate);
     } else {
       span.innerHTML = buildConfidenceBarHTML(null);
     }
@@ -278,11 +277,10 @@ function populateTocConfidence() {
     span.setAttribute('data-db', 'content');
 
     if (section && section.checkScore != null) {
-      const tooltip = `${section.label}: ${section.checkScore}% — ${section.methodology || 'Verified'}`;
       // Use compact mode for TOC bars (50px track, 6px pointer)
-      span.innerHTML = buildConfidenceBarHTML(section.checkScore, tooltip, true);
+      span.innerHTML = buildConfidenceBarHTML(section.checkScore, section.checkDate, true);
     } else {
-      span.innerHTML = buildConfidenceBarHTML(null, '', true);
+      span.innerHTML = buildConfidenceBarHTML(null, null, true);
     }
   });
 }
@@ -314,16 +312,19 @@ function renderSectionScoreCards() {
     if (!section) return '';
 
     const score = section.checkScore;
+    const checkDate = section.checkDate;
     const label = section.label || id;
-    const methodology = section.methodology || '';
+    const dateStr = checkDate
+      ? new Date(checkDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+      : 'Pending';
 
     return `
       <div class="score-card" data-score="${score}" data-db="content">
         <div class="score-card-header">
           <span class="score-card-name"><i class="fa-solid ${icon}"></i> ${label}</span>
-          ${buildConfidenceBarHTML(score, methodology)}
+          ${buildConfidenceBarHTML(score, checkDate)}
         </div>
-        <div class="score-card-methodology">${methodology}</div>
+        <div class="score-card-date">Checked: ${dateStr}</div>
       </div>
     `;
   }).filter(Boolean);

@@ -567,6 +567,7 @@ function buildCitySection(cityId) {
   const wikiUrl = CITY_WIKI_URLS[cityId] ?? '';
   const tagline = profile?._meta?.tagline ?? '';
   const checkScore = profile?.verification?.checkScore ?? null;
+  const checkDate = profile?.verification?.checkDate ?? null;
 
   // Build section
   const section = document.createElement('section');
@@ -601,7 +602,7 @@ function buildCitySection(cityId) {
           <i class="fa-solid fa-chevron-down toggle-icon"></i>
         </button>
         <button class="city-print-btn" onclick="event.stopPropagation(); printCityProfile('${cityId}')">${SVG_PRINT} Print as PDF</button>
-        ${buildConfidenceBarHTML(checkScore)}
+        ${buildConfidenceBarHTML(checkScore, checkDate)}
       </div>
     </div>
     <div class="city-grid">

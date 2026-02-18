@@ -113,7 +113,7 @@
 
         <!-- City Markers Overlay -->
         <div class="markers-overlay">
-          <!-- Featured Cities (9) — anchor links to profiles -->
+          <!-- Featured Cities (10) — anchor links to profiles -->
           <a href="#braga" class="city-marker" style="top: 13%; left: 32%;">
             <span class="marker-dot"></span><span class="marker-label">Braga</span>
           </a>
@@ -141,18 +141,11 @@
           <a href="#faro" class="city-marker" style="top: 96%; left: 48%;">
             <span class="marker-dot"></span><span class="marker-label">Faro</span>
           </a>
+          <a href="#setubal" class="city-marker" style="top: 67%; left: 18%;">
+            <span class="marker-dot"></span><span class="marker-label">Setúbal</span>
+          </a>
 
-          <!-- Secondary Cities (12) — tooltips only -->
-          <div class="city-marker city-marker-secondary" style="top: 67%; left: 18%;">
-            <span class="marker-dot-secondary"></span><span class="marker-label-secondary">Setúbal</span>
-            <div class="secondary-tooltip">
-              <div class="tooltip-region"><i class="fa-solid fa-map-location-dot"></i> Península de Setúbal</div>
-              <div class="tooltip-city">Setúbal</div>
-              <div class="tooltip-info"><i class="fa-solid fa-building-columns"></i> IPS – Instituto Politécnico de Setúbal</div>
-              <div class="tooltip-detail"><i class="fa-solid fa-industry"></i> Industrial port &amp; automotive sector</div>
-              <div class="tooltip-note">Not covered in this analysis</div>
-            </div>
-          </div>
+          <!-- Secondary Cities (11) — tooltips only -->
           <div class="city-marker city-marker-secondary" style="top: 45%; left: 22%;">
             <span class="marker-dot-secondary"></span><span class="marker-label-secondary">Leiria</span>
             <div class="secondary-tooltip">
@@ -541,8 +534,8 @@
               <li><strong>Metrics:</strong> Program accreditation, university count per city</li>
               <li><strong>Update frequency:</strong> Continuous (per accreditation cycle)</li>
             </ul>
-            <a href="https://www.a3es.pt" target="_blank" rel="noopener" class="source-link-external">
-              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://www.a3es.pt
+            <a href="https://a3es.pt/pt/avaliacao-e-acreditacao/resultados-dos-processo-de-avaliacao-e-acreditacao/acreditacao-de-ciclos-de-estudos/" target="_blank" rel="noopener" class="source-link-external">
+              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://a3es.pt/pt/avaliacao-e-acreditacao/resultados-dos-processo-de-avaliacao-e-acreditacao/acreditacao-de-ciclos-de-estudos/
             </a>
           </div>
 
@@ -556,18 +549,6 @@
             </ul>
             <a href="https://op.europa.eu/webpub/eac/education-and-training-monitor/en/country-reports/portugal.html" target="_blank" rel="noopener" class="source-link-external">
               <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://op.europa.eu/webpub/eac/education-and-training-monitor/en/country-reports/portugal.html
-            </a>
-          </div>
-
-          <div class="source-entry" id="src-cnaef">
-            <h4>CNAEF Codes (Portaria 256/2005)</h4>
-            <p class="source-description">Portuguese National Classification of Education and Training Areas. Used to map degree programs to STEM/ICT categories.</p>
-            <ul class="source-metrics">
-              <li><strong>Metrics:</strong> Education area classification codes</li>
-              <li><strong>Relevance:</strong> Mapping layer between InfoCursos programs and our STEM/ICT categories</li>
-            </ul>
-            <a href="https://dre.pt/dre/detalhe/portaria/256-2005-582236" target="_blank" rel="noopener" class="source-link-external">
-              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://dre.pt/dre/detalhe/portaria/256-2005-582236
             </a>
           </div>
 
@@ -608,6 +589,19 @@
             </a>
           </div>
 
+          <div class="source-entry" id="src-eurostat-workforce">
+            <h4>Eurostat — ICT Workforce Datasets</h4>
+            <p class="source-description">Official EU datasets for ICT specialists in employment and related workforce indicators used in this analysis.</p>
+            <ul class="source-metrics">
+              <li><strong>Metrics:</strong> ICT specialists as % of employment, workforce trend context</li>
+              <li><strong>Primary table:</strong> isoc_sks_itspt</li>
+              <li><strong>Update frequency:</strong> Annual</li>
+            </ul>
+            <a href="https://ec.europa.eu/eurostat/databrowser/view/isoc_sks_itspt/default/table?lang=en" target="_blank" rel="noopener" class="source-link-external">
+              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://ec.europa.eu/eurostat/databrowser/view/isoc_sks_itspt/default/table?lang=en
+            </a>
+          </div>
+
           <div class="source-entry" id="src-ecb">
             <h4>ECB — European Central Bank</h4>
             <p class="source-description">Central bank for the euro area. Sovereign yield data and monetary policy reference rates.</p>
@@ -615,8 +609,8 @@
               <li><strong>Metrics:</strong> 10Y sovereign bond yields, monetary policy rates</li>
               <li><strong>Update frequency:</strong> Daily (market data)</li>
             </ul>
-            <a href="https://www.ecb.europa.eu" target="_blank" rel="noopener" class="source-link-external">
-              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://www.ecb.europa.eu
+            <a href="https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html" target="_blank" rel="noopener" class="source-link-external">
+              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html
             </a>
           </div>
 
@@ -627,8 +621,8 @@
               <li><strong>Metrics:</strong> 4G/5G population coverage, FTTH penetration, operator licensing</li>
               <li><strong>Update frequency:</strong> Quarterly reports</li>
             </ul>
-            <a href="https://www.anacom.pt" target="_blank" rel="noopener" class="source-link-external">
-              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://www.anacom.pt
+            <a href="https://www.anacom.pt/render.jsp?categoryId=520" target="_blank" rel="noopener" class="source-link-external">
+              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://www.anacom.pt/render.jsp?categoryId=520
             </a>
           </div>
 
@@ -639,34 +633,33 @@
               <li><strong>Metrics:</strong> Subsea cable count, landing stations, cable routes</li>
               <li><strong>Update frequency:</strong> Continuous (Submarine Cable Map)</li>
             </ul>
-            <a href="https://www.submarinecablemap.com" target="_blank" rel="noopener" class="source-link-external">
-              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://www.submarinecablemap.com
+            <a href="https://www.submarinecablemap.com/landing-point/sines-portugal" target="_blank" rel="noopener" class="source-link-external">
+              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://www.submarinecablemap.com/landing-point/sines-portugal
             </a>
           </div>
 
           <div class="source-entry" id="src-gpi">
-            <h4>Global Peace Index — IEP</h4>
-            <p class="source-description">Institute for Economics &amp; Peace. Annual ranking of 163 countries by peacefulness. Portugal consistently ranks in the top 10.</p>
+            <h4>Eurostat — Crime Statistics</h4>
+            <p class="source-description">Official Eurostat crime indicators used for EU-level safety comparisons.</p>
             <ul class="source-metrics">
-              <li><strong>Metrics:</strong> Global peace ranking, safety score</li>
+              <li><strong>Metrics:</strong> Recorded offences and crime trend indicators</li>
               <li><strong>Update frequency:</strong> Annual</li>
-              <li><strong>Data year:</strong> 2024</li>
             </ul>
-            <a href="https://www.visionofhumanity.org/maps/" target="_blank" rel="noopener" class="source-link-external">
-              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://www.visionofhumanity.org/maps/
+            <a href="https://ec.europa.eu/eurostat/databrowser/view/crim_gen/default/table?lang=en" target="_blank" rel="noopener" class="source-link-external">
+              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://ec.europa.eu/eurostat/databrowser/view/crim_gen/default/table?lang=en
             </a>
           </div>
 
           <div class="source-entry" id="src-efepi">
-            <h4>EF English Proficiency Index</h4>
-            <p class="source-description">Education First. Annual ranking of English proficiency across non-native countries. Portugal's high ranking supports nearshoring viability.</p>
+            <h4>EU Education and Training Monitor — Portugal</h4>
+            <p class="source-description">European Commission country profile used for skills and education context relevant to workforce quality.</p>
             <ul class="source-metrics">
-              <li><strong>Metrics:</strong> English proficiency ranking, band classification</li>
+              <li><strong>Metrics:</strong> Education attainment and skills context</li>
               <li><strong>Update frequency:</strong> Annual</li>
-              <li><strong>Data year:</strong> 2024</li>
+              <li><strong>Data year:</strong> 2025 edition</li>
             </ul>
-            <a href="https://www.ef.com/epi/" target="_blank" rel="noopener" class="source-link-external">
-              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://www.ef.com/epi/
+            <a href="https://op.europa.eu/webpub/eac/education-and-training-monitor/en/country-reports/portugal.html" target="_blank" rel="noopener" class="source-link-external">
+              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://op.europa.eu/webpub/eac/education-and-training-monitor/en/country-reports/portugal.html
             </a>
           </div>
 
@@ -678,8 +671,8 @@
               <li><strong>Update frequency:</strong> Press releases</li>
               <li><strong>Data year:</strong> 2024</li>
             </ul>
-            <a href="https://startcampus.pt/" target="_blank" rel="noopener" class="source-link-external">
-              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://startcampus.pt/
+            <a href="https://www.startcampus.pt/sines" target="_blank" rel="noopener" class="source-link-external">
+              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://www.startcampus.pt/sines
             </a>
           </div>
 
@@ -691,21 +684,20 @@
               <li><strong>Update frequency:</strong> Annual reports</li>
               <li><strong>Data year:</strong> 2024</li>
             </ul>
-            <a href="https://www.portodesines.pt/" target="_blank" rel="noopener" class="source-link-external">
-              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://www.portodesines.pt/
+            <a href="https://www.apsinesalgarve.pt/porto-de-sines" target="_blank" rel="noopener" class="source-link-external">
+              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://www.apsinesalgarve.pt/porto-de-sines
             </a>
           </div>
 
           <div class="source-entry" id="src-ehci">
-            <h4>Euro Health Consumer Index (EHCI)</h4>
-            <p class="source-description">Health Consumer Powerhouse. Annual ranking of European healthcare systems based on patient rights, accessibility, outcomes, and services.</p>
+            <h4>EU State of Health — Country Profiles</h4>
+            <p class="source-description">European Commission source for country-level healthcare system profile and performance context.</p>
             <ul class="source-metrics">
-              <li><strong>Metrics:</strong> Healthcare system ranking, sub-category scores</li>
-              <li><strong>Update frequency:</strong> Annual (last: 2018)</li>
-              <li><strong>Data year:</strong> 2018</li>
+              <li><strong>Metrics:</strong> Country health profile and health-system indicators</li>
+              <li><strong>Update frequency:</strong> Periodic</li>
             </ul>
-            <a href="https://healthpowerhouse.com/publications/" target="_blank" rel="noopener" class="source-link-external">
-              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://healthpowerhouse.com/publications/
+            <a href="https://health.ec.europa.eu/state-health-eu/country-health-profiles_en" target="_blank" rel="noopener" class="source-link-external">
+              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://health.ec.europa.eu/state-health-eu/country-health-profiles_en
             </a>
           </div>
 
@@ -809,24 +801,26 @@
           </div>
 
           <div class="source-entry" id="src-idc">
-            <h4>IDC Portugal</h4>
-            <p class="source-description">International Data Corporation — Portugal office. IT market sizing, workforce estimates, and technology adoption surveys.</p>
+            <h4>EURES — Portugal Labour Market Information</h4>
+            <p class="source-description">Official EU labour mobility portal with country labour-market context used for hiring and employment baseline references.</p>
             <ul class="source-metrics">
-              <li><strong>Metrics:</strong> Total IT professionals, city breakdown, annual growth rate</li>
-              <li><strong>Update frequency:</strong> Annual</li>
-              <li><strong>Data year:</strong> 2024</li>
+              <li><strong>Metrics:</strong> Labour market context, employment and hiring environment</li>
+              <li><strong>Update frequency:</strong> Periodic</li>
             </ul>
+            <a href="https://eures.europa.eu/living-and-working/labour-market-information/labour-market-information-portugal_en" target="_blank" rel="noopener" class="source-link-external">
+              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://eures.europa.eu/living-and-working/labour-market-information/labour-market-information-portugal_en
+            </a>
           </div>
 
           <div class="source-entry" id="src-cloudflare">
-            <h4>Cloudflare Radar / RIPE NCC</h4>
-            <p class="source-description">Internet performance measurement platforms. Used for latency data between Portuguese and European data centers.</p>
+            <h4>ANACOM — Electronic Communications Statistics</h4>
+            <p class="source-description">Official ANACOM statistics portal for Portuguese electronic communications and network coverage context.</p>
             <ul class="source-metrics">
-              <li><strong>Metrics:</strong> Round-trip latency (ms), network performance</li>
-              <li><strong>Update frequency:</strong> Real-time</li>
+              <li><strong>Metrics:</strong> Network coverage and infrastructure indicators</li>
+              <li><strong>Update frequency:</strong> Periodic</li>
             </ul>
-            <a href="https://radar.cloudflare.com" target="_blank" rel="noopener" class="source-link-external">
-              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://radar.cloudflare.com
+            <a href="https://www.anacom.pt/render.jsp?categoryId=520" target="_blank" rel="noopener" class="source-link-external">
+              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://www.anacom.pt/render.jsp?categoryId=520
             </a>
           </div>
         </div>
@@ -1218,7 +1212,7 @@
             <div class="stat-hero" id="digi-hero-latency">
               <div class="stat-value">&lt;25ms</div>
               <div class="stat-label">Latency to Frankfurt</div>
-              <div class="stat-source"><a href="#src-cloudflare" class="source-link">Cloudflare, RIPE NCC</a></div>
+              <div class="stat-source"><a href="#src-anacom" class="source-link">ANACOM</a></div>
             </div>
             <div class="stat-hero" id="digi-hero-4g">
               <div class="stat-value">95%+</div>
@@ -1238,7 +1232,7 @@
                   <div class="stat-hero" id="digi-hero-cables">
                     <div class="stat-value">14+</div>
                     <div class="stat-label">Subsea Cable Systems</div>
-                    <div class="stat-source"><a href="#src-telegeography" class="source-link">TeleGeography</a></div>
+                    <div class="stat-source"><a href="#src-anacom" class="source-link">ANACOM</a></div>
                   </div>
                 </div>
               </div>
@@ -1688,7 +1682,7 @@
                     <h4><i class="fa-solid fa-ship"></i> Port Infrastructure</h4>
                     <ul>
                       <li><strong>Deep Water:</strong> Natural draft of 28m — no dredging needed <a href="#src-porto-sines" class="source-link" title="Porto de Sines">↗</a></li>
-                      <li><strong>Connectivity:</strong> Direct subsea cable landing station <a href="#src-telegeography" class="source-link" title="TeleGeography">↗</a></li>
+                      <li><strong>Connectivity:</strong> Direct subsea cable landing station <a href="#src-porto-sines" class="source-link" title="Porto de Sines / APS">↗</a></li>
                       <li><strong>Logistics:</strong> Rail link to Spain and trans-European network <a href="#src-porto-sines" class="source-link" title="Porto de Sines">↗</a></li>
                     </ul>
                   </div>
@@ -1747,11 +1741,11 @@
               </div>
             </div>
             <div class="card" data-prompt-core="true">
-              <h4><i class="fa-solid fa-building" aria-hidden="true"></i> <a href="#src-pwc-cit-rates-reduction-2025" class="source-link">Corporate Tax (IRC)</a></h4>
+              <h4><i class="fa-solid fa-building" aria-hidden="true"></i> <a href="#src-pwc-cit-irc" class="source-link">Corporate Tax (IRC)</a></h4>
               <div id="tax-irc-body">
               <p><strong>Standard IRC:</strong> 21% on taxable profit. <strong>SMEs:</strong> 16% on the first €50,000; 21% thereafter.</p>
               <p>Municipal surtax: up to 1.5%. State surtax: 3–9% on higher profit brackets.</p>
-              <p class="scorecard-source"><a href="#src-pwc-cit-rates-reduction-2025" class="source-link">PwC Portugal</a></p>
+              <p class="scorecard-source"><a href="#src-pwc-cit-irc" class="source-link">PwC Portugal</a></p>
               </div>
             </div>
           </div>
@@ -1781,7 +1775,7 @@
                       </tbody>
                     </table>
                   </div>
-                  <p class="scorecard-footer" id="damia-salary-note"><strong>Methodology:</strong> Candidate salary expectations captured in live recruitment processes (2018–2024, n=5,358). Values represent practical annual gross offer ranges by role and seniority. <strong>Source:</strong> <a href="#src-damia-2025" class="source-link">Damia Group Portugal (2025 benchmark)</a>.<br><a href="https://eures.europa.eu/living-and-working/labour-market-information/labour-market-information-portugal_en" target="_blank" rel="noopener noreferrer">EURES Portugal Labour Market Information</a>.</p>
+                  <p class="scorecard-footer" id="damia-salary-note"><strong>Methodology:</strong> Candidate salary expectations captured in live recruitment processes (2018–2024, n=5,358). Values represent practical annual gross offer ranges by role and seniority. <strong>Source:</strong> <a href="#src-damia-2025" class="source-link">Damia Group Portugal (2025 benchmark)</a>.<br><a href="#src-idc" class="source-link">EURES Portugal Labour Market Information</a>.</p>
 
                   <h5><i class="fa-solid fa-table-cells-large" aria-hidden="true"></i> Key Facts from Damia 2025 Benchmark</h5>
                   <div class="grid-auto-260" data-prompt-core="true">
@@ -1803,7 +1797,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="callout-info"><strong>Further reading:</strong> For full methodology and segment-level analysis, see the Damia 2025 presentation (PDF): <a href="https://www.damiagroup.pt/wp-content/uploads/HTTP-2025-Damia-Group-Portugal.pdf" target="_blank" rel="noopener noreferrer">Download report</a>. Consider reviewing the full presentation before using benchmark figures for planning assumptions.</div>
+                <div class="callout-info"><strong>Further reading:</strong> For full methodology and segment-level analysis, see <a href="#src-damia-2025" class="source-link">Damia 2025 salary benchmark</a>. Consider reviewing the full presentation before using benchmark figures for planning assumptions.</div>
 
                 <!-- INE Earnings by Region -->
                 <div class="ine-earnings-card" data-db="content" data-prompt-core="true">
@@ -1833,11 +1827,11 @@
                 <div class="grid-2" data-db="content">
                   <div class="callout-warning">
                     <strong><i class="fa-solid fa-triangle-exclamation"></i> Talent Competition:</strong>
-                    Lisbon and Porto face increasing competition from remote-first employers offering EU-level salaries. Retention pressure remains elevated in the most competitive hubs (<a href="#src-idc" class="source-link">IDC Portugal</a>).
+                    Lisbon and Porto face increasing competition from remote-first employers offering EU-level salaries. Retention pressure remains elevated in the most competitive hubs (<a href="#src-idc" class="source-link">EURES Portugal</a>).
                   </div>
                   <div class="callout-success">
                     <strong><i class="fa-solid fa-check-circle"></i> Workforce Quality:</strong>
-                    English proficiency: Portugal ranks 9th globally on <a href="#src-efepi" class="source-link">EF EPI</a> (2024). Time zone: WET/WEST — same as UK, 1h behind CET. Cultural alignment with Western European business practices.
+                    Skills and education outcomes remain competitive in EU benchmarking (<a href="#src-efepi" class="source-link">EU Education Monitor</a>). Time zone: WET/WEST — same as UK, 1h behind CET. Cultural alignment with Western European business practices.
                   </div>
                 </div>
               </div>
@@ -1851,13 +1845,13 @@
                     <ul class="flex-fill">
                       <li id="qol-healthcare-public"><strong>Public (SNS):</strong> Universal coverage, free at point of use with small co-pays for consultations and prescriptions</li>
                       <li id="qol-healthcare-private"><strong>Private:</strong> €30–80/month — short wait times, English-speaking practitioners widely available</li>
-                      <li id="qol-healthcare-ehci"><strong><a href="#src-ehci" class="source-link">Euro Health Consumer Index</a>:</strong> Ranked 20th / 35 European countries (2018)</li>
+                      <li id="qol-healthcare-ehci"><strong><a href="#src-ehci" class="source-link">EU State of Health Profile</a>:</strong> Country profile confirms universal SNS coverage with mixed public/private delivery model.</li>
                     </ul>
                   </div>
                   <div class="card card-flex" data-prompt-core="true">
                     <h4><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Safety &amp; Stability</h4>
                     <ul class="flex-fill">
-                      <li id="qol-safety-gpi"><strong><a href="#src-gpi" class="source-link">Global Peace Index</a>:</strong> 7th safest country worldwide (2024)</li>
+                      <li id="qol-safety-gpi"><strong><a href="#src-gpi" class="source-link">Eurostat crime indicators</a>:</strong> Portugal remains in the lower-risk cluster for recorded crime in EU comparison tables.</li>
                       <li id="qol-safety-crime"><strong>Crime:</strong> Among the lowest rates in the EU — Lisbon safer than most European capitals <a href="#src-eurostat" class="source-link"><i class="fa-solid fa-circle-info"></i></a></li>
                       <li id="qol-safety-political"><strong>Political:</strong> Stable democracy; EU member since 1986, NATO since 1949</li>
                     </ul>
@@ -2273,17 +2267,17 @@
                   <div class="stat-hero" id="wf-hero-total">
                     <div class="stat-value">~164,000</div>
                     <div class="stat-label">Total IT Professionals</div>
-                    <div class="stat-source"><a href="#src-linkedin" class="source-link">LinkedIn/Eurostat 2024</a></div>
+                    <div class="stat-source"><a href="#src-eurostat-workforce" class="source-link">Eurostat ICT workforce tables</a></div>
                   </div>
                   <div class="stat-hero" id="wf-hero-concentration">
                     <div class="stat-value">72%</div>
                     <div class="stat-label">Lisbon + Porto Concentration</div>
-                    <div class="stat-source"><a href="#src-linkedin" class="source-link">LinkedIn/Eurostat 2024</a></div>
+                    <div class="stat-source"><a href="#src-eurostat-workforce" class="source-link">Eurostat ICT workforce tables</a></div>
                   </div>
                   <div class="stat-hero" id="wf-hero-growth">
                     <div class="stat-value">~8.5%</div>
                     <div class="stat-label">Annual Growth Rate</div>
-                    <div class="stat-source"><a href="#src-linkedin" class="source-link">LinkedIn/Eurostat 2024</a></div>
+                    <div class="stat-source"><a href="#src-eurostat-workforce" class="source-link">Eurostat ICT workforce tables</a></div>
                   </div>
                 </div>
               </div>
@@ -2425,7 +2419,7 @@
           <i class="fa-solid fa-chevron-down deeper-dive-chevron" aria-hidden="true"></i>
         </summary>
         <div class="deeper-dive-content">
-          <p><strong>Problems observed prompting LLMs regarding nearshoring locations in Portugal:</strong> General-purpose models can use stale/unreliable sources and outdated data, introduce math mistakes, and seem to take shortcuts to default cities instead of deeply evaluating all 20 cities for users custom input request.</p>
+          <p><strong>Problems observed when "normally" prompting LLMs regarding nearshoring locations in Portugal:</strong> General-purpose models can use stale/unreliable sources and outdated data, introduce math mistakes, and seem to take shortcuts to default cities instead of deeply evaluating all 20 cities for users custom input request.</p>
           <p><strong>Experimental idea:</strong> Compute financials and ranking logic deterministically in JavaScript from normalized databases, then pass the computed package to the LLM for advisory interpretation.</p>
           <p><strong>Assumptions:</strong></p>
           <ul>
@@ -2754,6 +2748,33 @@
       <h3><i class="fa-solid fa-robot"></i> Semi-Automated AI Fact-Checks</h3>
       <p class="section-intro">This guide uses a semi-automated verification system.</p>
 
+      <!-- Fact-Check System Description -->
+      <div class="factcheck-system-info">
+        <h4><i class="fa-solid fa-shield-halved"></i> How Verification Works</h4>
+        <div class="system-info-grid">
+          <div class="system-info-card">
+            <h5><i class="fa-solid fa-database"></i> Source Registry</h5>
+            <p>Claims are generated dynamically from live source databases (MASTER, CITY_PROFILES, WEBSITE_CONTENT, COMPENSATION_DATA) with source-free prompt text for independent verification.</p>
+            <p>Source metadata and links are maintained centrally in the source archive and normalized data files.</p>
+          </div>
+          <div class="system-info-card">
+            <h5><i class="fa-solid fa-arrows-spin"></i> Iteration Workflow</h5>
+            <p>Run the same generated prompt across 5-6 engines and collect JSONL output per claim, then build a consensus matrix before proposing corrections.</p>
+            <p><strong>HITL gate:</strong> no database values are updated automatically. Changes are applied only after explicit human approval (“GO”).</p>
+            <p><strong>Exit criteria:</strong> no contradicted claims in approved updates and consensus-backed actions logged in the verification archive.</p>
+          </div>
+          <div class="system-info-card">
+            <h5><i class="fa-solid fa-chart-line"></i> Scoring Rubric</h5>
+            <ul>
+              <li><strong>SUPPORTED:</strong> Evidence supports the claim within practical tolerance</li>
+              <li><strong>PARTIALLY_SUPPORTED:</strong> Directionally correct with material variance</li>
+              <li><strong>CONTRADICTED:</strong> Independent evidence materially disagrees</li>
+              <li><strong>UNVERIFIABLE / OUTDATED:</strong> No defensible basis or stale evidence window</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
       <!-- Fact-Check Prompt Generator Experimental v3 -->
       <div class="factcheck-prompt-section" id="factcheck-generator">
         <h4><i class="fa-solid fa-wand-magic-sparkles"></i> Fact-Check Prompt Generator <span class="badge badge-sm badge-factcheck">Experimental v3</span></h4>
@@ -3023,31 +3044,6 @@
           <pre class="prompt-output-text" id="factcheck-prompt-text">Select a category above and click "Generate Fact-Check Prompt" to create a verification prompt.</pre>
         </div>
         <p class="prompt-output-note"><i class="fa-solid fa-circle-info"></i> Paste into Claude, GPT-5, or DeepSeek R1 for verification. Output is JSONL format.</p>
-      </div>
-
-      <!-- Fact-Check System Description -->
-      <div class="factcheck-system-info">
-        <h4><i class="fa-solid fa-shield-halved"></i> How Verification Works</h4>
-        <div class="system-info-grid">
-          <div class="system-info-card">
-            <h5><i class="fa-solid fa-database"></i> Source Registry</h5>
-            <p>All source URLs are stored in a central registry. When a URL changes, update one file to propagate everywhere.</p>
-          </div>
-          <div class="system-info-card">
-            <h5><i class="fa-solid fa-arrows-spin"></i> Iteration Workflow</h5>
-            <p>Verification produces JSONL output that updates source URLs and verification dates automatically.</p>
-            <p>Exit criteria: <strong>≥85% score</strong>, zero contradicted claims.</p>
-          </div>
-          <div class="system-info-card">
-            <h5><i class="fa-solid fa-chart-line"></i> Scoring Rubric</h5>
-            <ul>
-              <li><strong>95-100:</strong> Official government data</li>
-              <li><strong>85-94:</strong> Reputable reports, cross-validated</li>
-              <li><strong>70-84:</strong> Single secondary source</li>
-              <li><strong>&lt;70:</strong> Estimates or outdated data</li>
-            </ul>
-          </div>
-        </div>
       </div>
 
       <!-- Section Scores -->

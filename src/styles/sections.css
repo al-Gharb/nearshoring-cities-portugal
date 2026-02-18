@@ -2100,12 +2100,7 @@ a.scorecard-source:hover {
   box-shadow: 0 1px 3px rgba(0,0,0,0.3);
 }
 
-/* Score card body (methodology + date) */
-.score-card-methodology {
-  font-size: 0.78rem;
-  color: var(--light-text);
-  line-height: 1.4;
-}
+/* Score card body (date) */
 .score-card-date {
   font-size: 0.72rem;
   color: var(--accent-color);

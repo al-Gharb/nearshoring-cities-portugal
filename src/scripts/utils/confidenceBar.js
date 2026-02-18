@@ -18,10 +18,23 @@ export function getConfidenceLabel(score) {
   return 'Very Low — treat as estimates only';
 }
 
+function formatFactCheckDate(checkDate) {
+  if (!checkDate) return 'Pending';
+
+  const parsed = new Date(checkDate);
+  if (Number.isNaN(parsed.getTime())) return 'Pending';
+
+  return parsed.toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  });
+}
+
 /**
  * Build HTML for a confidence bar widget.
  * @param {number|null} score — 0-100 or null
- * @param {string} [tooltip] — optional tooltip override
+ * @param {string|null} [checkDate] — last fact-check date (ISO or parseable date)
  * @param {boolean} [compact] — use compact sizing (50px track, 6px pointer)
  * @returns {string} — HTML string for confidence bar
  * 
@@ -30,12 +43,13 @@ export function getConfidenceLabel(score) {
  * All CSS overrides (.city-header, .section-confidence, .score-card)
  * must maintain these dimensions for correct pointer positioning.
  */
-export function buildConfidenceBarHTML(score, tooltip = '', compact = false) {
+export function buildConfidenceBarHTML(score, checkDate = null, compact = false) {
   const compactClass = compact ? ' confidence-bar-compact' : '';
+  const formattedDate = formatFactCheckDate(checkDate);
   
   if (score == null) {
     const nullPosition = compact ? 25 : 40;
-    return `<span class="confidence-bar${compactClass}" title="Data confidence: not yet assessed">
+    return `<span class="confidence-bar${compactClass}" title="Data confidence: not yet assessed. Last fact-check: ${formattedDate}.">
       <span class="confidence-bar-track"><span class="confidence-bar-pointer" style="left: ${nullPosition}px;"></span></span>
       <span class="confidence-bar-label">—</span>
     </span>`;
@@ -46,8 +60,7 @@ export function buildConfidenceBarHTML(score, tooltip = '', compact = false) {
   const offset = compact ? 3 : 4;
   const range = compact ? 44 : 72;
   const position = Math.round(offset + (score / 100) * range);
-  const label = getConfidenceLabel(score);
-  const titleText = tooltip || `Data confidence: ${score}% — ${label}`;
+  const titleText = `Data confidence: ${score}%. Last fact-check: ${formattedDate}.`;
 
   return `<span class="confidence-bar${compactClass}" title="${titleText}">
     <span class="confidence-bar-track"><span class="confidence-bar-pointer" style="left: ${position}px;"></span></span>
