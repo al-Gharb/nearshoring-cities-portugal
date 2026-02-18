@@ -69,7 +69,7 @@ function createCityRow(rowData) {
     link.textContent = rowData.name;
     nameCell.appendChild(link);
     const star = document.createElement('a');
-    star.href = '#src-digital-stemplus';
+    star.href = '#src-tech-stemplus';
     star.classList.add('city-featured-star');
     star.textContent = '★';
     star.title = 'Featured city — see methodology';
@@ -127,12 +127,12 @@ function createCityRow(rowData) {
   }
   tr.appendChild(ictPctCell);
 
-  // Digital STEM+ — internal estimate, always approximate (≈)
+  // Tech STEM+ — internal estimate, always approximate (≈)
   const stemCell = document.createElement('td');
   stemCell.classList.add('col-numeric', 'col-stemplus', 'approximate-value');
   if (rowData.stemPlus != null) {
     stemCell.textContent = formatNumber(rowData.stemPlus);
-    stemCell.title = 'Internal benchmark estimate (approximate), not an official DGEEC classification';
+    stemCell.title = 'Internal Tech STEM+ benchmark estimate (approximate), not an official DGEEC classification';
   } else {
     stemCell.textContent = '—';
   }
@@ -233,12 +233,12 @@ function createRegionSummaryRow(regionName, totals) {
   }
   tr.appendChild(ictPctCell);
 
-  // Digital STEM+ total — always approximate
+  // Tech STEM+ total — always approximate
   const stemCell = document.createElement('td');
   stemCell.classList.add('col-numeric', 'col-stemplus', 'approximate-value');
   if (totals?.digitalStemPlus != null) {
     stemCell.textContent = formatNumber(totals.digitalStemPlus);
-    stemCell.title = 'Internal benchmark estimate — sum of city estimates (approximate)';
+    stemCell.title = 'Internal Tech STEM+ benchmark estimate — regional gross 2026 totals (approximate)';
   } else {
     stemCell.textContent = '—';
   }
@@ -306,7 +306,7 @@ function createGrandTotalsRow(allRegionalTotals) {
   stemCell.classList.add('col-numeric', 'col-stemplus', 'approximate-value');
   stemCell.id = 'total-stem-grads';
   stemCell.textContent = formatNumber(totalStemPlus);
-  stemCell.title = 'Internal benchmark estimate — sum of all Digital STEM+ values (approximate)';
+  stemCell.title = 'Internal Tech STEM+ benchmark estimate — sum of all regional gross 2026 values (approximate)';
   tr.appendChild(stemCell);
 
   // Salary — N/A

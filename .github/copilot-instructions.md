@@ -192,7 +192,7 @@ This is a **data-driven business analysis**, not marketing material.
 1. **Source-Free Claims** — Claim text no longer includes source attributions (no Numbeo, DGEEC, INE, Eurostat, salary-board labels, etc. in claim strings). The 3rd-party AI must find its own sources independently.
 2. **Dynamic Claim Generation** — Claims are extracted directly from source databases at runtime
 3. **Single Source of Truth** — No separate claims file to sync; update source DB → claims auto-update
-4. **Internal Calculations Excluded** — Digital STEM+, Salary Index flagged as internal (not sent to AI)
+4. **Internal Calculations Excluded** — Tech STEM+, Salary Index flagged as internal (not sent to AI)
 5. **Comprehensive Extraction** — All displayable data is converted to verifiable claims
 
 > **ℹ️ Data Flow Reference:** See `DATA_FLOW.md` at project root for the complete database → JS → HTML rendering map.
@@ -249,7 +249,7 @@ This is a **data-driven business analysis**, not marketing material.
 
 | Metric | Description | Methodology |
 |--------|-------------|-------------|
-| Digital STEM+ | CNAEF 06 + 46 + 48 + 52 | `index.html#methodology-graduates` |
+| Tech STEM+ | CNAEF 06 + 46 + 48 + 52 | `index.html#methodology-graduates` |
 | Salary Index | INE regional wages ÷ Lisbon | `index.html#methodology-salaries` |
 | ICT % | coreIct ÷ officialStem | Derived |
 | Cost Comparisons | COL index differences | Derived |
@@ -434,7 +434,7 @@ npm run preview # Preview build at localhost:4173
 |--------|-------|------|
 | Official STEM | Red (`--stem-color`) | `fa-user-graduate` |
 | Core ICT | Green (`--ict-color`) | `fa-user-graduate` |
-| Digital STEM+ | Blue (`--stemplus-color`) | `fa-user-graduate` + `fa-user` |
+| Tech STEM+ | Blue (`--stemplus-color`) | `fa-user-graduate` + `fa-user` |
 | ICT % | Green | `fa-chart-pie` |
 
 ### Inline CSS Policy

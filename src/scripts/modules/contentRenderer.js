@@ -126,13 +126,13 @@ function populateDbValues() {
  */
 function populateMethodology() {
   const store = getStore();
-  const cities = store.master?.cities || {};
+  const regionalTotals = store.master?.regionalTotals || {};
   let totalStem = 0;
   let totalICT = 0;
 
-  for (const city of Object.values(cities)) {
-    totalStem += city.talent?.graduates?.digitalStemPlus?.value ?? 0;
-    totalICT += city.talent?.graduates?.coreICT?.value ?? 0;
+  for (const totals of Object.values(regionalTotals)) {
+    totalStem += totals?.digitalStemPlus ?? 0;
+    totalICT += totals?.coreICT ?? 0;
   }
 
   const introStem = document.getElementById('meth-intro-stem');
@@ -145,7 +145,7 @@ function populateMethodology() {
     introStem.setAttribute('data-db', 'master');
   }
   if (cardStem) {
-    cardStem.textContent = `~${fmt(totalStem)}/year (2026 est.)`;
+    cardStem.textContent = `~${fmt(totalStem)}/year (2026 gross est.)`;
     cardStem.setAttribute('data-db', 'master');
   }
   if (cardIct) {

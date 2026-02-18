@@ -8,7 +8,7 @@
     "field": "salaryIndex"
   },
   "yAxis": {
-    "label": "Digital STEM+ Graduates",
+    "label": "Tech STEM+ Graduates",
     "field": "stemGrads"
   },
   "bubbleSize": {

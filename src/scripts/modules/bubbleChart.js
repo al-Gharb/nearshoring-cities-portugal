@@ -3,7 +3,7 @@
  * D3.js scatter/bubble chart: Cost Pressure Index (x) vs STEM+ Graduates (y)
  *
  * X-axis: Cost Pressure Index = COL Index + Office Rent Midpoint + Salary Index
- * Y-axis: Annual Digital STEM+ graduate output
+ * Y-axis: Annual Tech STEM+ graduate output
  * Bubble size: Proportional to STEM+ graduates (sqrt scale)
  * Color: Green → Yellow → Red gradient by cost pressure
  * Inner circle: Core ICT graduates (navy, proportional to ICT/STEM ratio)
@@ -216,7 +216,7 @@ export function renderBubbleChart() {
     .attr('text-anchor', 'middle')
     .attr('font-size', '14px')
     .attr('font-weight', '700')
-    .text('Annual Digital STEM+ Output (symlog scale) →');
+    .text('Annual Tech STEM+ Output (symlog scale) →');
 
   g.append('text')
     .attr('transform', 'rotate(-90)')
@@ -226,7 +226,7 @@ export function renderBubbleChart() {
     .attr('text-anchor', 'middle')
     .attr('font-size', '10px')
     .attr('font-style', 'italic')
-    .text('Digital STEM+ graduates entering the job market');
+    .text('Tech STEM+ graduates entering the job market');
 
   // ── Tooltip functions ──
   const showTooltip = (event, d) => {
@@ -248,7 +248,7 @@ export function renderBubbleChart() {
     `;
     tooltip.body.innerHTML = `
       <span class="tooltip-grad-line"><i class="fa-solid fa-user-graduate"></i><i class="fa-solid fa-user"></i>
-        ${gradsLabel} STEM+ / yr</span>
+        ${gradsLabel} Tech STEM+ / yr</span>
       <span class="tooltip-grad-line tooltip-official"><i class="fa-solid fa-user-graduate"></i>${officialStemLabel} Official STEM</span>
       <span class="tooltip-grad-line tooltip-ict"><i class="fa-solid fa-user-graduate"></i><span class="ict-highlight">(${ictLabel} ICT · ${ictPct}%)</span></span>
     `;
@@ -282,7 +282,7 @@ export function renderBubbleChart() {
     .attr('class', 'city')
     .attr('transform', d => `translate(${x(d.cost)},${y(d.grads)})`);
 
-  // Outer bubble = total Digital STEM+
+  // Outer bubble = total Tech STEM+
   cityGroups.append('circle')
     .attr('class', 'outer-bubble')
     .attr('r', d => radius(d.grads))

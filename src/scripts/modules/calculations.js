@@ -2,7 +2,7 @@
  * CALCULATIONS MODULE
  * Graduate metrics (3-tier), salary index, and ICT percentage calculations.
  *
- * CRITICAL: ICT % uses officialStem as denominator, NOT digitalStemPlus.
+ * CRITICAL: ICT % uses officialStem as denominator, NOT Tech STEM+.
  * Formula: (coreICT / officialStem) × 100
  */
 
@@ -14,7 +14,7 @@
  * Legacy formula (app.js line 553): ict / officialStemGrads × 100
  *
  * @param {number} coreICT
- * @param {number} officialStem — NOT digitalStemPlus
+ * @param {number} officialStem — NOT Tech STEM+
  * @returns {string} — formatted to 1 decimal place
  */
 export function calculateICTPct(coreICT, officialStem) {

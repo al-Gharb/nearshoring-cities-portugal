@@ -620,7 +620,7 @@ function buildCitySection(cityId) {
           <div class="graduate-stat">
             <span class="stat-icons"><i class="fa-solid fa-user-graduate icon-stemplus"></i><i class="fa-solid fa-user icon-stemplus"></i></span>
             <span class="db-value" data-city="${cityId}" data-field="stem-grads" data-db="master">${masterCity.talent?.graduates?.digitalStemPlus?.value ? formatNumber(masterCity.talent.graduates.digitalStemPlus.value) : '—'}</span>
-            <span class="graduate-label">Digital STEM+ <a href="#src-digital-stemplus" class="source-link"><i class="fa-solid fa-circle-info"></i></a></span>
+            <span class="graduate-label">Tech STEM+ <a href="#src-tech-stemplus" class="source-link"><i class="fa-solid fa-circle-info"></i></a></span>
           </div>
           <div class="graduate-stat">
             <i class="fa-solid fa-user-graduate icon-stem"></i>

@@ -11,7 +11,7 @@
 ## What This Covers
 
 - Per-city: office rent, residential rent, COL index
-- Per-city: official STEM, Digital STEM+, Core ICT, ICT % (internal calculations)
+- Per-city: official STEM, Tech STEM+, Core ICT, ICT % (internal calculations)
 - Per-city: salary index (internal calculation)
 - Regional totals: 7 NUTS II regions (officialStem, coreICT, ICT %)
 - Uses specialized `buildCityDatabasePrompt()` with metric definitions

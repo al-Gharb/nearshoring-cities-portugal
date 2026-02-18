@@ -20,7 +20,7 @@ import { computeAnalysis } from './simulatorEngine.js';
  * in MASTER.json → city.basic.region.value → regionalTotals.
  * @param {string} cityId
  * @param {Object} cityData — city entry from MASTER.json
- * @returns {number} Digital STEM+ regional total
+ * @returns {number} Tech STEM+ regional total
  */
 function getRegionalPool(cityId, cityData) {
   const region = cityData?.basic?.region?.value;
@@ -762,14 +762,14 @@ function generateCityDatabaseClaims(master) {
     // ─── TALENT & SALARY METRICS (METHODOLOGY CHECKS) ───
     
     const officialStem = cityData.talent?.graduates?.officialStem?.value;
-    const digitalStemPlus = cityData.talent?.graduates?.digitalStemPlus?.value;
+    const techStemPlus = cityData.talent?.graduates?.digitalStemPlus?.value;
     const coreICT = cityData.talent?.graduates?.coreICT?.value;
     
     if (officialStem) {
       addClaim(`${cityName} Official STEM graduates (CNAEF 05+06+07): ${officialStem}/year`, true);
     }
-    if (digitalStemPlus) {
-      addClaim(`${cityName} Digital STEM+ graduates: ${digitalStemPlus}/year (internal benchmark estimate)`, true);
+    if (techStemPlus) {
+      addClaim(`${cityName} Tech STEM+ graduates: ${techStemPlus}/year (internal benchmark estimate)`, true);
     }
     if (coreICT && officialStem) {
       const ictPct = ((coreICT / officialStem) * 100).toFixed(1);
@@ -794,7 +794,7 @@ function generateCityDatabaseClaims(master) {
         addClaim(`${regionName} region total: ${totals.coreICT} Core ICT graduates (CNAEF 481+523, 2023/24)`);
       }
       if (totals.digitalStemPlus != null) {
-        addClaim(`${regionName} region total: ${totals.digitalStemPlus} Digital STEM+ graduates (internal benchmark estimate)`, true);
+        addClaim(`${regionName} region total: ${totals.digitalStemPlus} Tech STEM+ graduates (internal benchmark estimate)`, true);
       }
     }
   }
@@ -846,7 +846,7 @@ Treat claims as source-free input: do not treat prompt wording as evidence. Do n
 2. **Freshness window:** prefer 2024-2026 evidence. Use OUTDATED when evidence for a current-market claim is materially older than 24 months.
 3. **Reasoned fallback allowed:** if direct source is unavailable, provide best defensible estimate with explicit confidence and rationale.
 4. **UNVERIFIABLE last:** use only when you genuinely have no defensible basis.
-5. **Arithmetic checks required** for internal formula-style metrics (Digital STEM+, Core ICT ratios, salary-index logic checks).
+5. **Arithmetic checks required** for internal formula-style metrics (Tech STEM+, Core ICT ratios, salary-index logic checks).
 6. **Practical market lens:** for office/residential ranges, judge whether a good-quality central non-prime option is realistically achievable now.
 
 ---
@@ -1448,14 +1448,14 @@ async function generateCityClaimsFromSource(cityId) {
     // ─── TALENT & SALARY METRICS (METHODOLOGY CHECKS) ───
     
     const officialStem = cityData.talent?.graduates?.officialStem?.value;
-    const digitalStemPlus = cityData.talent?.graduates?.digitalStemPlus?.value;
+    const techStemPlus = cityData.talent?.graduates?.digitalStemPlus?.value;
     const coreICT = cityData.talent?.graduates?.coreICT?.value;
     
     if (officialStem) {
       addClaim(`${cityName} Official STEM graduates (CNAEF 05+06+07): ${officialStem}/year`, true);
     }
-    if (digitalStemPlus) {
-      addClaim(`${cityName} Digital STEM+ graduates: ${digitalStemPlus}/year (internal benchmark estimate)`, true);
+    if (techStemPlus) {
+      addClaim(`${cityName} Tech STEM+ graduates: ${techStemPlus}/year (internal benchmark estimate)`, true);
     }
     if (coreICT && officialStem) {
       const ictPct = ((coreICT / officialStem) * 100).toFixed(1);
@@ -1543,8 +1543,8 @@ These metrics use our **internal methodology**. You cannot find these exact numb
 | Metric | Our Definition | How to Verify Reasonableness |
 |--------|----------------|------------------------------|
 | **Official STEM** | DGEEC graduates in CNAEF codes 05,06,07 | Check if city has universities offering STEM in quantitative sciences, ICT, and engineering. Compare to city size. |
-| **Digital STEM+** | Internal benchmark estimate for hiring-relevant digital talent | Validate directional plausibility against university mix, local specialization, and labor-market context. |
-| **Core ICT** | CNAEF 481 (CS) + 523 (Electronics) — pure IT specialists | Typically 10-20% of Digital STEM+. |
+| **Tech STEM+** | Internal benchmark estimate for hiring-relevant digital talent | Validate directional plausibility against university mix, local specialization, and labor-market context. |
+| **Core ICT** | CNAEF 481 (CS) + 523 (Electronics) — pure IT specialists | Typically 10-20% of Tech STEM+. |
 | **Salary Index** | Regional wages indexed to Lisbon=100, adjusted for cost of living | Interior cities should be 70-85. Porto/Lisbon area 90-100. |
 
 **For internal calculations:** Mark as SUPPORTED if numbers are **reasonable given the city's profile** (university count, population, COL). Mark as CONTRADICTED if clearly implausible or mathematically inconsistent.

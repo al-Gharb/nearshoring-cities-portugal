@@ -94,7 +94,7 @@ CITY REFERENCE DATABASE (${cityData.length} cities)
 ${JSON.stringify(cityData)}
 \`\`\`
 
-FIELD KEY: stemGrads=Digital STEM+ pool | ictGrads=Core ICT subset | salaryIndex=vs Lisbon(100) | colIndex=CoL excl. rent (NYC=100) | officeRent=€/m²/mo | residentialRent=€/mo T1
+FIELD KEY: stemGrads=Tech STEM+ pool | ictGrads=Core ICT subset | salaryIndex=vs Lisbon(100) | colIndex=CoL excl. rent (NYC=100) | officeRent=€/m²/mo | residentialRent=€/mo T1
 ADJACENT METRO: Setúbal taps Lisbon pool (45min), Guimarães taps Porto pool (40min)
 
 ═══════════════════════════════════════════════════════════════════════════════

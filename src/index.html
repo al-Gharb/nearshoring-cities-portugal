@@ -472,7 +472,7 @@
                   <th scope="col" class="col-numeric col-stem-official" title="Official STEM graduates/year — DGEEC CNAEF codes 05+06+07. City values are ≈estimates proportionally derived from official DGEEC regional totals; subtotals (*) are the actual DGEEC figures."><i class="fa-solid fa-user-graduate" aria-hidden="true"></i> Official STEM</th>
                   <th scope="col" class="col-numeric col-ict" title="Core ICT graduates/year — DGEEC CNAEF codes 481 (CS) + 523 (Electronics). City values are ≈estimates proportionally derived from official DGEEC regional totals; subtotals (*) are the actual DGEEC figures."><i class="fa-solid fa-user-graduate" aria-hidden="true"></i> ICT/yr</th>
                   <th scope="col" class="col-numeric col-ict col-with-badge" title="Auto-calculated: (Core ICT ÷ Official STEM) × 100 — shows what share of STEM graduates specialize in ICT"><span class="th-content"><span class="th-text">ICT %</span><span class="badge-auto" title="Auto-calculated: (Core ICT ÷ Official STEM) × 100">auto</span></span></th>
-                  <th scope="col" class="col-numeric col-stemplus col-with-badge" title="Digital STEM+ graduates/year — internal estimate shown as approximate (≈), not an official DGEEC classification"><span class="th-content"><span class="th-text"><i class="fa-solid fa-user-graduate" aria-hidden="true"></i><i class="fa-solid fa-user" aria-hidden="true"></i> STEM+/yr</span><span class="badge-auto" title="Internal estimate from MASTER.json (approximate)">auto</span></span></th>
+                  <th scope="col" class="col-numeric col-stemplus col-with-badge" title="Tech STEM+ graduates/year — internal estimate shown as approximate (≈), not an official DGEEC classification"><span class="th-content"><span class="th-text"><i class="fa-solid fa-user-graduate" aria-hidden="true"></i><i class="fa-solid fa-user" aria-hidden="true"></i> STEM+/yr</span><span class="badge-auto" title="Internal estimate from MASTER.json (approximate)">auto</span></span></th>
                   <th scope="col" class="col-numeric col-with-badge" title="Salary Index — auto-calculated: INE baseline compressed 45% toward 100 (IT convergence) + COL adjustment ±0.65/pt"><span class="th-content"><span class="th-text">Salary Index</span><span class="badge-auto" title="Auto-calculated: compressed baseline + (COL − 33) × 0.65, cap 100">auto</span></span></th>
                   <th scope="col" class="col-numeric" title="Office rent per m²/month — Source: Idealista live listings, semi-automated HITL+agent extraction. Scope: quality offices in central locations, 60–300 m².">Office €/m²</th>
                   <th scope="col" class="col-numeric" title="Residential rent per month — Source: Idealista live listings, semi-automated HITL+agent extraction. Scope: 1-bedroom modern apartments, central areas, 40–60 m².">Res. Rent €</th>
@@ -882,26 +882,26 @@
             </details>
           </div>
 
-          <div class="source-entry source-entry-detailed" id="src-digital-stemplus">
+          <div class="source-entry source-entry-detailed" id="src-tech-stemplus">
             <details>
               <summary style="cursor: pointer; font-weight: bold; padding: 0.5rem 0;">
-                <i class="fa-solid fa-circle-info" aria-hidden="true"></i> Digital STEM+ Methodology <span class="badge-auto">AUTO-CALCULATED</span>
+                <i class="fa-solid fa-circle-info" aria-hidden="true"></i> Tech STEM+ Methodology <span class="badge-auto">AUTO-CALCULATED</span>
               </summary>
               <div style="padding-top: 1rem;">
                 <div class="callout-success">
                   <strong><i class="fa-solid fa-sync-alt"></i> Internal metric:</strong>
-                  Digital STEM+ values are internal estimates stored in the database and displayed as approximate values (≈). They are not an official DGEEC classification.
+                  Tech STEM+ values are internal benchmark estimates stored in the database and displayed as approximate values (≈). They are not an official DGEEC classification.
                 </div>
                 <p><strong>Definition:</strong></p>
                 <div class="formula-block">
-                  <code>Digital STEM+ = internal benchmark for hiring-relevant digital talent</code><br>
-                  <span class="formula-note">Includes Official STEM plus adjacent digital and vocational tracks used in this analysis</span>
+                  <code>Tech STEM+ = projected annual hiring-relevant tech graduate pool (gross, end-2026)</code><br>
+                  <span class="formula-note">Built from Tier 1 degree-level output plus Tier 2 CTeSP and Tier 3 vocational estimates</span>
                 </div>
                 <p class="source-description">Methodology and the particularities of the Portuguese educational system</p>
 
                 <!-- Introduction -->
                 <p>
-                  This document uses <strong>two complementary metrics</strong>: <span class="meth-card-red meth-card-title meth-inline">Official STEM</span> (~27,990 graduates/year from DGEEC) and <span class="meth-card-blue meth-card-title meth-inline">Digital STEM+</span> (<span id="meth-intro-stem" class="meth-dynamic">~36,840</span> graduates/year). Official STEM is the official DGEEC count (CNAEF 05+06+07); Digital STEM+ is an internal <em>hiring-relevant</em> benchmark.
+                  This document uses <strong>two complementary metrics</strong>: <span class="meth-card-red meth-card-title meth-inline">Official STEM</span> (DGEEC official count, CNAEF 05+06+07) and <span class="meth-card-blue meth-card-title meth-inline">Tech STEM+</span> (<span id="meth-intro-stem" class="meth-dynamic">~21,486</span> gross/year). Tech STEM+ is an internal <em>hiring-relevant</em> benchmark projected to end-2026.
                 </p>
 
                 <!-- Why Two Metrics -->
@@ -911,7 +911,7 @@
                     <strong class="meth-card-red meth-card-title"><i class="fa-solid fa-user-graduate"></i> Official STEM</strong> (~27,990) uses DGEEC CNAEF codes 05+06+07 (Quantitative Sciences, ICT, Engineering). Ideal for official comparisons.
                   </p>
                   <p>
-                    <strong class="meth-card-blue meth-card-title"><i class="fa-solid fa-user-graduate"></i><i class="fa-solid fa-user"></i> Digital STEM+</strong> is an internal benchmark that additionally includes adjacent programs tech employers hire from (for example: Information Systems, UX/UI, Technology Management, Digital Health, and CTeSP vocational diplomas).
+                    <strong class="meth-card-blue meth-card-title"><i class="fa-solid fa-user-graduate"></i><i class="fa-solid fa-user"></i> Tech STEM+</strong> adds structured estimation layers for engineering, quantitative sciences, CTeSP, and vocational tracks to model practical hiring pool depth.
                   </p>
                 </div>
 
@@ -919,7 +919,7 @@
                 <div class="card-subtle">
                   <h5><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i> CTeSP: Short-Cycle Technical Diplomas (~5.2k/year)</h5>
                   <p>
-                    <em>Cursos Técnicos Superiores Profissionais</em>: 2-year programs (120 ECTS) at polytechnics focused on Web Development, Programming, IT Support, Cybersecurity. Graduates receive EQF Level 5 diplomas and often continue to bachelor's degrees.
+                    <em>Cursos Técnicos Superiores Profissionais</em>: 2-year programs (120 ECTS) at polytechnics focused on Web Development, Programming, IT Support, and Cybersecurity. The model applies 80% inclusion to reflect field drift into non-tech operational roles.
                   </p>
                 </div>
 
@@ -932,10 +932,10 @@
                     <div class="meth-card-total">~27,990/year (official)</div>
                   </div>
                   <div class="meth-card meth-card-blue">
-                    <div class="meth-card-title"><i class="fa-solid fa-user-graduate"></i><i class="fa-solid fa-user"></i> Digital STEM+</div>
-                    <div class="meth-card-source">STEM + CTeSP + Adjacent</div>
-                    <div class="meth-card-desc">Hiring-relevant talent pool</div>
-                    <div id="meth-card-stem" class="meth-card-total">~36,840/year (2026 est.)</div>
+                    <div class="meth-card-title"><i class="fa-solid fa-user-graduate"></i><i class="fa-solid fa-user"></i> Tech STEM+</div>
+                    <div class="meth-card-source">Tier 1 + Tier 2 + Tier 3</div>
+                    <div class="meth-card-desc">Hiring-relevant gross pool</div>
+                    <div id="meth-card-stem" class="meth-card-total">~21,486/year (2026 gross est.)</div>
                   </div>
                   <div class="meth-card meth-card-green">
                     <div class="meth-card-title">Core ICT <span class="meth-card-source">subset</span></div>
@@ -947,8 +947,8 @@
 
                 <!-- Breakdown Table -->
                 <div class="card">
-                  <div><strong>Digital STEM+ Composition</strong> <span class="meth-card-source">20 cities</span></div>
-                  <p><em>Core ICT uses actual database totals; other categories are internal illustrative shares used for decomposition.</em></p>
+                  <div><strong>Tech STEM+ Composition</strong> <span class="meth-card-source">Portugal mainland (NUTS2)</span></div>
+                  <p><em>Projected to end-2026 from a 2023/24 base using component-level CAGR assumptions.</em></p>
                   <div class="table-wrapper">
                     <table class="methodology-table">
                       <thead>
@@ -963,45 +963,111 @@
                       <tbody id="meth-composition-body">
                         <tr>
                           <td><strong class="meth-card-green meth-card-title">Core ICT</strong></td>
-                          <td class="meth-card-source">06 (full)</td>
-                          <td class="col-numeric meth-card-green meth-card-total">~5,895</td>
-                          <td class="col-numeric">16%</td>
-                          <td>Computer Science, Software Engineering, Informatics, Networks</td>
+                          <td class="meth-card-source">CNAEF 06 (100%)</td>
+                          <td class="col-numeric meth-card-green meth-card-total">3,674</td>
+                          <td class="col-numeric">17.1%</td>
+                          <td>Official DGEEC NUTS2 subtotal; no estimation</td>
                         </tr>
                         <tr>
-                          <td><strong>Digital Engineering</strong></td>
-                          <td class="meth-card-source">07 (select)</td>
-                          <td class="col-numeric meth-card-blue meth-card-total">~11,052</td>
-                          <td class="col-numeric">30%</td>
-                          <td>Electronics, Automation, Robotics, Telecom, Mechatronics</td>
+                          <td><strong>Engineering Subset</strong></td>
+                          <td class="meth-card-source">(STEM − ICT) × 50%</td>
+                          <td class="col-numeric meth-card-blue meth-card-total">9,261</td>
+                          <td class="col-numeric">43.1%</td>
+                          <td>Tech-applicable share of engineering output</td>
                         </tr>
                         <tr>
-                          <td><strong>Quantitative Sciences</strong></td>
-                          <td class="meth-card-source">05 (select)</td>
-                          <td class="col-numeric"><strong>~4,421</strong></td>
-                          <td class="col-numeric">12%</td>
-                          <td>Applied Math, Statistics, Data Science, Computational Physics</td>
+                          <td><strong>Math/Stats Subset</strong></td>
+                          <td class="meth-card-source">18% of STEM × 30%</td>
+                          <td class="col-numeric"><strong>1,594</strong></td>
+                          <td class="col-numeric">7.4%</td>
+                          <td>Minority entering directly tech-hireable roles</td>
                         </tr>
                         <tr>
-                          <td><strong>Adjacent Digital</strong></td>
-                          <td class="meth-card-source">mixed</td>
-                          <td class="col-numeric"><strong>~9,947</strong></td>
-                          <td class="col-numeric">27%</td>
-                          <td>Info Systems, UX/UI, Tech Management, Digital Health, Bioinformatics</td>
+                          <td><strong>CTeSP (Tier 2)</strong></td>
+                          <td class="meth-card-source">National estimate × regional HE share × 80%</td>
+                          <td class="col-numeric"><strong>4,704</strong></td>
+                          <td class="col-numeric">21.9%</td>
+                          <td>Short-cycle technical diplomas with high tech alignment</td>
                         </tr>
                         <tr>
-                          <td><strong>CTeSP Vocational</strong></td>
-                          <td class="meth-card-source">06/07 tech</td>
-                          <td class="col-numeric"><strong>~5,526</strong></td>
-                          <td class="col-numeric">15%</td>
-                          <td>2-year diplomas: Web Dev, Programming, IT Support, Cybersecurity</td>
+                          <td><strong>Vocational (Tier 3)</strong></td>
+                          <td class="meth-card-source">National estimate × population share × 45%</td>
+                          <td class="col-numeric"><strong>2,253</strong></td>
+                          <td class="col-numeric">10.5%</td>
+                          <td>Most uncertain component; higher attrition into non-tech roles</td>
                         </tr>
                         <tr class="region-summary-row">
-                          <td colspan="2"><strong>Total Digital STEM+</strong></td>
-                          <td id="meth-total-stem" class="col-numeric">~36,840</td>
+                          <td colspan="2"><strong>Total Tech STEM+ (Gross 2026)</strong></td>
+                          <td id="meth-total-stem" class="col-numeric">21,486</td>
                           <td class="col-numeric">100%</td>
-                          <td>Hiring-relevant talent pool</td>
+                          <td>Mainland projected annual hiring pool</td>
                         </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div class="card">
+                  <div><strong>Growth Assumptions to End-2026</strong> <span class="meth-card-source">2-year CAGR from 2023/24 base</span></div>
+                  <div class="table-wrapper">
+                    <table class="methodology-table">
+                      <thead>
+                        <tr>
+                          <th>Component</th>
+                          <th class="col-numeric">CAGR</th>
+                          <th>Rationale</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><strong>ICT</strong></td>
+                          <td class="col-numeric">+6%</td>
+                          <td>Slowing from historic peaks; aligned with stabilizing enrollment trends</td>
+                        </tr>
+                        <tr>
+                          <td><strong>Engineering subset</strong></td>
+                          <td class="col-numeric">+3%</td>
+                          <td>In line with overall higher-education volume growth</td>
+                        </tr>
+                        <tr>
+                          <td><strong>Math/Stats subset</strong></td>
+                          <td class="col-numeric">+3%</td>
+                          <td>Same baseline growth assumption as Engineering subset</td>
+                        </tr>
+                        <tr>
+                          <td><strong>CTeSP</strong></td>
+                          <td class="col-numeric">+8%</td>
+                          <td>Fastest tier under RRP-driven VET modernization capacity expansion</td>
+                        </tr>
+                        <tr>
+                          <td><strong>Vocational</strong></td>
+                          <td class="col-numeric">+2%</td>
+                          <td>Constrained by structural capacity and conversion to tech roles</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div class="card">
+                  <div><strong>Regional Tech STEM+ Gross 2026</strong> <span class="meth-card-source">NUTS2 totals in MASTER.json regional subtotals</span></div>
+                  <div class="table-wrapper">
+                    <table class="methodology-table">
+                      <thead>
+                        <tr>
+                          <th>Region (NUTS2)</th>
+                          <th class="col-numeric">Tech STEM+ Gross 2026</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr><td><strong>Norte</strong></td><td class="col-numeric">7,689</td></tr>
+                        <tr><td><strong>Centro</strong></td><td class="col-numeric">4,428</td></tr>
+                        <tr><td><strong>Oeste e Vale do Tejo</strong></td><td class="col-numeric">499</td></tr>
+                        <tr><td><strong>Lisbon Metro</strong></td><td class="col-numeric">6,474</td></tr>
+                        <tr><td><strong>Península de Setúbal</strong></td><td class="col-numeric">1,537</td></tr>
+                        <tr><td><strong>Alentejo</strong></td><td class="col-numeric">389</td></tr>
+                        <tr><td><strong>Algarve</strong></td><td class="col-numeric">470</td></tr>
+                        <tr class="region-summary-row"><td><strong>Mainland Total</strong></td><td class="col-numeric"><strong>21,486</strong></td></tr>
                       </tbody>
                     </table>
                   </div>
@@ -1010,7 +1076,7 @@
                 <!-- Coverage Note -->
                 <div class="callout-warning">
                   <strong><i class="fa-solid fa-triangle-exclamation"></i> Coverage:</strong>
-                  Figures cover <strong>20 cities</strong>, excluding Funchal (Madeira) and Azores.
+                  Figures cover <strong>Portugal mainland NUTS2 regions</strong> (Norte, Centro, Oeste e Vale do Tejo, Lisbon Metro, Península de Setúbal, Alentejo, Algarve), excluding islands.
                 </div>
 
                 <!-- Portugal vs Germany Comparison -->
@@ -1021,8 +1087,8 @@
                       <div class="comparison-card-title">Portugal</div>
                       <ul>
                         <li>CTeSP (2-year) counts as higher education (EQF 5)</li>
-                        <li>Adjacent programs often in university system</li>
-                        <li>Digital STEM+ includes adjacent and vocational digital tracks beyond Official STEM</li>
+                        <li>Tiered pipeline includes degree-level, CTeSP, and vocational channels</li>
+                        <li>Tech STEM+ combines official counts and modeled inclusion rates for hiring relevance</li>
                       </ul>
                     </div>
                     <div class="comparison-card comparison-card-neutral">
@@ -1041,24 +1107,24 @@
                 <div class="grid-2">
                   <div class="scope-card">
                     <strong class="scope-label scope-include">✓ Includes</strong>
-                    <span>Info Systems, UX/UI, Tech Management, Data Analytics, Digital Health, Bioinformatics, CTeSP programs</span>
+                    <span>ICT (100%), engineering tech subset (50%), math/stats subset (18% × 30%), CTeSP (80%), vocational tech tracks (45%)</span>
                   </div>
                   <div class="scope-card">
                     <strong class="scope-label scope-exclude">✗ Excludes</strong>
-                    <span>Architecture, civil construction, non-digital manufacturing, clinical health, pure life sciences</span>
+                    <span>Non-tech engineering branches, non-digital vocational tracks, and non-tech destination graduates</span>
                   </div>
                 </div>
 
                 <!-- Estimate Note -->
                 <div class="callout-warning">
                   <strong><i class="fa-solid fa-calculator"></i> Estimate:</strong>
-                  Digital STEM+ (~36,840) is an <strong>internal benchmark estimate</strong> used for this report's hiring lens. It is not an official DGEEC metric and uses illustrative shares for non-ICT categories.
+                  Tech STEM+ (~21,486 gross) is an <strong>internal benchmark estimate</strong> used for hiring-pool analysis. Net available pool can be approximated by multiplying gross values by <strong>0.745</strong> (17.5% emigration and 12% inactivity discounts).
                 </div>
 
                 <!-- Source Footer -->
                 <div class="scorecard-footer" data-db="content">
                   <strong>Sources:</strong>
-                  DGEEC 2023/24 graduate data · EU Education Monitor 2025 · CNAEF codes (Portaria 256/2005)
+                  DGEEC RAIDES 2023/24 graduates · EU Education Monitor 2025 · CNAEF codes (Portaria 256/2005) · internal projection assumptions to end-2026
                 </div>
               </div>
             </details>
@@ -1073,7 +1139,7 @@
             <ul class="source-metrics">
               <li><strong>Inputs:</strong> DGEEC Core ICT count + Official STEM count (both from MASTER.json)</li>
               <li><strong>Method:</strong> Simple ratio — auto-calculated by JS on page load</li>
-              <li><strong>Note:</strong> Uses Official STEM (not Digital STEM+) as denominator to match Eurostat methodology</li>
+              <li><strong>Note:</strong> Uses Official STEM (not Tech STEM+) as denominator to match Eurostat methodology</li>
             </ul>
           </div>
 
@@ -1715,7 +1781,7 @@
                       </tbody>
                     </table>
                   </div>
-                  <p class="scorecard-footer" id="damia-salary-note"><strong>Methodology:</strong> Candidate salary expectations captured in live recruitment processes (2018–2024, n=5,358). Values represent practical annual gross offer ranges by role and seniority. <strong>Source:</strong> <a href="#src-damia-2025" class="source-link">Damia Group Portugal (2025 benchmark)</a>.</p>
+                  <p class="scorecard-footer" id="damia-salary-note"><strong>Methodology:</strong> Candidate salary expectations captured in live recruitment processes (2018–2024, n=5,358). Values represent practical annual gross offer ranges by role and seniority. <strong>Source:</strong> <a href="#src-damia-2025" class="source-link">Damia Group Portugal (2025 benchmark)</a>.<br><a href="https://eures.europa.eu/living-and-working/labour-market-information/labour-market-information-portugal_en" target="_blank" rel="noopener noreferrer">EURES Portugal Labour Market Information</a>.</p>
 
                   <h5><i class="fa-solid fa-table-cells-large" aria-hidden="true"></i> Key Facts from Damia 2025 Benchmark</h5>
                   <div class="grid-auto-260" data-prompt-core="true">
@@ -1736,8 +1802,8 @@
                       <div class="insight-text">Bands are classified by years of experience and role scope (Junior, Mid, Senior, Lead/Management).</div>
                     </div>
                   </div>
-                  <div class="callout-info"><strong>Further reading:</strong> For full methodology and segment-level analysis, see the Damia 2025 presentation (PDF): <a href="https://www.damiagroup.pt/wp-content/uploads/HTTP-2025-Damia-Group-Portugal.pdf" target="_blank" rel="noopener noreferrer">Download report</a>. Consider reviewing the full presentation before using benchmark figures for planning assumptions.</div>
                 </div>
+                <div class="callout-info"><strong>Further reading:</strong> For full methodology and segment-level analysis, see the Damia 2025 presentation (PDF): <a href="https://www.damiagroup.pt/wp-content/uploads/HTTP-2025-Damia-Group-Portugal.pdf" target="_blank" rel="noopener noreferrer">Download report</a>. Consider reviewing the full presentation before using benchmark figures for planning assumptions.</div>
 
                 <!-- INE Earnings by Region -->
                 <div class="ine-earnings-card" data-db="content" data-prompt-core="true">
@@ -1846,7 +1912,7 @@
               <!-- D3 Bubble Chart: Talent vs Cost -->
               <div id="value-matrix" class="section-block">
                 <h3><i class="fa-solid fa-crosshairs" aria-hidden="true"></i> Talent vs Cost Value Matrix</h3>
-                <p>Interactive bubble chart: X-axis = Cost of Living Index, Y-axis = Digital STEM+ graduates/year, bubble size = ICT graduate share. Click any city for details.</p>
+                <p>Interactive bubble chart: X-axis = Cost of Living Index, Y-axis = Tech STEM+ graduates/year, bubble size = ICT graduate share. Click any city for details.</p>
                 <div id="d3-bubble-chart" class="d3-chart-container" data-db="master" role="img" aria-label="Interactive scatter plot comparing talent output versus cost of living for Portuguese cities">
                   <!-- D3.js renders the chart here -->
                 </div>
@@ -2359,7 +2425,7 @@
           <i class="fa-solid fa-chevron-down deeper-dive-chevron" aria-hidden="true"></i>
         </summary>
         <div class="deeper-dive-content">
-          <p><strong>Problem observed:</strong> General-purpose models can use stale/unreliable sources, introduce math mistakes, and default to familiar city shortcuts instead of evaluating all 20 cities.</p>
+          <p><strong>Problems observed prompting LLMs regarding nearshoring locations in Portugal:</strong> General-purpose models can use stale/unreliable sources and outdated data, introduce math mistakes, and seem to take shortcuts to default cities instead of deeply evaluating all 20 cities for users custom input request.</p>
           <p><strong>Experimental idea:</strong> Compute financials and ranking logic deterministically in JavaScript from normalized databases, then pass the computed package to the LLM for advisory interpretation.</p>
           <p><strong>Assumptions:</strong></p>
           <ul>

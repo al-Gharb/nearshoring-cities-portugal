@@ -150,9 +150,9 @@ These metrics are derived from official data using our methodology:
 
 | Metric | Description | See |
 |--------|-------------|-----|
-| **Digital STEM+** | Custom CNAEF code grouping beyond ICT | [Methodology](#methodology) |
+| **Tech STEM+** | Custom CNAEF code grouping beyond ICT | [Methodology](#methodology) |
 | **Salary Index** | INE regional wages normalized to Lisbon=100 | [Methodology](#methodology) |
-| **ICT %** | Core ICT graduates ÷ Digital STEM+ | [Methodology](#methodology) |
+| **ICT %** | Core ICT graduates ÷ Tech STEM+ | [Methodology](#methodology) |
 
 ---
 

@@ -11,7 +11,7 @@
   "internalMethods": {
     "_note": "These are internal calculations. Verify reasonableness and arithmetic consistency rather than searching for direct one-to-one external values.",
     "digitalStemPlus": {
-      "label": "Digital STEM+ Graduate Count",
+      "label": "Tech STEM+ Graduate Count",
       "description": "Custom aggregation of digitally-relevant graduate pipelines.",
       "methodology": "See index.html#methodology-graduates",
       "disclaimer": "Derived metric; validate plausibility and formula consistency."

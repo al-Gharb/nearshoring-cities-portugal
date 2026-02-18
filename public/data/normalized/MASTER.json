@@ -96,7 +96,7 @@
         "year": 2023
       },
       "coreICT": {
-        "description": "Pure CS/IT specialists (subset of Digital STEM+)",
+        "description": "Pure CS/IT specialists (subset of Tech STEM+)",
         "cnaefCodes": [
           "481 (Computer Science)",
           "523 (Electronics/Automation)"
@@ -209,37 +209,37 @@
   "regionalTotals": {
     "Norte": {
       "officialStem": 10044,
-      "digitalStemPlus": 12756,
+      "digitalStemPlus": 7689,
       "coreICT": 1246
     },
     "Centro": {
       "officialStem": 5842,
-      "digitalStemPlus": 6354,
+      "digitalStemPlus": 4428,
       "coreICT": 496
     },
     "Oeste and Vale do Tejo": {
       "officialStem": 360,
-      "digitalStemPlus": 457,
+      "digitalStemPlus": 499,
       "coreICT": 149
     },
     "Lisbon Metropolitan Area": {
       "officialStem": 8089,
-      "digitalStemPlus": 10273,
+      "digitalStemPlus": 6474,
       "coreICT": 1103
     },
     "Península de Setúbal": {
       "officialStem": 2503,
-      "digitalStemPlus": 3179,
+      "digitalStemPlus": 1537,
       "coreICT": 195
     },
     "Alentejo": {
       "officialStem": 435,
-      "digitalStemPlus": 552,
+      "digitalStemPlus": 389,
       "coreICT": 45
     },
     "Algarve": {
       "officialStem": 717,
-      "digitalStemPlus": 911,
+      "digitalStemPlus": 470,
       "coreICT": 33
     }
   },
@@ -322,7 +322,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 10273,
+            "value": 6474,
             "year": 2023,
             "meta": {
               "source": {
@@ -344,7 +344,7 @@
             "value": 1103,
             "year": 2023,
             "pctOfDigitalStem": {
-              "value": 10.7,
+              "value": 17,
               "meta": {
                 "source": {
                   "type": "derived",
@@ -553,7 +553,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 6908,
+            "value": 4164,
             "year": 2023,
             "meta": {
               "source": {
@@ -575,7 +575,7 @@
             "value": 720,
             "year": 2023,
             "pctOfDigitalStem": {
-              "value": 10.4,
+              "value": 17.3,
               "meta": {
                 "source": {
                   "type": "derived",
@@ -784,7 +784,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 1927,
+            "value": 1161,
             "year": 2023,
             "meta": {
               "source": {
@@ -806,7 +806,7 @@
             "value": 219,
             "year": 2023,
             "pctOfDigitalStem": {
-              "value": 11.4,
+              "value": 18.9,
               "meta": {
                 "source": {
                   "type": "derived",
@@ -1014,7 +1014,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 1539,
+            "value": 928,
             "year": 2023,
             "meta": {
               "source": {
@@ -1036,7 +1036,7 @@
             "value": 142,
             "year": 2023,
             "pctOfDigitalStem": {
-              "value": 9.2,
+              "value": 15.3,
               "meta": {
                 "source": {
                   "type": "derived",
@@ -1245,7 +1245,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 1467,
+            "value": 1022,
             "year": 2023,
             "meta": {
               "source": {
@@ -1267,7 +1267,7 @@
             "value": 146,
             "year": 2023,
             "pctOfDigitalStem": {
-              "value": 10,
+              "value": 14.3,
               "meta": {
                 "source": {
                   "type": "derived",
@@ -1475,7 +1475,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 1193,
+            "value": 831,
             "year": 2023,
             "meta": {
               "source": {
@@ -1497,7 +1497,7 @@
             "value": 140,
             "year": 2023,
             "pctOfDigitalStem": {
-              "value": 11.7,
+              "value": 16.8,
               "meta": {
                 "source": {
                   "type": "derived",
@@ -1705,7 +1705,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 1033,
+            "value": 720,
             "year": 2023,
             "meta": {
               "source": {
@@ -1727,7 +1727,7 @@
             "value": 63,
             "year": 2023,
             "pctOfDigitalStem": {
-              "value": 6.1,
+              "value": 8.8,
               "meta": {
                 "source": {
                   "type": "derived",
@@ -1935,7 +1935,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 387,
+            "value": 273,
             "year": 2023,
             "meta": {
               "source": {
@@ -1957,7 +1957,7 @@
             "value": 29,
             "year": 2023,
             "pctOfDigitalStem": {
-              "value": 7.5,
+              "value": 10.6,
               "meta": {
                 "source": {
                   "type": "derived",
@@ -2165,7 +2165,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 911,
+            "value": 470,
             "year": 2023,
             "meta": {
               "source": {
@@ -2187,7 +2187,7 @@
             "value": 33,
             "year": 2023,
             "pctOfDigitalStem": {
-              "value": 3.6,
+              "value": 7,
               "meta": {
                 "source": {
                   "type": "derived",
@@ -2396,7 +2396,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 3179,
+            "value": 1537,
             "year": 2023,
             "meta": {
               "source": {
@@ -2418,7 +2418,7 @@
             "value": 195,
             "year": 2023,
             "pctOfDigitalStem": {
-              "value": 6.1,
+              "value": 12.7,
               "meta": {
                 "source": {
                   "type": "derived",
@@ -2626,7 +2626,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 884,
+            "value": 533,
             "year": 2023,
             "meta": {
               "source": {
@@ -2648,7 +2648,7 @@
             "value": 65,
             "year": 2023,
             "pctOfDigitalStem": {
-              "value": 7.4,
+              "value": 12.2,
               "meta": {
                 "source": {
                   "type": "derived",
@@ -2856,7 +2856,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 655,
+            "value": 395,
             "year": 2023,
             "meta": {
               "source": {
@@ -2878,7 +2878,7 @@
             "value": 44,
             "year": 2023,
             "pctOfDigitalStem": {
-              "value": 6.7,
+              "value": 11.1,
               "meta": {
                 "source": {
                   "type": "derived",
@@ -3086,7 +3086,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 843,
+            "value": 508,
             "year": 2023,
             "meta": {
               "source": {
@@ -3108,7 +3108,7 @@
             "value": 56,
             "year": 2023,
             "pctOfDigitalStem": {
-              "value": 6.6,
+              "value": 11,
               "meta": {
                 "source": {
                   "type": "derived",
@@ -3316,7 +3316,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 1488,
+            "value": 1037,
             "year": 2023,
             "meta": {
               "source": {
@@ -3338,7 +3338,7 @@
             "value": 86,
             "year": 2023,
             "pctOfDigitalStem": {
-              "value": 5.8,
+              "value": 8.3,
               "meta": {
                 "source": {
                   "type": "derived",
@@ -3546,7 +3546,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 170,
+            "value": 186,
             "year": 2023,
             "meta": {
               "source": {
@@ -3568,7 +3568,7 @@
             "value": 76,
             "year": 2023,
             "pctOfDigitalStem": {
-              "value": 44.7,
+              "value": 40.9,
               "meta": {
                 "source": {
                   "type": "derived",
@@ -3776,7 +3776,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 809,
+            "value": 564,
             "year": 2023,
             "meta": {
               "source": {
@@ -3798,7 +3798,7 @@
             "value": 39,
             "year": 2023,
             "pctOfDigitalStem": {
-              "value": 4.8,
+              "value": 6.9,
               "meta": {
                 "source": {
                   "type": "derived",
@@ -4006,7 +4006,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 364,
+            "value": 254,
             "year": 2023,
             "meta": {
               "source": {
@@ -4028,7 +4028,7 @@
             "value": 22,
             "year": 2023,
             "pctOfDigitalStem": {
-              "value": 6,
+              "value": 8.7,
               "meta": {
                 "source": {
                   "type": "derived",
@@ -4236,7 +4236,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 287,
+            "value": 313,
             "year": 2023,
             "meta": {
               "source": {
@@ -4258,7 +4258,7 @@
             "value": 73,
             "year": 2023,
             "pctOfDigitalStem": {
-              "value": 25.4,
+              "value": 23.3,
               "meta": {
                 "source": {
                   "type": "derived",
@@ -4466,7 +4466,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 91,
+            "value": 64,
             "year": 2023,
             "meta": {
               "source": {
@@ -4488,7 +4488,7 @@
             "value": 9,
             "year": 2023,
             "pctOfDigitalStem": {
-              "value": 9.9,
+              "value": 14.1,
               "meta": {
                 "source": {
                   "type": "derived",
@@ -4696,7 +4696,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 74,
+            "value": 52,
             "year": 2023,
             "meta": {
               "source": {
@@ -4718,7 +4718,7 @@
             "value": 7,
             "year": 2023,
             "pctOfDigitalStem": {
-              "value": 9.5,
+              "value": 13.5,
               "meta": {
                 "source": {
                   "type": "derived",
