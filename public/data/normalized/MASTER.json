@@ -92,7 +92,7 @@
             "description": "2-year diplomas: Web Dev, Programming"
           }
         },
-        "nationalEstimate": 35000,
+        "nationalEstimate": 21486,
         "year": 2023
       },
       "coreICT": {
@@ -102,7 +102,7 @@
           "523 (Electronics/Automation)"
         ],
         "avgShare": 0.16,
-        "national": 5600,
+        "national": 3267,
         "year": 2023
       }
     },

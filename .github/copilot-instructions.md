@@ -249,7 +249,7 @@ This is a **data-driven business analysis**, not marketing material.
 
 | Metric | Description | Methodology |
 |--------|-------------|-------------|
-| Tech STEM+ | CNAEF 06 + 46 + 48 + 52 | `index.html#methodology-graduates` |
+| Tech STEM+ | Internal tiered model (ICT + engineering subset + math/stats subset + CTeSP + vocational) | `index.html#methodology-graduates` |
 | Salary Index | INE regional wages ÷ Lisbon | `index.html#methodology-salaries` |
 | ICT % | coreIct ÷ officialStem | Derived |
 | Cost Comparisons | COL index differences | Derived |

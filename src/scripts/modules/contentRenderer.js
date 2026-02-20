@@ -139,6 +139,8 @@ function populateMethodology() {
   const cardStem = document.getElementById('meth-card-stem');
   const cardIct = document.getElementById('meth-card-ict');
   const totalStemEl = document.getElementById('meth-total-stem');
+  const compCoreIct = document.getElementById('meth-comp-core-ict');
+  const compCoreIctShare = document.getElementById('meth-comp-core-ict-share');
 
   if (introStem) {
     introStem.textContent = `~${fmt(totalStem)}`;
@@ -152,6 +154,15 @@ function populateMethodology() {
     const pct = totalStem > 0 ? Math.round((totalICT / totalStem) * 100) : 0;
     cardIct.textContent = `~${fmt(totalICT)}/year (${pct}%)`;
     cardIct.setAttribute('data-db', 'master');
+  }
+  if (compCoreIct) {
+    compCoreIct.textContent = fmt(totalICT);
+    compCoreIct.setAttribute('data-db', 'master');
+  }
+  if (compCoreIctShare) {
+    const pct = totalStem > 0 ? ((totalICT / totalStem) * 100).toFixed(1) : '0.0';
+    compCoreIctShare.textContent = `${pct}%`;
+    compCoreIctShare.setAttribute('data-db', 'master');
   }
   if (totalStemEl) {
     totalStemEl.textContent = `~${fmt(totalStem)}`;

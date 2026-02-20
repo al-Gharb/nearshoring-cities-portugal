@@ -204,6 +204,12 @@ function createRegionSummaryRow(regionName, totals) {
   const nameCell = document.createElement('td');
   nameCell.colSpan = 2;
   nameCell.innerHTML = `<strong>${regionName} Total</strong> <a href="https://estatisticas-educacao.dgeec.medu.pt/eef/2024/ensino_superior/alunos/diplomados.asp" target="_blank" rel="noopener" class="dgeec-source-link" title="* Full NUTS II region totals from DGEEC — includes all HEIs in region, not only the cities listed above">Official DGEEC 23/24 *</a>`;
+  if (regionName === 'Oeste and Vale do Tejo' && totals?.officialStem && totals?.coreICT) {
+    const note = document.createElement('span');
+    note.classList.add('region-summary-note');
+    note.textContent = 'High ICT share mainly reflects a small, polytechnic-led STEM base and narrow programme mix (base effect).';
+    nameCell.appendChild(note);
+  }
   tr.appendChild(nameCell);
 
   // Official STEM total (* = official DGEEC region-wide figure)

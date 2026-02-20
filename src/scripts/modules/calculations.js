@@ -6,7 +6,96 @@
  * Formula: (coreICT / officialStem) × 100
  */
 
-// NOTE: calculateDigitalStem and calculateCoreICT removed — values pre-computed in MASTER.json
+// NOTE: officialStem/coreICT remain source values from MASTER.json.
+// Tech STEM+ is re-derived at runtime from regional totals to avoid stale city allocations.
+
+/**
+ * Allocate an integer regional total across cities by weight while preserving exact total.
+ * Uses largest-remainder apportionment for deterministic rounding.
+ *
+ * @param {number} total
+ * @param {number[]} weights
+ * @returns {number[]}
+ */
+function allocateIntegerByWeight(total, weights) {
+  const safeTotal = Number.isFinite(total) && total > 0 ? Math.round(total) : 0;
+  if (safeTotal === 0 || !Array.isArray(weights) || weights.length === 0) return [];
+
+  const safeWeights = weights.map(w => (Number.isFinite(w) && w > 0 ? w : 0));
+  const weightSum = safeWeights.reduce((sum, w) => sum + w, 0);
+  if (weightSum <= 0) return new Array(weights.length).fill(0);
+
+  const raw = safeWeights.map(w => (w / weightSum) * safeTotal);
+  const base = raw.map(v => Math.floor(v));
+  let remainder = safeTotal - base.reduce((sum, v) => sum + v, 0);
+
+  const order = raw
+    .map((v, i) => ({ i, frac: v - Math.floor(v), weight: safeWeights[i] }))
+    .sort((a, b) => {
+      if (b.frac !== a.frac) return b.frac - a.frac;
+      if (b.weight !== a.weight) return b.weight - a.weight;
+      return a.i - b.i;
+    });
+
+  let cursor = 0;
+  while (remainder > 0 && order.length > 0) {
+    base[order[cursor % order.length].i] += 1;
+    remainder -= 1;
+    cursor += 1;
+  }
+
+  return base;
+}
+
+/**
+ * Auto-compute city Tech STEM+ values from regional totals using city official STEM
+ * as apportionment weights, then refresh pctOfDigitalStem for each city.
+ *
+ * This prevents stale city-level Tech STEM+ values when regional allocations change.
+ *
+ * @param {Object} master — MASTER.json
+ */
+export function computeAllTechStemPlus(master) {
+  const cities = master?.cities;
+  const regionalTotals = master?.regionalTotals;
+  if (!cities || !regionalTotals) {
+    console.warn('computeAllTechStemPlus: missing cities/regionalTotals, skipping');
+    return;
+  }
+
+  const cityEntries = Object.entries(cities);
+
+  for (const [region, totals] of Object.entries(regionalTotals)) {
+    const regionTotal = totals?.digitalStemPlus;
+    if (!Number.isFinite(regionTotal)) continue;
+
+    const regionCities = cityEntries
+      .map(([cityId, city]) => ({ cityId, city }))
+      .filter(({ city }) => city?.basic?.region?.value === region);
+
+    if (regionCities.length === 0) continue;
+
+    const weights = regionCities.map(({ city }) => city?.talent?.graduates?.officialStem?.value ?? 0);
+    const allocated = allocateIntegerByWeight(regionTotal, weights);
+
+    regionCities.forEach(({ city }, idx) => {
+      const grads = city?.talent?.graduates;
+      if (!grads) return;
+
+      if (!grads.digitalStemPlus) grads.digitalStemPlus = { value: 0 };
+      grads.digitalStemPlus.value = allocated[idx] ?? 0;
+      grads.digitalStemPlus.approximate = true;
+
+      const coreICT = grads.coreICT?.value;
+      const stemPlus = grads.digitalStemPlus?.value;
+      if (Number.isFinite(coreICT) && Number.isFinite(stemPlus) && stemPlus > 0) {
+        const pct = Math.round((coreICT / stemPlus) * 1000) / 10;
+        if (!grads.coreICT.pctOfDigitalStem) grads.coreICT.pctOfDigitalStem = { value: pct };
+        grads.coreICT.pctOfDigitalStem.value = pct;
+      }
+    });
+  }
+}
 
 /**
  * Calculate ICT % for the table display.

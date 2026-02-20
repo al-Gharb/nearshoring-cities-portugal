@@ -251,6 +251,16 @@
 [data-theme="dark"] .dgeec-source-link { color: #f87171; }
 [data-theme="dark"] .dgeec-source-link:hover { color: #fca5a5; }
 
+.region-summary-note {
+  font-size: 0.68rem;
+  font-weight: 400;
+  color: #2563eb;
+  margin-left: 0.45rem;
+}
+[data-theme="dark"] .region-summary-note {
+  color: #93c5fd;
+}
+
 /* Official STEM column — red accent */
 .col-stem-official {
   color: var(--stem-color);
