@@ -209,6 +209,38 @@ function initStarLinks() {
   });
 }
 
+/**
+ * Ensure key foundation anchors scroll reliably to the target container.
+ */
+function initFoundationAnchors() {
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('a[href="#city-database"], a[href="#sources-methodology"]');
+    if (!link) return;
+
+    e.preventDefault();
+    const targetId = link.getAttribute('href').slice(1);
+    const target = document.getElementById(targetId);
+    if (!target) return;
+
+    // Open target if it is a <details> container.
+    if (target.tagName === 'DETAILS') {
+      target.open = true;
+    }
+
+    // Open parent details chain if applicable.
+    let parent = target.parentElement?.closest('details');
+    while (parent) {
+      parent.open = true;
+      parent = parent.parentElement?.closest('details');
+    }
+
+    setTimeout(() => {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      history.pushState(null, null, `#${targetId}`);
+    }, 30);
+  });
+}
+
 /* ═══════════════════════════════════════════════════════════════════════════
  * ARCHIVE TOGGLE — Fact-check verification archive show/hide
  * ═══════════════════════════════════════════════════════════════════════════ */
@@ -293,6 +325,32 @@ function initBarCharts() {
   });
 }
 
+/**
+ * Reorder key sections to keep AI Simulator before foundation blocks,
+ * and mirror that order in the Table of Contents.
+ */
+function reorderSectionFlow() {
+  const simulator = document.getElementById('ai-simulator');
+  const cityDatabase = document.getElementById('city-database');
+  const sourcesMethodology = document.getElementById('sources-methodology');
+
+  if (simulator && cityDatabase && sourcesMethodology) {
+    simulator.insertAdjacentElement('afterend', cityDatabase);
+    cityDatabase.insertAdjacentElement('afterend', sourcesMethodology);
+  }
+
+  const tocFoundationRow = document.querySelector('.toc-section-foundation');
+  const tocSimulatorRow = document.querySelector('.toc-section-simulator');
+  if (
+    tocFoundationRow &&
+    tocSimulatorRow &&
+    tocFoundationRow.parentElement &&
+    tocFoundationRow.parentElement === tocSimulatorRow.parentElement
+  ) {
+    tocSimulatorRow.insertAdjacentElement('afterend', tocFoundationRow);
+  }
+}
+
 /* ═══════════════════════════════════════════════════════════════════════════
  * INITIALIZATION
  * ═══════════════════════════════════════════════════════════════════════════ */
@@ -316,6 +374,9 @@ async function init() {
     renderCityProfiles();
     renderBubbleChart();
 
+    // 3b. Place AI simulator before foundation sections and sync TOC order
+    reorderSectionFlow();
+
     // 4. Populate all data-bound spans from databases
     populateAll();
 
@@ -326,6 +387,7 @@ async function init() {
     initArchiveToggle();
     initRegionTooltip();
     initStarLinks();
+    initFoundationAnchors();
     initBarCharts();
     handleInitialHash();
 

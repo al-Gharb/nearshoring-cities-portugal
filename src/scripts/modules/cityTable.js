@@ -143,8 +143,12 @@ function createCityRow(rowData) {
   salaryCell.classList.add('col-numeric');
   salaryCell.dataset.field = 'salary-index';
   salaryCell.dataset.promptCore = 'true';
-  salaryCell.textContent = rowData.salaryIndex !== '—' ? rowData.salaryIndex : '—';
-  salaryCell.title = 'Auto-calculated: INE baseline compressed 45% toward 100 + COL adjustment (±0.65/pt)';
+  if (rowData.salaryIndex !== '—') {
+    salaryCell.innerHTML = `${rowData.salaryIndex} <a href="#src-salary-index" class="source-link" title="Experimental salary proxy methodology"><i class="fa-solid fa-circle-info"></i></a>`;
+  } else {
+    salaryCell.textContent = '—';
+  }
+  salaryCell.title = 'Experimental proxy (Lisbon=100): INE NUTS II Bachelor baseline + IT convergence + COL adjustment (auto-calculated)';
   tr.appendChild(salaryCell);
 
   // Office Rent — prompt-core: rent generators + city generators

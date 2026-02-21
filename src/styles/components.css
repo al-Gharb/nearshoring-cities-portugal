@@ -805,7 +805,7 @@
    ───────────────────────────────────────────────────────────────────────── */
 
 /* Premium wrapper (overrides intro-block card defaults) */
-#ai-simulator {
+.intro-block#ai-simulator {
   background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,250,252,0.98) 100%);
   border: 1px solid rgba(139,92,246,0.15);
   box-shadow:
@@ -815,7 +815,7 @@
   position: relative;
   overflow: hidden;
 }
-#ai-simulator::before {
+.intro-block#ai-simulator::before {
   content: '';
   position: absolute;
   top: -2px;
@@ -831,13 +831,13 @@
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
 }
-#ai-simulator h2 { margin-top: 0; border-bottom: none; padding-bottom: 0; display: block; }
-#ai-simulator h2 i {
+.intro-block#ai-simulator h2 { margin-top: 0; border-bottom: none; padding-bottom: 0; display: block; }
+.intro-block#ai-simulator h2 i {
   color: #8b5cf6;
   filter: drop-shadow(0 2px 4px rgba(139,92,246,0.3));
 }
 
-[data-theme="dark"] #ai-simulator {
+[data-theme="dark"] .intro-block#ai-simulator {
   background: linear-gradient(135deg, rgba(15,23,42,0.6) 0%, rgba(30,41,59,0.5) 100%);
   border-color: rgba(139,92,246,0.2);
   box-shadow:

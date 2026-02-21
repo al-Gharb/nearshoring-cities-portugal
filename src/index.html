@@ -353,13 +353,6 @@
         <section id="index" class="intro-block" aria-labelledby="toc-heading">
           <nav class="toc-nav" aria-label="Document navigation">
 
-            <!-- City Database + Sources (Foundation - No Number, single row) -->
-            <div class="toc-row toc-row-main toc-section-foundation">
-              <a href="#city-database" class="toc-link-main"><i class="fa-solid fa-database toc-icon-accent" aria-hidden="true"></i>City Database</a>
-              <span class="toc-confidence" data-toc-section="cityDatabase"></span>
-              <a href="#sources-methodology" class="toc-link-main toc-link-sources"><i class="fa-solid fa-book-open toc-icon-accent" aria-hidden="true"></i>Sources &amp; Methodologies</a>
-            </div>
-
             <!-- 1. Portugal Macro & Basic Stats -->
             <div class="toc-row toc-row-main toc-section-macro">
               <a href="#executive-summary" class="toc-link-main"><span class="toc-number">1</span><i class="fa-solid fa-chart-line toc-icon-accent" aria-hidden="true"></i>Portugal: Macroeconomic Scorecard &amp; EU Comparison</a>
@@ -427,6 +420,13 @@
               <a href="#ai-simulator" class="toc-link-main toc-link-simulator"><span class="toc-number">7</span><i class="fa-solid fa-wand-magic-sparkles toc-icon-accent" aria-hidden="true"></i>AI Nearshoring Simulator Portugal<span class="toc-badge-new">✨ Try it!</span></a>
             </div>
 
+            <!-- City Database + Sources (Foundation - No Number, single row) -->
+            <div class="toc-row toc-row-main toc-section-foundation">
+              <a href="#city-database" class="toc-link-main"><i class="fa-solid fa-database toc-icon-accent" aria-hidden="true"></i>City Database</a>
+              <span class="toc-confidence" data-toc-section="cityDatabase"></span>
+              <a href="#sources-methodology" class="toc-link-main toc-link-sources"><i class="fa-solid fa-book-open toc-icon-accent" aria-hidden="true"></i>Sources &amp; Methodologies</a>
+            </div>
+
             <!-- 8. Publication Notes -->
             <div class="toc-row toc-row-main toc-section-notes">
               <a href="#publication-notes" class="toc-link-main"><span class="toc-number">8</span><i class="fa-solid fa-scale-balanced toc-icon-accent" aria-hidden="true"></i>Publication Notes</a>
@@ -466,7 +466,7 @@
                   <th scope="col" class="col-numeric col-ict" title="Core ICT graduates/year — DGEEC CNAEF codes 481 (CS) + 523 (Electronics). City values are ≈estimates proportionally derived from official DGEEC regional totals; subtotals (*) are the actual DGEEC figures."><i class="fa-solid fa-user-graduate" aria-hidden="true"></i> ICT/yr</th>
                   <th scope="col" class="col-numeric col-ict col-with-badge" title="Auto-calculated: (Core ICT ÷ Official STEM) × 100 — shows what share of STEM graduates specialize in ICT"><span class="th-content"><span class="th-text">ICT %</span><span class="badge-auto" title="Auto-calculated: (Core ICT ÷ Official STEM) × 100">auto</span></span></th>
                   <th scope="col" class="col-numeric col-stemplus col-with-badge" title="Tech STEM+ graduates/year — internal estimate shown as approximate (≈), not an official DGEEC classification"><span class="th-content"><span class="th-text"><i class="fa-solid fa-user-graduate" aria-hidden="true"></i><i class="fa-solid fa-user" aria-hidden="true"></i> STEM+/yr</span><span class="badge-auto" title="Internal estimate from MASTER.json (approximate)">auto</span></span></th>
-                  <th scope="col" class="col-numeric col-with-badge" title="Salary Index — auto-calculated: INE baseline compressed 45% toward 100 (IT convergence) + COL adjustment ±0.65/pt"><span class="th-content"><span class="th-text">Salary Index</span><span class="badge-auto" title="Auto-calculated: compressed baseline + (COL − 33) × 0.65, cap 100">auto</span></span></th>
+                  <th scope="col" class="col-numeric col-with-badge" title="Salary Index (experimental proxy) — auto-calculated from INE Bachelor baseline by NUTS II, then adjusted with IT convergence + city COL"><span class="th-content"><span class="th-text">Salary Index</span><span class="badge-auto" title="Experimental proxy: [baseline + (100 − baseline) × 0.45] + (COL − 33) × 0.65, cap 100">auto</span></span></th>
                   <th scope="col" class="col-numeric" title="Office rent per m²/month — Source: Idealista live listings, semi-automated HITL+agent extraction. Scope: quality offices in central locations, 60–300 m².">Office €/m²</th>
                   <th scope="col" class="col-numeric" title="Residential rent per month — Source: Idealista live listings, semi-automated HITL+agent extraction. Scope: 1-bedroom modern apartments, central areas, 40–60 m².">Res. Rent €</th>
                   <th scope="col" class="col-numeric" title="Cost of Living + Rent Index — Source: Numbeo (NYC = 100). Where unavailable, Numbeo-style estimate derived from regional cost patterns, AI fact-checked.">COL + Rent Index</th>
@@ -626,29 +626,6 @@
             </a>
           </div>
 
-          <div class="source-entry" id="src-telegeography">
-            <h4>TeleGeography</h4>
-            <p class="source-description">Telecommunications market research firm. Authoritative source for global submarine cable data, including routes, landing points, and capacity.</p>
-            <ul class="source-metrics">
-              <li><strong>Metrics:</strong> Subsea cable count, landing stations, cable routes</li>
-              <li><strong>Update frequency:</strong> Continuous (Submarine Cable Map)</li>
-            </ul>
-            <a href="https://www.submarinecablemap.com/landing-point/sines-portugal" target="_blank" rel="noopener" class="source-link-external">
-              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://www.submarinecablemap.com/landing-point/sines-portugal
-            </a>
-          </div>
-
-          <div class="source-entry" id="src-gpi">
-            <h4>Eurostat — Crime Statistics</h4>
-            <p class="source-description">Official Eurostat crime indicators used for EU-level safety comparisons.</p>
-            <ul class="source-metrics">
-              <li><strong>Metrics:</strong> Recorded offences and crime trend indicators</li>
-              <li><strong>Update frequency:</strong> Annual</li>
-            </ul>
-            <a href="https://ec.europa.eu/eurostat/databrowser/view/crim_gen/default/table?lang=en" target="_blank" rel="noopener" class="source-link-external">
-              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://ec.europa.eu/eurostat/databrowser/view/crim_gen/default/table?lang=en
-            </a>
-          </div>
 
           <div class="source-entry" id="src-efepi">
             <h4>EU Education and Training Monitor — Portugal</h4>
@@ -663,18 +640,6 @@
             </a>
           </div>
 
-          <div class="source-entry" id="src-startcampus">
-            <h4>Start Campus / Microsoft Portugal</h4>
-            <p class="source-description">Official announcements and planning documents for the Start Campus hyperscale data center development in Sines. Microsoft is the anchor tenant for this 495MW campus.</p>
-            <ul class="source-metrics">
-              <li><strong>Metrics:</strong> Capacity (MW), investment value, development timeline</li>
-              <li><strong>Update frequency:</strong> Press releases</li>
-              <li><strong>Data year:</strong> 2024</li>
-            </ul>
-            <a href="https://www.startcampus.pt/sines" target="_blank" rel="noopener" class="source-link-external">
-              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://www.startcampus.pt/sines
-            </a>
-          </div>
 
           <div class="source-entry" id="src-porto-sines">
             <h4>Porto de Sines / APS</h4>
@@ -726,35 +691,11 @@
             </a>
           </div>
 
-          <div class="source-entry" id="src-pwc-ifici">
-            <h4>PwC Portugal — IFICI (ex-NHR 2.0)</h4>
-            <p class="source-description">PwC Portugal tax advisory. Reference guide for the IFICI regime — 10-year, 20% flat IRS rate for qualifying scientific research and innovation professionals. Replaces the older NHR for new entrants from 2024.</p>
-            <ul class="source-metrics">
-              <li><strong>Metrics:</strong> IFICI 20% flat IRS rate, 10-year duration, eligibility criteria</li>
-              <li><strong>Update frequency:</strong> Annual (budgetary)</li>
-            </ul>
-            <a href="https://www.pwc.pt/en/services/tax/individuals-taxation/tax-incentive-for-scientific-research-and-innovation-nhr-2-0.html" target="_blank" rel="noopener" class="source-link-external">
-              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://www.pwc.pt/en/services/tax/individuals-taxation/tax-incentive-for-scientific-research-and-innovation-nhr-2-0.html
-            </a>
-          </div>
-
-          <div class="source-entry" id="src-pwc-cit-irc">
-            <h4>PwC Portugal — CIT General Corporate Income Tax Rates Reduction</h4>
-            <p class="source-description">PwC Portugal tax flash summarizing Law 64/2025 of 7 November: reduction of general CIT rates from 2026 onward and updated SME treatment.</p>
-            <ul class="source-metrics">
-              <li><strong>Metrics:</strong> Standard IRC 19% (2026), 18% (2027), 17% (2028); SMEs and Small Mid Caps 15% on first €50,000 from 2026; surtaxes unchanged</li>
-              <li><strong>Published:</strong> 07/11/2025</li>
-              <li><strong>Update frequency:</strong> Annual (budgetary / legal updates)</li>
-            </ul>
-            <a href="https://www.pwc.pt/en/pwcinforfisco/flash/cit/cit-general-corporate-income-tax-rates-reduction.html" target="_blank" rel="noopener" class="source-link-external">
-              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://www.pwc.pt/en/pwcinforfisco/flash/cit/cit-general-corporate-income-tax-rates-reduction.html
-            </a>
-          </div>
         </div>
 
-        <!-- Market Research Sources -->
+        <!-- Market Data & Other Sources -->
         <div class="source-category" id="sources-market">
-          <h3><i class="fa-solid fa-chart-line" aria-hidden="true"></i> Market Research Sources</h3>
+          <h3><i class="fa-solid fa-chart-line" aria-hidden="true"></i> Market Data &amp; Other Sources</h3>
 
           <div class="source-entry" id="src-numbeo">
             <h4>Numbeo</h4>
@@ -823,6 +764,56 @@
               <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://www.anacom.pt/render.jsp?categoryId=520
             </a>
           </div>
+
+          <div class="source-entry" id="src-telegeography">
+            <h4>TeleGeography</h4>
+            <p class="source-description">Telecommunications market research firm. Source for global submarine cable data, including routes, landing points, and capacity.</p>
+            <ul class="source-metrics">
+              <li><strong>Metrics:</strong> Subsea cable count, landing stations, cable routes</li>
+              <li><strong>Update frequency:</strong> Continuous (Submarine Cable Map)</li>
+            </ul>
+            <a href="https://www.submarinecablemap.com/landing-point/sines-portugal" target="_blank" rel="noopener" class="source-link-external">
+              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://www.submarinecablemap.com/landing-point/sines-portugal
+            </a>
+          </div>
+
+          <div class="source-entry" id="src-startcampus">
+            <h4>Start Campus / Microsoft Portugal</h4>
+            <p class="source-description">Company announcements and planning documents for the Start Campus hyperscale data center development in Sines. Microsoft is the anchor tenant for this 495MW campus.</p>
+            <ul class="source-metrics">
+              <li><strong>Metrics:</strong> Capacity (MW), investment value, development timeline</li>
+              <li><strong>Update frequency:</strong> Press releases</li>
+              <li><strong>Data year:</strong> 2024</li>
+            </ul>
+            <a href="https://www.startcampus.pt/sines" target="_blank" rel="noopener" class="source-link-external">
+              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://www.startcampus.pt/sines
+            </a>
+          </div>
+
+          <div class="source-entry" id="src-pwc-ifici">
+            <h4>PwC Portugal — IFICI (ex-NHR 2.0)</h4>
+            <p class="source-description">PwC Portugal tax advisory. Reference guide for the IFICI regime — 10-year, 20% flat IRS rate for qualifying scientific research and innovation professionals. Replaces the older NHR for new entrants from 2024.</p>
+            <ul class="source-metrics">
+              <li><strong>Metrics:</strong> IFICI 20% flat IRS rate, 10-year duration, eligibility criteria</li>
+              <li><strong>Update frequency:</strong> Annual (budgetary)</li>
+            </ul>
+            <a href="https://www.pwc.pt/en/services/tax/individuals-taxation/tax-incentive-for-scientific-research-and-innovation-nhr-2-0.html" target="_blank" rel="noopener" class="source-link-external">
+              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://www.pwc.pt/en/services/tax/individuals-taxation/tax-incentive-for-scientific-research-and-innovation-nhr-2-0.html
+            </a>
+          </div>
+
+          <div class="source-entry" id="src-pwc-cit-irc">
+            <h4>PwC Portugal — CIT General Corporate Income Tax Rates Reduction</h4>
+            <p class="source-description">PwC Portugal tax flash summarizing Law 64/2025 of 7 November: reduction of general CIT rates from 2026 onward and updated SME treatment.</p>
+            <ul class="source-metrics">
+              <li><strong>Metrics:</strong> Standard IRC 19% (2026), 18% (2027), 17% (2028); SMEs and Small Mid Caps 15% on first €50,000 from 2026; surtaxes unchanged</li>
+              <li><strong>Published:</strong> 07/11/2025</li>
+              <li><strong>Update frequency:</strong> Annual (budgetary / legal updates)</li>
+            </ul>
+            <a href="https://www.pwc.pt/en/pwcinforfisco/flash/cit/cit-general-corporate-income-tax-rates-reduction.html" target="_blank" rel="noopener" class="source-link-external">
+              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> https://www.pwc.pt/en/pwcinforfisco/flash/cit/cit-general-corporate-income-tax-rates-reduction.html
+            </a>
+          </div>
         </div>
 
         <!-- Internal Calculations & Estimates -->
@@ -832,20 +823,23 @@
           <div class="source-entry" id="src-salary-index">
             <details>
               <summary style="cursor: pointer; font-weight: bold; padding: 0.5rem 0;">
-                <i class="fa-solid fa-calculator" aria-hidden="true"></i> Salary Index Methodology <span class="badge-auto">AUTO-CALCULATED</span>
+                <i class="fa-solid fa-calculator" aria-hidden="true"></i> Salary Index Methodology (Experimental Proxy) <span class="badge-auto">AUTO-CALCULATED</span>
               </summary>
               <div style="padding-top: 1rem;">
-                <div class="callout-success">
-                  <strong><i class="fa-solid fa-sync-alt"></i> Dynamic:</strong>
-                  Values auto-calculated at page load from INE baseline + COL index. Changing a city's COL index in MASTER.json will update its Salary Index on next page load.
+                <div class="callout-warning">
+                  <strong><i class="fa-solid fa-triangle-exclamation"></i> Experimental model:</strong>
+                  Salary differences between Portuguese cities do exist, but this index is an experimental way to approximate them. It is an internal hiring-cost proxy (Lisbon = 100), not an official IT wage series, and the modeled output may be inaccurate for specific roles, companies, or hiring contexts.
                 </div>
-                <p><strong>Why IT convergence?</strong> INE all-sector regional earnings show 68–82% variation vs Lisbon, but IT salaries are significantly more compressed across regions due to remote work, national talent competition, and employer COL adjustments. The convergence factor accounts for this IT-specific compression.</p>
-                <p><strong>Two-Step Formula:</strong></p>
+                <p><strong>Why model this?</strong> Official NUTS II salary data captures real regional income differences, but it also reflects regional job-mix composition. Nearshoring teams still need a city-level directional proxy for compensation planning, so this model combines official baseline signal with explicit assumptions.</p>
+                <p><strong>Two-Layer Method:</strong></p>
                 <ol>
-                  <li><strong>IT Convergence (Step 1):</strong> Compress INE all-sector baseline toward 100<br>
+                  <li><strong>Official input layer:</strong> Compute regional baseline from INE Bachelor earnings (% vs Lisbon). This is the anchor signal.<br>
+                    <code>baseline = (regionBachelor / lisbonBachelor) × 100</code><br>
+                    <em>Example (Norte): 1947.58 / 2527.71 × 100 = 77.0</em></li>
+                  <li><strong>Modeling layer — IT convergence (Step 1):</strong> Compress baseline toward 100 to reflect lower regional dispersion in IT pay vs all-sector averages.<br>
                     <code>compressed = baseline + (100 − baseline) × 0.45</code><br>
                     <em>Example (Norte, baseline 77.0%): 77.0 + (100 − 77.0) × 0.45 = 87.35</em></li>
-                  <li><strong>COL Adjustment (Step 2):</strong> Shift by local cost-of-living vs national average<br>
+                  <li><strong>Modeling layer — COL adjustment (Step 2):</strong> Shift by city cost-of-living relative to national average.<br>
                     <code>salaryIndex = compressed + (COL − 33) × 0.65</code><br>
                     <em>Example (Porto, COL 40): 87.35 + (40 − 33) × 0.65 = 87.35 + 4.55 = 91.9</em></li>
                 </ol>
@@ -855,9 +849,9 @@
                 </div>
                 <p><strong>Parameters:</strong></p>
                 <ul>
-                  <li><strong>IT_CONVERGENCE = 0.45</strong> — IT salaries are 45% more compressed than all-sector averages (remote work, national competition)</li>
+                  <li><strong>IT_CONVERGENCE = 0.45</strong> — Assumption to reduce all-sector regional dispersion when approximating IT salary differences</li>
                   <li><strong>NATIONAL_COL_AVG = 33</strong> — Numbeo national average COL index (NYC = 100)</li>
-                  <li><strong>COL_SENSITIVITY = 0.65</strong> — Each COL point above/below national average adds/subtracts 0.65 to the salary index</li>
+                  <li><strong>COL_SENSITIVITY = 0.65</strong> — Assumption: each COL point above/below national average adds/subtracts 0.65 index points</li>
                 </ul>
                 <p><strong>Example: Porto</strong></p>
                 <div class="example-block">
@@ -867,11 +861,21 @@
                 </div>
                 <ul class="source-metrics">
                   <li><strong>Inputs:</strong> INE regional Bachelor earnings (COMPENSATION_DATA.json) + Numbeo COL index (MASTER.json per city)</li>
-                  <li><strong>Method:</strong> Derived calculation with IT convergence assumption (modeling)</li>
+                  <li><strong>Method:</strong> Experimental derived proxy combining official NUTS II baseline + explicit modeling assumptions</li>
+                  <li><strong>Limitations:</strong> Regional composition effects (industry/job mix), city-vs-region mismatch, role/seniority variance, and remote/hybrid pay policies can materially shift real offers</li>
                   <li><strong>Range:</strong> 81.3 (Covilhã, Castelo Branco) to 100 (Lisbon)</li>
-                  <li><strong>Validation:</strong> Cross-checked with Damia salary benchmark and Numbeo COL indices</li>
+                  <li><strong>Interpretation:</strong> Use this to compare relative salary pressure between cities; do not treat it as an exact same-role market salary estimate</li>
+                  <li><strong>Confidence:</strong> Low/Medium (experimental proxy)</li>
+                  <li><strong>Validation:</strong> Arithmetic and directional plausibility cross-checked against INE dispersion, Damia benchmark ranges, and COL differentials</li>
                   <li><strong>Implementation:</strong> <code>computeAllSalaryIndices()</code> in calculations.js — runs at startup, auto-updates on data change</li>
                 </ul>
+                <p><strong>Why this can be wrong (quick):</strong></p>
+                <ul class="source-metrics">
+                  <li>Regional averages include sector and occupation mix, not just IT roles</li>
+                  <li>NUTS II baselines can diverge from specific city labor-market conditions</li>
+                  <li>Remote-first and company-specific pay policies can override local patterns</li>
+                </ul>
+                <div class="callout-info"><strong>Future upgrade:</strong> Replace part of the proxy with role-specific city salary observations as the dataset grows, reducing dependence on regional-level assumptions.</div>
               </div>
             </details>
           </div>
@@ -1812,7 +1816,7 @@
                           <th class="col-numeric" title="(Pre-Bologna) short-cycle tertiary course">Pre-Bologna (€)</th>
                           <th class="col-numeric" title="Bachelor's level">Bachelor (€)</th>
                           <th class="col-numeric" title="Master's level">Master (€)</th>
-                          <th class="col-numeric" title="Bachelor earnings as % of G. Lisboa (salary index baseline)">% vs Lisbon</th>
+                          <th class="col-numeric" title="Bachelor earnings as % of G. Lisboa (official baseline input to the experimental salary index proxy)">% vs Lisbon</th>
                         </tr>
                       </thead>
                       <tbody id="ine-table-body">
@@ -1820,7 +1824,7 @@
                       </tbody>
                     </table>
                   </div>
-                  <p class="scorecard-footer"><strong>Source:</strong> <a href="#src-ine" class="source-link">INE (2023)</a> — MTSSS/GEP Personnel Tables (Indicator 0012653), average gross monthly earnings (€) by NUTS 2024 and education level. Original 14× values converted to 12× monthly equivalent (×14/12 ≈ ×1.167). % vs Lisbon = Bachelor earnings ÷ G. Lisboa Bachelor — used as salary index baseline.</p>
+                  <p class="scorecard-footer"><strong>Source:</strong> <a href="#src-ine" class="source-link">INE (2023)</a> — MTSSS/GEP Personnel Tables (Indicator 0012653), average gross monthly earnings (€) by NUTS 2024 and education level. Original 14× values converted to 12× monthly equivalent (×14/12 ≈ ×1.167). % vs Lisbon = Bachelor earnings ÷ G. Lisboa Bachelor — used as official baseline input to the experimental salary index proxy.</p>
                 </div>
 
                 <!-- Labor market callouts -->
@@ -1851,7 +1855,7 @@
                   <div class="card card-flex" data-prompt-core="true">
                     <h4><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Safety &amp; Stability</h4>
                     <ul class="flex-fill">
-                      <li id="qol-safety-gpi"><strong><a href="#src-gpi" class="source-link">Eurostat crime indicators</a>:</strong> Portugal remains in the lower-risk cluster for recorded crime in EU comparison tables.</li>
+                      <li id="qol-safety-gpi"><strong><a href="#src-eurostat" class="source-link">Eurostat indicators</a>:</strong> Portugal remains in the lower-risk cluster in EU comparison tables.</li>
                       <li id="qol-safety-crime"><strong>Crime:</strong> Among the lowest rates in the EU — Lisbon safer than most European capitals <a href="#src-eurostat" class="source-link"><i class="fa-solid fa-circle-info"></i></a></li>
                       <li id="qol-safety-political"><strong>Political:</strong> Stable democracy; EU member since 1986, NATO since 1949</li>
                     </ul>
@@ -2406,8 +2410,15 @@
     <!-- ╔═══════════════════════════════════════════════════════════════════════════╗
          ║  AI NEARSHORING SIMULATOR                                               ║
          ╚═══════════════════════════════════════════════════════════════════════════╝ -->
-    <section id="ai-simulator" class="intro-block section-simulator">
-      <h2><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i> AI Nearshoring Simulator Portugal <span class="badge-beta">Experimental v3</span></h2>
+    <details class="deeper-dive-container section-simulator" id="ai-simulator">
+      <summary class="deeper-dive-summary">
+        <span class="section-number">7</span>
+        <i class="fa-solid fa-wand-magic-sparkles section-icon" aria-hidden="true"></i>
+        <span class="deeper-dive-title">AI Nearshoring Simulator Portugal <span class="badge-beta">Experimental v3</span></span>
+        <span class="deeper-dive-subtitle">— Generate a custom nearshoring analysis and prompt package</span>
+        <i class="fa-solid fa-chevron-down deeper-dive-chevron" aria-hidden="true"></i>
+      </summary>
+      <div class="deeper-dive-content">
       <p>Generate a custom nearshoring analysis from real city data. Fill in your requirements, get pre-computed rankings and financial projections, then paste the generated prompt into ChatGPT, Claude, or any LLM for expert narrative analysis.</p>
 
       <!-- How It Works — Collapsible -->
@@ -2715,7 +2726,8 @@
           </a>
         </div>
       </div>
-    </section>
+      </div>
+    </details>
 
     <!-- ╔═══════════════════════════════════════════════════════════════════════════╗
          ║  PUBLICATION NOTES                                                      ║

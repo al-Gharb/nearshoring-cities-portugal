@@ -179,8 +179,8 @@
           "anchor": "middle"
         },
         "aveiro": {
-          "position": "above",
-          "extraPad": 6,
+          "position": "below",
+          "extraPad": 12,
           "anchor": "middle"
         },
         "covilha": {
@@ -3195,8 +3195,8 @@
           }
         },
         "residentialRent": {
-          "min": 350,
-          "max": 550,
+          "min": 400,
+          "max": 600,
           "unit": "EUR/month",
           "type": "T1",
           "meta": {
@@ -4575,8 +4575,8 @@
           }
         },
         "residentialRent": {
-          "min": 350,
-          "max": 550,
+          "min": 400,
+          "max": 600,
           "unit": "EUR/month",
           "type": "T1",
           "meta": {
@@ -4805,8 +4805,8 @@
           }
         },
         "residentialRent": {
-          "min": 350,
-          "max": 550,
+          "min": 400,
+          "max": 600,
           "unit": "EUR/month",
           "type": "T1",
           "meta": {

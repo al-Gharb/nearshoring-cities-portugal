@@ -17,11 +17,11 @@
       "disclaimer": "Derived metric; validate plausibility and formula consistency."
     },
     "salaryIndex": {
-      "label": "Salary Index (Lisbon=100)",
-      "description": "Regional salary normalization relative to Lisbon baseline.",
-      "methodology": "See index.html#methodology-salaries",
-      "calculation": "index = (region_avg_wage / lisbon_avg_wage) × 100",
-      "disclaimer": "Derived index; validate trend and relative-position plausibility."
+      "label": "Experimental Salary Index Proxy (Lisbon=100)",
+      "description": "Internal directional proxy combining INE regional Bachelor baseline, IT convergence assumption, and city COL adjustment.",
+      "methodology": "See index.html#src-salary-index",
+      "calculation": "index = [(regionBachelor/lisbonBachelor) × 100 + (100 − baseline) × 0.45] + (colIndex − 33) × 0.65; cap 100",
+      "disclaimer": "Derived proxy; validate arithmetic consistency and directional plausibility only (not one-to-one external wage verification)."
     },
     "ictPercentage": {
       "label": "ICT % of STEM",

@@ -499,7 +499,7 @@ function buildMetricsTable(masterCity) {
     </div>
     <div class="metric-stat">
       <i class="fa-solid fa-chart-line icon-accent"></i>
-      <span class="db-value">${costs.salaryIndex?.value ?? '—'}</span>
+      <span class="db-value">${costs.salaryIndex?.value ?? '—'}${costs.salaryIndex?.value != null ? ' <a href="#src-salary-index" class="source-link" title="Experimental salary proxy methodology"><i class="fa-solid fa-circle-info"></i></a>' : ''}</span>
       <span class="metric-label">Salary Index <a href="#src-salary-index" class="source-link"><i class="fa-solid fa-circle-info"></i></a></span>
     </div>
     <div class="metric-stat">
@@ -647,7 +647,7 @@ function buildCitySection(cityId) {
       </div>
       <div class="grid-item cost" data-db="master,profiles" data-prompt-core="true">
         <h3><i class="fa-solid fa-coins"></i> Cost & Retention</h3>
-        <p><strong>Salary Index:</strong> <span class="db-value" data-city="${cityId}" data-field="salary-index" data-db="master">${masterCity.costs?.salaryIndex?.value ?? '—'}</span> (Lisbon = 100) <a href="#src-salary-index" class="source-link"><i class="fa-solid fa-circle-info"></i></a></p>
+        <p><strong>Salary Index:</strong> <span class="db-value" data-city="${cityId}" data-field="salary-index" data-db="master">${masterCity.costs?.salaryIndex?.value ?? '—'}${masterCity.costs?.salaryIndex?.value != null ? ' <a href="#src-salary-index" class="source-link" title="Experimental salary proxy methodology"><i class="fa-solid fa-circle-info"></i></a>' : ''}</span> (Lisbon = 100) <a href="#src-salary-index" class="source-link"><i class="fa-solid fa-circle-info"></i></a></p>
         <p><strong>COL + Rent Index:</strong> <span class="db-value" data-city="${cityId}" data-field="col-index" data-db="master">${masterCity.costs?.colIndex?.value ?? '—'}</span> (NYC = 100) <a href="#src-col-index" class="source-link"><i class="fa-solid fa-circle-info"></i></a></p>
         <p><strong>Office Rent:</strong> <span class="db-value" data-city="${cityId}" data-field="office-rent" data-db="master">${masterCity.costs?.officeRent ? formatRange(masterCity.costs.officeRent.min, masterCity.costs.officeRent.max, '€', '/m²') : '—'}</span> · central, quality offices, 60-200m²</p>
         <p><strong>Residential Rent:</strong> <span class="db-value" data-city="${cityId}" data-field="residential-rent" data-db="master">${masterCity.costs?.residentialRent ? formatRange(masterCity.costs.residentialRent.min, masterCity.costs.residentialRent.max, '€', '/mo') : '—'}</span> · central, modern 1BR apartments, 40-60m²</p>

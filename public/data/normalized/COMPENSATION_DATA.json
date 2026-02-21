@@ -16,7 +16,7 @@
     "salaryFormatExplanation": "All salary values are normalized to 12 monthly payments for international comparison. Portugal's labor law mandates 14 payments/year (12 regular + holiday subsidy + Christmas subsidy), but we express salaries as if paid in 12 equal installments to match global standards. The 14-payment system is mentioned for context only.",
     "formula": "final_salary = (base_midpoint × tier_multiplier × (1 + tech_premium)) × (city_salary_index / 100)",
     "salaryIndexFormula": {
-      "description": "IT-convergence-compressed INE baseline + COL adjustment",
+      "description": "Experimental IT hiring-cost proxy: INE regional Bachelor baseline + IT convergence + COL adjustment",
       "step1": "compressed = ineBaseline + (100 − ineBaseline) × IT_CONVERGENCE",
       "step2": "salaryIndex = compressed + (colIndex − NATIONAL_COL_AVG) × COL_SENSITIVITY",
       "step3": "cap at 100 (Lisbon = 100 by definition)",
@@ -25,19 +25,26 @@
         "NATIONAL_COL_AVG": 33,
         "COL_SENSITIVITY": 0.65
       },
-      "rationale": "IT salaries vary less between Portuguese regions than all-sector averages due to remote work, national talent competition, and employer COL adjustments. The convergence factor (0.45) compresses INE all-sector baselines toward 100, while the COL adjustment (±0.65 per Numbeo point) captures local cost-of-living pressure.",
+      "rationale": "INE regional Bachelor earnings provide an official regional anchor but include job-mix/composition effects (industry and occupation structure). The proxy keeps this anchor, then applies explicit assumptions: convergence (0.45) to reduce all-sector dispersion when approximating IT pay and COL sensitivity (±0.65 per Numbeo point) to capture affordability pressure. Use for directional city comparison, not direct same-role wage quoting.",
       "autoCalculated": true,
       "implementation": "computeAllSalaryIndices() in calculations.js runs at startup, reading INE baselines from COMPENSATION_DATA.json and COL from each city in MASTER.json",
       "roundingPolicy": {
         "salaryIndex": "Round to 1 decimal using Math.round(value * 10) / 10; cap at 100 after adjustment.",
         "exampleGrossMonthly": "Round final monthly result to nearest integer euro using Math.round on full-precision computation."
-      }
+      },
+      "limitations": [
+        "NUTS II averages reflect regional composition (sector/occupation mix), not like-for-like IT roles.",
+        "Region-to-city mapping introduces mismatch where city wage structure differs from regional average.",
+        "Real offers vary materially by role, seniority, company pay policy, and remote/hybrid setup.",
+        "Treat as directional planning proxy, not an official city-level IT wage statistic."
+      ]
     },
     "notes": [
       "CRITICAL: All values are in 12x format (14 Portuguese payments normalized to 12 for international comparison)",
       "Base bands are Lisbon-equivalent (salaryIndex = 100)",
       "Apply single highest tech-stack premium (do NOT stack)",
       "City salary indices auto-computed from INE baseline + COL at runtime (see salaryIndexFormula)",
+      "Salary Index is an experimental internal proxy for directional comparison, not an official city IT wage series",
       "All values gross monthly before tax, expressed in 12x format",
       "HTML display values are authoritative — the htmlAuthoritative field stores the hand-tuned annual ranges shown on the website",
       "Lead/Principal = Senior × 1.12 (ratio of 1.40/1.25 multipliers)",

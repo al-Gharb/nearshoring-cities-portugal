@@ -848,6 +848,7 @@
 .section-talent .section-number { border-color: #059669; color: #059669; }
 .section-workforce .section-number { border-color: #ea580c; color: #ea580c; }
 .section-cities .section-number { border-color: #db2777; color: #db2777; }
+.section-simulator .section-number { border-color: #8b5cf6; color: #8b5cf6; }
 
 /* Section-colored icons */
 .section-icon { transition: color 0.2s ease; }
@@ -858,6 +859,7 @@
 .section-talent .section-icon { color: #059669; }
 .section-workforce .section-icon { color: #ea580c; }
 .section-cities .section-icon { color: #db2777; }
+.section-simulator .section-icon { color: #8b5cf6; }
 
 /* Target blink animation when navigating via anchor */
 @keyframes section-blink {
