@@ -44,28 +44,20 @@ Your job: strategic reasoning, narrative analysis, and actionable recommendation
 
 RULES:
 • ONE-PASS: Analyze once. No re-runs, no "on re-evaluation" blocks.
-• Do NOT alter scores, recalculate salary, recalculate EMC, or change rankings.
-• Do NOT invent numbers. Every financial figure comes from the tables below.
-• If a number looks wrong → flag confidence=LOW. Do NOT attempt to fix it.
-• Use prompt data as primary source. External context is optional and must be clearly prefixed as [External context].
-• Never introduce external numeric values that conflict with or replace prompt-provided figures.
+• Do NOT recalculate or alter scores, salary, EMC, or ranking order.
+• Use prompt data as primary source; do not introduce numeric values that replace prompt-provided figures.
+• If a number looks wrong, flag confidence=LOW and continue without correction.
 • Double-check every referenced city metric against the CITY REFERENCE DATABASE JSON before finalizing.
-• For cities discussed in recommendations, explicitly validate salaryIndex, stemGrads, ictGrads, and rent ranges from JSON.
+• For recommended cities, explicitly validate salaryIndex, stemGrads, ictGrads, and office rent ranges from JSON.
 • Tables first, prose second. Target ${outputWordTarget}.
-• Section formatting is strict: where template says "table only", output only markdown table rows for that section.
+• Respect section formatting: where template says "table only", output only markdown table rows.
 • Section 3 deep-dives must cover 2 or 3 cities only (not more).
 • Output sections in order: 1 → 2 → 3 → 4 → 5 → 6 → 7.
 
-COMPLIANCE GATE (run silently before final answer):
-1) Sections 1–7 exist, in order, exactly once.
-2) Section 2 is table-only (no prose before/after table).
-2a) Section 2 includes a mandatory "DataCheck" row for all five cities in format: "salaryIdx/stemGrads/ictGrads/officeRent(min-max)".
-3) Section 3 includes 2–3 deep-dives, max 120 words each.
-4) Section 5 contains exactly two tables (Risk table + Phase table).
-5) Section 6 JSON is valid and all numeric values remain unchanged.
-6) If final Top 5 departs from strict weighted order due to qualitative fit, advisor_override is required.
-7) Any city mentioned in recommendations uses salaryIndex/stemGrads/ictGrads/rent values consistent with CITY REFERENCE DATABASE.
-If any check fails, self-correct once before returning final output.
+FINAL CONSISTENCY CHECK (before final answer):
+1) Sections 1–7 appear once and in order; Section 2 stays table-only and includes the mandatory DataCheck row.
+2) Section 3 includes exactly 2–3 deep-dives (max 120 words each); Section 5 contains exactly two tables.
+3) Section 6 JSON is valid, numeric values are unchanged, and advisor_override is set when Top 5 departs from strict weighted order.
 
 ═══════════════════════════════════════════════════════════════════════════════
 PHASE A — PRE-COMPUTED RESULTS (READ ONLY — DO NOT MODIFY)

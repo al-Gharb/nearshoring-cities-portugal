@@ -317,11 +317,13 @@ function readFormInputs() {
   const allowedOutputStyle = ['executive', 'detailed'];
   const roleSelection = getRoleTypeSelection();
 
+  const rawTeamSize = sanitizeFreeText(getValue('sim-team-size'), 40);
+
   return {
     purpose: sanitizeFreeText(getValue('sim-purpose'), 600),
     opexBudget: sanitizeFreeText(getValue('sim-opex-budget'), 40),
     capexBudget: sanitizeFreeText(getValue('sim-capex-budget'), 40),
-    teamSize: sanitizeFreeText(getValue('sim-team-size'), 40),
+    teamSize: rawTeamSize || '10',
     roleType: roleSelection.bandKeys[0] || 'software-engineer',
     roleTypes: roleSelection.labels,
     roleTypeBandKeys: roleSelection.bandKeys,
@@ -1831,10 +1833,51 @@ export function initSimulator() {
     }
   }
 
+  function validateRequiredMathInputs() {
+    const validations = [
+      {
+        id: 'sim-opex-budget',
+        label: 'Monthly OpEx Budget',
+        parser: parseLocalizedInteger,
+        invalidMessage: 'enter a valid positive amount (e.g., 55000, 55,000, 55.000)',
+      },
+      {
+        id: 'sim-team-size',
+        label: 'Target Team Size',
+        parser: parseTeamSize,
+        invalidMessage: 'enter a valid team size (e.g., 10)',
+      },
+    ];
+
+    const errors = [];
+
+    validations.forEach(({ id, label, parser, invalidMessage }) => {
+      const field = document.getElementById(id);
+      const rawValue = field?.value?.trim() || '';
+      const parsedValue = parser(rawValue);
+      const isValid = parsedValue !== null;
+
+      if (field) {
+        field.setAttribute('aria-invalid', isValid ? 'false' : 'true');
+      }
+
+      if (!isValid) {
+        errors.push(`${label}: ${invalidMessage}.`);
+      }
+    });
+
+    return errors;
+  }
+
   // Generate prompt
   generateBtn.addEventListener('click', () => {
     try {
       assertSimulatorReady();
+
+      const inputErrors = validateRequiredMathInputs();
+      if (inputErrors.length > 0) {
+        throw new Error(`Please complete required fields before generating:\n- ${inputErrors.join('\n- ')}`);
+      }
 
       const prompt = generateMasterPrompt();
       if (!prompt || typeof prompt !== 'string' || prompt.trim().length === 0) {

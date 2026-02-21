@@ -2513,7 +2513,7 @@
           <div class="simulator-grid">
             <div class="simulator-field">
               <label for="sim-opex-budget"><i class="fa-solid fa-repeat" aria-hidden="true"></i> Monthly OpEx Budget</label>
-              <input type="text" id="sim-opex-budget" name="opexBudget" placeholder="55000" inputmode="numeric" pattern="[0-9.,\s€]+" maxlength="20" autocomplete="off" title="Use numbers only (example: 55000)">
+              <input type="text" id="sim-opex-budget" name="opexBudget" placeholder="55000" inputmode="numeric" pattern="[0-9.,\s€]+" maxlength="20" autocomplete="off" title="Use numbers only (example: 55000)" required aria-required="true">
               <span class="simulator-hint">Monthly total budget. Accepts 55000 / 55,000 / 55.000 and auto-normalizes.</span>
             </div>
 
@@ -2525,7 +2525,7 @@
 
             <div class="simulator-field">
               <label for="sim-team-size"><i class="fa-solid fa-users" aria-hidden="true"></i> Target Team Size</label>
-              <input type="text" id="sim-team-size" name="teamSize" placeholder="10" inputmode="numeric" pattern=".*\d+.*" maxlength="20" autocomplete="off" title="Must contain at least one number">
+              <input type="text" id="sim-team-size" name="teamSize" value="10" placeholder="10" inputmode="numeric" pattern=".*\d+.*" maxlength="20" autocomplete="off" title="Must contain at least one number" required aria-required="true">
               <span class="simulator-hint">Base hiring size as integer. If you type a range, first value is used.</span>
             </div>
 

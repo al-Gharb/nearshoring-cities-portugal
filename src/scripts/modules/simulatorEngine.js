@@ -518,6 +518,12 @@ function evaluateDealbreakerPenalty(city, context) {
     hits.push('limited-ict-pool');
   }
 
+  const requiresTechHub = /tech\s*hub|office\s*hub|cowork(?:ing)?|startup\s*ecosystem|innovation\s*hub/.test(dealbreakersLower);
+  if (requiresTechHub && (city.majorCompanies?.length || 0) < 3) {
+    penalty += 1.0;
+    hits.push('weak-tech-hub-signal');
+  }
+
   const requiresCoastal = /coastal|beach|seaside|warm/.test(dealbreakersLower) || lifestyle === 'coastal-warm';
   if (requiresCoastal && !['lisbon', 'porto', 'setubal', 'faro', 'aveiro', 'vianacastelo'].includes(city.id)) {
     penalty += 1.0;
