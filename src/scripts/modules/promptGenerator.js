@@ -22,11 +22,29 @@ import { computeAnalysis } from './simulatorEngine.js';
  * @param {Object} cityData — city entry from MASTER.json
  * @returns {number} Tech STEM+ regional total
  */
-function getRegionalPool(cityId, cityData) {
+function getRegionalStemPool(cityId, cityData) {
   const region = cityData?.basic?.region?.value;
   if (!region) return 500; // safe fallback
   const totals = getRegionalTotals(region);
   return totals?.digitalStemPlus ?? 500;
+}
+
+function getCityWorkforceEstimate(cityId, cityData) {
+  const breakdown = getStore()?.content?.national?.workforceStatistics?.cityBreakdown || [];
+  const cityName = cityData?.basic?.name?.value;
+  if (!cityName || breakdown.length === 0) {
+    return null;
+  }
+
+  const match = breakdown.find((entry) => String(entry?.city || '').toLowerCase() === cityName.toLowerCase());
+  if (!match) {
+    return null;
+  }
+
+  return {
+    linkedin: Number.isFinite(match.linkedin) ? match.linkedin : null,
+    official: Number.isFinite(match.official) ? match.official : null,
+  };
 }
 
 // getCityMeta() removed in Experimental v3 — metadata (climate, coworking, airport) no longer injected into prompt.
@@ -159,6 +177,8 @@ function prepareCityDataForAI() {
     const costs = city.costs || {};
     const profile = getCityProfile(cityId);
 
+    const workforce = getCityWorkforceEstimate(cityId, city);
+
     cities.push({
       id: cityId,
       name: city.basic?.name?.value ?? cityId,
@@ -167,7 +187,9 @@ function prepareCityDataForAI() {
       universities: city.talent?.universities?.value ?? [],
       stemGrads: grads.digitalStemPlus?.value ?? 0,
       ictGrads: grads.coreICT?.value ?? 0,
-      regionalPool: getRegionalPool(cityId, city),
+      regionalStemPool: getRegionalStemPool(cityId, city),
+      itWorkforceLinkedin: workforce?.linkedin ?? null,
+      itWorkforceOfficial: workforce?.official ?? null,
       colIndex: costs.colIndex?.value ?? 35,
       salaryIndex: costs.salaryIndex?.value ?? 80,
       officeRent: costs.officeRent ? { min: costs.officeRent.min, max: costs.officeRent.max } : { min: 12, max: 18 },

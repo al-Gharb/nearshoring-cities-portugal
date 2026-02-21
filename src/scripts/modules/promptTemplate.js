@@ -49,6 +49,7 @@ RULES:
 • If a number looks wrong, flag confidence=LOW and continue without correction.
 • Double-check every referenced city metric against the CITY REFERENCE DATABASE JSON before finalizing.
 • For recommended cities, explicitly validate salaryIndex, stemGrads, ictGrads, and office rent ranges from JSON.
+• Do NOT use regionalStemPool as active workforce. For workforce comparisons, use itWorkforceOfficial/itWorkforceLinkedin when available.
 • Tables first, prose second. Target ${outputWordTarget}.
 • Respect section formatting: where template says "table only", output only markdown table rows.
 • Section 3 deep-dives must cover 2 or 3 cities only (not more).
@@ -86,7 +87,7 @@ CITY REFERENCE DATABASE (${cityData.length} cities)
 ${JSON.stringify(cityData)}
 \`\`\`
 
-FIELD KEY: stemGrads=Tech STEM+ pool | ictGrads=Core ICT subset | salaryIndex=vs Lisbon(100) | colIndex=CoL excl. rent (NYC=100) | officeRent=€/m²/mo | residentialRent=€/mo T1
+FIELD KEY: stemGrads=Tech STEM+ graduates/year | ictGrads=Core ICT graduates/year | regionalStemPool=regional graduate pipeline (NOT active workforce) | itWorkforceOfficial/itWorkforceLinkedin=active IT workforce estimates | salaryIndex=vs Lisbon(100) | colIndex=CoL excl. rent (NYC=100) | officeRent=€/m²/mo | residentialRent=€/mo T1
 ADJACENT METRO: Setúbal taps Lisbon pool (45min), Guimarães taps Porto pool (40min)
 
 ═══════════════════════════════════════════════════════════════════════════════

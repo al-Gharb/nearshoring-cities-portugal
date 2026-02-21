@@ -296,7 +296,7 @@ export function computeAnalysis({
       salaryIndex: city.salaryIndex,
       ictGrads,
       stemGrads: city.stemGrads || 0,
-      regionalPool: city.regionalPool || 0,
+      regionalStemPool: city.regionalStemPool ?? city.regionalPool ?? 0,
       tags: city.tags || [],
       majorCompanies: city.majorCompanies || [],
 
@@ -507,7 +507,8 @@ function evaluateDealbreakerPenalty(city, context) {
   }
 
   const requiresUniversity = /university|graduate\s*pipeline|campus/.test(dealbreakersLower);
-  if (requiresUniversity && (city.stemGrads < 1000 && city.regionalPool < 2500)) {
+  const regionalStemPool = city.regionalStemPool ?? city.regionalPool ?? 0;
+  if (requiresUniversity && (city.stemGrads < 1000 && regionalStemPool < 2500)) {
     penalty += 1.2;
     hits.push('weak-university-pipeline');
   }
