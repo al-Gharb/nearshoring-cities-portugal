@@ -206,13 +206,7 @@ Prompt policy note: the generated fact-check prompts are source-free and do not 
 
 **Problem observed:** General-purpose models can use stale/unreliable sources, introduce math mistakes, and default to familiar city shortcuts instead of evaluating all 20 cities.
 
-**Experimental idea:** Compute financials and ranking logic deterministically in JavaScript from normalized databases, then pass the computed package to the LLM for advisory interpretation.
-
-**Assumptions:**
-- Database values are authoritative at generation time.
-- Financial math and ranking logic run before LLM interpretation.
-- The LLM is used for reasoning/trade-off narrative, not core arithmetic.
-- Final operational decisions require independent validation.
+**Assumptions & Idea:** Large language models generate outputs through next-token prediction, allocating attention across the prompt based on structure and salience. By deterministically computing financials and rankings from cross-validated datasets and injecting structured outputs (e.g., JSON metrics) into the prompt, we anchor context and steer attention. This reduces problem-space entropy, limits hallucinated substitutions, and shifts the model from open-ended generation toward disciplined, data-constrained comparative analysis grounded in validated inputs.
 
 **How it works:**
 1. User inputs project data (team, budget, roles, work model, constraints, priorities).

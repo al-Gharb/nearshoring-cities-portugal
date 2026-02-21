@@ -2431,14 +2431,7 @@
         </summary>
         <div class="deeper-dive-content">
           <p><strong>Problems observed when "normally" prompting LLMs regarding nearshoring locations in Portugal:</strong> General-purpose models can use stale/unreliable sources and outdated data, introduce math mistakes, and seem to take shortcuts to default cities instead of deeply evaluating all 20 cities for users custom input request.</p>
-          <p><strong>Experimental idea:</strong> Compute financials and ranking logic deterministically in JavaScript from normalized databases, then pass the computed package to the LLM for advisory interpretation.</p>
-          <p><strong>Assumptions:</strong></p>
-          <ul>
-            <li>Database values are authoritative at generation time.</li>
-            <li>Financial math and ranking logic run before LLM interpretation.</li>
-            <li>The LLM is used for reasoning/trade-off narrative, not core arithmetic.</li>
-            <li>Final operational decisions require independent validation.</li>
-          </ul>
+          <p><strong>Assumptions &amp; Idea:</strong> Large language models generate outputs through next-token prediction, allocating attention across the prompt based on structure and salience. By deterministically computing financials and rankings from cross-validated datasets and injecting structured outputs (e.g., JSON metrics) into the prompt, we anchor context and steer attention. This reduces problem-space entropy, limits hallucinated substitutions, and shifts the model from open-ended generation toward disciplined, data-constrained comparative analysis grounded in validated inputs.</p>
           <p><strong>How it works:</strong></p>
           <ol class="simulator-workflow">
             <li>User inputs project data (team, budget, roles, work model, constraints, priorities).</li>
