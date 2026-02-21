@@ -501,9 +501,32 @@ function evaluateDealbreakerPenalty(city, context) {
   }
 
   const requiresAirport = /airport|direct\s*flight|international\s*flight/.test(dealbreakersLower);
-  if (requiresAirport && !city.hasAirport) {
-    penalty += 1.6;
-    hits.push('no-airport');
+  const thresholdMatch = dealbreakersLower.match(/(?:within|under|<=?|max(?:imum)?|up\s*to)?\s*(\d{1,2})\s*h(?:\s*(\d{1,2}))?/);
+  const minuteThresholdMatch = dealbreakersLower.match(/(?:within|under|<=?|max(?:imum)?|up\s*to)?\s*(\d{1,3})\s*(?:min|mins|minutes)/);
+
+  let requiredAirportMinutes = null;
+  if (thresholdMatch) {
+    const hours = Number.parseInt(thresholdMatch[1], 10);
+    const minutes = thresholdMatch[2] ? Number.parseInt(thresholdMatch[2], 10) : 0;
+    requiredAirportMinutes = (Number.isFinite(hours) ? hours * 60 : 0) + (Number.isFinite(minutes) ? minutes : 0);
+  } else if (minuteThresholdMatch) {
+    const minutes = Number.parseInt(minuteThresholdMatch[1], 10);
+    requiredAirportMinutes = Number.isFinite(minutes) ? minutes : null;
+  }
+
+  if (requiresAirport) {
+    const airportAccessMinutes = Number.isFinite(city.airportAccessMinutes) ? city.airportAccessMinutes : null;
+
+    if (requiredAirportMinutes !== null) {
+      const withinTimeWindow = city.hasAirport || (airportAccessMinutes !== null && airportAccessMinutes <= requiredAirportMinutes);
+      if (!withinTimeWindow) {
+        penalty += 1.6;
+        hits.push('airport-time-window-fail');
+      }
+    } else if (!city.hasAirport) {
+      penalty += 1.6;
+      hits.push('no-airport');
+    }
   }
 
   const requiresUniversity = /university|graduate\s*pipeline|campus/.test(dealbreakersLower);

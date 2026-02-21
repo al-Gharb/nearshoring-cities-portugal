@@ -47,6 +47,54 @@ function getCityWorkforceEstimate(cityId, cityData) {
   };
 }
 
+function parseDurationToMinutes(rawValue) {
+  if (!rawValue) return null;
+
+  const text = String(rawValue).toLowerCase().replace(/~/g, '').trim();
+
+  const rangeMatch = text.match(/(\d{1,2})\s*[-–]\s*(\d{1,3})\s*(h|hr|hour|hours|min|mins|minute|minutes)?/);
+  if (rangeMatch) {
+    const start = Number.parseInt(rangeMatch[1], 10);
+    const end = Number.parseInt(rangeMatch[2], 10);
+    const unit = rangeMatch[3] || 'min';
+    if (Number.isFinite(start) && Number.isFinite(end)) {
+      const maxValue = Math.max(start, end);
+      return /^h|hr|hour/.test(unit) ? maxValue * 60 : maxValue;
+    }
+  }
+
+  const hourMinuteCompact = text.match(/(\d{1,2})\s*h\s*(\d{1,2})/);
+  if (hourMinuteCompact) {
+    const hours = Number.parseInt(hourMinuteCompact[1], 10);
+    const minutes = Number.parseInt(hourMinuteCompact[2], 10);
+    if (Number.isFinite(hours) && Number.isFinite(minutes)) {
+      return (hours * 60) + minutes;
+    }
+  }
+
+  const hourOnly = text.match(/(\d{1,2}(?:[.,]\d)?)\s*(h|hr|hour|hours)/);
+  if (hourOnly) {
+    const hours = Number.parseFloat(hourOnly[1].replace(',', '.'));
+    if (Number.isFinite(hours)) {
+      return Math.round(hours * 60);
+    }
+  }
+
+  const minuteOnly = text.match(/(\d{1,3})\s*(min|mins|minute|minutes)/);
+  if (minuteOnly) {
+    const minutes = Number.parseInt(minuteOnly[1], 10);
+    return Number.isFinite(minutes) ? minutes : null;
+  }
+
+  return null;
+}
+
+function getAirportAccessMinutes(cityId) {
+  const profile = getCityProfile(cityId);
+  const driveTime = profile?.infrastructure?.airport?.driveTime;
+  return parseDurationToMinutes(driveTime);
+}
+
 // getCityMeta() removed in Experimental v3 — metadata (climate, coworking, airport) no longer injected into prompt.
 // These are now advisory context the LLM can reference from the city database tags/companies fields.
 
@@ -178,6 +226,7 @@ function prepareCityDataForAI() {
     const profile = getCityProfile(cityId);
 
     const workforce = getCityWorkforceEstimate(cityId, city);
+    const airportAccessMinutes = getAirportAccessMinutes(cityId);
 
     cities.push({
       id: cityId,
@@ -190,6 +239,7 @@ function prepareCityDataForAI() {
       regionalStemPool: getRegionalStemPool(cityId, city),
       itWorkforceLinkedin: workforce?.linkedin ?? null,
       itWorkforceOfficial: workforce?.official ?? null,
+      airportAccessMinutes,
       colIndex: costs.colIndex?.value ?? 35,
       salaryIndex: costs.salaryIndex?.value ?? 80,
       officeRent: costs.officeRent ? { min: costs.officeRent.min, max: costs.officeRent.max } : { min: 12, max: 18 },
