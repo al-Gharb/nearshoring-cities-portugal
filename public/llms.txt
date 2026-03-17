@@ -1,0 +1,61 @@
+# IT Nearshoring in Portugal — City Analysis & AI Simulator
+
+Data-driven analysis of Portugal's best cities for IT nearshoring. Covers 20 cities (10 featured with full profiles, 10 secondary with key metrics). Data as of 2025–2026 sourced from DGEEC, ANACOM, Eurostat, CFP, ANI, and live commercial listings. Includes an AI Nearshoring Simulator (deterministic engine) and a Fact-Check verification system. Intended audience: CTOs, CFOs, and operations leads evaluating Southern Europe IT nearshoring locations.
+
+## Sections
+
+- [Macroeconomic Scorecard](https://al-gharb.github.io/nearshoring-cities-portugal/#executive-summary): Portugal macro indicators — GDP growth, unemployment, FDI, EU membership, eurozone stability, corporate tax rate.
+- [Digital Infrastructure](https://al-gharb.github.io/nearshoring-cities-portugal/#digital-infrastructure): Fixed broadband speeds, mobile coverage, subsea cable landings, tier-3 data centres, latency to Frankfurt/London.
+- [Strategic & Operational](https://al-gharb.github.io/nearshoring-cities-portugal/#operational-considerations): Tax incentives (NHR regime, R&D credits, SIFIDE II), labour law overview, healthcare quality (EHCI), safety index (GPI), cost-of-living comparison.
+- [University Talent Flow](https://al-gharb.github.io/nearshoring-cities-portugal/#university-talent-flow): Annual STEM and ICT graduates per city; Tech STEM+ composite metric; regional talent flow map; value matrix comparing talent depth vs. cost.
+- [Workforce & Compensation](https://al-gharb.github.io/nearshoring-cities-portugal/#workforce-talent-pools): Salary bands by role and seniority (junior/mid/senior/lead); employer cost breakdown (social security 23.75%, meal allowance, 14× salary structure); tech stack premiums.
+- [City Profiles](https://al-gharb.github.io/nearshoring-cities-portugal/#city-profiles): Full profiles for 10 featured cities: major tech employers, coworking hubs, universities, specialisations, climate, quality-of-life notes, office and residential rent ranges.
+- [AI Nearshoring Simulator](https://al-gharb.github.io/nearshoring-cities-portugal/#ai-simulator): Deterministic cost engine — input team size, roles, seniority mix, city → outputs total employer cost, savings vs. Western Europe benchmark, narrative prompt for AI assistant.
+
+## Cities
+
+- [Lisbon](https://al-gharb.github.io/nearshoring-cities-portugal/#city-lisbon): Capital; largest tech hub; Microsoft, Google, Amazon; 3,660 Tech STEM+ graduates/yr.
+- [Porto](https://al-gharb.github.io/nearshoring-cities-portugal/#city-porto): Second city; strong fintech and engineering cluster; Bosch, Natixis, Critical TechWorks; 3,210 Tech STEM+ graduates/yr.
+- [Braga](https://al-gharb.github.io/nearshoring-cities-portugal/#city-braga): Fast-growing tech scene; INL, Bosch, Axians; University of Minho; 1,890 Tech STEM+ graduates/yr.
+- [Guimarães](https://al-gharb.github.io/nearshoring-cities-portugal/#city-guimaraes): Industrial and engineering base; close to Porto/Braga cluster; 680 Tech STEM+ graduates/yr.
+- [Coimbra](https://al-gharb.github.io/nearshoring-cities-portugal/#city-coimbra): Historic university city; UC ranked top-5 nationally; health-tech and research focus; 1,120 Tech STEM+ graduates/yr.
+- [Aveiro](https://al-gharb.github.io/nearshoring-cities-portugal/#city-aveiro): University of Aveiro (top engineering); Nokia, Altice labs; 890 Tech STEM+ graduates/yr.
+- [Covilhã](https://al-gharb.github.io/nearshoring-cities-portugal/#city-covilha): Interior location; University of Beira Interior; lowest cost city in analysis; 420 Tech STEM+ graduates/yr.
+- [Évora](https://al-gharb.github.io/nearshoring-cities-portugal/#city-evora): UNESCO heritage city; University of Évora; agri-tech and sustainability niche; 310 Tech STEM+ graduates/yr.
+- [Faro](https://al-gharb.github.io/nearshoring-cities-portugal/#city-faro): Algarve capital; Universidade do Algarve; tourism-tech and international talent pool; 290 Tech STEM+ graduates/yr.
+- [Setúbal](https://al-gharb.github.io/nearshoring-cities-portugal/#city-setubal): Arrábida peninsula; Polytechnic of Setúbal; proximity to Lisbon (45 min); 480 Tech STEM+ graduates/yr.
+
+## Data
+
+Machine-readable JSON databases (updated 2025–2026):
+
+- [MASTER.json](https://al-gharb.github.io/nearshoring-cities-portugal/data/normalized/MASTER.json): Core metrics for all 20 cities — office rent, residential rent, STEM/ICT graduates, salary index.
+- [CITY_PROFILES.json](https://al-gharb.github.io/nearshoring-cities-portugal/data/normalized/CITY_PROFILES.json): Rich profiles for 10 featured cities — major companies, coworking spaces, universities, specialisations, climate, infrastructure.
+- [WEBSITE_CONTENT.json](https://al-gharb.github.io/nearshoring-cities-portugal/data/normalized/WEBSITE_CONTENT.json): National-level data — macroeconomic indicators, digital infrastructure stats, workforce data, strategic/tax data, quality-of-life metrics.
+- [COMPENSATION_DATA.json](https://al-gharb.github.io/nearshoring-cities-portugal/data/normalized/COMPENSATION_DATA.json): Salary bands by role (min/midpoint/max), seniority multipliers, tech stack premiums, employer cost components.
+- [sources.json](https://al-gharb.github.io/nearshoring-cities-portugal/data/sources.json): Machine-readable source registry with citations for all data points.
+
+## Sources
+
+Primary data sources used in this analysis:
+
+- **DGEEC InfoCursos** — Annual university graduates by field and institution (Portugal)
+- **ANACOM** — Portuguese telecoms regulator; broadband and mobile coverage statistics
+- **Eurostat** — ICT specialists in employment, digital economy indicators
+- **CFP (Conselho das Finanças Públicas)** — Portuguese fiscal forecasts and debt metrics
+- **European Commission Autumn Economic Forecast** — GDP, unemployment, FDI projections
+- **ANI (Agência Nacional de Inovação)** — R&D tax incentive schemes (SIFIDE II)
+- **Euro Health Consumer Index (EHCI)** — Healthcare system quality rankings
+- **Global Peace Index (GPI)** — Safety and political stability rankings
+- **Idealista / Imovirtual** — Live office and residential rental listings (Q4 2025)
+- **Numbeo** — Cost-of-living index and city comparisons
+
+## Notes
+
+- **Internal calculations** — not for external verification:
+  - *Tech STEM+ composite*: tiered model combining core ICT + engineering subset + math/stats subset + CTeSP + vocational programmes. Methodology documented at `#methodology-graduates`.
+  - *Salary Index*: INE regional average wages divided by Lisbon baseline. Methodology at `#methodology-salaries`.
+  - *ICT %*: coreIct ÷ officialStem (derived ratio).
+- **Static read-only site** — no API endpoints; all data is embedded in JSON files under `/data/normalized/`.
+- **Fact-check system** — claims are generated dynamically from source databases at runtime; verification methodology in `FACTCHECK_CLAIMS_v2.json`.
+- **Language** — site content is in English; city/region names use Portuguese diacritics (Guimarães, Covilhã, Évora, Setúbal).
