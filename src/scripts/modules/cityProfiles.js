@@ -43,19 +43,36 @@ const CITY_IMAGES = {
 };
 
 /**
- * Wikipedia image URLs for credit links (links directly to the image file).
+ * Wikimedia Commons file pages — used as credit link targets.
  */
 const CITY_WIKI_URLS = {
-  lisbon: 'https://en.wikipedia.org/wiki/Lisbon#/media/File:Lisboa_-_Portugal_(52597836992).jpg',
-  porto: 'https://en.wikipedia.org/wiki/Porto#/media/File:Puente_Don_Luis_I,_Oporto,_Portugal,_2012-05-09,_DD_13.JPG',
-  braga: 'https://en.wikipedia.org/wiki/Braga#/media/File:Braga_Panorama.jpg',
-  guimaraes: 'https://en.wikipedia.org/wiki/Guimar%C3%A3es#/media/File:Guimaraes-Portugal.jpg',
-  coimbra: 'https://en.wikipedia.org/wiki/Coimbra#/media/File:Coimbra_e_o_rio_Mondego_(6167200429)_(cropped).jpg',
-  aveiro: 'https://en.wikipedia.org/wiki/Aveiro,_Portugal#/media/File:Ilha_Dos_Puxadoiros_(47261194681)_(cropped).jpg',
-  covilha: 'https://en.wikipedia.org/wiki/Covilh%C3%A3#/media/File:Centrodacovilha.JPG',
-  evora: 'https://en.wikipedia.org/wiki/%C3%89vora#/media/File:Evora_Portugal.JPG',
-  faro: 'https://en.wikipedia.org/wiki/Faro,_Portugal#/media/File:2021_12_12_arne_mueseler_08_17_0576.jpg',
+  lisbon: 'https://commons.wikimedia.org/wiki/File:Lisboa_-_Portugal_(52597836992).jpg',
+  porto: 'https://commons.wikimedia.org/wiki/File:Puente_Don_Luis_I,_Oporto,_Portugal,_2012-05-09,_DD_13.JPG',
+  braga: 'https://commons.wikimedia.org/wiki/File:Braga_Panorama.jpg',
+  guimaraes: 'https://commons.wikimedia.org/wiki/File:Guimaraes-Portugal.jpg',
+  coimbra: 'https://commons.wikimedia.org/wiki/File:Coimbra_e_o_rio_Mondego_(6167200429)_(cropped).jpg',
+  aveiro: 'https://commons.wikimedia.org/wiki/File:Ilha_Dos_Puxadoiros_(47261194681)_(cropped).jpg',
+  covilha: 'https://commons.wikimedia.org/wiki/File:Centrodacovilha.JPG',
+  evora: 'https://commons.wikimedia.org/wiki/File:Evora_Portugal.JPG',
+  faro: 'https://commons.wikimedia.org/wiki/File:2021_12_12_arne_mueseler_08_17_0576.jpg',
   setubal: 'https://commons.wikimedia.org/wiki/File:Set%C3%BAbal_-_Portugal_(47992735196).jpg',
+};
+
+/**
+ * Photo credit metadata — author name and license for each city image.
+ * Source: Wikimedia Commons file pages (verified March 2026).
+ */
+const CITY_CREDITS = {
+  lisbon:    { author: 'Vitor Oliveira',            license: 'CC BY-SA 2.0' },
+  porto:     { author: 'Diego Delso',               license: 'CC BY-SA 3.0' },
+  braga:     { author: 'Otto Domes',                license: 'CC BY-SA 4.0' },
+  guimaraes: { author: 'Otto Domes',                license: 'CC BY-SA 4.0' },
+  coimbra:   { author: 'Leandro N. Ciuffo',         license: 'CC BY 2.0' },
+  aveiro:    { author: 'Michael Gaylard',           license: 'CC BY 2.0' },
+  covilha:   { author: 'R. A. Scheridon de Moraes', license: 'CC BY-SA 3.0' },
+  evora:     { author: 'Garygillmore',              license: 'Public domain' },
+  faro:      { author: 'Arne Müseler',              license: 'CC BY-SA 3.0 DE' },
+  setubal:   { author: 'Vitor Oliveira',            license: 'CC BY-SA 2.0' },
 };
 
 /**
@@ -565,6 +582,7 @@ function buildCitySection(cityId) {
   const icon = CITY_ICONS[cityId] ?? 'fa-city';
   const imageUrl = CITY_IMAGES[cityId] ?? '';
   const wikiUrl = CITY_WIKI_URLS[cityId] ?? '';
+  const cityCredit = CITY_CREDITS[cityId] ?? null;
   const tagline = profile?._meta?.tagline ?? '';
   const checkScore = profile?.verification?.checkScore ?? null;
   const checkDate = profile?.verification?.checkDate ?? null;
@@ -587,8 +605,8 @@ function buildCitySection(cityId) {
     <div class="city-header" onclick="toggleCityProfile(this.querySelector('.city-toggle-btn'))">
       ${imageUrl ? `
         <div class="city-header-image">
-          <img src="${imageUrl}" alt="${name} cityscape" loading="lazy" decoding="async" width="320" height="240">
-          ${wikiUrl ? `<a href="${wikiUrl}" target="_blank" class="image-credit">\u00A9 Wikipedia</a>` : ''}
+          <img src="${imageUrl}" alt="${name} cityscape" loading="lazy" decoding="async" width="320" height="240" referrerpolicy="no-referrer">
+          ${wikiUrl && cityCredit ? `<a href="${wikiUrl}" target="_blank" rel="noopener noreferrer" class="image-credit">\u00A9 ${cityCredit.author} \u00B7 ${cityCredit.license} \u00B7 Wikimedia Commons</a>` : ''}
         </div>
       ` : ''}
       <div class="city-header-content">
