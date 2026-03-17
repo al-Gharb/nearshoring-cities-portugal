@@ -299,6 +299,8 @@ export function computeAnalysis({
       regionalStemPool: city.regionalStemPool ?? city.regionalPool ?? 0,
       tags: city.tags || [],
       majorCompanies: city.majorCompanies || [],
+      hasAirport: city.hasAirport ?? false,
+      airportAccessMinutes: city.airportAccessMinutes ?? null,
 
       // Financial
       grossMonthly: emc.grossMonthly,
@@ -501,7 +503,7 @@ function evaluateDealbreakerPenalty(city, context) {
   }
 
   const requiresAirport = /airport|direct\s*flight|international\s*flight/.test(dealbreakersLower);
-  const thresholdMatch = dealbreakersLower.match(/(?:within|under|<=?|max(?:imum)?|up\s*to)?\s*(\d{1,2})\s*h(?:\s*(\d{1,2}))?/);
+  const thresholdMatch = dealbreakersLower.match(/(?:within|under|<=?|max(?:imum)?|up\s*to)?\s*(\d{1,2})\s*(?:hours?|hrs?|h)(?:\s*(\d{1,2}))?/);
   const minuteThresholdMatch = dealbreakersLower.match(/(?:within|under|<=?|max(?:imum)?|up\s*to)?\s*(\d{1,3})\s*(?:min|mins|minutes)/);
 
   let requiredAirportMinutes = null;

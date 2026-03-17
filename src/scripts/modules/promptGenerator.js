@@ -92,7 +92,12 @@ function parseDurationToMinutes(rawValue) {
 function getAirportAccessMinutes(cityId) {
   const profile = getCityProfile(cityId);
   const driveTime = profile?.infrastructure?.airport?.driveTime;
-  return parseDurationToMinutes(driveTime);
+  const fromProfile = parseDurationToMinutes(driveTime);
+  if (fromProfile !== null) return fromProfile;
+  // Fallback: static estimate stored in MASTER.json flags (used for secondary cities with no profile)
+  const cityData = getCity(cityId);
+  const staticMinutes = cityData?.flags?.airportAccessMinutes;
+  return Number.isFinite(staticMinutes) ? staticMinutes : null;
 }
 
 // getCityMeta() removed in Experimental v3 — metadata (climate, coworking, airport) no longer injected into prompt.

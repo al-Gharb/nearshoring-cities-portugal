@@ -2778,6 +2778,7 @@
       "flags": {
         "featured": false,
         "hasAirport": false,
+        "airportAccessMinutes": 90,
         "hasUniversityHub": false
       }
     },
@@ -3008,6 +3009,7 @@
       "flags": {
         "featured": false,
         "hasAirport": false,
+        "airportAccessMinutes": 65,
         "hasUniversityHub": false
       }
     },
@@ -3238,6 +3240,7 @@
       "flags": {
         "featured": false,
         "hasAirport": false,
+        "airportAccessMinutes": 135,
         "hasUniversityHub": false
       }
     },
@@ -3468,6 +3471,7 @@
       "flags": {
         "featured": false,
         "hasAirport": false,
+        "airportAccessMinutes": 85,
         "hasUniversityHub": false
       }
     },
@@ -3698,6 +3702,7 @@
       "flags": {
         "featured": false,
         "hasAirport": false,
+        "airportAccessMinutes": 60,
         "hasUniversityHub": false
       }
     },
@@ -3928,6 +3933,7 @@
       "flags": {
         "featured": false,
         "hasAirport": false,
+        "airportAccessMinutes": 90,
         "hasUniversityHub": false
       }
     },
@@ -4158,6 +4164,7 @@
       "flags": {
         "featured": false,
         "hasAirport": false,
+        "airportAccessMinutes": 185,
         "hasUniversityHub": false
       }
     },
@@ -4388,6 +4395,7 @@
       "flags": {
         "featured": false,
         "hasAirport": false,
+        "airportAccessMinutes": 105,
         "hasUniversityHub": false
       }
     },
@@ -4618,6 +4626,7 @@
       "flags": {
         "featured": false,
         "hasAirport": false,
+        "airportAccessMinutes": 130,
         "hasUniversityHub": false
       }
     },
@@ -4848,6 +4857,7 @@
       "flags": {
         "featured": false,
         "hasAirport": false,
+        "airportAccessMinutes": 165,
         "hasUniversityHub": false
       }
     }
