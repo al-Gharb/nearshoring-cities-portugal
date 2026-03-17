@@ -795,12 +795,18 @@
   background: linear-gradient(135deg, rgba(37,99,235,0.03), rgba(148,163,184,0.05));
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
-  margin-bottom: var(--sp-xl);
+  margin-bottom: var(--sp-md);
   overflow: hidden;
   scroll-margin-top: 10px;
   border-left: 4px solid var(--border-color);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
+
+/* First container (TOC) gets extra top spacing from header */
+.container > .deeper-dive-container:first-of-type {
+  margin-top: var(--sp-md);
+}
+
 [data-theme="dark"] .deeper-dive-container {
   background: linear-gradient(135deg, rgba(96,165,250,0.03), rgba(148,163,184,0.05));
 }
@@ -1042,8 +1048,9 @@ a.scorecard-source:hover {
 
 .subsea-cable-map { 
   width: 100%; 
+  max-width: 100%;
   min-height: auto; 
-  height: 100%;
+  height: auto;
   flex: 1;
 }
 
@@ -1060,12 +1067,19 @@ a.scorecard-source:hover {
   justify-content: center;
   min-height: 300px;
   overflow: hidden;
+  max-width: 100%;
 }
 /* Mobile: reduce min-height */
 @media (max-width: 640px) {
   .cable-map-container {
     min-height: 200px;
   }
+}
+/* Ensure cable map card and table card don't overflow their grid cell */
+.cable-map-card,
+.cable-map-card + .card {
+  min-width: 0;
+  overflow: hidden;
 }
 .cable-table {
   width: 100%;
@@ -1098,6 +1112,7 @@ a.scorecard-source:hover {
   }
   .cable-table th {
     font-size: 0.65rem;
+    white-space: normal;
   }
 }
 /* .cable-table-card: Use class="card" in HTML — no extra rules needed */
@@ -2247,8 +2262,9 @@ a.scorecard-source:hover {
 @media (max-width: 768px) {
   /* Deeper dives */
   .deeper-dive-content { padding: var(--sp-md); }
-  .deeper-dive-summary { flex-wrap: wrap; padding: var(--sp-md) var(--sp-lg); }
+  .deeper-dive-summary { flex-wrap: nowrap; padding: var(--sp-md) var(--sp-lg); }
   .deeper-dive-subtitle { display: none; }
+  .deeper-dive-summary .section-confidence { display: none; }
 
   /* Cover / Map */
   .map-wrapper { width: 100%; max-width: 400px; height: auto; aspect-ratio: 400 / 610; }
@@ -2281,9 +2297,11 @@ a.scorecard-source:hover {
   /* Cover */
   .cover-page { padding: var(--sp-md); padding-top: var(--sp-3xl); }
 
-  /* Deeper dives */
-  .deeper-dive-summary { padding: var(--sp-md); gap: 0.5rem; }
+  /* Deeper dives — tighter padding for mobile */
+  .deeper-dive-summary { padding: var(--sp-sm) var(--sp-md); gap: 0.4rem; }
   .deeper-dive-content { padding: var(--sp-sm); }
+  .deeper-dive-title { font-size: 1.125rem; }
+  .deeper-dive-title .badge-beta { display: block; width: fit-content; margin-top: 0.25rem; }
 
   /* Intro block */
   .intro-block { padding: var(--sp-md); margin-bottom: var(--sp-xl); }
@@ -2298,7 +2316,7 @@ a.scorecard-source:hover {
   .header-meta-sep { display: none; }
 
   /* TOC needs breathing room on mobile */
-  .deeper-dive-content .intro-block { margin-top: var(--sp-md); }
+  .deeper-dive-content .intro-block { margin-top: var(--sp-sm); }
 
   /* Context-notice callout */
   .context-notice { padding: var(--sp-md) var(--sp-lg); }
@@ -2316,6 +2334,12 @@ a.scorecard-source:hover {
 
   /* Source entries */
   .source-entry { padding: 0.75rem 1rem; }
+
+  /* Section intro text */
+  .section-intro { font-size: 0.88rem; }
+
+  /* Callout boxes */
+  .collapsible-body { overflow-wrap: break-word; word-break: break-word; }
 }
 
 @media (max-width: 480px) {
@@ -2329,6 +2353,15 @@ a.scorecard-source:hover {
 
   /* Footer */
   .site-footer { padding: var(--sp-lg) 0 var(--sp-md); }
+
+  /* Deeper dives — smallest phones */
+  .deeper-dive-summary { padding: var(--sp-xs) var(--sp-sm); gap: 0.35rem; }
+  .deeper-dive-content { padding: var(--sp-xs); }
+  .deeper-dive-title { font-size: 1.06rem; }
+  .section-icon { font-size: 0.85rem; }
+
+  /* Map container */
+  .map-container { padding: 0 var(--sp-xs); }
 }
 
 /* Short / landscape viewports — prevent cover content clipping */

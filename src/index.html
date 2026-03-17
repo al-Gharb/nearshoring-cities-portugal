@@ -2537,7 +2537,7 @@
           <h3 class="simulator-section-title"><i class="fa-solid fa-code" aria-hidden="true"></i> Tech and Candidate Requirements</h3>
           <div class="simulator-grid">
             <div class="simulator-field simulator-field-full">
-              <label><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i> Roles &amp; Skills Needed</label>
+              <label for="sim-searched-stack-other"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i> Roles &amp; Skills Needed</label>
               <div class="checkbox-grid">
                 <label class="checkbox-label"><input type="checkbox" name="stack" value="React"> React</label>
                 <label class="checkbox-label"><input type="checkbox" name="stack" value="Angular"> Angular</label>
@@ -2561,8 +2561,8 @@
             </div>
 
             <div class="simulator-field simulator-field-full">
-              <label for="sim-role-type-group"><i class="fa-solid fa-user-tag" aria-hidden="true"></i> Role Type</label>
-              <div id="sim-role-type-group" class="checkbox-grid" role="group" aria-label="Role Type selection">
+              <label id="sim-role-type-label"><i class="fa-solid fa-user-tag" aria-hidden="true"></i> Role Type</label>
+              <div id="sim-role-type-group" class="checkbox-grid" role="group" aria-labelledby="sim-role-type-label">
                 <!-- Dynamically populated from salary table roles (WEBSITE_CONTENT.json) -->
               </div>
               <span class="simulator-hint">Affects talent pool relevance and salary estimates</span>

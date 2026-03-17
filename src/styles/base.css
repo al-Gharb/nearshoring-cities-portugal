@@ -146,7 +146,7 @@ button:focus-visible,
 .container {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: var(--sp-lg) var(--sp-lg) 0;
+  padding: var(--sp-2xl) var(--sp-lg) 0;
   overflow-x: hidden;
 }
 
@@ -155,6 +155,7 @@ button:focus-visible,
    ───────────────────────────────────────────────────────────────────────── */
 
 .grid-2  { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-lg); }
+.grid-2 > * { min-width: 0; }
 .grid-equal-height { align-items: stretch; }
 .card-flex { display: flex; flex-direction: column; }
 .flex-fill { flex: 1; }
@@ -531,4 +532,11 @@ th {
   .stat-value { font-size: 1.4rem; }
   .grid-auto-180,
   .grid-auto-200 { grid-template-columns: 1fr; }
+  .table-wrapper {
+    margin-left: calc(-1 * var(--sp-sm));
+    margin-right: calc(-1 * var(--sp-sm));
+    padding-left: var(--sp-sm);
+    padding-right: var(--sp-sm);
+  }
+  th, td { padding: 0.5rem 0.6rem; font-size: 0.82rem; }
 }

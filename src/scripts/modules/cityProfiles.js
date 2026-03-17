@@ -26,20 +26,20 @@ const CITY_ICONS = {
 };
 
 /**
- * City Wikipedia image URLs.
- * From legacy index.html (320px thumbnails).
+ * City profile images — self-hosted from public/assets/images/cities/.
+ * Originals from Wikimedia Commons (see CREDITS.md and CITY_CREDITS for attribution).
  */
 const CITY_IMAGES = {
-  lisbon:    'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/%2B_Abends_mit_dem_Tuck-Tuck_durch_Lissabon._03.jpg/330px-%2B_Abends_mit_dem_Tuck-Tuck_durch_Lissabon._03.jpg',
-  porto:     'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/View_of_Porto_from_Marginal_de_Gaia%2C_20250605_1614_9870.jpg/330px-View_of_Porto_from_Marginal_de_Gaia%2C_20250605_1614_9870.jpg',
-  braga:     'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Braga_Panorama.jpg/330px-Braga_Panorama.jpg',
-  guimaraes: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Largo_do_Toural_%28reabilitado%29.jpg/330px-Largo_do_Toural_%28reabilitado%29.jpg',
-  coimbra:   'https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Coimbra_tozu.JPG/330px-Coimbra_tozu.JPG',
-  aveiro:    'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Ria_de_Aveiro.jpg/330px-Ria_de_Aveiro.jpg',
-  covilha:   'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Centrodacovilha.JPG/330px-Centrodacovilha.JPG',
-  evora:     'https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/%C3%89vora_-_Pra%C3%A7a_do_Giraldo.jpg/330px-%C3%89vora_-_Pra%C3%A7a_do_Giraldo.jpg',
-  faro:      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Faro_2.jpg/330px-Faro_2.jpg',
-  setubal:   'https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Forte_de_Santa_Maria_da_Arr%C3%A1bida_by_Juntas_4.jpg/330px-Forte_de_Santa_Maria_da_Arr%C3%A1bida_by_Juntas_4.jpg',
+  lisbon:    `${import.meta.env.BASE_URL}assets/images/cities/lisbon.jpg`,
+  porto:     `${import.meta.env.BASE_URL}assets/images/cities/porto.jpg`,
+  braga:     `${import.meta.env.BASE_URL}assets/images/cities/braga.jpg`,
+  guimaraes: `${import.meta.env.BASE_URL}assets/images/cities/guimaraes.jpg`,
+  coimbra:   `${import.meta.env.BASE_URL}assets/images/cities/coimbra.jpg`,
+  aveiro:    `${import.meta.env.BASE_URL}assets/images/cities/aveiro.jpg`,
+  covilha:   `${import.meta.env.BASE_URL}assets/images/cities/covilha.jpg`,
+  evora:     `${import.meta.env.BASE_URL}assets/images/cities/evora.jpg`,
+  faro:      `${import.meta.env.BASE_URL}assets/images/cities/faro.jpg`,
+  setubal:   `${import.meta.env.BASE_URL}assets/images/cities/setubal.jpg`,
 };
 
 /**

@@ -1501,9 +1501,19 @@
   .simulator-btn-generate { padding: 0.9rem 1.5rem; font-size: 1rem; }
   .methodology-content { padding: var(--sp-md); }
   .salary-methodology-body { padding: var(--sp-md); }
-  .toc-row-sub { padding-left: 1.5rem; margin-left: 0.5rem; }
-  .toc-cities { padding-left: 1rem; }
   .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* ── TOC mobile spacing ── */
+  .toc-nav { gap: 0.35rem; }
+  .toc-row-main { padding: 0.55rem 0.75rem; }
+  .toc-link-main { font-size: 0.88rem; gap: 0.4rem; }
+  .toc-number { width: 1.25em; height: 1.25em; font-size: 0.62rem; }
+  .toc-icon-accent { font-size: 0.8rem; }
+  .toc-row-sub { padding: 0.35rem 0.75rem 0.35rem 1.8rem; margin-left: 0.35rem; gap: 0.5rem; font-size: 0.8rem; }
+  .toc-cities { padding-left: 1.2rem; padding-top: 0.3rem; padding-bottom: 0.4rem; gap: 0.35rem; }
+  .toc-link-city { padding: 0.25rem 0.55rem; font-size: 0.68rem; }
+  .toc-link-sub { font-size: 0.78rem; padding: 0.2rem 0.4rem; }
+  .toc-confidence { display: none; }
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
@@ -1570,6 +1580,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  min-width: 0;
+  overflow-wrap: break-word;
 }
 .city-header-content h2,
 .city-header-content h3 {
@@ -1699,6 +1711,9 @@
   border-radius: var(--radius-md);
   border: 1px solid var(--border-color);
   transition: box-shadow var(--ease-default);
+  overflow-wrap: break-word;
+  word-break: break-word;
+  min-width: 0;
 }
 .city-grid .grid-item:hover {
   box-shadow: 0 2px 8px rgba(0,0,0,0.06);
@@ -2427,31 +2442,62 @@
 }
 
 @media (max-width: 768px) {
-  .city-header { flex-direction: column; gap: var(--sp-md); padding: var(--sp-lg); }
+  .city-header { flex-direction: column; align-items: center; text-align: center; gap: var(--sp-md); padding: var(--sp-lg); }
   .city-header-image { width: 100%; height: 150px; border-radius: var(--radius-md); }
   .city-header-image img { height: 150px; }
+  .city-header-content { align-items: center; }
   .city-header-content h2,
-  .city-header-content h3 { font-size: 1.3rem; }
+  .city-header-content h3 { font-size: 1.3rem; justify-content: center; }
   .city-header-nav { margin-left: 0; flex-wrap: wrap; justify-content: center; }
   .city-section.expanded .city-grid { grid-template-columns: 1fr; }
   .city-grid .grid-item.strategic,
   .city-grid .grid-item.collaboration,
   .city-grid .grid-item.metrics { grid-column: span 1; }
+  .city-section { margin-bottom: var(--sp-2xl); }
+  .city-section.expanded .city-grid { padding: var(--sp-lg) var(--sp-md); }
+  .city-grid { padding: 0 var(--sp-md); }
+  .company-list { grid-template-columns: 1fr; }
+  .student-orgs-list { grid-template-columns: 1fr; }
+  .idealista-links { grid-template-columns: 1fr; }
 }
 
-@media (max-width: 768px) {
-  .city-section { margin-bottom: var(--sp-2xl); }
+@media (max-width: 640px) {
+  .city-header { padding: var(--sp-md); gap: var(--sp-sm); }
+  .city-header-image { height: 130px; }
+  .city-header-image img { height: 130px; }
+  .city-header-content h2,
+  .city-header-content h3 { font-size: 1.2rem; }
+  .city-subtitle { font-size: 0.85rem; }
+  .city-toggle-btn { padding: 0.35rem 0.8rem; font-size: 0.75rem; }
+  .city-print-btn { padding: 0.3rem 0.7rem; font-size: 0.72rem; }
+  .city-section.expanded .city-grid { padding: var(--sp-md) var(--sp-sm); gap: var(--sp-md); }
+  .city-grid .grid-item { padding: var(--sp-md); }
+  .city-grid .grid-item p,
+  .city-grid .grid-item li { font-size: 0.85rem; }
+  .graduate-grid { gap: 0.5rem; }
+  .graduate-stat { padding: 0.6rem 0.35rem; }
+  .graduate-stat .db-value { font-size: 0.9rem; }
+  .graduate-stat .graduate-label { font-size: 0.65rem; }
+  .climate-stats-grid { grid-template-columns: repeat(3, 1fr); gap: 0.35rem; }
+  .climate-stat { padding: 0.4rem 0.25rem; }
+  .climate-stat-value { font-size: 0.9rem; }
+  .domain-tags .tag-enhanced { padding: 0.3rem 0.7rem; font-size: 0.75rem; margin-right: 0.35rem; margin-bottom: 0.35rem; }
 }
 
 @media (max-width: 480px) {
-  .city-header { padding: var(--sp-md); }
-  .city-header-image { height: 120px; }
-  .city-header-image img { height: 120px; }
+  .city-header { padding: var(--sp-sm); }
+  .city-header-image { height: 110px; }
+  .city-header-image img { height: 110px; }
   .city-header-content h2,
-  .city-header-content h3 { font-size: 1.15rem; }
-  .company-list { grid-template-columns: 1fr; }
-  .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+  .city-header-content h3 { font-size: 1.1rem; }
   .city-section { margin-bottom: var(--sp-xl); }
+  .city-section.expanded .city-grid { padding: var(--sp-sm); gap: var(--sp-sm); }
+  .city-grid .grid-item { padding: var(--sp-sm); }
+  .metrics-grid { grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
+  .metric-stat { padding: 0.6rem 0.35rem; }
+  .metric-stat .db-value { font-size: 0.85rem; }
+  .graduate-grid { grid-template-columns: repeat(2, 1fr); gap: 0.4rem; }
+  .climate-best-months { flex-wrap: wrap; font-size: 0.68rem; }
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
@@ -2807,6 +2853,7 @@ h2 .section-confidence .confidence-bar-label {
   color: var(--text-color);
   text-decoration: none;
   transition: color 0.15s ease;
+  min-width: 0;
 }
 
 .toc-link-main:hover {
