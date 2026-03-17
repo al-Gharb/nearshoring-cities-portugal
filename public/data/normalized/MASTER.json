@@ -92,7 +92,7 @@
             "description": "2-year diplomas: Web Dev, Programming"
           }
         },
-        "nationalEstimate": 21486,
+        "nationalEstimate": 16782,
         "year": 2023
       },
       "coreICT": {
@@ -209,37 +209,37 @@
   "regionalTotals": {
     "Norte": {
       "officialStem": 10044,
-      "digitalStemPlus": 7689,
+      "digitalStemPlus": 6001,
       "coreICT": 1246
     },
     "Centro": {
       "officialStem": 5842,
-      "digitalStemPlus": 4428,
+      "digitalStemPlus": 3446,
       "coreICT": 496
     },
     "Oeste and Vale do Tejo": {
       "officialStem": 360,
-      "digitalStemPlus": 499,
+      "digitalStemPlus": 438,
       "coreICT": 149
     },
     "Lisbon Metropolitan Area": {
       "officialStem": 8089,
-      "digitalStemPlus": 6474,
+      "digitalStemPlus": 5115,
       "coreICT": 1103
     },
     "Península de Setúbal": {
       "officialStem": 2503,
-      "digitalStemPlus": 1537,
+      "digitalStemPlus": 1116,
       "coreICT": 195
     },
     "Alentejo": {
       "officialStem": 435,
-      "digitalStemPlus": 389,
+      "digitalStemPlus": 316,
       "coreICT": 45
     },
     "Algarve": {
       "officialStem": 717,
-      "digitalStemPlus": 470,
+      "digitalStemPlus": 350,
       "coreICT": 33
     }
   },
@@ -322,7 +322,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 6474,
+            "value": 5115,
             "year": 2023,
             "meta": {
               "source": {
@@ -553,7 +553,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 4164,
+            "value": 3250,
             "year": 2023,
             "meta": {
               "source": {
@@ -784,7 +784,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 1161,
+            "value": 906,
             "year": 2023,
             "meta": {
               "source": {
@@ -1014,7 +1014,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 928,
+            "value": 724,
             "year": 2023,
             "meta": {
               "source": {
@@ -1245,7 +1245,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 1022,
+            "value": 993,
             "year": 2023,
             "meta": {
               "source": {
@@ -1475,7 +1475,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 831,
+            "value": 808,
             "year": 2023,
             "meta": {
               "source": {
@@ -1705,7 +1705,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 720,
+            "value": 700,
             "year": 2023,
             "meta": {
               "source": {
@@ -1935,7 +1935,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 273,
+            "value": 222,
             "year": 2023,
             "meta": {
               "source": {
@@ -2165,7 +2165,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 470,
+            "value": 350,
             "year": 2023,
             "meta": {
               "source": {
@@ -2396,7 +2396,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 1537,
+            "value": 1116,
             "year": 2023,
             "meta": {
               "source": {
@@ -2626,7 +2626,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 533,
+            "value": 416,
             "year": 2023,
             "meta": {
               "source": {
@@ -2857,7 +2857,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 395,
+            "value": 308,
             "year": 2023,
             "meta": {
               "source": {
@@ -3088,7 +3088,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 508,
+            "value": 397,
             "year": 2023,
             "meta": {
               "source": {
@@ -3319,7 +3319,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 1037,
+            "value": 150,
             "year": 2023,
             "meta": {
               "source": {
@@ -3550,7 +3550,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 186,
+            "value": 164,
             "year": 2023,
             "meta": {
               "source": {
@@ -3781,7 +3781,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 564,
+            "value": 548,
             "year": 2023,
             "meta": {
               "source": {
@@ -4012,7 +4012,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 254,
+            "value": 247,
             "year": 2023,
             "meta": {
               "source": {
@@ -4243,7 +4243,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 313,
+            "value": 274,
             "year": 2023,
             "meta": {
               "source": {
@@ -4474,7 +4474,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 64,
+            "value": 52,
             "year": 2023,
             "meta": {
               "source": {
@@ -4705,7 +4705,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 52,
+            "value": 42,
             "year": 2023,
             "meta": {
               "source": {

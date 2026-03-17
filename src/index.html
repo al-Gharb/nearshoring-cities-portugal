@@ -44,7 +44,7 @@
   <section class="cover-page" id="cover">
     <div class="cover-content">
       <h1 class="cover-title">
-        Nearshoring Guide Portugal 2026<span class="cover-cursor"></span>
+        Nearshoring Analysis Portugal 2026<span class="cover-cursor"></span>
       </h1>
       <p class="cover-subtitle">
         A practical look at Portugal's best cities for technology nearshoring
@@ -893,31 +893,31 @@
                 <p><strong>Definition:</strong></p>
                 <div class="formula-block">
                   <code>Tech STEM+ = projected annual hiring-relevant tech graduate pool (gross, end-2026)</code><br>
-                  <span class="formula-note">Built from Tier 1 degree-level output plus Tier 2 CTeSP and Tier 3 vocational estimates</span>
+                  <span class="formula-note">Tier 1: selective extraction from Official STEM (Core ICT + Engineering subset + Math/Stats) · Tier 2: secondary-level vocational additive</span>
                 </div>
                 <p class="source-description">Methodology and the particularities of the Portuguese educational system</p>
 
                 <!-- Introduction -->
                 <p>
-                  This document uses <strong>two complementary metrics</strong>: <span class="meth-card-red meth-card-title meth-inline">Official STEM</span> (DGEEC official count, CNAEF 05+06+07) and <span class="meth-card-blue meth-card-title meth-inline">Tech STEM+</span> (<span id="meth-intro-stem" class="meth-dynamic">~21,486</span> gross/year). Tech STEM+ is an internal <em>hiring-relevant</em> benchmark projected to end-2026.
+                  This document uses <strong>two complementary metrics</strong>: <span class="meth-card-red meth-card-title meth-inline">Official STEM</span> (DGEEC official count, CNAEF 05+06+07, which already includes CTeSP higher-education graduates) and <span class="meth-card-blue meth-card-title meth-inline">Tech STEM+</span> (<span id="meth-intro-stem" class="meth-dynamic">~16,782</span> gross/year). Tech STEM+ is an internal <em>hiring-relevant</em> benchmark projected to end-2026.
                 </p>
 
                 <!-- Why Two Metrics -->
                 <div class="card">
                   <h5><i class="fa-solid fa-layer-group" aria-hidden="true"></i> Why Two Metrics?</h5>
                   <p>
-                    <strong class="meth-card-red meth-card-title"><i class="fa-solid fa-user-graduate"></i> Official STEM</strong> (~27,990) uses DGEEC CNAEF codes 05+06+07 (Quantitative Sciences, ICT, Engineering). Ideal for official comparisons.
+                    <strong class="meth-card-red meth-card-title"><i class="fa-solid fa-user-graduate"></i> Official STEM</strong> (~27,990) uses DGEEC CNAEF codes 05+06+07 (Quantitative Sciences, ICT, Engineering). This figure <strong>already includes CTeSP graduates</strong> enrolled in those fields. Ideal for official comparisons.
                   </p>
                   <p>
-                    <strong class="meth-card-blue meth-card-title"><i class="fa-solid fa-user-graduate"></i><i class="fa-solid fa-user"></i> Tech STEM+</strong> adds structured estimation layers for engineering, quantitative sciences, CTeSP, and vocational tracks to model practical hiring pool depth.
+                    <strong class="meth-card-blue meth-card-title"><i class="fa-solid fa-user-graduate"></i><i class="fa-solid fa-user"></i> Tech STEM+</strong> applies selective inclusion rates within Official STEM (to extract the hiring-relevant subset) plus one genuinely additive tier: secondary-level vocational tech tracks that are outside DGEEC's higher-education counts.
                   </p>
                 </div>
 
                 <!-- CTeSP Explanation -->
                 <div class="card-subtle">
-                  <h5><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i> CTeSP: Short-Cycle Technical Diplomas (~5.2k/year)</h5>
+                  <h5><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i> CTeSP: Already Inside Official STEM (~5.9k/year total)</h5>
                   <p>
-                    <em>Cursos Técnicos Superiores Profissionais</em>: 2-year programs (120 ECTS) at polytechnics focused on Web Development, Programming, IT Support, and Cybersecurity. The model applies 80% inclusion to reflect field drift into non-tech operational roles.
+                    <em>Cursos Técnicos Superiores Profissionais</em>: 2-year polytechnic programs (ISCED 5 / EQF 5) in Web Development, Programming, IT Support, and Cybersecurity. CTeSP completions are classified as <strong>higher education</strong> by DGEEC and are therefore <strong>already counted inside the CNAEF 06 (ICT) and 07 (Engineering) field totals</strong> used for Official STEM. DGEEC 2023/24 confirms 5,940 CTeSP graduates across all fields, of which the tech-relevant portion is already embedded in Core ICT and Engineering Subset. <strong>They must not be added as a separate tier.</strong>
                   </p>
                 </div>
 
@@ -931,9 +931,9 @@
                   </div>
                   <div class="meth-card meth-card-blue">
                     <div class="meth-card-title"><i class="fa-solid fa-user-graduate"></i><i class="fa-solid fa-user"></i> Tech STEM+</div>
-                    <div class="meth-card-source">Tier 1 + Tier 2 + Tier 3</div>
+                    <div class="meth-card-source">Tier 1 (STEM subset) + Tier 2 (vocational)</div>
                     <div class="meth-card-desc">Hiring-relevant gross pool</div>
-                    <div id="meth-card-stem" class="meth-card-total">~21,486/year (2026 gross est.)</div>
+                    <div id="meth-card-stem" class="meth-card-total">~16,782/year (2026 gross est.)</div>
                   </div>
                   <div class="meth-card meth-card-green">
                     <div class="meth-card-title">Core ICT <span class="meth-card-source">subset</span></div>
@@ -946,57 +946,50 @@
                 <!-- Breakdown Table -->
                 <div class="card">
                   <div><strong>Tech STEM+ Composition</strong> <span class="meth-card-source">Portugal mainland (NUTS2)</span></div>
-                  <p><em>Projected to end-2026 from a 2023/24 base using component-level CAGR assumptions.</em></p>
+                  <p><em>Projected to end-2026 from a 2023/24 base using component-level CAGR assumptions. CTeSP is excluded as a separate tier — those graduates are already counted inside the DGEEC field totals used for Core ICT and Engineering Subset.</em></p>
                   <div class="table-wrapper">
                     <table class="methodology-table">
                       <thead>
                         <tr>
                           <th>Category</th>
-                          <th>CNAEF</th>
+                          <th>CNAEF / Basis</th>
                           <th class="col-numeric">Graduates</th>
                           <th class="col-numeric">Share</th>
-                          <th>Disciplines</th>
+                          <th>Notes</th>
                         </tr>
                       </thead>
                       <tbody id="meth-composition-body">
                         <tr>
-                          <td><strong class="meth-card-green meth-card-title">Core ICT</strong></td>
+                          <td><strong class="meth-card-green meth-card-title">Core ICT</strong> <span class="meth-card-source">Tier 1a</span></td>
                           <td class="meth-card-source">CNAEF 06 (100%)</td>
                           <td id="meth-comp-core-ict" class="col-numeric meth-card-green meth-card-total">3,267</td>
-                          <td id="meth-comp-core-ict-share" class="col-numeric">15.2%</td>
-                          <td>Official DGEEC NUTS2 subtotal; no estimation</td>
+                          <td id="meth-comp-core-ict-share" class="col-numeric">19.5%</td>
+                          <td>Official DGEEC NUTS2 total; includes CTeSP programmers already</td>
                         </tr>
                         <tr>
-                          <td><strong>Engineering Subset</strong></td>
-                          <td class="meth-card-source">(STEM − ICT) × 50%</td>
+                          <td><strong>Engineering Subset</strong> <span class="meth-card-source">Tier 1b</span></td>
+                          <td class="meth-card-source">(STEM − ICT) × ~37.5%</td>
                           <td class="col-numeric meth-card-blue meth-card-total">9,261</td>
-                          <td class="col-numeric">43.1%</td>
-                          <td>Tech-applicable share of engineering output</td>
+                          <td class="col-numeric">55.2%</td>
+                          <td>Tech-applicable share; includes CTeSP engineers already</td>
                         </tr>
                         <tr>
-                          <td><strong>Math/Stats Subset</strong></td>
-                          <td class="meth-card-source">18% of STEM × 30%</td>
+                          <td><strong>Math/Stats Subset</strong> <span class="meth-card-source">Tier 1c</span></td>
+                          <td class="meth-card-source">STEM × 18% × 30%</td>
                           <td class="col-numeric"><strong>1,594</strong></td>
-                          <td class="col-numeric">7.4%</td>
+                          <td class="col-numeric">9.5%</td>
                           <td>Minority entering directly tech-hireable roles</td>
                         </tr>
                         <tr>
-                          <td><strong>CTeSP (Tier 2)</strong></td>
-                          <td class="meth-card-source">National estimate × regional HE share × 80%</td>
-                          <td class="col-numeric"><strong>4,704</strong></td>
-                          <td class="col-numeric">21.9%</td>
-                          <td>Short-cycle technical diplomas with high tech alignment</td>
-                        </tr>
-                        <tr>
-                          <td><strong>Vocational (Tier 3)</strong></td>
-                          <td class="meth-card-source">National estimate × population share × 45%</td>
-                          <td class="col-numeric"><strong>2,253</strong></td>
-                          <td class="col-numeric">10.5%</td>
-                          <td>Most uncertain component; higher attrition into non-tech roles</td>
+                          <td><strong>Vocational</strong> <span class="meth-card-source">Tier 2 — additive</span></td>
+                          <td class="meth-card-source">Nat. estimate × pop. share × 45%</td>
+                          <td class="col-numeric"><strong>2,660</strong></td>
+                          <td class="col-numeric">15.8%</td>
+                          <td>Secondary-level only (Cursos Profissionais); outside DGEEC HE counts; most uncertain component</td>
                         </tr>
                         <tr class="region-summary-row">
                           <td colspan="2"><strong>Total Tech STEM+ (Gross 2026)</strong></td>
-                          <td id="meth-total-stem" class="col-numeric">21,486</td>
+                          <td id="meth-total-stem" class="col-numeric">16,782</td>
                           <td class="col-numeric">100%</td>
                           <td>Mainland projected annual hiring pool</td>
                         </tr>
@@ -1018,27 +1011,22 @@
                       </thead>
                       <tbody>
                         <tr>
-                          <td><strong>ICT</strong></td>
+                          <td><strong>Core ICT (Tier 1a)</strong></td>
                           <td class="col-numeric">+6%</td>
                           <td>Slowing from historic peaks; aligned with stabilizing enrollment trends</td>
                         </tr>
                         <tr>
-                          <td><strong>Engineering subset</strong></td>
+                          <td><strong>Engineering subset (Tier 1b)</strong></td>
                           <td class="col-numeric">+3%</td>
                           <td>In line with overall higher-education volume growth</td>
                         </tr>
                         <tr>
-                          <td><strong>Math/Stats subset</strong></td>
+                          <td><strong>Math/Stats subset (Tier 1c)</strong></td>
                           <td class="col-numeric">+3%</td>
                           <td>Same baseline growth assumption as Engineering subset</td>
                         </tr>
                         <tr>
-                          <td><strong>CTeSP</strong></td>
-                          <td class="col-numeric">+8%</td>
-                          <td>Fastest tier under RRP-driven VET modernization capacity expansion</td>
-                        </tr>
-                        <tr>
-                          <td><strong>Vocational</strong></td>
+                          <td><strong>Vocational (Tier 2)</strong></td>
                           <td class="col-numeric">+2%</td>
                           <td>Constrained by structural capacity and conversion to tech roles</td>
                         </tr>
@@ -1058,14 +1046,14 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr><td><strong>Norte</strong></td><td class="col-numeric">7,689</td></tr>
-                        <tr><td><strong>Centro</strong></td><td class="col-numeric">4,428</td></tr>
-                        <tr><td><strong>Oeste e Vale do Tejo</strong></td><td class="col-numeric">499</td></tr>
-                        <tr><td><strong>Lisbon Metro</strong></td><td class="col-numeric">6,474</td></tr>
-                        <tr><td><strong>Península de Setúbal</strong></td><td class="col-numeric">1,537</td></tr>
-                        <tr><td><strong>Alentejo</strong></td><td class="col-numeric">389</td></tr>
-                        <tr><td><strong>Algarve</strong></td><td class="col-numeric">470</td></tr>
-                        <tr class="region-summary-row"><td><strong>Mainland Total</strong></td><td class="col-numeric"><strong>21,486</strong></td></tr>
+                        <tr><td><strong>Norte</strong></td><td class="col-numeric">6,001</td></tr>
+                        <tr><td><strong>Centro</strong></td><td class="col-numeric">3,446</td></tr>
+                        <tr><td><strong>Oeste e Vale do Tejo</strong></td><td class="col-numeric">438</td></tr>
+                        <tr><td><strong>Lisbon Metro</strong></td><td class="col-numeric">5,115</td></tr>
+                        <tr><td><strong>Península de Setúbal</strong></td><td class="col-numeric">1,116</td></tr>
+                        <tr><td><strong>Alentejo</strong></td><td class="col-numeric">316</td></tr>
+                        <tr><td><strong>Algarve</strong></td><td class="col-numeric">350</td></tr>
+                        <tr class="region-summary-row"><td><strong>Mainland Total</strong></td><td class="col-numeric"><strong>16,782</strong></td></tr>
                       </tbody>
                     </table>
                   </div>
@@ -1084,9 +1072,9 @@
                     <div class="comparison-card comparison-card-accent">
                       <div class="comparison-card-title">Portugal</div>
                       <ul>
-                        <li>CTeSP (2-year) counts as higher education (EQF 5)</li>
-                        <li>Tiered pipeline includes degree-level, CTeSP, and vocational channels</li>
-                        <li>Tech STEM+ combines official counts and modeled inclusion rates for hiring relevance</li>
+                        <li>CTeSP (2-year, EQF 5) is counted by DGEEC as higher education — included in official field totals</li>
+                        <li>Tech STEM+ applies inclusion rates to official counts; adds secondary-level vocational as the only genuinely additive tier</li>
+                        <li>No double-counting: CTeSP graduates appear once, inside Core ICT and Engineering Subset</li>
                       </ul>
                     </div>
                     <div class="comparison-card comparison-card-neutral">
@@ -1105,7 +1093,7 @@
                 <div class="grid-2">
                   <div class="scope-card">
                     <strong class="scope-label scope-include">✓ Includes</strong>
-                    <span>ICT (100%), engineering tech subset (50%), math/stats subset (18% × 30%), CTeSP (80%), vocational tech tracks (45%)</span>
+                    <span>Core ICT (100% of CNAEF 06, which already embeds CTeSP programmers), engineering tech subset (~37.5% of CNAEF 07), math/stats subset (STEM × 18% × 30%), secondary vocational tech tracks (45%)</span>
                   </div>
                   <div class="scope-card">
                     <strong class="scope-label scope-exclude">✗ Excludes</strong>
@@ -1116,7 +1104,7 @@
                 <!-- Estimate Note -->
                 <div class="callout-warning">
                   <strong><i class="fa-solid fa-calculator"></i> Estimate:</strong>
-                  Tech STEM+ (~21,486 gross) is an <strong>internal benchmark estimate</strong> used for hiring-pool analysis. Net available pool can be approximated by multiplying gross values by <strong>0.745</strong> (17.5% emigration and 12% inactivity discounts).
+                  Tech STEM+ (~16,782 gross) is an <strong>internal benchmark estimate</strong> used for hiring-pool analysis. CTeSP graduates are counted once (inside Official STEM Tier 1), not twice. Net available pool can be approximated by multiplying gross values by <strong>0.745</strong> (17.5% emigration and 12% inactivity discounts).
                 </div>
 
                 <!-- Source Footer -->
