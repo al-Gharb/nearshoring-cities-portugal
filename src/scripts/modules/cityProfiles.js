@@ -30,32 +30,32 @@ const CITY_ICONS = {
  * From legacy index.html (320px thumbnails).
  */
 const CITY_IMAGES = {
-  lisbon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Lisboa_-_Portugal_%2852597836992%29.jpg/320px-Lisboa_-_Portugal_%2852597836992%29.jpg',
-  porto: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Puente_Don_Luis_I%2C_Oporto%2C_Portugal%2C_2012-05-09%2C_DD_13.JPG/320px-Puente_Don_Luis_I%2C_Oporto%2C_Portugal%2C_2012-05-09%2C_DD_13.JPG',
-  braga: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Braga_Panorama.jpg/320px-Braga_Panorama.jpg',
-  guimaraes: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Guimaraes-Portugal.jpg/320px-Guimaraes-Portugal.jpg',
-  coimbra: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Coimbra_e_o_rio_Mondego_%286167200429%29_%28cropped%29.jpg/320px-Coimbra_e_o_rio_Mondego_%286167200429%29_%28cropped%29.jpg',
-  aveiro: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Ilha_Dos_Puxadoiros_%2847261194681%29_%28cropped%29.jpg/320px-Ilha_Dos_Puxadoiros_%2847261194681%29_%28cropped%29.jpg',
-  covilha: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Centrodacovilha.JPG/320px-Centrodacovilha.JPG',
-  evora: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Evora_Portugal.JPG/320px-Evora_Portugal.JPG',
-  faro: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/2021_12_12_arne_mueseler_08_17_0576.jpg/320px-2021_12_12_arne_mueseler_08_17_0576.jpg',
-  setubal: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Set%C3%BAbal_-_Portugal_%2847992735196%29.jpg/320px-Set%C3%BAbal_-_Portugal_%2847992735196%29.jpg',
+  lisbon:    'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/%2B_Abends_mit_dem_Tuck-Tuck_durch_Lissabon._03.jpg/800px-%2B_Abends_mit_dem_Tuck-Tuck_durch_Lissabon._03.jpg',
+  porto:     'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/View_of_Porto_from_Marginal_de_Gaia%2C_20250605_1614_9870.jpg/800px-View_of_Porto_from_Marginal_de_Gaia%2C_20250605_1614_9870.jpg',
+  braga:     'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Braga_Panorama.jpg/800px-Braga_Panorama.jpg',
+  guimaraes: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Largo_do_Toural_%28reabilitado%29.jpg/800px-Largo_do_Toural_%28reabilitado%29.jpg',
+  coimbra:   'https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Coimbra_tozu.JPG/800px-Coimbra_tozu.JPG',
+  aveiro:    'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Ria_de_Aveiro.jpg/800px-Ria_de_Aveiro.jpg',
+  covilha:   'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Centrodacovilha.JPG/800px-Centrodacovilha.JPG',
+  evora:     'https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/%C3%89vora_-_Pra%C3%A7a_do_Giraldo.jpg/800px-%C3%89vora_-_Pra%C3%A7a_do_Giraldo.jpg',
+  faro:      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Faro_2.jpg/800px-Faro_2.jpg',
+  setubal:   'https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Forte_de_Santa_Maria_da_Arr%C3%A1bida_by_Juntas_4.jpg/800px-Forte_de_Santa_Maria_da_Arr%C3%A1bida_by_Juntas_4.jpg',
 };
 
 /**
  * Wikimedia Commons file pages — used as credit link targets.
  */
 const CITY_WIKI_URLS = {
-  lisbon: 'https://commons.wikimedia.org/wiki/File:Lisboa_-_Portugal_(52597836992).jpg',
-  porto: 'https://commons.wikimedia.org/wiki/File:Puente_Don_Luis_I,_Oporto,_Portugal,_2012-05-09,_DD_13.JPG',
-  braga: 'https://commons.wikimedia.org/wiki/File:Braga_Panorama.jpg',
-  guimaraes: 'https://commons.wikimedia.org/wiki/File:Guimaraes-Portugal.jpg',
-  coimbra: 'https://commons.wikimedia.org/wiki/File:Coimbra_e_o_rio_Mondego_(6167200429)_(cropped).jpg',
-  aveiro: 'https://commons.wikimedia.org/wiki/File:Ilha_Dos_Puxadoiros_(47261194681)_(cropped).jpg',
-  covilha: 'https://commons.wikimedia.org/wiki/File:Centrodacovilha.JPG',
-  evora: 'https://commons.wikimedia.org/wiki/File:Evora_Portugal.JPG',
-  faro: 'https://commons.wikimedia.org/wiki/File:2021_12_12_arne_mueseler_08_17_0576.jpg',
-  setubal: 'https://commons.wikimedia.org/wiki/File:Set%C3%BAbal_-_Portugal_(47992735196).jpg',
+  lisbon:    'https://commons.wikimedia.org/wiki/File:+_Abends_mit_dem_Tuck-Tuck_durch_Lissabon._03.jpg',
+  porto:     'https://commons.wikimedia.org/wiki/File:View_of_Porto_from_Marginal_de_Gaia,_20250605_1614_9870.jpg',
+  braga:     'https://commons.wikimedia.org/wiki/File:Braga_Panorama.jpg',
+  guimaraes: 'https://commons.wikimedia.org/wiki/File:Largo_do_Toural_(reabilitado).jpg',
+  coimbra:   'https://commons.wikimedia.org/wiki/File:Coimbra_tozu.JPG',
+  aveiro:    'https://commons.wikimedia.org/wiki/File:Ria_de_Aveiro.jpg',
+  covilha:   'https://commons.wikimedia.org/wiki/File:Centrodacovilha.JPG',
+  evora:     'https://commons.wikimedia.org/wiki/File:Évora_-_Praça_do_Giraldo.jpg',
+  faro:      'https://commons.wikimedia.org/wiki/File:Faro_2.jpg',
+  setubal:   'https://commons.wikimedia.org/wiki/File:Forte_de_Santa_Maria_da_Arrábida_by_Juntas_4.jpg',
 };
 
 /**
@@ -63,16 +63,16 @@ const CITY_WIKI_URLS = {
  * Source: Wikimedia Commons file pages (verified March 2026).
  */
 const CITY_CREDITS = {
-  lisbon:    { author: 'Vitor Oliveira',            license: 'CC BY-SA 2.0' },
-  porto:     { author: 'Diego Delso',               license: 'CC BY-SA 3.0' },
-  braga:     { author: 'Otto Domes',                license: 'CC BY-SA 4.0' },
-  guimaraes: { author: 'Otto Domes',                license: 'CC BY-SA 4.0' },
-  coimbra:   { author: 'Leandro N. Ciuffo',         license: 'CC BY 2.0' },
-  aveiro:    { author: 'Michael Gaylard',           license: 'CC BY 2.0' },
-  covilha:   { author: 'R. A. Scheridon de Moraes', license: 'CC BY-SA 3.0' },
-  evora:     { author: 'Garygillmore',              license: 'Public domain' },
-  faro:      { author: 'Arne Müseler',              license: 'CC BY-SA 3.0 DE' },
-  setubal:   { author: 'Vitor Oliveira',            license: 'CC BY-SA 2.0' },
+  lisbon:    { author: 'Holger Uwe Schmitt',         license: 'CC BY-SA 4.0' },
+  porto:     { author: 'Jakub Hałun',                license: 'CC BY 4.0' },
+  braga:     { author: 'Otto Domes',                 license: 'CC BY-SA 4.0' },
+  guimaraes: { author: 'PauloPinto65',               license: 'CC BY-SA 4.0' },
+  coimbra:   { author: 'Olarcos',                    license: 'Public domain' },
+  aveiro:    { author: 'Joaomartinho63',             license: 'CC BY-SA 3.0' },
+  covilha:   { author: 'R. A. Scheridon de Moraes',  license: 'CC BY-SA 3.0' },
+  evora:     { author: 'Paolo Querci',               license: 'CC BY 3.0' },
+  faro:      { author: 'Joseolgon',                  license: 'CC0' },
+  setubal:   { author: 'Juntas',                     license: 'CC BY-SA 4.0' },
 };
 
 /**
