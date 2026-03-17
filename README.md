@@ -22,9 +22,6 @@ BUILT WITH AI
 - **Interactive D3.js Bubble Chart** — Visualize talent pool vs. cost trade-offs
 - **AI Nearshoring Simulator** — Generate custom nearshoring deep prompts for simulation
 - **Fact-Check System (Experimental v3)** — Dynamic claim generation from source databases
-- **Light/Dark Mode** — Full theme support
-- **Print-Ready** — City profiles styled for PDF export
-
 ---
 
 ## Quick Start
@@ -109,40 +106,7 @@ npm run preview
 | `COMPENSATION_DATA.json` | Compensation + INE baseline inputs | `baseBands`, `seniorityMultipliers`, `techStackPremiums`, `ineRegionalEarnings` |
 | `FACTCHECK_CLAIMS_v2.json` | Verification | `verificationMethodology` (status codes, output format) |
 
-### Debug Tool — Claim Source Highlighting
 
-The site includes a debug mode that visually highlights every data-bound element on the page, showing which JSON database each value originates from:
-
-```
-┌──────────────────────────────────────────────────────────────────────────────┐
-│  CLAIM SOURCE DEBUG MODE                                                     │
-├──────────────────────────────────────────────────────────────────────────────┤
-│                                                                              │
-│  Every .db-value span is color-coded by source database:                     │
-│                                                                              │
-│  ┌─ Blue border ─────┐   MASTER.json (city metrics)                          │
-│  │   3,660 grads     │                                                       │
-│  └───────────────────┘                                                       │
-│                                                                              │
-│  ┌─ Green border ────┐   CITY_PROFILES.json (ecosystem data)                 │
-│  │   Microsoft, ...  │                                                       │
-│  └───────────────────┘                                                       │
-│                                                                              │
-│  ┌─ Orange border ───┐   WEBSITE_CONTENT.json (section data)                 │
-│  │   €289B GDP       │                                                       │
-│  └───────────────────┘                                                       │
-│                                                                              │
-│  ┌─ Purple border ───┐   COMPENSATION_DATA.json (salary bands)               │
-│  │   €35-55k         │                                                       │
-│  └───────────────────┘                                                       │
-│                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘
-```
-
-This ensures every fact claim displayed on the website can be traced back to its authoritative JSON source, enabling:
-- **Data Integrity Audits** — Verify all displayed values have database backing
-- **Source Mapping** — Know exactly which file to update when data changes
-- **Dynamic Fact-Check** — Claims are generated from source DBs automatically
 
 ### Internal Calculations (Not Verifiable Externally)
 
@@ -170,25 +134,12 @@ The fact-check system ensures data accuracy through **multi-source AI verificati
 6. **Tolerance ±5%** — Values within 5% of claimed = SUPPORTED
 7. **Structured JSONL contract** — Prompts require source_url/source_ref/data_period + confidence and practical_confidence_pct per claim
 
-### Source Strategy
 
-Prompt policy note: the generated fact-check prompts are source-free and do not provide named-source lists. Categories below indicate internal data anchors only.
-
-| Category | Data File | Primary Source |
-|----------|-----------|---------------|
-| Macroeconomic | `WEBSITE_CONTENT.json` | EC Autumn Forecast |
-| Digital Infrastructure | `WEBSITE_CONTENT.json` | ANACOM |
-| Office Rent | `MASTER.json` | Live market listings + plausibility checks (good-quality central non-prime offices) |
-| Residential Rent | `MASTER.json` | Live market listings + plausibility checks (central T1 practical relocation range) |
-| Workforce / Salary Benchmark | `WEBSITE_CONTENT.json` | Eurostat + Damia Group Portugal (salary benchmark) |
-| Tax Incentives | `WEBSITE_CONTENT.json` | ANI (SIFIDE II) |
-| Graduates | `WEBSITE_CONTENT.json` | DGEEC InfoCursos |
-| City Profiles | `CITY_PROFILES.json` + `MASTER.json` | Company/university sites |
 
 **Rent methodology scope (Idealista only):**
 - **Office rent:** quality offices in central locations, 60-300 m2
 - **Residential rent:** 1-bedroom modern apartments in central areas, 40-60 m2
-- **Process:** Semi-automated extraction from live listings with human-in-the-loop (HITL) review before publication
+
 
 ### Verification Workflow
 
@@ -233,25 +184,7 @@ Phase C: Output template (7 sections)
 
 Design intent: LLM focuses on reasoning and narrative interpretation, while numeric computation is performed in JavaScript before prompt generation.
 
-### Prompt Guardrails (Experimental v3)
 
-- **Output-style aware:** `executive` and `detailed` modes set explicit word targets in prompt rules.
-- **Data boundary rule:** prompt data remains authoritative; optional external context must be clearly labeled as `[External context]` and must not replace prompt financials.
-- **Compliance checklist:** model is instructed to self-validate section order, table-only blocks, deep-dive count limits, and valid JSON syntax before finalizing.
-- **UI error transparency:** simulator generation uses explicit runtime checks and displays actionable errors in the output panel instead of failing silently.
-
-### Simulator Troubleshooting
-
-- If **Generate Simulation Deep Prompt** appears unresponsive, check the output panel for a diagnostic message.
-- Common causes: databases not finished loading, stale browser state, or partial script execution after hot reload.
-- Fast recovery: refresh page, wait for full initialization, then generate again.
-
-### Form Input Hardening
-
-- **Locale-safe numeric parsing:** budgets accept `55000`, `55,000`, `55.000`, `€55 000` and normalize to integer values.
-- **Input sanitization:** key free-text fields normalize whitespace and strip control/high-risk delimiter characters.
-- **Select normalization:** out-of-range/tampered select values are forced to safe defaults.
-- **Role sync from compensation DB:** simulator role options are generated from `COMPENSATION_DATA.json` bands, reducing drift after salary-role updates.
 
 ### Feasibility Methodology (Simulator)
 
@@ -267,35 +200,7 @@ Design intent: LLM focuses on reasoning and narrative interpretation, while nume
 
 ---
 
-## Development
 
-### Scripts
-
-```bash
-npm run dev          # Start dev server (HMR)
-npm run build        # Production build → dist/
-npm run preview      # Preview production build
-npm run test         # Run unit tests
-npm run test:visual  # Run Playwright visual tests
-```
-
-### CSS Architecture
-
-Uses design tokens with CSS custom properties:
-
-```css
-/* tokens.css */
-:root {
-  --accent-color: #3b82f6;
-  --sp-md: 1rem;
-  --radius-md: 0.5rem;
-}
-
-[data-theme="dark"] {
-  --bg-color: #0f172a;
-  --card-bg: #1e293b;
-}
-```
 
 ### Adding a New City
 
