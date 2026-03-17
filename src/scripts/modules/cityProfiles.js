@@ -30,16 +30,16 @@ const CITY_ICONS = {
  * From legacy index.html (320px thumbnails).
  */
 const CITY_IMAGES = {
-  lisbon:    'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/%2B_Abends_mit_dem_Tuck-Tuck_durch_Lissabon._03.jpg/800px-%2B_Abends_mit_dem_Tuck-Tuck_durch_Lissabon._03.jpg',
-  porto:     'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/View_of_Porto_from_Marginal_de_Gaia%2C_20250605_1614_9870.jpg/800px-View_of_Porto_from_Marginal_de_Gaia%2C_20250605_1614_9870.jpg',
-  braga:     'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Braga_Panorama.jpg/800px-Braga_Panorama.jpg',
-  guimaraes: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Largo_do_Toural_%28reabilitado%29.jpg/800px-Largo_do_Toural_%28reabilitado%29.jpg',
-  coimbra:   'https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Coimbra_tozu.JPG/800px-Coimbra_tozu.JPG',
-  aveiro:    'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Ria_de_Aveiro.jpg/800px-Ria_de_Aveiro.jpg',
-  covilha:   'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Centrodacovilha.JPG/800px-Centrodacovilha.JPG',
-  evora:     'https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/%C3%89vora_-_Pra%C3%A7a_do_Giraldo.jpg/800px-%C3%89vora_-_Pra%C3%A7a_do_Giraldo.jpg',
-  faro:      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Faro_2.jpg/800px-Faro_2.jpg',
-  setubal:   'https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Forte_de_Santa_Maria_da_Arr%C3%A1bida_by_Juntas_4.jpg/800px-Forte_de_Santa_Maria_da_Arr%C3%A1bida_by_Juntas_4.jpg',
+  lisbon:    'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/%2B_Abends_mit_dem_Tuck-Tuck_durch_Lissabon._03.jpg/330px-%2B_Abends_mit_dem_Tuck-Tuck_durch_Lissabon._03.jpg',
+  porto:     'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/View_of_Porto_from_Marginal_de_Gaia%2C_20250605_1614_9870.jpg/330px-View_of_Porto_from_Marginal_de_Gaia%2C_20250605_1614_9870.jpg',
+  braga:     'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Braga_Panorama.jpg/330px-Braga_Panorama.jpg',
+  guimaraes: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Largo_do_Toural_%28reabilitado%29.jpg/330px-Largo_do_Toural_%28reabilitado%29.jpg',
+  coimbra:   'https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Coimbra_tozu.JPG/330px-Coimbra_tozu.JPG',
+  aveiro:    'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Ria_de_Aveiro.jpg/330px-Ria_de_Aveiro.jpg',
+  covilha:   'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Centrodacovilha.JPG/330px-Centrodacovilha.JPG',
+  evora:     'https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/%C3%89vora_-_Pra%C3%A7a_do_Giraldo.jpg/330px-%C3%89vora_-_Pra%C3%A7a_do_Giraldo.jpg',
+  faro:      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Faro_2.jpg/330px-Faro_2.jpg',
+  setubal:   'https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Forte_de_Santa_Maria_da_Arr%C3%A1bida_by_Juntas_4.jpg/330px-Forte_de_Santa_Maria_da_Arr%C3%A1bida_by_Juntas_4.jpg',
 };
 
 /**
@@ -605,7 +605,7 @@ function buildCitySection(cityId) {
     <div class="city-header" onclick="toggleCityProfile(this.querySelector('.city-toggle-btn'))">
       ${imageUrl ? `
         <div class="city-header-image">
-          <img src="${imageUrl}" alt="${name} cityscape" loading="lazy" decoding="async" width="320" height="240" referrerpolicy="no-referrer">
+          <img src="${imageUrl}" alt="${name} cityscape" loading="eager" decoding="async" width="330" height="220">
           ${wikiUrl && cityCredit ? `<a href="${wikiUrl}" target="_blank" rel="noopener noreferrer" class="image-credit">\u00A9 ${cityCredit.author} \u00B7 ${cityCredit.license} \u00B7 Wikimedia Commons</a>` : ''}
         </div>
       ` : ''}
