@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <clipPath id="circle">
+      <circle cx="32" cy="32" r="30"/>
+    </clipPath>
+  </defs>
+  <!-- Background circle with subtle border -->
+  <circle cx="32" cy="32" r="31" fill="#1e293b" opacity="0.1"/>
+  <g clip-path="url(#circle)">
+    <!-- Green band (left 40%) -->
+    <rect x="0" y="0" width="26" height="64" fill="#046A38"/>
+    <!-- Red band (right 60%) -->
+    <rect x="26" y="0" width="38" height="64" fill="#DA291C"/>
+    <!-- Armillary sphere (simplified) — yellow circle at the boundary -->
+    <circle cx="26" cy="32" r="9" fill="#FFD700" stroke="#046A38" stroke-width="1"/>
+    <circle cx="26" cy="32" r="6" fill="none" stroke="#DA291C" stroke-width="0.8"/>
+    <!-- Shield outline -->
+    <rect x="22" y="28.5" width="8" height="7" rx="1" fill="#003399"/>
+    <circle cx="24" cy="30.5" r="0.9" fill="#fff"/>
+    <circle cx="26" cy="30.5" r="0.9" fill="#fff"/>
+    <circle cx="28" cy="30.5" r="0.9" fill="#fff"/>
+    <circle cx="25" cy="32.5" r="0.9" fill="#fff"/>
+    <circle cx="27" cy="32.5" r="0.9" fill="#fff"/>
+  </g>
+  <!-- Crisp circle border -->
+  <circle cx="32" cy="32" r="30" fill="none" stroke="#1e293b" stroke-width="1.5" opacity="0.15"/>
+</svg>

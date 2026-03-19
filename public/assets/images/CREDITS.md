@@ -1,7 +1,7 @@
 # City Image Credits
 
 All city header images are sourced from Wikimedia Commons.
-Images are embedded directly via Wikimedia CDN (no local copies).
+Images are downloaded and self-hosted from `public/assets/images/cities/`.
 
 | City | File | Author | License | Source |
 |------|------|--------|---------|--------|
