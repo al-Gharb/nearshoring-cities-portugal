@@ -1946,6 +1946,66 @@ export function initSimulator() {
     return errors;
   }
 
+  // ── Spell-casting loading sequence ──
+  const SPELL_STEPS = [
+    { icon: 'fa-magnifying-glass-chart', text: 'Analysing input…' },
+    { icon: 'fa-ranking-star',           text: 'Computing feasibility ranking…' },
+    { icon: 'fa-user-tie',               text: 'Instructing advisor…' },
+    { icon: 'fa-dragon',                 text: 'Adding snakeskin…' },
+    { icon: 'fa-rotate',                 text: 'Steering 3 times clockwise…' },
+    { icon: 'fa-droplet',                text: '3 drops of dragon\'s blood…' },
+    { icon: 'fa-hat-wizard',             text: 'Hex hex!' },
+  ];
+
+  function runSpellSequence(prompt) {
+    const loader = document.getElementById('spell-loader');
+    const stepEl = document.getElementById('spell-step');
+    const fillEl = document.getElementById('spell-fill');
+    if (!loader || !stepEl || !fillEl) {
+      // Fallback: show prompt immediately
+      outputEl.textContent = prompt;
+      if (copyBtn) copyBtn.disabled = false;
+      outputEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    // Fade out the button, show loader
+    generateBtn.classList.add('fade-out');
+    setTimeout(() => {
+      generateBtn.style.display = 'none';
+      loader.hidden = false;
+
+      const totalSteps = SPELL_STEPS.length;
+      const stepDuration = 6500 / totalSteps; // ~640ms each, 4.5s total
+      let i = 0;
+
+      function showStep() {
+        if (i >= totalSteps) {
+          // Done — reveal prompt
+          loader.hidden = true;
+          generateBtn.style.display = '';
+          generateBtn.classList.remove('fade-out');
+          outputEl.textContent = prompt;
+          if (copyBtn) copyBtn.disabled = false;
+          outputEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          return;
+        }
+        const step = SPELL_STEPS[i];
+        // Re-trigger pop animation
+        stepEl.style.animation = 'none';
+        stepEl.offsetHeight;
+        stepEl.style.animation = '';
+        stepEl.innerHTML = `<i class="fa-solid ${step.icon}" aria-hidden="true"></i> ${step.text}`;
+        fillEl.style.width = `${((i + 1) / totalSteps) * 100}%`;
+        i++;
+        setTimeout(showStep, stepDuration);
+      }
+
+      fillEl.style.width = '0%';
+      showStep();
+    }, 350); // wait for button fade-out
+  }
+
   // Generate prompt
   generateBtn.addEventListener('click', () => {
     try {
@@ -1961,9 +2021,8 @@ export function initSimulator() {
         throw new Error('Prompt generation returned empty output.');
       }
 
-      outputEl.textContent = prompt;
-      if (copyBtn) copyBtn.disabled = false;
-      outputEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      // Run the spell-casting loading sequence, then reveal
+      runSpellSequence(prompt);
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Unknown simulator error.';
       console.error('[Simulator] Prompt generation failed:', err);

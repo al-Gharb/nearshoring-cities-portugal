@@ -2675,6 +2675,11 @@
             <i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i>
             <span>Generate Simulation Deep Prompt</span>
           </button>
+          <div id="spell-loader" class="spell-loader" hidden>
+            <div class="spell-loader-wand"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+            <div class="spell-loader-step" id="spell-step"></div>
+            <div class="spell-loader-bar"><div class="spell-loader-fill" id="spell-fill"></div></div>
+          </div>
         </div>
       </form>
 
@@ -2689,7 +2694,7 @@
           </div>
           <pre class="prompt-output-text" id="simulator-output"></pre>
         </div>
-        <p class="prompt-output-note"><i class="fa-solid fa-circle-info"></i> Click 'Generate Simulation Deep Prompt', then copy and paste into your preferred AI engine.</p>
+        <p class="prompt-output-note"><i class="fa-solid fa-circle-info"></i> Copy and paste into your preferred AI engine.</p>
       </div>
 
       <!-- AI Links -->
@@ -2702,7 +2707,7 @@
           </a>
           <a href="https://claude.ai/" target="_blank" rel="noopener noreferrer" class="ai-link-card ai-link-claude">
             <strong>Claude</strong>
-            <span>Sonnet 4.5</span>
+            <span>Sonnet 4.6</span>
           </a>
           <a href="https://www.perplexity.ai/" target="_blank" rel="noopener noreferrer" class="ai-link-card ai-link-perplexity">
             <strong>Perplexity</strong>
