@@ -1414,18 +1414,19 @@ a.scorecard-source:hover {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  font-size: 0.78rem;
+  font-size: 0.95rem;
   color: var(--accent-color);
   text-decoration: none;
-  font-weight: 500;
-  transition: opacity 0.15s ease;
+  font-weight: 600;
+  transition: opacity 0.12s ease, transform 0.08s ease;
 }
 .source-link-external:hover {
   text-decoration: underline;
-  opacity: 0.85;
+  opacity: 0.95;
+  transform: translateY(-1px);
 }
 .source-link-external i {
-  font-size: 0.65rem;
+  font-size: 0.75rem;
 }
 .formula-block {
   background: rgba(59, 130, 246, 0.06);
@@ -1448,17 +1449,20 @@ a.scorecard-source:hover {
 
 /* Source link icon (inline in metric labels — Phase 2) */
 .source-link {
-  color: var(--light-text);
-  opacity: 0.5;
-  margin-left: 0.2rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--accent-color);
   text-decoration: none;
-  font-size: 0.55rem;
+  font-weight: 600;
+  font-size: 0.95rem;
   vertical-align: middle;
-  transition: opacity 0.15s ease;
+  transition: opacity 0.12s ease, transform 0.08s ease;
 }
 .source-link:hover {
-  opacity: 1;
-  color: var(--accent-color);
+  opacity: 0.95;
+  transform: translateY(-1px);
+  text-decoration: underline;
 }
 
 /* Dark mode overrides */

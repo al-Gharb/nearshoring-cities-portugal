@@ -64,6 +64,69 @@ function initBackToMap() {
 }
 
 /**
+ * Unify visible source anchors across the site.
+ * - Prefix anchor text with `src: ` (legacy docstring — runtime now renders icon-only)
+ * - Use target source entry title when anchor holds only an icon
+ * - Append a small link icon for visual consistency
+ */
+function initUnifiedSourceAnchors() {
+  const anchors = document.querySelectorAll('a.source-link, a.source-link-external');
+  anchors.forEach(a => {
+    if (a.dataset.unified === 'true') return; // already processed
+
+    const href = a.getAttribute('href') || '';
+    const isInternal = href.startsWith('#src-');
+
+    // Extract visible label text (if present)
+    let label = (a.textContent || '').trim();
+
+    // Detect icon-only anchors or very short symbols
+    const hasIconOnly = a.querySelector('i') && (!label || label.length <= 2 || /^\W+$/.test(label));
+
+    if (!label || hasIconOnly) {
+      if (isInternal) {
+        // Try to read the corresponding source-entry title in the sources list
+        const target = document.querySelector(href);
+        if (target) {
+          const h = target.querySelector('h4');
+          const s = target.querySelector('summary');
+          label = (h && h.textContent) ? h.textContent.trim() : (s && s.textContent) ? s.textContent.trim() : '';
+        }
+      }
+
+      // Fallbacks for external or still-empty labels
+      if (!label) {
+        label = a.getAttribute('title') || '';
+      }
+      if (!label) {
+        try { label = new URL(a.href).hostname || a.href; } catch(e) { label = a.href || href || 'source'; }
+      }
+    }
+
+    // Clean label and avoid duplicate prefix
+    label = label.replace(/\s+/g, ' ').trim();
+    if (/^src:\s*/i.test(label)) label = label.replace(/^src:\s*/i, '');
+
+    // Choose icon: prefer existing icon if present, else arrow for external, else info
+    let iconEl = a.querySelector('i');
+    let iconHtml;
+    if (iconEl) {
+      iconHtml = iconEl.outerHTML;
+    } else if (a.classList.contains('source-link-external')) {
+      iconHtml = '<i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>';
+    } else {
+      iconHtml = '<i class="fa-solid fa-circle-info" aria-hidden="true"></i>';
+    }
+
+    // Render icon-only anchor while preserving accessibility
+    a.innerHTML = iconHtml;
+    a.setAttribute('aria-label', `Source: ${label}`);
+    a.setAttribute('title', label);
+    a.dataset.unified = 'true';
+  });
+}
+
+/**
  * Hide scroll indicator once user scrolls past cover.
  */
 function initScrollIndicator() {
@@ -387,6 +450,8 @@ async function init() {
     initArchiveToggle();
     initRegionTooltip();
     initStarLinks();
+    // Normalize all visible source anchors to icon-only anchors
+    initUnifiedSourceAnchors();
     initFoundationAnchors();
     initBarCharts();
     handleInitialHash();

@@ -1936,17 +1936,20 @@
 }
 
 .graduate-stat .graduate-label .source-link {
-  color: var(--light-text);
-  opacity: 0.6;
-  margin-left: 0.25rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--accent-color);
   text-decoration: none;
-  font-size: 0.55rem;
+  font-weight: 600;
+  font-size: 0.9rem;
   vertical-align: middle;
-  transition: opacity 0.15s ease;
+  transition: opacity 0.12s ease, transform 0.08s ease;
 }
 .graduate-stat .graduate-label .source-link:hover {
-  opacity: 1;
-  color: var(--accent-color);
+  opacity: 0.95;
+  transform: translateY(-1px);
+  text-decoration: underline;
 }
 
 [data-theme="dark"] .graduate-stat {
@@ -2474,17 +2477,20 @@
 }
 
 .metric-stat .metric-label .source-link {
-  color: var(--light-text);
-  opacity: 0.6;
-  margin-left: 0.25rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--accent-color);
   text-decoration: none;
-  font-size: 0.55rem;
+  font-weight: 600;
+  font-size: 0.9rem;
   vertical-align: middle;
-  transition: opacity 0.15s ease;
+  transition: opacity 0.12s ease, transform 0.08s ease;
 }
 .metric-stat .metric-label .source-link:hover {
-  opacity: 1;
-  color: var(--accent-color);
+  opacity: 0.95;
+  transform: translateY(-1px);
+  text-decoration: underline;
 }
 
 [data-theme="dark"] .metric-stat {
