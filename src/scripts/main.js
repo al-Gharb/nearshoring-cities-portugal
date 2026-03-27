@@ -118,8 +118,16 @@ function initUnifiedSourceAnchors() {
       iconHtml = '<i class="fa-solid fa-circle-info" aria-hidden="true"></i>';
     }
 
-    // Render icon-only anchor while preserving accessibility
-    a.innerHTML = iconHtml;
+    // If the anchor is icon-only, render it as an icon and set a11y labels.
+    // Otherwise preserve existing visible text and ensure an icon is present.
+    if (hasIconOnly) {
+      a.innerHTML = iconHtml;
+    } else {
+      // If there's no icon, append one to the existing content.
+      if (!a.querySelector('i')) {
+        a.insertAdjacentHTML('beforeend', ' ' + iconHtml);
+      }
+    }
     a.setAttribute('aria-label', `Source: ${label}`);
     a.setAttribute('title', label);
     a.dataset.unified = 'true';
