@@ -72,6 +72,8 @@ Weights: Strategic ${Math.round(computed.weights.strategic * 100)}% | Financial 
 
 LISBON BASELINE:
 EMC monthly: €${computed.lisbonBaseline.emcMonthly.toLocaleString()} | Annual: €${computed.lisbonBaseline.emcAnnual.toLocaleString()} | Team annual: €${computed.lisbonBaseline.teamAnnual.toLocaleString()}
+Operating monthly: €${computed.lisbonBaseline.operatingMonthly.toLocaleString()} | Operating annual: €${computed.lisbonBaseline.operatingAnnual.toLocaleString()}
+Lisbon OpEx breakdown: People €${computed.lisbonBaseline.peopleCostMonthly.toLocaleString()}/mo | Office rent €${computed.lisbonBaseline.officeRentMonthly.toLocaleString()}/mo | Utilities €${computed.lisbonBaseline.utilitiesMonthly.toLocaleString()}/mo | Admin €${computed.lisbonBaseline.adminMonthly.toLocaleString()}/mo
 
 FULL 20-CITY RANKING:
 ${allCitiesTable}
@@ -79,6 +81,7 @@ ${allCitiesTable}
 ${computed.riskFlags.length > 0 ? `RISK FLAGS:\n${computed.riskFlags.map(f => `⚠️ ${f.city}: ${f.flag}${f.note ? ' — ' + f.note : ''}${f.confidence ? ' [confidence=' + f.confidence + ']' : ''}`).join('\n')}` : 'No risk flags.'}
 
 Salary note: Portugal pays 14× yearly (12 regular + 2 subsidies). All figures above use 12× format for international comparison. EMC includes 23.75% employer SS + €175/mo meal allowance.
+Feasibility note: Budget feasibility uses total monthly OpEx (people + office rent + utilities/office running + admin overhead). CapEx remains separate and is not included in feasibility. Verdict thresholds: FEASIBLE if buffer >= 8%, TIGHT if -2% to <8%, INFEASIBLE if < -2%.
 
 ─────────────────────────────────────────────────────────────────────────────
 CITY REFERENCE DATABASE (${cityData.length} cities)

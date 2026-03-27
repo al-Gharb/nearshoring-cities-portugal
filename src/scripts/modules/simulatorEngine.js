@@ -32,6 +32,43 @@ const LISBON_INDEX = 100;
 /** Budget default buffer when budget missing (10% above Lisbon baseline) */
 const DEFAULT_BUDGET_BUFFER = 1.10;
 
+/** Feasibility thresholds calibrated for OpEx-based monthly cost model */
+const FEASIBILITY_THRESHOLDS = {
+  verdictFeasibleBufferPct: 8,
+  verdictTightBufferPct: -2,
+  highBandMinWeighted: 8.3,
+  highBandMinBufferPct: 6,
+  mediumBandMinWeighted: 6.8,
+  mediumBandMinBufferPct: -2,
+};
+
+/** Work model to seat occupancy factor */
+const WORK_MODEL_OCCUPANCY = {
+  'fully-remote': 0.15,
+  'remote-first': 0.35,
+  hybrid: 0.60,
+  'office-first': 0.85,
+  'fully-onsite': 1.00,
+};
+
+/** Seat area assumptions (m2 per seat) by office quality */
+const OFFICE_M2_PER_SEAT = {
+  budget: 8,
+  standard: 10,
+  premium: 12,
+};
+
+/** Utilities and office running costs as % of rent */
+const UTILITIES_RATE_BY_QUALITY = {
+  budget: 0.18,
+  standard: 0.22,
+  premium: 0.27,
+};
+
+/** Admin overhead: payroll/accounting/legal/recruiting baseline */
+const ADMIN_BASE_FEE_MONTHLY = 750;
+const ADMIN_PER_FTE_MONTHLY = 95;
+
 /* ═══════════════════════════════════════════════════════════════════════════
  * CITY TIER CLASSIFICATION
  * ═══════════════════════════════════════════════════════════════════════════ */
@@ -54,6 +91,51 @@ const OBJECTIVE_WEIGHT_PROFILES = {
 
 function clamp(value, min, max) {
   return Math.min(max, Math.max(min, value));
+}
+
+function resolveRentPerM2(officeRent, officeStrategy) {
+  const minRent = Number.isFinite(officeRent?.min) ? officeRent.min : 12;
+  const maxRent = Number.isFinite(officeRent?.max) ? officeRent.max : 18;
+
+  if (officeStrategy === 'city-center') return maxRent;
+  if (officeStrategy === 'business-park') return minRent;
+  if (officeStrategy === 'university-adjacent') return Math.round((minRent * 0.6 + maxRent * 0.4) * 100) / 100;
+  if (officeStrategy === 'low-profile') return Math.round((minRent * 0.85 + maxRent * 0.15) * 100) / 100;
+
+  return Math.round(((minRent + maxRent) / 2) * 100) / 100;
+}
+
+function computeOperatingCostComponents({
+  emcMonthly,
+  teamSize,
+  officeRent,
+  workModel,
+  officeQuality,
+  officeStrategy,
+}) {
+  const occupancyFactor = WORK_MODEL_OCCUPANCY[workModel] ?? WORK_MODEL_OCCUPANCY.hybrid;
+  const m2PerSeat = OFFICE_M2_PER_SEAT[officeQuality] ?? OFFICE_M2_PER_SEAT.standard;
+  const utilitiesRate = UTILITIES_RATE_BY_QUALITY[officeQuality] ?? UTILITIES_RATE_BY_QUALITY.standard;
+  const rentPerM2 = resolveRentPerM2(officeRent, officeStrategy);
+
+  const occupiedSeats = Math.max(1, Math.ceil(teamSize * occupancyFactor));
+  const officeRentMonthly = Math.round(occupiedSeats * m2PerSeat * rentPerM2);
+  const utilitiesMonthly = Math.round(officeRentMonthly * utilitiesRate);
+  const adminMonthly = Math.round(ADMIN_BASE_FEE_MONTHLY + (teamSize * ADMIN_PER_FTE_MONTHLY));
+  const peopleCostMonthly = emcMonthly * teamSize;
+  const totalOperatingCostMonthly = peopleCostMonthly + officeRentMonthly + utilitiesMonthly + adminMonthly;
+
+  return {
+    occupancyFactor,
+    occupiedSeats,
+    m2PerSeat,
+    rentPerM2,
+    peopleCostMonthly,
+    officeRentMonthly,
+    utilitiesMonthly,
+    adminMonthly,
+    totalOperatingCostMonthly,
+  };
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -193,8 +275,10 @@ function getTalentScoreComposite(city, context) {
 function getFeasibilityBand(city) {
   if (city.verdict === 'INFEASIBLE') return 'LOW';
   if (city.dealbreakerPenalty >= 2.5) return 'LOW';
-  if (city.weighted >= 8.4 && city.bufferPct >= 8) return 'HIGH';
-  if (city.weighted >= 6.8 && city.bufferPct >= 0) return 'MEDIUM';
+  if (city.weighted >= FEASIBILITY_THRESHOLDS.highBandMinWeighted
+    && city.bufferPct >= FEASIBILITY_THRESHOLDS.highBandMinBufferPct) return 'HIGH';
+  if (city.weighted >= FEASIBILITY_THRESHOLDS.mediumBandMinWeighted
+    && city.bufferPct >= FEASIBILITY_THRESHOLDS.mediumBandMinBufferPct) return 'MEDIUM';
   return 'LOW';
 }
 
@@ -235,6 +319,7 @@ function computeEMC(midpoint, tierMultiplier, stackPremium, salaryIndex) {
  * @param {Array} params.cities — city data array from prepareCityDataForAI()
  * @param {string} params.industry — client industry for domain fit
  * @param {number} params.teamSizeRaw — raw team size for weight adjustment
+ * @param {string} params.officeQuality — budget/standard/premium
  * @returns {Object} Complete analysis results
  */
 export function computeAnalysis({
@@ -249,51 +334,76 @@ export function computeAnalysis({
   primaryObjective = 'balanced',
   dealbreakers = '',
   workModel = '',
+  officeQuality = 'standard',
   officeStrategy = '',
   lifestyle = '',
 }) {
   const effectiveTeamSize = teamSize || 5;
   const headcount = teamSizeRaw || effectiveTeamSize;
 
-  // ── Budget default (critique #10) ──────────────────────────────────────
-  // If budget missing → assume Lisbon MIDPOINT EMC × teamSize × 1.10
+  // ── Budget default (OpEx-aware) ────────────────────────────────────────
+  // If budget missing → assume Lisbon total OpEx × teamSize context × 1.10
   const lisbonEMC = computeEMC(currentBand.mid, tierMultiplier, stackPremium, LISBON_INDEX);
+  const lisbonCity = cities.find(c => c.id === 'lisbon') || cities[0] || { officeRent: { min: 12, max: 18 } };
+  const lisbonOpEx = computeOperatingCostComponents({
+    emcMonthly: lisbonEMC.emcMonthly,
+    teamSize: effectiveTeamSize,
+    officeRent: lisbonCity.officeRent,
+    workModel,
+    officeQuality,
+    officeStrategy,
+  });
   let effectiveBudget = budget;
   let budgetAssumed = false;
 
   if (!budget || budget <= 0) {
-    effectiveBudget = Math.round(lisbonEMC.emcMonthly * effectiveTeamSize * DEFAULT_BUDGET_BUFFER);
+    effectiveBudget = Math.round(lisbonOpEx.totalOperatingCostMonthly * DEFAULT_BUDGET_BUFFER);
     budgetAssumed = true;
   }
 
   // ── Per-city computation ────────────────────────────────────────────────
   const cityResults = cities.map(city => {
     const emc = computeEMC(currentBand.mid, tierMultiplier, stackPremium, city.salaryIndex);
+    const opEx = computeOperatingCostComponents({
+      emcMonthly: emc.emcMonthly,
+      teamSize: effectiveTeamSize,
+      officeRent: city.officeRent,
+      workModel,
+      officeQuality,
+      officeStrategy,
+    });
 
-    // Budget feasibility
-    const teamTotalMonthly = emc.emcMonthly * effectiveTeamSize;
-    const teamTotalAnnual = emc.emcAnnual * effectiveTeamSize;
+    // Budget feasibility (total monthly OpEx, not salary-only)
+    const teamTotalMonthly = opEx.totalOperatingCostMonthly;
+    const teamTotalAnnual = teamTotalMonthly * 12;
+    const teamPeopleAnnual = emc.emcAnnual * effectiveTeamSize;
     const bufferPct = ((effectiveBudget - teamTotalMonthly) / teamTotalMonthly) * 100;
-    const maxFeasible = Math.floor(effectiveBudget / emc.emcMonthly);
+    const perHeadOperating = Math.max(1, teamTotalMonthly / effectiveTeamSize);
+    const maxFeasible = Math.floor(effectiveBudget / perHeadOperating);
 
     // Verdict
     let verdict;
-    if (bufferPct >= 10) verdict = 'FEASIBLE';
-    else if (bufferPct >= 0) verdict = 'TIGHT';
+    if (bufferPct >= FEASIBILITY_THRESHOLDS.verdictFeasibleBufferPct) verdict = 'FEASIBLE';
+    else if (bufferPct >= FEASIBILITY_THRESHOLDS.verdictTightBufferPct) verdict = 'TIGHT';
     else verdict = 'INFEASIBLE';
 
     // Hiring pressure
     const ictGrads = city.ictGrads || 1;
     const hiringPressure = (effectiveTeamSize / ictGrads) * 100;
 
-    // Savings vs Lisbon
+    // Savings vs Lisbon (salary-only + total OpEx view)
     const savingsAnnual = (lisbonEMC.emcAnnual - emc.emcAnnual) * effectiveTeamSize;
+    const lisbonTeamOperatingAnnual = lisbonOpEx.totalOperatingCostMonthly * 12;
+    const teamOperatingAnnual = teamTotalMonthly * 12;
+    const operatingSavingsAnnual = lisbonTeamOperatingAnnual - teamOperatingAnnual;
 
     return {
       id: city.id,
       name: city.name,
       featured: city.featured,
+      region: city.region,
       salaryIndex: city.salaryIndex,
+      colIndex: city.colIndex,
       ictGrads,
       stemGrads: city.stemGrads || 0,
       regionalStemPool: city.regionalStemPool ?? city.regionalPool ?? 0,
@@ -301,6 +411,8 @@ export function computeAnalysis({
       majorCompanies: city.majorCompanies || [],
       hasAirport: city.hasAirport ?? false,
       airportAccessMinutes: city.airportAccessMinutes ?? null,
+      officeRent: city.officeRent || { min: 12, max: 18 },
+      residentialRent: city.residentialRent || { min: 800, max: 1200 },
 
       // Financial
       grossMonthly: emc.grossMonthly,
@@ -308,10 +420,21 @@ export function computeAnalysis({
       emcAnnual: emc.emcAnnual,
       teamTotalMonthly,
       teamTotalAnnual,
+      operatingCostMonthly: teamTotalMonthly,
+      operatingCostAnnual: teamOperatingAnnual,
+      peopleCostMonthly: opEx.peopleCostMonthly,
+      peopleCostAnnual: teamPeopleAnnual,
+      officeRentMonthly: opEx.officeRentMonthly,
+      utilitiesMonthly: opEx.utilitiesMonthly,
+      adminMonthly: opEx.adminMonthly,
+      occupiedSeats: opEx.occupiedSeats,
+      occupancyFactor: Math.round(opEx.occupancyFactor * 100) / 100,
+      rentPerM2: opEx.rentPerM2,
       bufferPct: Math.round(bufferPct * 10) / 10,
       maxFeasible,
       verdict,
       savingsAnnual,
+      operatingSavingsAnnual,
 
       // Talent
       hiringPressure: Math.round(hiringPressure * 10) / 10,
@@ -481,6 +604,13 @@ export function computeAnalysis({
       emcMonthly: lisbonEMC.emcMonthly,
       emcAnnual: lisbonEMC.emcAnnual,
       teamAnnual: lisbonEMC.emcAnnual * effectiveTeamSize,
+      operatingMonthly: lisbonOpEx.totalOperatingCostMonthly,
+      operatingAnnual: lisbonOpEx.totalOperatingCostMonthly * 12,
+      peopleCostMonthly: lisbonOpEx.peopleCostMonthly,
+      officeRentMonthly: lisbonOpEx.officeRentMonthly,
+      utilitiesMonthly: lisbonOpEx.utilitiesMonthly,
+      adminMonthly: lisbonOpEx.adminMonthly,
+      occupiedSeats: lisbonOpEx.occupiedSeats,
     },
     weights,
     teamSize: effectiveTeamSize,
@@ -622,11 +752,11 @@ function getDomainFit(cityId, industryLower) {
  * @returns {string} Markdown table
  */
 export function formatAllCitiesTable(results) {
-  const header = '| # | City | Idx | EMC/mo | Buffer% | Fin | Talent | Strat | Dbreak | Band | Weighted | Verdict |';
-  const sep = '|---|------|-----|--------|---------|-----|--------|-------|--------|------|----------|---------|';
+  const header = '| # | City | Idx | EMC/mo | Salary/mo | Rent/mo | Utilities/mo | Admin/mo | OpEx/mo | Buffer% | Fin | Talent | Strat | Dbreak | Band | Weighted | Verdict |';
+  const sep = '|---|------|-----|--------|-----------|---------|--------------|----------|---------|---------|-----|--------|-------|--------|------|----------|---------|';
 
   const rows = results.allCities.map(c =>
-    `| ${c.rank} | ${c.name} | ${c.salaryIndex} | €${c.emcMonthly.toLocaleString()} | ${c.bufferPct}% | ${c.financialScore} | ${c.talentScore} | ${c.strategicScore} | ${c.dealbreakerPenalty} | ${c.feasibilityBand} | ${c.weighted} | ${c.verdict} |`
+    `| ${c.rank} | ${c.name} | ${c.salaryIndex} | €${c.emcMonthly.toLocaleString()} | €${c.peopleCostMonthly.toLocaleString()} | €${c.officeRentMonthly.toLocaleString()} | €${c.utilitiesMonthly.toLocaleString()} | €${c.adminMonthly.toLocaleString()} | €${c.operatingCostMonthly.toLocaleString()} | ${c.bufferPct}% | ${c.financialScore} | ${c.talentScore} | ${c.strategicScore} | ${c.dealbreakerPenalty} | ${c.feasibilityBand} | ${c.weighted} | ${c.verdict} |`
   );
 
   return [header, sep, ...rows].join('\n');
@@ -653,9 +783,17 @@ export function buildJSONSummary(results) {
       buffer_pct: c.bufferPct,
       emc_monthly: c.emcMonthly,
       emc_annual: c.emcAnnual,
+      operating_cost_monthly: c.operatingCostMonthly,
+      operating_cost_annual: c.operatingCostAnnual,
+      people_cost_monthly: c.peopleCostMonthly,
+      people_cost_annual: c.peopleCostAnnual,
+      office_rent_monthly: c.officeRentMonthly,
+      utilities_monthly: c.utilitiesMonthly,
+      admin_monthly: c.adminMonthly,
       team_cost_monthly: c.teamTotalMonthly,
       team_cost_annual: c.teamTotalAnnual,
       savings_vs_lisbon_annual: c.savingsAnnual,
+      operating_savings_vs_lisbon_annual: c.operatingSavingsAnnual,
     };
   });
 
@@ -669,6 +807,8 @@ export function buildJSONSummary(results) {
     role: results.roleLabel,
     lisbon_baseline_emc_annual: results.lisbonBaseline.emcAnnual,
     lisbon_team_annual: results.lisbonBaseline.teamAnnual,
+    lisbon_baseline_operating_monthly: results.lisbonBaseline.operatingMonthly,
+    lisbon_team_operating_annual: results.lisbonBaseline.operatingAnnual,
     considered_cities: results.allCities.map(c => c.id),
     weighted_order_all_cities: results.allCities.map(c => c.id),
     scores,

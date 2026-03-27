@@ -501,6 +501,7 @@ export function generateMasterPrompt() {
     primaryObjective: inputs.primaryObjective || 'balanced',
     dealbreakers: inputs.dealbreakers || '',
     workModel: inputs.workModel || '',
+    officeQuality: inputs.officeQuality || 'standard',
     officeStrategy: inputs.officeStrategy || '',
     lifestyle: inputs.lifestyle || '',
   });
