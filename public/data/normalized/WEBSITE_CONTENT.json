@@ -2,7 +2,7 @@
   "_meta": {
     "schema": "3.1",
     "database": "WEBSITE_CONTENT",
-    "lastUpdated": "2026-02-07T00:00:00Z",
+    "lastUpdated": "2026-03-27T00:00:00Z",
     "version": "1.1.0",
     "sourceRegistry": "../sources.json",
     "note": "All meta.sourceRef values point to IDs in sources.json for centralized URL management"

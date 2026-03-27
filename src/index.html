@@ -35,6 +35,7 @@
 
   <!-- App CSS (Vite handles bundling) -->
   <link rel="stylesheet" href="./styles/base.css">
+  <link rel="stylesheet" href="./styles/freshness.css">
 </head>
 <body>
 
@@ -50,7 +51,7 @@
         Nearshoring Portugal 2026<span class="cover-cursor"></span>
       </h1>
       <p class="cover-subtitle">
-        A practical look at Portugal's best cities for technology nearshoring
+       <strong>A practical look at Portugal's best cities for technology nearshoring</strong>
       </p>
     </div>
 
@@ -267,7 +268,7 @@
           <span class="ai-cta-badge">Experimental v3</span>
           <span class="ai-cta-icon"><i class="fa-solid fa-robot"></i></span>
           <span class="ai-cta-text">
-            <span class="ai-cta-title">AI Nearshoring Simulator <i>Portugal</i></span>
+            <span class="ai-cta-title">AI Nearshoring Advisor<i>Portugal</i></span>
           </span>
           <span class="ai-cta-arrow"><i class="fa-solid fa-chevron-down"></i></span>
         </a>
@@ -294,8 +295,13 @@
        ║  HEADER                                                                  ║
        ╚═══════════════════════════════════════════════════════════════════════════╝ -->
   <header class="main-header">
-    <div class="container">
-      <h3 class="header-verification">work in progress... v0.94</h3>
+    <div>
+      <div id="data-freshness" class="section-confidence header-freshness" data-last-updated="">
+        <span class="freshness-label">Data freshness</span>
+        <span id="freshness-bar" class="freshness-bar-placeholder" aria-hidden="true"></span>
+        <div class="freshness-updated">Started: <span id="freshness-date" class="freshness-date">—</span></div>
+      </div>
+      <h3 class="header-verification">work in progress... v0.95</h3>
       <p class="header-verification">
          Expect curated insights, directional data, carefully derived estimates, and user-friendly presented information - built for operators, not scientists.  
       </p>
@@ -315,7 +321,7 @@
         <span class="header-meta-sep">|</span>
         <span class="header-meta-item">
           <i class="fa-regular fa-calendar-check" aria-hidden="true"></i>
-          <strong>Last Update:</strong> <span aria-label="Last updated March 27, 2026">Mar. 27, 2026</span>
+          <strong>Last Update:</strong> <span id="header-last-updated" aria-label="Last updated Mar. 27, 2026"></span>
         </span>
         <span class="header-meta-sep">|</span>
         <span class="header-meta-item">
@@ -420,7 +426,7 @@
 
             <!-- 7. AI Nearshoring Simulator -->
             <div class="toc-row toc-row-main toc-row-highlight toc-section-simulator">
-              <a href="#ai-simulator" class="toc-link-main toc-link-simulator"><span class="toc-number">7</span><i class="fa-solid fa-wand-magic-sparkles toc-icon-accent" aria-hidden="true"></i>AI Nearshoring Simulator Portugal<span class="toc-badge-new">✨ Try it!</span></a>
+              <a href="#ai-simulator" class="toc-link-main toc-link-simulator"><span class="toc-number">7</span><i class="fa-solid fa-wand-magic-sparkles toc-icon-accent" aria-hidden="true"></i>AI Nearshoring Advisor Portugal<span class="toc-badge-new">✨ Try it!</span></a>
             </div>
 
             <!-- City Database + Sources (Foundation - No Number, single row) -->
@@ -1725,7 +1731,7 @@
                   </div>
                   <p class="scorecard-footer" id="damia-salary-note"><strong>Methodology:</strong> Candidate salary expectations captured in live recruitment processes (2018–2024, n=5,358). Values represent practical annual gross offer ranges by role and seniority. <strong>Source:</strong> <a href="#src-damia-2025" class="source-link">Damia Group Portugal (2025 benchmark)</a>.</p>
 
-                  <h5><i class="fa-solid fa-table-cells-large" aria-hidden="true"></i> Key Facts from Damia 2025 Benchmark</h5>
+                
                   <div class="grid-auto-260" data-prompt-core="true">
                     <div class="insight-card">
                       <div class="insight-title"><i class="fa-solid fa-database"></i> Sample Size</div>
@@ -2352,13 +2358,13 @@
     
 
     <!-- ╔═══════════════════════════════════════════════════════════════════════════╗
-         ║  AI NEARSHORING SIMULATOR                                               ║
+         ║  AI NEARSHORING ADVISOR                                                  ║
          ╚═══════════════════════════════════════════════════════════════════════════╝ -->
     <details class="deeper-dive-container section-simulator" id="ai-simulator">
       <summary class="deeper-dive-summary">
         <span class="section-number">7</span>
         <i class="fa-solid fa-wand-magic-sparkles section-icon" aria-hidden="true"></i>
-        <span class="deeper-dive-title">AI Nearshoring Simulator Portugal <span class="badge-beta">Experimental v3</span></span>
+        <span class="deeper-dive-title">AI Nearshoring Advisor Portugal <span class="badge-beta">Experimental v3</span></span>
         <span class="deeper-dive-subtitle">— Generate a custom nearshoring analysis and prompt package</span>
         <i class="fa-solid fa-chevron-down deeper-dive-chevron" aria-hidden="true"></i>
       </summary>
@@ -3023,6 +3029,7 @@
         <a href="https://al-gharb.github.io/nearshoring-cities-portugal/" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-globe"></i> Live Site</a>
       </p>
       <p class="footer-credits">Built with AI · <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-creative-commons"></i> <i class="fa-brands fa-creative-commons-by"></i> <i class="fa-brands fa-creative-commons-nc"></i> <i class="fa-brands fa-creative-commons-sa"></i> CC BY-NC-SA 4.0</a></p>
+      <p class="footer-pattern-notice">Azulejo Tile Pattern by Soodam Elesti Lee from <a href="https://thenounproject.com/browse/icons/term/pattern/" target="_blank" title="pattern Icons">Noun Project</a> (CC BY 3.0)</p>
       <p class="footer-image-notice">Wikipedia-sourced images keep their respective licenses; follow each photo's credit link for the exact terms.</p>
     </div>
   </footer>

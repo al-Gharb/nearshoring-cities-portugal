@@ -10,7 +10,7 @@ BUILT WITH AI
 
 ---
 
-## View Content on Website
+## View Website
 
 **Live Site:** https://al-gharb.github.io/nearshoring-cities-portugal/
 
@@ -29,8 +29,6 @@ npm run build
 # Preview production build
 npm run preview
 ```
-
-**Requirements:** Node.js 20+
 
 ---
 

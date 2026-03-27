@@ -1,0 +1,85 @@
+/* Freshness bar styles — small, namespaced rules for header */
+#data-freshness.header-freshness {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  margin: 0 auto 0.35rem;
+  font-size: 0.9rem;
+  width: 100%;
+  max-width: 880px;
+}
+
+#data-freshness .freshness-label {
+  font-weight: 700;
+  color: var(--accent-color);
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+#data-freshness .freshness-bar-placeholder {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#data-freshness .freshness-percent {
+  display: none;
+}
+
+#data-freshness .freshness-updated {
+  font-size: 0.78rem;
+  color: var(--light-text);
+  margin-left: 0.5rem;
+}
+
+/* Ensure compact confidence bar sizing aligns with helper's assumptions */
+.confidence-bar-compact .confidence-bar-track { width: 50px; height: 6px; }
+.confidence-bar-compact .confidence-bar-pointer { width: 6px; height: 6px; }
+
+/* ---- Data Freshness specific visuals (distinct from fact-check bars) ---- */
+#data-freshness .confidence-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+#data-freshness .confidence-bar-track {
+  width: 140px; /* longer than standard fact-check bars */
+  height: 12px;
+  background: linear-gradient(90deg, rgba(220,253,231,0.9) 0%, rgba(187,247,208,0.9) 50%, rgba(16,185,129,0.9) 100%);
+  border-radius: 999px;
+  border: 1px solid rgba(16,185,129,0.15);
+  position: relative;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.35);
+}
+
+#data-freshness .confidence-bar-pointer {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #10b981; /* fresh green */
+  box-shadow: 0 2px 6px rgba(16,24,40,0.25), 0 0 0 3px rgba(16,185,129,0.12);
+  border: 2px solid rgba(255,255,255,0.9);
+}
+
+#data-freshness .confidence-bar-label {
+  font-weight: 700;
+  color: var(--text-color);
+  font-size: 0.92rem;
+  margin-left: 0.15rem;
+}
+
+/* Ensure the freshness bar remains compact and centered on small screens */
+@media (max-width: 640px) {
+  #data-freshness .confidence-bar-track { width: 120px; height: 10px; }
+  #data-freshness .confidence-bar-pointer { width: 12px; height: 12px; }
+}
+
+@media (max-width: 640px) {
+  #data-freshness.header-freshness { flex-direction: column; align-items: center; gap: 0.35rem; }
+  #data-freshness .freshness-updated { margin-left: 0; }
+}

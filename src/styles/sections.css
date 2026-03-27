@@ -17,9 +17,9 @@
   align-items: center;
   justify-content: center;
   background:
-    linear-gradient(rgba(247,251,255,0.84), rgba(247,251,255,0.84)),
+    linear-gradient(rgba(246, 249, 252, 0.28), rgba(253, 253, 253, 0.28)),
     url('../assets/images/patterns/lisbon-azulejo-tile.svg') 0 0 / 92px 92px repeat,
-    linear-gradient(160deg, #f8fbff 0%, #edf3fa 100%);
+    linear-gradient(160deg, #fcfdfd 0%, #eef6ff 100%);
   color: #0f172a;
   overflow: hidden;
   overflow-y: auto;
@@ -53,8 +53,8 @@
 
 .cover-subtitle {
   font-size: 1.1rem;
-  font-weight: 300;
-  color: #64748b;
+  font-weight: 500;
+  color: rgba(15, 23, 42, 0.9);
   margin: 0;
 }
 

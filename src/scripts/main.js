@@ -13,6 +13,7 @@ import { renderBubbleChart } from './modules/bubbleChart.js';
 import { renderCityProfiles } from './modules/cityProfiles.js';
 import { initSimulator, generateMasterPrompt } from './modules/promptGenerator.js';
 import { populateAll } from './modules/contentRenderer.js';
+import { initDataFreshness } from './modules/dataFreshness.js';
 import { renderCoverCityList } from './modules/coverCityList.js';
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -63,76 +64,6 @@ function initBackToMap() {
   }
 }
 
-/**
- * Unify visible source anchors across the site.
- * - Prefix anchor text with `src: ` (legacy docstring — runtime now renders icon-only)
- * - Use target source entry title when anchor holds only an icon
- * - Append a small link icon for visual consistency
- */
-function initUnifiedSourceAnchors() {
-  const anchors = document.querySelectorAll('a.source-link, a.source-link-external');
-  anchors.forEach(a => {
-    if (a.dataset.unified === 'true') return; // already processed
-
-    const href = a.getAttribute('href') || '';
-    const isInternal = href.startsWith('#src-');
-
-    // Extract visible label text (if present)
-    let label = (a.textContent || '').trim();
-
-    // Detect icon-only anchors or very short symbols
-    const hasIconOnly = a.querySelector('i') && (!label || label.length <= 2 || /^\W+$/.test(label));
-
-    if (!label || hasIconOnly) {
-      if (isInternal) {
-        // Try to read the corresponding source-entry title in the sources list
-        const target = document.querySelector(href);
-        if (target) {
-          const h = target.querySelector('h4');
-          const s = target.querySelector('summary');
-          label = (h && h.textContent) ? h.textContent.trim() : (s && s.textContent) ? s.textContent.trim() : '';
-        }
-      }
-
-      // Fallbacks for external or still-empty labels
-      if (!label) {
-        label = a.getAttribute('title') || '';
-      }
-      if (!label) {
-        try { label = new URL(a.href).hostname || a.href; } catch(e) { label = a.href || href || 'source'; }
-      }
-    }
-
-    // Clean label and avoid duplicate prefix
-    label = label.replace(/\s+/g, ' ').trim();
-    if (/^src:\s*/i.test(label)) label = label.replace(/^src:\s*/i, '');
-
-    // Choose icon: prefer existing icon if present, else arrow for external, else info
-    let iconEl = a.querySelector('i');
-    let iconHtml;
-    if (iconEl) {
-      iconHtml = iconEl.outerHTML;
-    } else if (a.classList.contains('source-link-external')) {
-      iconHtml = '<i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>';
-    } else {
-      iconHtml = '<i class="fa-solid fa-circle-info" aria-hidden="true"></i>';
-    }
-
-    // If the anchor is icon-only, render it as an icon and set a11y labels.
-    // Otherwise preserve existing visible text and ensure an icon is present.
-    if (hasIconOnly) {
-      a.innerHTML = iconHtml;
-    } else {
-      // If there's no icon, append one to the existing content.
-      if (!a.querySelector('i')) {
-        a.insertAdjacentHTML('beforeend', ' ' + iconHtml);
-      }
-    }
-    a.setAttribute('aria-label', `Source: ${label}`);
-    a.setAttribute('title', label);
-    a.dataset.unified = 'true';
-  });
-}
 
 /**
  * Hide scroll indicator once user scrolls past cover.
@@ -451,6 +382,15 @@ async function init() {
     // 4. Populate all data-bound spans from databases
     populateAll();
 
+    // Initialize Data Freshness UI (uses WEBSITE_CONTENT._meta.lastUpdated)
+    try {
+      const storeAll = getStore();
+      const lastUpdatedIso = storeAll?.content?._meta?.lastUpdated || null;
+      initDataFreshness('#data-freshness', lastUpdatedIso);
+    } catch (err) {
+      console.warn('DataFreshness init skipped:', err);
+    }
+
     // 5. Initialize interactive components
     initSimulator();
     initBackToMap();
@@ -515,4 +455,75 @@ if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initDebugToggle);
 } else {
   initDebugToggle();
+}
+
+/**
+ * Unify visible source anchors across the site.
+ * - Prefix anchor text with `src: ` (legacy docstring — runtime now renders icon-only)
+ * - Use target source entry title when anchor holds only an icon
+ * - Append a small link icon for visual consistency
+ */
+function initUnifiedSourceAnchors() {
+  const anchors = document.querySelectorAll('a.source-link, a.source-link-external');
+  anchors.forEach(a => {
+    if (a.dataset.unified === 'true') return; // already processed
+
+    const href = a.getAttribute('href') || '';
+    const isInternal = href.startsWith('#src-');
+
+    // Extract visible label text (if present)
+    let label = (a.textContent || '').trim();
+
+    // Detect icon-only anchors or very short symbols
+    const hasIconOnly = a.querySelector('i') && (!label || label.length <= 2 || /^\W+$/.test(label));
+
+    if (!label || hasIconOnly) {
+      if (isInternal) {
+        // Try to read the corresponding source-entry title in the sources list
+        const target = document.querySelector(href);
+        if (target) {
+          const h = target.querySelector('h4');
+          const s = target.querySelector('summary');
+          label = (h && h.textContent) ? h.textContent.trim() : (s && s.textContent) ? s.textContent.trim() : '';
+        }
+      }
+
+      // Fallbacks for external or still-empty labels
+      if (!label) {
+        label = a.getAttribute('title') || '';
+      }
+      if (!label) {
+        try { label = new URL(a.href).hostname || a.href; } catch(e) { label = a.href || href || 'source'; }
+      }
+    }
+
+    // Clean label and avoid duplicate prefix
+    label = label.replace(/\s+/g, ' ').trim();
+    if (/^src:\s*/i.test(label)) label = label.replace(/^src:\s*/i, '');
+
+    // Choose icon: prefer existing icon if present, else arrow for external, else info
+    let iconEl = a.querySelector('i');
+    let iconHtml;
+    if (iconEl) {
+      iconHtml = iconEl.outerHTML;
+    } else if (a.classList.contains('source-link-external')) {
+      iconHtml = '<i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>';
+    } else {
+      iconHtml = '<i class="fa-solid fa-circle-info" aria-hidden="true"></i>';
+    }
+
+    // If the anchor is icon-only, render it as an icon and set a11y labels.
+    // Otherwise preserve existing visible text and ensure an icon is present.
+    if (hasIconOnly) {
+      a.innerHTML = iconHtml;
+    } else {
+      // If there's no icon, append one to the existing content.
+      if (!a.querySelector('i')) {
+        a.insertAdjacentHTML('beforeend', ' ' + iconHtml);
+      }
+    }
+    a.setAttribute('aria-label', `Source: ${label}`);
+    a.setAttribute('title', label);
+    a.dataset.unified = 'true';
+  });
 }
