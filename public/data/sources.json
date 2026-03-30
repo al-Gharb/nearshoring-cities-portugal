@@ -241,15 +241,15 @@
       "expiresAfter": "3M",
       "covers": ["sovereignYield10Y"]
     },
-    "linkedin-talent-insights": {
-      "provider": "LinkedIn Talent Insights",
-      "title": "LinkedIn Workforce Data",
-      "url": null,
-      "type": "survey",
-      "publishedDate": "2025-01-01",
+    "eurostat-isoc-sks-itspt": {
+      "provider": "Eurostat",
+      "title": "Employed information and communications technology (ICT) specialists",
+      "url": "https://ec.europa.eu/eurostat/databrowser/view/isoc_sks_itspt/default/map?lang=en",
+      "type": "official",
+      "publishedDate": "2025-04-14",
       "expiresAfter": "12M",
-      "covers": ["techWorkforceTotal", "cityBreakdown"],
-      "note": "Proprietary platform, counts are estimates"
+      "covers": ["techWorkforceTotal", "cityBreakdown", "rankInEU", "annualGrowthRate"],
+      "note": "Official EU dataset used for Portugal ICT specialist headcount and trend calculations"
     },
     "startup-portugal": {
       "provider": "Startup Portugal",

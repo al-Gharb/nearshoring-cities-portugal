@@ -139,29 +139,21 @@ WEBSITE_CONTENT.json → national
 │   ├── subseaCables ─────────────────────► Subsea cable section
 │   └── dataCenters ──────────────────────► Data center cards
 │
-├── euContext
-│   ├── portugalsPosition ────────────────► EU Context: ICT Specialists card
-│   │   ├── ictSpecialistsPctEmployment ──► "5.2% (2024) — EU avg 5.0%"
-│   │   ├── femaleIctSpecialists ─────────► "22.7% — EU avg 19.4%"
-│   │   └── trend ────────────────────────► "+12% since 2020"
-│   │                                       ✅ DYNAMIC via contentRenderer.js → populateEUContext()
-│   └── competitiveBenchmarks ────────────► Competitive Benchmarks card
-│
 ├── workforceStatistics
 │   ├── ictEmployment ────────────────────► promptGenerator.js (fact-check claims)
 │   ├── techWorkforceTotal ───────────────► promptGenerator.js (fact-check claims)
+│   ├── rankInEU ──────────────────────────► #wf-hero-concentration
+│   ├── annualGrowthRate ──────────────────► #wf-hero-growth
 │   ├── cityBreakdown ────────────────────► promptGenerator.js (fact-check claims)
-│   ├── femaleGrowth ─────────────────────► promptGenerator.js (fact-check claims)
-│   └── tertiaryEducation ────────────────► promptGenerator.js (fact-check claims)
 │       ✅ Stat-heroes (#wf-hero-total, #wf-hero-concentration, #wf-hero-growth)
 │          DYNAMIC via contentRenderer.js → populateWorkforceHeroes()
 │       ✅ Bar chart (#workforce-bar-chart) DYNAMIC via populateWorkforceBarChart()
 │
 ├── hiringInsights
-│   ├── timeToHire ───────────────────────► Hiring insight cards
-│   ├── educationLevel ───────────────────► Hiring insight cards
-│   ├── ageDistribution ──────────────────► Hiring insight cards
-│   └── retention ────────────────────────► #hiring-retention
+│   ├── ictShortageSignal ────────────────► Hiring insight cards
+│   ├── ictVacancyRate ───────────────────► Hiring insight cards
+│   ├── remoteWorkPenetration ────────────► Hiring insight cards
+│   └── regionalQualificationBaseline ────► #hiring-retention
 │                                           ✅ DYNAMIC via contentRenderer.js → populateHiringInsights()
 │
 ├── sectionScores ────────────────────────► Section confidence bars (TOC + section headers)
@@ -180,7 +172,7 @@ WEBSITE_CONTENT.json → national
 
 **Module:** `contentRenderer.js → populateSectionConfidence(), populateTocConfidence(), renderSectionScoreCards()`
 **Module:** `promptGenerator.js` — all generators read from this DB for fact-check claims
-- Workforce claims use `linkedin` fields (matches website display, NOT `official`)
+- Workforce claims use official Eurostat fields (`techWorkforceTotal.official`, `cityBreakdown[].official`, `rankInEU`, `annualGrowthRate`)
 - Strategic claims read `qualityOfLife.*` (healthcare, safety, political — no hardcoded strings)
 - Macro claims include `tradeSurplus.absoluteValue` and `tradeBalance` series
 

@@ -1063,75 +1063,6 @@
         }
       }
     },
-    "euContext": {
-      "portugalsPosition": {
-        "ictSpecialistsPctEmployment": {
-          "value": 5.2,
-          "unit": "%",
-          "year": 2024,
-          "euAvg": 5.0,
-          "meta": {
-            "source": {
-              "type": "official",
-              "provider": "Eurostat"
-            }
-          }
-        },
-        "ictGraduatesPctAllGraduates": {
-          "value": 3.8,
-          "unit": "%",
-          "euAvg": 4.2,
-          "meta": {
-            "source": {
-              "type": "official",
-              "provider": "Eurostat"
-            }
-          }
-        },
-        "femaleIctSpecialists": {
-          "value": 22.7,
-          "unit": "%",
-          "euAvg": 19.4,
-          "meta": {
-            "source": {
-              "type": "official",
-              "provider": "Eurostat"
-            }
-          }
-        },
-        "trend": {
-          "value": "+12% since 2020",
-          "note": "Growing faster than EU average",
-          "meta": {
-            "source": {
-              "type": "official",
-              "provider": "Eurostat"
-            }
-          }
-        }
-      },
-      "competitiveBenchmarks": {
-        "romania": {
-          "value": "Similar costs, larger pool, higher attrition"
-        },
-        "poland": {
-          "value": "Larger pool (~500k), 30-40% higher salaries"
-        },
-        "spain": {
-          "value": "~3× larger pool, similar salaries"
-        },
-        "portugalAdvantage": {
-          "value": "Time zone, cultural fit, stability, strong English proficiency in tech sector"
-        }
-      },
-      "meta": {
-        "source": {
-          "type": "official",
-          "provider": "Eurostat"
-        },
-        "note": "EU comparison metrics for ICT workforce positioning"
-      }
-    },
     "workforceStatistics": {
       "ictEmployment": {
         "value": 5.2,
@@ -1139,155 +1070,152 @@
         "year": 2024
       },
       "techWorkforceTotal": {
-        "linkedin": 165000,
-        "official": 250000,
-        "officialSource": "Eurostat 5.1% × 4.9M employed (INE 2024)",
-        "linkedinCoverage": "~66% of formal ICT workforce"
+        "official": 262000,
+        "unit": "professionals",
+        "year": 2024,
+        "sourceCode": "isoc_sks_itspt",
+        "officialSource": "Eurostat isoc_sks_itspt (Employed ICT specialists, Portugal)"
       },
       "cityBreakdown": [
         {
           "city": "Lisbon",
-          "linkedin": 85000,
-          "official": 129000
+          "official": 136500
         },
         {
           "city": "Porto",
-          "linkedin": 45000,
-          "official": 68000
+          "official": 70500
         },
         {
           "city": "Coimbra",
-          "linkedin": 12000,
-          "official": 18000
+          "official": 18500
         },
         {
           "city": "Braga",
-          "linkedin": 8000,
-          "official": 12000
+          "official": 13000
         },
         {
           "city": "Aveiro",
-          "linkedin": 6500,
-          "official": 10000
+          "official": 10500
         },
         {
           "city": "Others",
-          "linkedin": 8500,
           "official": 13000
         }
       ],
-      "concentration": "79% in Lisbon + Porto",
-      "femaleGrowth": {
-        "value": 22.7,
-        "unit": "% female ICT",
-        "trend": "growing"
+      "rankInEU": {
+        "value": 11,
+        "totalCountries": 27,
+        "label": "11th biggest IT workforce out of 27 EU countries",
+        "year": 2024,
+        "sourceCode": "isoc_sks_itspt",
+        "sourceUrl": "https://ec.europa.eu/eurostat/databrowser/view/isoc_sks_itspt/default/map?lang=en"
       },
-      "tertiaryEducation": {
-        "value": 68,
-        "unit": "% of ICT workers",
-        "note": "up 18pp since 2014"
+      "annualGrowthRate": {
+        "value": 8.6,
+        "unit": "%",
+        "method": "CAGR",
+        "period": "2020-2024",
+        "series": {
+          "2020": 188.3,
+          "2021": 216.6,
+          "2022": 220.0,
+          "2023": 229.7,
+          "2024": 262.1
+        },
+        "note": "CAGR from Eurostat employed ICT specialists series (2020: 188.3 to 2024: 262.1)",
+        "meta": {
+          "source": {
+            "type": "official",
+            "provider": "Eurostat",
+            "dataset": "isoc_sks_itspt"
+          }
+        }
       },
       "meta": {
         "source": {
-          "type": "survey",
-          "provider": "Eurostat / LinkedIn"
+          "type": "official",
+          "provider": "Eurostat",
+          "dataset": "isoc_sks_itspt"
         },
         "lifecycle": {
           "updateFrequency": "annual"
         }
-      },
-      "annualGrowthRate": {
-        "value": 8.5,
-        "unit": "%",
-        "note": "LinkedIn profile growth rate 2020-2024",
-        "meta": {
-          "source": {
-            "type": "survey",
-            "provider": "LinkedIn Talent Insights"
-          }
-        }
       }
     },
     "hiringInsights": {
-      "timeToHire": {
-        "value": "Average 4-6 weeks for mid-level roles. Senior/niche roles: 8-12 weeks. Lisbon most competitive.",
-        "midLevel": {
-          "value": "4-6",
-          "unit": "weeks"
-        },
-        "seniorNiche": {
-          "value": "8-12",
-          "unit": "weeks"
-        },
+      "ictShortageSignal": {
+        "title": "ICT Shortage Signal",
+        "value": "In 2024, ICT professionals were among the occupational groups with the highest occurrence of shortage occupations in Portugal.",
+        "year": 2024,
         "meta": {
           "source": {
-            "type": "survey",
-            "provider": "IDC Portugal"
+            "type": "official",
+            "provider": "EURES Portugal Labour Market Information"
           }
         }
       },
-      "educationLevel": {
-        "value": "78% of IT workforce holds bachelor's or higher. 15% have master's/PhD. CTeSP growing as entry path.",
-        "bachelorsOrHigher": {
-          "value": 78,
+      "ictVacancyRate": {
+        "title": "ICT Sector Vacancy Rate",
+        "value": "Job vacancy rate in Information and Communication was 3.7% in Portugal (2023), above the EU27 level of 2.8%.",
+        "portugal": {
+          "value": 3.7,
           "unit": "%"
         },
-        "mastersPhd": {
-          "value": 15,
+        "eu27": {
+          "value": 2.8,
           "unit": "%"
         },
+        "year": 2023,
         "meta": {
           "source": {
-            "type": "survey",
-            "provider": "Eurostat / INE"
+            "type": "official",
+            "provider": "EURES / Eurostat jvs_a_rate_r2"
           }
         }
       },
-      "ageDistribution": {
-        "value": "Median age 32. Under-35 segment: 58% of IT workforce. Fresh graduate pipeline: strong.",
-        "medianAge": 32,
-        "under35Pct": {
-          "value": 58,
-          "unit": "%"
+      "remoteWorkPenetration": {
+        "title": "Remote Work Penetration",
+        "value": "In 2023, 10.0% of employed people in Portugal sometimes worked from home and 7.7% usually worked from home (EU27: 13.3% and 8.9%).",
+        "portugal": {
+          "sometimes": 10.0,
+          "usually": 7.7
         },
-        "meta": {
-          "source": {
-            "type": "survey",
-            "provider": "Eurostat / INE"
-          }
-        }
-      },
-      "retention": {
-        "value": "Average tenure: 2.1 years (Lisbon), 2.8 years (Porto), 3.5+ years (secondary cities). Remote offers increasing churn.",
-        "tenure": {
-          "lisbon": {
-            "value": 2.1,
-            "unit": "years"
-          },
-          "porto": {
-            "value": 2.8,
-            "unit": "years"
-          },
-          "secondaryCities": {
-            "value": "3.5+",
-            "unit": "years"
-          }
+        "eu27": {
+          "sometimes": 13.3,
+          "usually": 8.9
         },
+        "year": 2023,
         "meta": {
           "source": {
-            "type": "survey",
-            "provider": "IDC Portugal"
+            "type": "official",
+            "provider": "EURES / Eurostat lfsa_ehomp"
           }
         }
       },
-      "languageSkills": {
-        "note": "High English proficiency reported in tech sector. German proficiency higher in Porto due to BMW/Bosch presence."
+      "regionalQualificationBaseline": {
+        "title": "Regional Qualification Baseline",
+        "value": "Share of active labour force with tertiary education in 2023: Lisbon Metropolitan Area 41.0%, Norte 29.1%, Centro 29.7%, Algarve 25.6%.",
+        "regions": {
+          "lisbonMetropolitanArea": 41.0,
+          "norte": 29.1,
+          "centro": 29.7,
+          "algarve": 25.6
+        },
+        "unit": "%",
+        "year": 2023,
+        "meta": {
+          "source": {
+            "type": "official",
+            "provider": "EURES Portugal Labour Market Information"
+          }
+        }
       },
       "meta": {
         "source": {
-          "type": "estimate",
-          "note": "Specific percentages removed - requires EF EPI or similar authoritative source"
-        }
+          "type": "official",
+          "provider": "EURES Portugal Labour Market Information"
+        },
+        "note": "Indicators are sourced from EURES Portugal and linked Eurostat tables cited on that page."
       }
     },
     "salaryByRegion": {
@@ -1484,7 +1412,7 @@
       "checkScore": 82,
       "checkDate": "2026-02-06",
       "label": "Workforce Pools",
-      "methodology": "LinkedIn Talent Insights, Eurostat LFS"
+      "methodology": "Eurostat isoc_sks_itspt + EURES Portugal labour market indicators"
     },
     "cityProfiles": {
       "checkScore": 86,

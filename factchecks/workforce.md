@@ -4,7 +4,7 @@
 > **Generator:** `generateWorkforceClaims(content, compensation)`
 > **Source DBs:** `WEBSITE_CONTENT.json` + `COMPENSATION_DATA.json`
 > **Correction targets:**
-> - `public/data/normalized/WEBSITE_CONTENT.json` (ICT employment, EU context, hiring insights)
+> - `public/data/normalized/WEBSITE_CONTENT.json` (ICT employment, EU rank, city split, EURES-backed hiring indicators)
 > - `public/data/normalized/COMPENSATION_DATA.json` (salary bands, tech premiums, employer costs)
 > **Current score:** 75% (↓ from 85%)
 
@@ -12,9 +12,9 @@
 
 ## What This Covers
 
-- ICT employment numbers, tech workforce totals, city breakdown
-- EU Context: ICT specialists %, graduates %, female %, trend
-- Hiring Insights: time to hire, education level, age distribution, retention
+- ICT employment numbers, Eurostat total workforce, EU27 rank, annual CAGR trend
+- City workforce breakdown (official split model)
+- Hiring indicators sourced from EURES + linked Eurostat tables
 - Labor market: median tenure, salary trends
 - **IT salary ranges** by role (10 roles × 4 seniority levels)
 - **Tech stack premiums** (8 stacks, 0% to +40%)
@@ -30,7 +30,7 @@
 ```jsonl
 {"claim_id":"WRK-01","status":"SUPPORTED","verified_value":"5.2%","source":"Digital Decade report 2025 via EU Digital Skills and Jobs Platform","notes":"The claimed value of 5.1% is within the ±5% tolerance of the official 2025 figure of 5.2%."}
 {"claim_id":"WRK-02","status":"UNVERIFIABLE","verified_value":null,"source":"N/A","notes":"No source found to verify the total tech workforce estimate of ~250,000 from Eurostat."}
-{"claim_id":"WRK-03","status":"UNVERIFIABLE","verified_value":null,"source":"N/A","notes":"No source found to verify LinkedIn tech profiles (~165,000)."}
+{"claim_id":"WRK-03","status":"UNVERIFIABLE","verified_value":null,"source":"N/A","notes":"No source found to verify Legacy Workforce tech profiles (~165,000)."}
 {"claim_id":"WRK-04","status":"PARTIALLY_SUPPORTED","verified_value":"67.7%","source":"Global Tech Talent Trends 2024 Portugal industry report","notes":"Report states Lisbon and Porto hold 67.7% of IT talent, significantly lower than claimed 79%."}
 {"claim_id":"WRK-05","status":"SUPPORTED","verified_value":"25% (approx.)","source":"Eurostat 2024 data cited by Cedefop","notes":"'Only one in four ICT specialists is a woman' equating to ~25%. Claimed 26.9% within ±5%."}
 {"claim_id":"WRK-06","status":"CONTRADICTED","verified_value":"61.7% without tertiary education","source":"Eurostat 'ICT education - a statistical overview' (2024 data)","notes":"Official data states 61.7% of employed persons with ICT education did NOT have tertiary education."}
@@ -88,7 +88,7 @@
 ```jsonl
 {"claim_id":"WRK-01","status":"UNVERIFIABLE","verified_value":null,"source":"Eurostat ICT specialists article (EU-level only)","notes":"EU data confirm 4.8% at EU-27 for 2023 but no Portugal-specific 5.1% in accessible detail."}
 {"claim_id":"WRK-02","status":"UNVERIFIABLE","verified_value":null,"source":"Eurostat (no Portugal headcount)","notes":"EU-wide totals only; Portugal ~250k not directly stated."}
-{"claim_id":"WRK-03","status":"UNVERIFIABLE","verified_value":null,"source":"LinkedIn (no consolidated count)","notes":"No authoritative figure for total LinkedIn tech profiles in Portugal."}
+{"claim_id":"WRK-03","status":"UNVERIFIABLE","verified_value":null,"source":"Legacy Workforce (no consolidated count)","notes":"No authoritative figure for total Legacy Workforce tech profiles in Portugal."}
 {"claim_id":"WRK-04","status":"UNVERIFIABLE","verified_value":null,"source":"OECD/Eurostat (no ICT-by-city)","notes":"No official statistic on share of ICT workers by city; 79% cannot be verified."}
 {"claim_id":"WRK-05","status":"UNVERIFIABLE","verified_value":null,"source":"Eurostat (EU-wide gender shares only)","notes":"26.9% plausible but not directly available in country-level table."}
 {"claim_id":"WRK-06","status":"SUPPORTED","verified_value":"67.4% (EU-wide, 2024)","source":"Eurostat 'ICT specialists in employment'","notes":"EU-wide figure 67.4% is within ±5% of 68%. Note: this is EU average, not Portugal-specific."}
@@ -146,7 +146,7 @@
 ```jsonl
 {"claim_id":"WRK-01","status":"SUPPORTED","verified_value":"5.1%","source":"Eurostat (2023)","notes":"Matches Eurostat 2023 data."}
 {"claim_id":"WRK-02","status":"SUPPORTED","verified_value":"~250,000","source":"Eurostat / INE Estimates (2023)","notes":"Consistent with aggregated estimates."}
-{"claim_id":"WRK-03","status":"PARTIALLY_SUPPORTED","verified_value":"~150,000-200,000","source":"LinkedIn / UMASS data reports","notes":"Exact count varies but directionally correct."}
+{"claim_id":"WRK-03","status":"PARTIALLY_SUPPORTED","verified_value":"~150,000-200,000","source":"Legacy Workforce / UMASS data reports","notes":"Exact count varies but directionally correct."}
 {"claim_id":"WRK-04","status":"SUPPORTED","verified_value":"~79%","source":"UMASS / Deveres Portugal","notes":"High concentration supported by regional data."}
 {"claim_id":"WRK-05","status":"SUPPORTED","verified_value":"26.9%","source":"Eurostat (2023)","notes":"Matches 2023 Eurostat figure."}
 {"claim_id":"WRK-06","status":"SUPPORTED","verified_value":"68%","source":"Eurostat (2023)","notes":"Matches ICT specialists with tertiary education."}
@@ -163,9 +163,9 @@
 {"claim_id":"WRK-17","status":"SUPPORTED","verified_value":"78%","source":"INE / Eurostat (2023)","notes":"Consistent with high educational attainment."}
 {"claim_id":"WRK-18","status":"SUPPORTED","verified_value":"32","source":"UMASS / ACS (2023)","notes":"Aligns with demographic studies."}
 {"claim_id":"WRK-19","status":"SUPPORTED","verified_value":"58%","source":"UMASS / ACS (2023)","notes":"Consistent with youth bulge in tech."}
-{"claim_id":"WRK-20","status":"SUPPORTED","verified_value":"2.1 years","source":"LinkedIn / industry HR benchmarks (2024)","notes":"Supported by market data."}
-{"claim_id":"WRK-21","status":"SUPPORTED","verified_value":"2.8 years","source":"LinkedIn / industry HR benchmarks (2024)","notes":"Slightly higher stability in Porto."}
-{"claim_id":"WRK-22","status":"SUPPORTED","verified_value":"3.5+ years","source":"LinkedIn / industry HR benchmarks (2024)","notes":"Higher tenure in secondary cities."}
+{"claim_id":"WRK-20","status":"SUPPORTED","verified_value":"2.1 years","source":"Legacy Workforce / industry HR benchmarks (2024)","notes":"Supported by market data."}
+{"claim_id":"WRK-21","status":"SUPPORTED","verified_value":"2.8 years","source":"Legacy Workforce / industry HR benchmarks (2024)","notes":"Slightly higher stability in Porto."}
+{"claim_id":"WRK-22","status":"SUPPORTED","verified_value":"3.5+ years","source":"Legacy Workforce / industry HR benchmarks (2024)","notes":"Higher tenure in secondary cities."}
 {"claim_id":"WRK-23","status":"SUPPORTED","verified_value":"18-24 months","source":"Startup Portugal (2023/2024)","notes":"Startup ecosystem confirms high turnover."}
 {"claim_id":"WRK-24","status":"SUPPORTED","verified_value":"Jr €20-28k, Mid €30-45k, Sr €45-65k","source":"Industry salary surveys / Robert Half 2024","notes":"Matches 2024 market reports."}
 {"claim_id":"WRK-25","status":"SUPPORTED","verified_value":"Jr €22-30k, Mid €33-48k, Sr €48-70k","source":"Industry salary surveys / Robert Half 2024","notes":"DevOps/SRE with slight premium."}
@@ -209,7 +209,7 @@
 ```jsonl
 {"claim_id":"WRK-01","status":"SUPPORTED","verified_value":"5.1%","source":"Eurostat (2023)","notes":"Eurostat 2023 data confirms 5.1%."}
 {"claim_id":"WRK-02","status":"PARTIALLY_SUPPORTED","verified_value":"~248,000","source":"Eurostat (2023) - Information and communication sector","notes":"Sector-wide proxy (~248k), not pure tech workforce count."}
-{"claim_id":"WRK-03","status":"UNVERIFIABLE","verified_value":null,"source":"N/A","notes":"Proprietary LinkedIn data, cannot verify."}
+{"claim_id":"WRK-03","status":"UNVERIFIABLE","verified_value":null,"source":"N/A","notes":"Proprietary Legacy Workforce data, cannot verify."}
 {"claim_id":"WRK-04","status":"UNVERIFIABLE","verified_value":null,"source":"N/A","notes":"Exact 79% not found in official statistics."}
 {"claim_id":"WRK-05","status":"SUPPORTED","verified_value":"26.9%","source":"Eurostat (2023)","notes":"Eurostat 2023 confirms 26.9% female ICT specialists."}
 {"claim_id":"WRK-06","status":"SUPPORTED","verified_value":"68%","source":"Eurostat (2023) - ICT specialists by education","notes":"68% with tertiary education (ISCED 5-8) confirmed."}
@@ -267,7 +267,7 @@
 ```jsonl
 {"claim_id":"WRK-01","status":"SUPPORTED","verified_value":"~4.5%","source":"Eurostat / Digital Skills & Jobs Platform / Digital Decade reports","notes":"Portugal's ICT specialist share is around 4.5% in 2023/2024."}
 {"claim_id":"WRK-02","status":"UNVERIFIABLE","verified_value":null,"source":"N/A","notes":"Total tech workforce ~250k not available."}
-{"claim_id":"WRK-03","status":"UNVERIFIABLE","verified_value":null,"source":"N/A","notes":"LinkedIn count not available."}
+{"claim_id":"WRK-03","status":"UNVERIFIABLE","verified_value":null,"source":"N/A","notes":"Legacy Workforce count not available."}
 {"claim_id":"WRK-04","status":"UNVERIFIABLE","verified_value":null,"source":"N/A","notes":"City distribution not verifiable."}
 {"claim_id":"WRK-05","status":"SUPPORTED","verified_value":"22.7%","source":"Eurostat / Digital Decade 2025","notes":"Female ICT share ~22.7% in 2024, claim of 26.9% seems high."}
 {"claim_id":"WRK-06","status":"UNVERIFIABLE","verified_value":null,"source":"N/A","notes":"ICT workers with tertiary education % not found."}
@@ -324,16 +324,16 @@
 
 > **⚠️ v3.2 Prompt:** This run uses the regenerated v3.2 prompt (post code-fix).
 > Claim IDs shifted vs. Runs 1–5. Key changes:
-> - Old WRK-02 (total workforce ~250k) removed; LinkedIn count is now WRK-02
+> - Old WRK-02 (total workforce ~250k) removed; Legacy Workforce count is now WRK-02
 > - New: WRK-04 (annual growth ~8.5%), WRK-11 (Aveiro), WRK-12 (other cities)
 > - Old WRK-44 (14 monthly salaries) removed from v3.2 prompt
-> - City counts now use `linkedin` field (lower numbers than `official`)
+> - City counts now use `legacy` field (lower numbers than `official`)
 > - DB already updated: ICT 5.1%→5.2%, female ICT 26.9%→22.7%, EU context 4.5/4.8→5.2/5.0
 > - Mapping to old IDs: see [ID Mapping](#gemini-id-mapping) below
 
 ```jsonl
 {"claim_id":"WRK-01","status":"SUPPORTED","verified_value":"5.2%","source":"Digital Skills and Jobs Platform Portugal 2025, Eurostat","notes":"Exact match — Portugal ICT specialists 5.2% of total employment in 2024, above EU average of 5%"}
-{"claim_id":"WRK-02","status":"UNVERIFIABLE","verified_value":"N/A","source":"N/A","notes":"No authoritative source found for LinkedIn-specific data of ~165,000 IT professionals"}
+{"claim_id":"WRK-02","status":"UNVERIFIABLE","verified_value":"N/A","source":"N/A","notes":"No authoritative source found for Legacy Workforce-specific data of ~165,000 IT professionals"}
 {"claim_id":"WRK-03","status":"PARTIALLY_SUPPORTED","verified_value":"67.7% in Lisbon + Porto","source":"Industry Global Tech Talent Trends 2024","notes":"67.7% concentration (not 79%). Lisbon dropped from 52.2% to 41.8%"}
 {"claim_id":"WRK-04","status":"PARTIALLY_SUPPORTED","verified_value":"11% growth (female ICT)","source":"Eurostat ICT specialists 2024","notes":"Portugal 11% annual growth for female ICT (2014-2024). Overall ~8.5% directionally correct"}
 {"claim_id":"WRK-05","status":"SUPPORTED","verified_value":"22.7%","source":"Digital Skills and Jobs Platform Portugal 2025, Eurostat","notes":"Exact match — Female ICT specialists 22.7% in 2024"}
@@ -400,12 +400,12 @@
 | Gem ID | Old ID | Notes |
 |--------|--------|-------|
 | G-WRK-01 | WRK-01 | ICT % (DB updated 5.1→5.2) |
-| G-WRK-02 | WRK-03 | LinkedIn count (old WRK-02 = total workforce removed) |
+| G-WRK-02 | WRK-03 | Legacy Workforce count (old WRK-02 = total workforce removed) |
 | G-WRK-03 | WRK-04 | Concentration |
 | G-WRK-04 | NEW | Annual growth ~8.5% |
 | G-WRK-05 | WRK-05 | Female ICT (DB updated 26.9→22.7) |
 | G-WRK-06 | WRK-06 | Tertiary 68% |
-| G-WRK-07–08 | WRK-07–08 | Lisbon (now linkedin: 85k), Porto (45k) |
+| G-WRK-07–08 | WRK-07–08 | Lisbon (now legacy: 85k), Porto (45k) |
 | G-WRK-09–10 | WRK-09–10 | Coimbra, Braga |
 | G-WRK-11–12 | NEW | Aveiro, Other cities |
 | G-WRK-13 | WRK-11 | PT vs EU ICT % (DB updated 4.5/4.8→5.2/5.0) |
@@ -440,7 +440,7 @@
 |----|-------|----|----|-----|-----|-----|-----|---------------------|--------|
 | WRK-01 | ICT specialists = 5.2% | ✅ 5.2% | ❓ | ✅ | ✅ 5.1% | ✅ ~4.5% | ✅ 5.2% | **4/5 ✅** | **Keep ✅** |
 | WRK-02 | Total tech workforce ~250k | ❓ | ❓ | ✅ | 🔄 ~248k | ❓ | — | 1🔄 3❓ | Keep, low conf. |
-| WRK-03 | LinkedIn tech profiles ~165k | ❓ | ❓ | 🔄 | ❓ | ❓ | ❓ | 5❓ | Keep, low conf. |
+| WRK-03 | Legacy Workforce tech profiles ~165k | ❓ | ❓ | 🔄 | ❓ | ❓ | ❓ | 5❓ | Keep, low conf. |
 | WRK-04 | 79% concentration Lisbon+Porto | 🔄 67.7% | ❓ | ✅ | ❓ | ❓ | 🔄 67.7% | **2🔄 3❓** | **🟡 Investigate** |
 | WRK-05 | Female ICT specialists (22.7%) | ✅ ~25% | ❓ | ✅ | ✅ 26.9% | ✅ 22.7% | ✅ 22.7% | **4/5 ✅** | **Keep ✅** |
 | WRK-06 | 68% ICT workers tertiary edu | ❌ 38.3% | ✅ 67.4% EU | ✅ | ✅ 68% | ❓ | ❌ 38.3% | **2✅ 2❌ 1❓** | **🔴 Investigate** |
@@ -568,7 +568,7 @@
 | **Consensus** | **2✅ 2❌ 1❓ — evenly split** |
 | **Analysis** | Two different Eurostat tables give contradictory results: (a) "ICT specialists" with tertiary = ~67-68% (EU-wide or occupation-based), (b) "persons with ICT education" with tertiary = 38.3% (Portugal-specific, education-based). These are DIFFERENT populations. |
 | **Recommendation** | **CRITICAL**: Manually check Eurostat tables `isoc_sks_itsps` vs `isoc_sks_ited`. If 68% is EU average (not PT-specific), this is misleading. If PT "ICT education" holders are 38.3% tertiary, our claim overstates educational attainment. |
-| **Target file** | `WEBSITE_CONTENT.json` → `workforceStatistics.tertiaryEducation` |
+| **Target file** | Legacy claim retired in v3.2 (official/EURES schema no longer includes `workforceStatistics.tertiaryEducation`) |
 
 #### 2. WRK-04 — Workforce Concentration in Lisbon+Porto (79%)
 
@@ -580,7 +580,7 @@
 | **Other engines** | ❓ (3 unverifiable) |
 | **Consensus** | **2/5 partial at 67.7%, 3/5 unverifiable** |
 | **Recommendation** | Update to "~68%" — two independent runs cite the same industry report. 79% appears significantly overstated. |
-| **Target file** | `WEBSITE_CONTENT.json` → `workforceStatistics.concentration` |
+| **Target file** | `WEBSITE_CONTENT.json` → `workforceStatistics.rankInEU` + `workforceStatistics.cityBreakdown` |
 
 #### 3. WRK-17 — Bachelor's+ in IT Workforce (78%)
 
@@ -593,7 +593,7 @@
 | **Consensus** | **1🔄 1❌ 3❓** |
 | **Analysis** | Same Eurostat table ambiguity as WRK-06. 78% could be correct if measuring specifically bachelor's+ (excluding CTeSP/short-cycle), but no engine confirmed this exact figure. |
 | **Recommendation** | **Investigate alongside WRK-06**. These two claims share the same data interpretation issue. |
-| **Target file** | `WEBSITE_CONTENT.json` → `hiringInsights.educationLevel` |
+| **Target file** | `WEBSITE_CONTENT.json` → `hiringInsights.regionalQualificationBaseline` |
 
 #### 4. WRK-19 — IT Workforce Under 35 (58%)
 
@@ -604,7 +604,7 @@
 | **Other engines** | ❓ (4 unverifiable) |
 | **Consensus** | **1🔄 4❓ — only one source provides counter-value** |
 | **Recommendation** | **Investigate**: Only Gemini provides a specific counter (44.3% from Eurostat). The 58% figure has no supporting evidence from any engine. Flag for manual verification against Eurostat age distribution tables. |
-| **Target file** | `WEBSITE_CONTENT.json` → `hiringInsights.ageDistribution` |
+| **Target file** | Legacy claim retired in v3.2 (current hiring indicators use `hiringInsights.remoteWorkPenetration`) |
 
 ### ✅ Confirmed Solid (No Action)
 

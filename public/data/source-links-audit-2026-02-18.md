@@ -9,9 +9,9 @@ Scope: `src/index.html` source anchors (`#src-*`), source registry entries, and 
 - Broken internal source references (referenced but not defined): **2**
 
 ### Broken references
-1. `#src-linkedin` (used in workforce cards)
+1. `#src-workforce-legacy` (used in workforce cards at audit time)
    - Used at `src/index.html` lines 2276, 2281, 2286
-   - No matching `<div id="src-linkedin">` in source registry
+  - No matching `<div id="src-workforce-legacy">` in source registry
 
 2. `#src-pwc-cit-rates-reduction-2025` (used in strategic/tax card)
    - Used at `src/index.html` lines 1750, 1754
@@ -94,7 +94,7 @@ Below links were validated during this audit and are suitable as deeper topic-le
 - Current: `https://www.submarinecablemap.com`
 - Suggested deep topical page: `https://www.submarinecablemap.com/landing-point/sines-portugal`
 
-### Workforce metrics currently linked to missing `#src-linkedin`
+### Workforce metrics previously linked to missing legacy workforce anchor
 - Prefer official Eurostat deep tables:
   - ICT specialists in employment: `https://ec.europa.eu/eurostat/databrowser/view/isoc_sks_itspt/default/table?lang=en`
   - Female ICT specialists: `https://ec.europa.eu/eurostat/databrowser/view/isoc_sks_itsps/default/table?lang=en`
@@ -112,7 +112,7 @@ Below links were validated during this audit and are suitable as deeper topic-le
 
 ## 8) Priority Fix Order
 
-1. Fix broken internal IDs (`src-linkedin`, `src-pwc-cit-rates-reduction-2025`)
+1. Fix broken internal IDs (`src-workforce-legacy`, `src-pwc-cit-rates-reduction-2025`)
 2. Replace `src-startcampus` URL host/path with working deep URL
 3. Upgrade root-level URLs to deep topic URLs (A3ES, ANACOM, ECB, Porto de Sines)
 4. Decide policy on non-official sources (keep with explicit label vs replace with official alternatives)

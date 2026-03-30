@@ -2,7 +2,7 @@
 
 > **Category ID:** 07 — `graduates` / `universityTalent`
 > **Generator:** `generateUniversityTalentClaims(content)`
-> **Source DB:** `WEBSITE_CONTENT.json` → `graduateFlow`, `laborMarket`, `euContext`, `hiringInsights`
+> **Source DB:** `WEBSITE_CONTENT.json` → `graduateFlow`, `laborMarket`, `hiringInsights`
 > **Correction target:** `public/data/normalized/WEBSITE_CONTENT.json`
 > **Current score:** 78%
 
@@ -13,8 +13,7 @@
 - Graduate flow clusters (North, Central, Capital, Interior)
 - Lisbon–Porto commute dynamics
 - Labour market shortages, competition, salary trends
-- EU competitive benchmarks (vs Romania, Poland, Spain)
-- Education level breakdown (master's/PhD %)
+- EURES-backed regional qualification baseline context
 
 ---
 

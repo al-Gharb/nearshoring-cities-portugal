@@ -647,14 +647,36 @@ function populateWorkforceHeroes() {
   const wf = store.content?.national?.workforceStatistics;
   if (!wf) return;
 
-  const total = wf.techWorkforceTotal?.linkedin;
-  const concentration = wf.concentration;
+  const total = wf.techWorkforceTotal?.official;
+  const totalYear = wf.techWorkforceTotal?.year;
+  const rank = wf.rankInEU;
   const growth = wf.annualGrowthRate?.value;
+  const growthMethod = wf.annualGrowthRate?.method;
+  const growthPeriod = wf.annualGrowthRate?.period;
+
+  const rankValue = Number.isFinite(rank?.value) && Number.isFinite(rank?.totalCountries)
+    ? `${rank.value}th`
+    : '—';
+  const growthLabel = growthMethod && growthPeriod
+    ? `Annual Growth Rate (${growthMethod} ${growthPeriod})`
+    : 'Annual Growth Rate';
 
   const targets = [
-    { id: 'wf-hero-total', value: total ? `~${fmt(total)}` : '—', label: 'Total IT Professionals (LinkedIn)' },
-    { id: 'wf-hero-concentration', value: concentration || '—', label: 'Lisbon + Porto Concentration' },
-    { id: 'wf-hero-growth', value: growth ? `~${growth}%` : '—', label: 'Annual Growth Rate' },
+    {
+      id: 'wf-hero-total',
+      value: total ? `~${fmt(total)}` : '—',
+      label: totalYear ? `Total IT Professionals (Eurostat ${totalYear})` : 'Total IT Professionals (Eurostat)'
+    },
+    {
+      id: 'wf-hero-concentration',
+      value: rankValue,
+      label: rank?.label || 'Biggest IT workforce out of 27 EU countries'
+    },
+    {
+      id: 'wf-hero-growth',
+      value: Number.isFinite(growth) ? `~${growth}%` : '—',
+      label: growthLabel
+    },
   ];
 
   for (const t of targets) {
@@ -674,7 +696,7 @@ function populateWorkforceHeroes() {
 function populateWorkforceBarChart() {
   const store = getStore();
   const breakdown = store.content?.national?.workforceStatistics?.cityBreakdown;
-  const total = store.content?.national?.workforceStatistics?.techWorkforceTotal?.linkedin;
+  const total = store.content?.national?.workforceStatistics?.techWorkforceTotal?.official;
   if (!breakdown || !total) return;
 
   const container = document.getElementById('workforce-bar-chart');
@@ -682,11 +704,12 @@ function populateWorkforceBarChart() {
 
   // Color classes by tier
   const colorMap = { 0: 'bar-chart-fill-accent', 1: 'bar-chart-fill-accent', 2: 'bar-chart-fill-success', 3: 'bar-chart-fill-success', 4: 'bar-chart-fill-warning' };
-  const maxVal = breakdown[0]?.linkedin || 1;
+  const maxVal = breakdown[0]?.official || 1;
 
   const rows = breakdown.map((city, i) => {
-    const pct = Math.round((city.linkedin / total) * 100);
-    const width = Math.round((city.linkedin / maxVal) * 100);
+    const workforce = city.official;
+    const pct = Math.round((workforce / total) * 100);
+    const width = Math.round((workforce / maxVal) * 100);
     const colorClass = colorMap[i] || 'bar-chart-fill-muted';
     const label = city.city === 'Others' ? `Other ${20 - breakdown.length + 1} Cities` : city.city;
 
@@ -694,7 +717,7 @@ function populateWorkforceBarChart() {
       <div class="bar-chart-row">
         <div class="bar-chart-header">
           <span class="bar-chart-label">${label}</span>
-          <span class="bar-chart-value">~${fmt(city.linkedin)} (${pct}%)</span>
+          <span class="bar-chart-value">~${fmt(workforce)} (${pct}%)</span>
         </div>
         <div class="bar-chart-track"><div class="bar-chart-fill ${colorClass}" data-width="${width}"></div></div>
       </div>`;
@@ -702,48 +725,6 @@ function populateWorkforceBarChart() {
 
   container.innerHTML = rows;
   container.setAttribute('data-db', 'content');
-}
-
-/**
- * Populate EU Context section from WEBSITE_CONTENT.json.
- * Target: #eu-context-position, #eu-context-benchmarks
- */
-function populateEUContext() {
-  const store = getStore();
-  const eu = store.content?.national?.euContext;
-  if (!eu) return;
-
-  // Portugal's Position
-  const posEl = document.getElementById('eu-context-position');
-  if (posEl && eu.portugalsPosition) {
-    const p = eu.portugalsPosition;
-    posEl.innerHTML = `
-      <p><strong>Portugal's Position:</strong></p>
-      <ul>
-        <li><strong>ICT specialists as % of employment:</strong> ${p.ictSpecialistsPctEmployment.value}% (${p.ictSpecialistsPctEmployment.year}) — EU avg ${p.ictSpecialistsPctEmployment.euAvg}% <a href="#src-eurostat" class="source-link"><i class="fa-solid fa-circle-info"></i></a></li>
-        <li><strong>ICT graduates as % of all graduates:</strong> ${p.ictGraduatesPctAllGraduates.value}% — EU avg ${p.ictGraduatesPctAllGraduates.euAvg}% <a href="#src-eu-monitor" class="source-link"><i class="fa-solid fa-circle-info"></i></a></li>
-        <li><strong>Female ICT specialists:</strong> ${p.femaleIctSpecialists.value}% — EU avg ${p.femaleIctSpecialists.euAvg}% <a href="#src-eurostat" class="source-link"><i class="fa-solid fa-circle-info"></i></a></li>
-        <li><strong>Trend:</strong> Growing faster than EU average (${p.trend.value}) <a href="#src-eurostat" class="source-link"><i class="fa-solid fa-circle-info"></i></a></li>
-      </ul>
-    `;
-    posEl.setAttribute('data-db', 'content');
-  }
-
-  // Competitive Benchmarks
-  const benchEl = document.getElementById('eu-context-benchmarks');
-  if (benchEl && eu.competitiveBenchmarks) {
-    const b = eu.competitiveBenchmarks;
-    benchEl.innerHTML = `
-      <p><strong>Competitive Benchmarks:</strong></p>
-      <ul>
-        <li><strong>Romania:</strong> ${b.romania.value}</li>
-        <li><strong>Poland:</strong> ${b.poland.value}</li>
-        <li><strong>Spain:</strong> ${b.spain.value}</li>
-        <li><strong>Portugal advantage:</strong> ${b.portugalAdvantage.value}</li>
-      </ul>
-    `;
-    benchEl.setAttribute('data-db', 'content');
-  }
 }
 
 /**
@@ -756,18 +737,26 @@ function populateHiringInsights() {
   if (!hi) return;
 
   const targets = [
-    { id: 'hiring-time', text: hi.timeToHire?.value, sourceRef: '#src-idc' },
-    { id: 'hiring-education', text: hi.educationLevel?.value, sourceRef: '#src-idc' },
-    { id: 'hiring-age', text: hi.ageDistribution?.value, sourceRef: '#src-idc' },
-    { id: 'hiring-retention', text: hi.retention?.value, sourceRef: '#src-idc' },
+    { id: 'hiring-time', data: hi.ictShortageSignal, sourceRef: '#src-idc' },
+    { id: 'hiring-education', data: hi.ictVacancyRate, sourceRef: '#src-idc' },
+    { id: 'hiring-age', data: hi.remoteWorkPenetration, sourceRef: '#src-idc' },
+    { id: 'hiring-retention', data: hi.regionalQualificationBaseline, sourceRef: '#src-idc' },
   ];
 
   for (const t of targets) {
     const el = document.getElementById(t.id);
-    if (!el || !t.text) continue;
+    if (!el || !t.data?.value) continue;
+
+    const titleEl = el.querySelector('.insight-title');
     const textEl = el.querySelector('.insight-text');
+    if (titleEl && t.data.title) {
+      const icon = titleEl.querySelector('i')?.outerHTML || '';
+      titleEl.innerHTML = `${icon} ${t.data.title}`.trim();
+      titleEl.setAttribute('data-db', 'content');
+    }
+
     if (textEl) {
-      textEl.innerHTML = `${t.text} <a href="${t.sourceRef}" class="source-link"><i class="fa-solid fa-circle-info"></i></a>`;
+      textEl.innerHTML = `${t.data.value} <a href="${t.sourceRef}" class="source-link"><i class="fa-solid fa-circle-info"></i></a>`;
       textEl.setAttribute('data-db', 'content');
     }
   }
@@ -863,7 +852,6 @@ export function populateAll() {
   populateEmployerCosts();
   populateWorkforceHeroes();
   populateWorkforceBarChart();
-  populateEUContext();
   populateHiringInsights();
   populateQualityOfLife();
 }

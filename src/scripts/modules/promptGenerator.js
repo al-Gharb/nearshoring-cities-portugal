@@ -42,7 +42,6 @@ function getCityWorkforceEstimate(cityId, cityData) {
   }
 
   return {
-    linkedin: Number.isFinite(match.linkedin) ? match.linkedin : null,
     official: Number.isFinite(match.official) ? match.official : null,
   };
 }
@@ -242,7 +241,6 @@ function prepareCityDataForAI() {
       stemGrads: grads.digitalStemPlus?.value ?? 0,
       ictGrads: grads.coreICT?.value ?? 0,
       regionalStemPool: getRegionalStemPool(cityId, city),
-      itWorkforceLinkedin: workforce?.linkedin ?? null,
       itWorkforceOfficial: workforce?.official ?? null,
       airportAccessMinutes,
       colIndex: costs.colIndex?.value ?? 35,
@@ -1000,48 +998,51 @@ function generateWorkforceClaims(content, compensation) {
     claimNum++;
   };
   
-  // Workforce statistics — use LinkedIn numbers (matches website display)
+  // Workforce statistics
   const ws = content?.workforceStatistics;
-  if (ws?.ictEmployment) addClaim(`ICT employment: ${ws.ictEmployment.value}${ws.ictEmployment.unit} (${ws.ictEmployment.year})`);
-  if (ws?.techWorkforceTotal?.linkedin) addClaim(`Total IT professionals (LinkedIn): ~${ws.techWorkforceTotal.linkedin.toLocaleString()}`);
-  if (ws?.concentration) addClaim(`Tech workforce concentration: ${ws.concentration}`);
-  if (ws?.annualGrowthRate?.value) addClaim(`Tech workforce annual growth rate: ~${ws.annualGrowthRate.value}%`);
-  if (ws?.femaleGrowth) addClaim(`Female ICT specialists: ${ws.femaleGrowth.value}%`);
-  if (ws?.tertiaryEducation) addClaim(`ICT workers with tertiary education: ${ws.tertiaryEducation.value}%`);
+  if (ws?.ictEmployment) {
+    addClaim(`ICT specialists as % of employment: ${ws.ictEmployment.value}% (${ws.ictEmployment.year})`);
+  }
+  if (ws?.techWorkforceTotal?.official) {
+    const year = ws.techWorkforceTotal.year ? ` (${ws.techWorkforceTotal.year})` : '';
+    addClaim(`Total IT professionals (Eurostat): ~${ws.techWorkforceTotal.official.toLocaleString()}${year}`);
+  }
+  if (ws?.rankInEU?.value && ws?.rankInEU?.totalCountries) {
+    const rankYear = ws.rankInEU.year ? ` (${ws.rankInEU.year})` : '';
+    addClaim(`EU rank by IT workforce size: ${ws.rankInEU.value}th of ${ws.rankInEU.totalCountries}${rankYear}`);
+  }
+  if (ws?.annualGrowthRate?.value) {
+    const growthMethod = ws.annualGrowthRate.method ? ` (${ws.annualGrowthRate.method} ${ws.annualGrowthRate.period || ''})` : '';
+    addClaim(`Tech workforce annual growth rate: ~${ws.annualGrowthRate.value}%${growthMethod}`.trim());
+  }
   
-  // City breakdown — use linkedin field (matches website bar chart)
-  if (ws?.cityBreakdown && ws?.techWorkforceTotal?.linkedin) {
-    const total = ws.techWorkforceTotal.linkedin;
+  // City breakdown — official field (matches website bar chart)
+  if (ws?.cityBreakdown && ws?.techWorkforceTotal?.official) {
+    const total = ws.techWorkforceTotal.official;
     ws.cityBreakdown.forEach(city => {
-      const pct = Math.round((city.linkedin / total) * 100);
+      const pct = Math.round((city.official / total) * 100);
       const label = city.city === 'Others' ? `Other cities` : city.city;
-      addClaim(`${label}: ~${city.linkedin.toLocaleString()} IT professionals (${pct}%)`);
+      addClaim(`${label}: ~${city.official.toLocaleString()} IT professionals (${pct}%)`);
     });
   }
   
-  // EU Context
-  const eu = content?.euContext?.portugalsPosition;
-  if (eu?.ictSpecialistsPctEmployment) {
-    addClaim(`ICT specialists as % of employment: ${eu.ictSpecialistsPctEmployment.value}% (EU avg: ${eu.ictSpecialistsPctEmployment.euAvg}%)`);
-  }
-  if (eu?.ictGraduatesPctAllGraduates) {
-    addClaim(`ICT graduates as % of all graduates: ${eu.ictGraduatesPctAllGraduates.value}% (EU avg: ${eu.ictGraduatesPctAllGraduates.euAvg}%)`);
-  }
-  if (eu?.femaleIctSpecialists) {
-    addClaim(`Female ICT specialists: ${eu.femaleIctSpecialists.value}% (EU avg: ${eu.femaleIctSpecialists.euAvg}%)`);
-  }
-  if (eu?.trend) addClaim(`ICT workforce trend: ${eu.trend.value}`);
-  
   // Hiring insights
   const hi = content?.hiringInsights;
-  if (hi?.timeToHire?.midLevel) addClaim(`Time to hire (mid-level): ${hi.timeToHire.midLevel.value} ${hi.timeToHire.midLevel.unit}`);
-  if (hi?.timeToHire?.seniorNiche) addClaim(`Time to hire (senior/niche): ${hi.timeToHire.seniorNiche.value} ${hi.timeToHire.seniorNiche.unit}`);
-  if (hi?.educationLevel?.bachelorsOrHigher) addClaim(`IT workforce with bachelor's+: ${hi.educationLevel.bachelorsOrHigher.value}%`);
-  if (hi?.ageDistribution?.medianAge) addClaim(`Median age of IT workforce: ${hi.ageDistribution.medianAge}`);
-  if (hi?.ageDistribution?.under35Pct) addClaim(`IT workforce under 35: ${hi.ageDistribution.under35Pct.value}%`);
-  if (hi?.retention?.tenure?.lisbon) addClaim(`Average tenure Lisbon: ${hi.retention.tenure.lisbon.value} ${hi.retention.tenure.lisbon.unit}`);
-  if (hi?.retention?.tenure?.porto) addClaim(`Average tenure Porto: ${hi.retention.tenure.porto.value} ${hi.retention.tenure.porto.unit}`);
-  if (hi?.retention?.tenure?.secondaryCities) addClaim(`Average tenure secondary cities: ${hi.retention.tenure.secondaryCities.value} ${hi.retention.tenure.secondaryCities.unit}`);
+  if (hi?.ictShortageSignal?.value) {
+    addClaim(`ICT shortage signal: ${hi.ictShortageSignal.value}`);
+  }
+  if (hi?.ictVacancyRate?.portugal?.value && hi?.ictVacancyRate?.eu27?.value) {
+    addClaim(`ICT vacancy rate: Portugal ${hi.ictVacancyRate.portugal.value}% vs EU27 ${hi.ictVacancyRate.eu27.value}% (${hi.ictVacancyRate.year})`);
+  }
+  if (hi?.remoteWorkPenetration?.portugal && hi?.remoteWorkPenetration?.eu27) {
+    addClaim(
+      `Remote work share: Portugal ${hi.remoteWorkPenetration.portugal.sometimes}% sometimes / ${hi.remoteWorkPenetration.portugal.usually}% usually; EU27 ${hi.remoteWorkPenetration.eu27.sometimes}% / ${hi.remoteWorkPenetration.eu27.usually}% (${hi.remoteWorkPenetration.year})`
+    );
+  }
+  if (hi?.regionalQualificationBaseline?.regions) {
+    const r = hi.regionalQualificationBaseline.regions;
+    addClaim(`Regional tertiary education baseline: Lisbon Metro ${r.lisbonMetropolitanArea}%, Norte ${r.norte}%, Centro ${r.centro}%, Algarve ${r.algarve}% (${hi.regionalQualificationBaseline.year})`);
+  }
   
   // Labor market
   const lm = content?.laborMarket;
@@ -1218,18 +1219,11 @@ function generateUniversityTalentClaims(content) {
   if (lm?.competition?.value) addClaim(`Talent competition: ${lm.competition.value}`);
   if (lm?.salaryTrends?.value) addClaim(`Salary trends: ${lm.salaryTrends.value}`);
   
-  // EU comparison
-  const eu = content?.euContext?.competitiveBenchmarks;
-  if (eu) {
-    if (eu.romania?.value) addClaim(`vs Romania: ${eu.romania.value}`);
-    if (eu.poland?.value) addClaim(`vs Poland: ${eu.poland.value}`);
-    if (eu.spain?.value) addClaim(`vs Spain: ${eu.spain.value}`);
-    if (eu.portugalAdvantage?.value) addClaim(`Portugal advantage: ${eu.portugalAdvantage.value}`);
+  // EURES-backed hiring baseline
+  const hi = content?.hiringInsights?.regionalQualificationBaseline;
+  if (hi?.regions) {
+    addClaim(`Lisbon Metropolitan Area tertiary-educated active workforce: ${hi.regions.lisbonMetropolitanArea}% (${hi.year})`);
   }
-  
-  // Education levels from hiring insights (if not in workforce)
-  const hi = content?.hiringInsights?.educationLevel;
-  if (hi?.mastersPhd?.value) addClaim(`IT workforce with master's/PhD: ${hi.mastersPhd.value}%`);
   
   return claims;
 }
