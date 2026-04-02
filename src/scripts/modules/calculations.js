@@ -225,3 +225,4 @@ export function formatRange(min, max, prefix = '', suffix = '') {
   if (min == null || max == null) return '—';
   return `${prefix}${formatNumber(min)}–${formatNumber(max)}${suffix}`;
 }
+

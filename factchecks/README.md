@@ -91,3 +91,4 @@ After JSONL, include a short summary with score, corrections, confidence assessm
 - **3/5+ agree NEEDS_UPDATE** → Propose correction (HITL decides)
 - **Mixed results** → Flag for manual research
 - **All UNVERIFIABLE** → Keep but lower confidence score
+

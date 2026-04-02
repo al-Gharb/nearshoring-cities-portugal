@@ -347,3 +347,4 @@ export function renderBubbleChart() {
     .style('text-shadow', '0 0 3px var(--card-bg, #fff), 0 0 5px var(--card-bg, #fff)')
     .text(d => d.name);
 }
+

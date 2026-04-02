@@ -310,3 +310,4 @@ Prompt template guardrails also enforce:
 - JSON integrity requirement (valid syntax and unchanged numeric values).
 
 **All data is now dynamically rendered from JSON databases.** Update the source database and rebuild — all HTML values will update automatically.
+

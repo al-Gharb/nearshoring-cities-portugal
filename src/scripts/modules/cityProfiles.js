@@ -742,3 +742,4 @@ export function renderCityProfiles() {
   container.innerHTML = '';
   container.appendChild(fragment);
 }
+

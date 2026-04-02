@@ -26,3 +26,4 @@ All notable changes to this project are documented in this file.
 ### Notes
 - This is a pre-launch baseline with minor refinements pending.
 - `_backups/` remains out of scope for this baseline and is intentionally unchanged.
+

@@ -597,3 +597,4 @@ npm run test:all      # Both
 - **Authors:** Claude AI (Opus 4.5)
 - **Research:** Perplexity AI, Gemini Deep Research, GPT-5
 - **Data:** DGEEC, ANACOM, Eurostat, CFP, live listings and public institutional datasets
+

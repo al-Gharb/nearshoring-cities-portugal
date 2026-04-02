@@ -2174,3 +2174,4 @@ function initFormConditionalLogic() {
   workModelSelect.addEventListener('change', toggleOfficeFields);
   toggleOfficeFields(); // Init on load
 }
+

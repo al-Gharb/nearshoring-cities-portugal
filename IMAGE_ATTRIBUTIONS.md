@@ -35,3 +35,4 @@ All city images are sourced from **Wikimedia Commons** and stored locally in `pu
 ---
 
 **Attribution requirement:** If you reuse the city photographs, you must credit the original authors as listed above and comply with the respective Creative Commons license terms.
+

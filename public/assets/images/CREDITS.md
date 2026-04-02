@@ -15,3 +15,4 @@ Images are downloaded and self-hosted from `public/assets/images/cities/`.
 | Évora | Évora - Praça do Giraldo.jpg | Paolo Querci | [CC BY 3.0](https://creativecommons.org/licenses/by/3.0) | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Évora_-_Praça_do_Giraldo.jpg) |
 | Faro | Faro 2.jpg | Joseolgon | [CC0 (Public domain)](https://creativecommons.org/publicdomain/zero/1.0/) | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Faro_2.jpg) |
 | Setúbal | Forte de Santa Maria da Arrábida by Juntas 4.jpg | Juntas | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0) | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Forte_de_Santa_Maria_da_Arrábida_by_Juntas_4.jpg) |
+

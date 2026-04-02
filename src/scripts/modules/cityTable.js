@@ -388,3 +388,4 @@ export function renderCityTable() {
   tbody.innerHTML = '';
   tbody.appendChild(fragment);
 }
+

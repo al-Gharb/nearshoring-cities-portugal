@@ -67,3 +67,4 @@ When process or architecture changes, update all impacted docs together:
 ## Out of Scope for Baseline Docs Work
 
 `_backups/` is historical archive content and should remain untouched unless explicitly scoped.
+

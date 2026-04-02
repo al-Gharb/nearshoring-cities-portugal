@@ -61,3 +61,4 @@ Primary data sources used in this analysis:
 - **Static read-only site** — no API endpoints; all data is embedded in JSON files under `/data/normalized/`.
 - **Fact-check system** — claims are generated dynamically from source databases at runtime; verification methodology in `FACTCHECK_CLAIMS_v2.json`.
 - **Language** — site content is in English; city/region names use Portuguese diacritics (Guimarães, Covilhã, Évora, Setúbal).
+

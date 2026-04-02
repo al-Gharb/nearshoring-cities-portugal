@@ -855,3 +855,4 @@ export function populateAll() {
   populateHiringInsights();
   populateQualityOfLife();
 }
+

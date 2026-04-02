@@ -67,3 +67,4 @@ export function buildConfidenceBarHTML(score, checkDate = null, compact = false)
     <span class="confidence-bar-label">${score}%</span>
   </span>`;
 }
+
