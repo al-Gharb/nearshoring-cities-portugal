@@ -647,3 +647,4 @@ these education/demographic claims affect credibility of the hiring insights sec
 | Pre-Run 6 | DB already updated: ICT 5.1%→5.2%, female 26.9%→22.7%, EU context 4.5/4.8→5.2/5.0 | WRK-01, WRK-05, WRK-11, WRK-13 | Auto |
 | 2026-02-11 | Run 6 (Gemini) added. 4 new corrections proposed (WRK-06, WRK-04, WRK-17, WRK-19) | _Awaiting HITL review_ | — |
 
+

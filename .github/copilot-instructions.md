@@ -598,3 +598,4 @@ npm run test:all      # Both
 - **Research:** Perplexity AI, Gemini Deep Research, GPT-5
 - **Data:** DGEEC, ANACOM, Eurostat, CFP, live listings and public institutional datasets
 
+

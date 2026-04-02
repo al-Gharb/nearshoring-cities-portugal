@@ -389,3 +389,4 @@ export function renderCityTable() {
   tbody.appendChild(fragment);
 }
 
+

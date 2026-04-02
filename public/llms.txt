@@ -62,3 +62,4 @@ Primary data sources used in this analysis:
 - **Fact-check system** — claims are generated dynamically from source databases at runtime; verification methodology in `FACTCHECK_CLAIMS_v2.json`.
 - **Language** — site content is in English; city/region names use Portuguese diacritics (Guimarães, Covilhã, Évora, Setúbal).
 
+

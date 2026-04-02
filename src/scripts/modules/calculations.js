@@ -226,3 +226,4 @@ export function formatRange(min, max, prefix = '', suffix = '') {
   return `${prefix}${formatNumber(min)}–${formatNumber(max)}${suffix}`;
 }
 
+

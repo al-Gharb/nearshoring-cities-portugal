@@ -68,3 +68,4 @@ export function buildConfidenceBarHTML(score, checkDate = null, compact = false)
   </span>`;
 }
 
+

@@ -311,3 +311,4 @@ Prompt template guardrails also enforce:
 
 **All data is now dynamically rendered from JSON databases.** Update the source database and rebuild — all HTML values will update automatically.
 
+
