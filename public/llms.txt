@@ -1,5 +1,7 @@
 # IT Nearshoring in Portugal — City Analysis & AI Simulator
 
+Baseline version: v0.95.0 (pre-launch baseline; minor refinements pending)
+
 Data-driven analysis of Portugal's best cities for IT nearshoring. Covers 20 cities (10 featured with full profiles, 10 secondary with key metrics). Data as of 2025–2026 sourced from DGEEC, ANACOM, Eurostat, CFP, ANI, and live commercial listings. Includes an AI Nearshoring Simulator (deterministic engine) and a Fact-Check verification system. Intended audience: CTOs, CFOs, and operations leads evaluating Southern Europe IT nearshoring locations.
 
 ## Sections

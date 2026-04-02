@@ -18,7 +18,7 @@
 
 ## Verification Runs
 
-_No verifications recorded yet._
+_Status: Pending verification runs (0/5 complete)._
 
 <!-- TEMPLATE — Copy for each verification run:
 

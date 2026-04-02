@@ -2,17 +2,33 @@ BUILT WITH AI
 
 # Portugal IT Nearshoring Guide
 
-> Data-driven analysis of Portugal's best cities for IT nearshoring, featuring an AI-powered advisor that generates structured recommendations from verified databases.
+> Data-driven analysis of Portugal's best cities for IT nearshoring, featuring a deterministic simulator and source-free fact-check workflow built on normalized JSON databases.
 
 [![Live Site](https://img.shields.io/badge/Live-al--gharb.github.io-blue)](https://al-gharb.github.io/nearshoring-cities-portugal/)
-[![Version](https://img.shields.io/badge/version-0.9.0-orange)](package.json)
+[![Version](https://img.shields.io/badge/version-0.95.0-orange)](package.json)
 [![Build](https://img.shields.io/badge/build-Vite-646cff)](https://vitejs.dev/)
 
 ---
 
+## Baseline Status
+
+**Current baseline:** v0.95.0 (pre-launch baseline)  
+**Scope:** launch-ready documentation and process consistency, with minor refinements tracked separately.
+
 ## View Website
 
 **Live Site:** https://al-gharb.github.io/nearshoring-cities-portugal/
+
+## Documentation Map
+
+- [Documentation Index](docs/INDEX.md)
+- [Contributing Guide](CONTRIBUTING.md)
+- [Release Checklist](RELEASE_CHECKLIST.md)
+- [Changelog](CHANGELOG.md)
+- [Copilot Instructions](.github/copilot-instructions.md)
+- [Data Flow Map](public/data/DATA_FLOW.md)
+- [Fact-Check Workflow](factchecks/README.md)
+- [Image Attributions](IMAGE_ATTRIBUTIONS.md)
 
 ## Quick Start
 
@@ -28,6 +44,9 @@ npm run build
 
 # Preview production build
 npm run preview
+
+# Run tests
+npm run test:all
 ```
 
 ---
@@ -44,9 +63,9 @@ npm run preview
 │   │       ├── cityTable.js      # City database table
 │   │       ├── bubbleChart.js    # D3.js visualization
 │   │       ├── cityProfiles.js   # City profile sections
-│   │       ├── simulatorEngine.js # Experimental v3 deterministic computation
-│   │       ├── promptGenerator.js # AI Simulator
-│   │       ├── promptTemplate.js  # Experimental v3 prompt template (narrative)
+│   │       ├── simulatorEngine.js # V5.0 deterministic computation
+│   │       ├── promptGenerator.js # AI simulator + fact-check prompt generation
+│   │       ├── promptTemplate.js  # V5.0 narrative prompt template
 │   │       ├── contentRenderer.js # Dynamic content
 │   │       ├── calculations.js    # Salary/ICT calculations
 │   │       └── themeToggle.js     # Dark mode
@@ -71,6 +90,10 @@ npm run preview
 │           ├── bubble_chart.json
 │           └── city_table.json
 │
+├── docs/                         # Documentation index and supporting docs
+├── CHANGELOG.md                  # Baseline and release history
+├── CONTRIBUTING.md               # Contribution workflow
+├── RELEASE_CHECKLIST.md          # Pre-release verification gate
 ├── dist/                         # Production build output
 ├── scripts/                      # Python maintenance utilities
 ├── tests/                        # Playwright visual tests
@@ -83,4 +106,4 @@ npm run preview
 ---
 
 ## License
-Creative Commons Attribution-NonCommercial-ShareAlike	CC BY-NC-SA	
+Creative Commons Attribution-NonCommercial-ShareAlike (CC BY-NC-SA)

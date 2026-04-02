@@ -4,6 +4,9 @@
 > run it through 5–6 independent AI engines, then paste all JSONL results here.
 > The agent builds a consensus matrix and proposes corrections. **HITL approves before any DB changes.**
 
+> **Status convention:** Files with no completed verification runs should show
+> `Status: Pending verification runs (0/5 complete).`
+
 ---
 
 ## Workflow
@@ -11,7 +14,7 @@
 ```
 1. Generate prompt   → Website → Verification Archive → Select Category → Generate
 2. Run 5–6 engines   → Perplexity, Gemini Deep Research, ChatGPT-4/5, DeepSeek R1, Claude, Grok
-3. Paste results      → Into the matching README in this folder
+3. Paste results      → Into the matching category file in this folder
 4. Agent builds       → Consensus matrix + suggested corrections
 5. HITL reviews       → Approves ("GO") or rejects individual corrections
 6. Agent implements   → Updates source JSON database(s)

@@ -27,7 +27,8 @@ This is a **data-driven business analysis**, not marketing material.
 
 **Live Site:** https://al-gharb.github.io/nearshoring-cities-portugal/  
 **Build System:** Vite 5.4  
-**Version:** 0.9.0
+**Version:** 0.95.0  
+**Release State:** Pre-launch baseline with minor refinements pending.
 
 **Features:**
 - 20 Portuguese cities (10 featured + 10 secondary)
@@ -35,6 +36,15 @@ This is a **data-driven business analysis**, not marketing material.
 - AI Nearshoring Simulator (V5.0 — deterministic engine + narrative prompt)
 - Fact-Check System v3.2
 - Light/dark mode
+
+### Documentation Entry Points
+
+- `README.md` — Project overview + quick start
+- `docs/INDEX.md` — Documentation map
+- `CONTRIBUTING.md` — Contribution workflow
+- `RELEASE_CHECKLIST.md` — Pre-release and consistency verification
+- `factchecks/README.md` — Fact-check workflow and archive index
+- `public/data/DATA_FLOW.md` — Database to JS to HTML rendering map
 
 ---
 
@@ -176,7 +186,10 @@ This is a **data-driven business analysis**, not marketing material.
 ├── dist/                     # Production build (git-ignored)
 ├── scripts/                  # Python maintenance utilities
 ├── tests/visual/             # Playwright screenshots
-├── DATA_FLOW.md              # Database → JS → HTML rendering map
+├── docs/                     # Documentation index and launch docs
+├── CHANGELOG.md              # Release history (baseline and updates)
+├── CONTRIBUTING.md           # Contribution process
+├── RELEASE_CHECKLIST.md      # Launch/readiness gates
 ├── vite.config.js            # Build config
 ├── package.json
 └── .github/
@@ -195,7 +208,7 @@ This is a **data-driven business analysis**, not marketing material.
 4. **Internal Calculations Excluded** — Tech STEM+, Salary Index flagged as internal (not sent to AI)
 5. **Comprehensive Extraction** — All displayable data is converted to verifiable claims
 
-> **ℹ️ Data Flow Reference:** See `DATA_FLOW.md` at project root for the complete database → JS → HTML rendering map.
+> **ℹ️ Data Flow Reference:** See `public/data/DATA_FLOW.md` for the complete database → JS → HTML rendering map.
 
 ### Architecture
 
@@ -363,7 +376,7 @@ npm run preview # Preview build at localhost:4173
 
 1. Edit `public/data/normalized/MASTER.json` for metrics
 2. Edit `public/data/normalized/CITY_PROFILES.json` for ecosystem
-3. **Check `DATA_FLOW.md`** for hardcoded HTML values that need manual sync
+3. **Check `public/data/DATA_FLOW.md`** for hardcoded HTML values that need manual sync
 4. Rebuild: `npm run build`
 
 ### Add New City
