@@ -295,6 +295,9 @@
                   <filter id="advisor-cta-glow" x="-40%" y="-40%" width="180%" height="180%">
                     <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#581c87" flood-opacity="0.35"/>
                   </filter>
+                  <clipPath id="advisor-cta-flag-clip">
+                    <circle cx="110" cy="153" r="11"/>
+                  </clipPath>
                 </defs>
                 <g class="ai-mascot-sparks">
                   <circle cx="42" cy="58" r="4" fill="#f59e0b"/>
@@ -323,9 +326,17 @@
                   <circle cx="110" cy="7" r="6" fill="#f59e0b"/>
                   <g class="ai-mascot-compass">
                     <circle cx="110" cy="153" r="14" fill="#ffffff" fill-opacity="0.98"/>
-                    <circle cx="110" cy="153" r="10" fill="#ede9fe"/>
-                    <path d="M110 143l5 9-5 4-5-4z" fill="#7c3aed"/>
-                    <path d="M110 163l-5-9 5-4 5 4z" fill="#ec4899"/>
+                    <circle cx="110" cy="153" r="11" fill="#da291c"/>
+                    <g clip-path="url(#advisor-cta-flag-clip)">
+                      <rect x="99" y="142" width="7" height="22" fill="#046a38"/>
+                    </g>
+                    <circle cx="106" cy="153" r="4.6" fill="#ffda44" stroke="#fff3bf" stroke-width="0.7"/>
+                    <path d="M106 149.1l2.25 0.95v2.55c0 1.72-1.09 3.24-2.76 3.9-1.66-0.66-2.75-2.18-2.75-3.9v-2.55l2.25-0.95z" fill="#ffffff"/>
+                    <circle cx="104.55" cy="151.85" r="0.38" fill="#1d4ed8"/>
+                    <circle cx="107.45" cy="151.85" r="0.38" fill="#1d4ed8"/>
+                    <circle cx="106" cy="153.25" r="0.38" fill="#1d4ed8"/>
+                    <circle cx="104.95" cy="154.7" r="0.38" fill="#1d4ed8"/>
+                    <circle cx="107.05" cy="154.7" r="0.38" fill="#1d4ed8"/>
                   </g>
                 </g>
               </svg>
