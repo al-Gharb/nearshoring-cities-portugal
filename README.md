@@ -30,6 +30,15 @@ BUILT WITH AI
 - [Fact-Check Workflow](factchecks/README.md)
 - [Image Attributions](IMAGE_ATTRIBUTIONS.md)
 
+## Data Freshness Indicator
+
+The header freshness bar represents how recent the underlying site data is.
+
+- Source date: `public/data/normalized/WEBSITE_CONTENT.json` → `_meta.lastUpdated`
+- Decay rule: loses 25 basis points per day (`0,25%`) since that date
+- Display: two-decimal percentage format (`99,xx%` style)
+- Tooltip explains the calculation and reminds users this is recency, not fact-check confidence
+
 ## Quick Start
 
 ```bash
@@ -67,6 +76,7 @@ npm run test:all
 │   │       ├── promptGenerator.js # AI simulator + fact-check prompt generation
 │   │       ├── promptTemplate.js  # V5.0 narrative prompt template
 │   │       ├── contentRenderer.js # Dynamic content
+│   │       ├── dataFreshness.js   # Header freshness bar (0.25% daily decay)
 │   │       ├── calculations.js    # Salary/ICT calculations
 │   │       └── themeToggle.js     # Dark mode
 │   └── styles/
@@ -74,6 +84,7 @@ npm run test:all
 │       ├── reset.css             # CSS reset
 │       ├── base.css              # Base styles
 │       ├── components.css        # UI components
+│       ├── freshness.css         # Freshness bar styling
 │       ├── sections.css          # Page sections
 │       └── print.css             # Print styles
 │
@@ -102,6 +113,10 @@ npm run test:all
 ├── vite.config.js                # Build configuration
 └── package.json
 ```
+
+
+
+
 
 ---
 

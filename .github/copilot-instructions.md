@@ -115,6 +115,7 @@ This is a **data-driven business analysis**, not marketing material.
 │      ├── bubbleChart.js     D3.js scatter plot (talent vs cost)             │
 │      ├── cityProfiles.js    City profile expand/collapse, printing          │
 │      ├── contentRenderer.js Populate .db-value spans from JSON              │
+│      ├── dataFreshness.js   Header freshness bar (0.25% daily decay)        │
 │      ├── calculations.js    Auto-compute salary indices, ICT %              │
 │      ├── themeToggle.js     Light/dark mode toggle                          │
 │      ├── simulatorEngine.js V5.0 deterministic computation (all math)       │
@@ -141,6 +142,7 @@ This is a **data-driven business analysis**, not marketing material.
 │   │       ├── bubbleChart.js
 │   │       ├── cityProfiles.js
 │   │       ├── contentRenderer.js
+│   │       ├── dataFreshness.js
 │   │       ├── calculations.js
 │   │       ├── themeToggle.js
 │   │       ├── simulatorEngine.js
@@ -154,6 +156,7 @@ This is a **data-driven business analysis**, not marketing material.
 │       ├── reset.css         # CSS reset
 │       ├── base.css          # Base styles
 │       ├── components.css    # UI components
+│       ├── freshness.css     # Header freshness bar styles
 │       ├── sections.css      # Page sections
 │       └── print.css         # Print styles
 │

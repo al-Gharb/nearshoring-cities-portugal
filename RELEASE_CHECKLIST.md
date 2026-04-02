@@ -31,6 +31,7 @@ Use this checklist before tagging or deploying a release candidate.
 ## 4. Data and Fact-Check Governance
 
 - [ ] Any database edits in `public/data/normalized/` have matching rationale in PR.
+- [ ] `WEBSITE_CONTENT.json` `_meta.lastUpdated` is current enough to keep header freshness meaningful.
 - [ ] Fact-check correction updates include explicit HITL `GO` approval trail.
 - [ ] No internal metrics are presented as externally verified facts.
 

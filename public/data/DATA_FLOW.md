@@ -277,6 +277,7 @@ WEBSITE_CONTENT.json → national.laborMarket.damiaBenchmark
 | Digital infra heroes | WEBSITE_CONTENT | `contentRenderer.js` | ✅ Dynamic |
 | EU Context: ICT card | WEBSITE_CONTENT | `contentRenderer.js` | ✅ Dynamic |
 | Workforce stat-heroes | WEBSITE_CONTENT | `contentRenderer.js` | ✅ Dynamic |
+| Header data freshness bar | WEBSITE_CONTENT (`_meta.lastUpdated`) | `dataFreshness.js` | ✅ Dynamic |
 | Workforce bar chart | WEBSITE_CONTENT | `contentRenderer.js` | ✅ Dynamic |
 | Hiring insight cards | WEBSITE_CONTENT | `contentRenderer.js` | ✅ Dynamic |
 | Tax incentives | WEBSITE_CONTENT | `contentRenderer.js` | ✅ Dynamic |

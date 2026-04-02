@@ -52,6 +52,7 @@ Never apply database corrections without explicit HITL approval.
 
 - Source of truth is `public/data/normalized/`.
 - Check `public/data/DATA_FLOW.md` before editing values that may also appear as hardcoded HTML.
+- When national/site content is refreshed, update `WEBSITE_CONTENT.json` → `_meta.lastUpdated` so the header freshness indicator stays accurate.
 - Keep Portuguese diacritics intact (for example, `Évora`, `Guimarães`, `Covilhã`, `Setúbal`).
 
 ## Documentation Updates

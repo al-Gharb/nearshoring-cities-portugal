@@ -1,12 +1,19 @@
 /**
  * Data Freshness UI
- * - Shows a small freshness/confidence bar computed from a last-updated ISO date
- * - Degrades by 0.25 points per full day since `lastUpdated`
- * - Resets to 100 when the `data-last-updated` attribute changes
+ * - Shows a small freshness bar computed from a last-updated ISO date
+ * - Decays by 25 basis points (0.25%) per day since `lastUpdated`
+ * - Indicates how recent the site's underlying data is
+ * - Resets to max freshness when the `data-last-updated` attribute changes
  */
 import { buildConfidenceBarHTML } from '../utils/confidenceBar.js';
 
 const MS_PER_DAY = 24 * 60 * 60 * 1000;
+const DAILY_DECAY_BPS = 25; // 25 basis points per day
+const DAILY_DECAY_PCT = DAILY_DECAY_BPS / 100; // 0.25%
+
+function formatFreshnessPercent(value) {
+  return `${Number(value).toFixed(2).replace('.', ',')}%`;
+}
 
 function safeParseDate(iso) {
   if (!iso) return new Date();
@@ -18,8 +25,8 @@ function computeScoreFromIso(iso) {
   const now = Date.now();
   const last = safeParseDate(iso).getTime();
   const delta = Math.max(0, now - last);
-  const days = Math.floor(delta / MS_PER_DAY);
-  const raw = 100 - days * 0.25; // degrade 0.25 points per day
+  const days = delta / MS_PER_DAY;
+  const raw = 100 - days * DAILY_DECAY_PCT; // 25 bps/day decay
   const score = Math.max(0, Math.min(100, Math.round(raw * 100) / 100));
   return { score, days, last: new Date(last) };
 }
@@ -39,10 +46,18 @@ export function initDataFreshness(selector = '#data-freshness', initialIso = nul
 
   function renderFromIso(iso) {
     const { score, days, last } = computeScoreFromIso(iso);
+    const freshnessLabel = formatFreshnessPercent(score);
+    const daysRounded = Math.round(days * 100) / 100;
+    const tooltipText = `Data freshness: ${freshnessLabel}. This metric loses 25 basis points (0,25%) per day since the last update date and indicates how recent the data on this site is.`;
 
-    // Render the confidence-bar markup (compact mode to fit header)
+    // Render freshness bar markup (compact mode to fit header)
     if (barEl) {
-      barEl.innerHTML = buildConfidenceBarHTML(Math.round(score), last.toISOString(), true);
+      barEl.innerHTML = buildConfidenceBarHTML(score, last.toISOString(), true, {
+        titleText: tooltipText,
+        nullTitleText: 'Data freshness is not yet available because no last update date has been set.',
+        labelText: freshnessLabel,
+        ariaValueNow: Math.round(score * 100) / 100,
+      });
 
       // Make the freshly-rendered track/pointer visually distinct and reposition pointer
       const trackEl = barEl.querySelector('.confidence-bar-track');
@@ -65,7 +80,7 @@ export function initDataFreshness(selector = '#data-freshness', initialIso = nul
       }
     }
 
-    if (percentEl) percentEl.textContent = `${Math.round(score)}%`;
+    if (percentEl) percentEl.textContent = freshnessLabel;
     if (dateEl) {
       const formatted = last.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
       dateEl.textContent = formatted;
@@ -85,9 +100,11 @@ export function initDataFreshness(selector = '#data-freshness', initialIso = nul
       renderedBar.setAttribute('role', 'progressbar');
       renderedBar.setAttribute('aria-valuemin', '0');
       renderedBar.setAttribute('aria-valuemax', '100');
-      renderedBar.setAttribute('aria-valuenow', String(Math.round(score)));
-      renderedBar.setAttribute('aria-label', `Data freshness ${Math.round(score)}%`);
+      renderedBar.setAttribute('aria-valuenow', String(Math.round(score * 100) / 100));
+      renderedBar.setAttribute('aria-label', `Data freshness ${freshnessLabel}. Decays by 0.25% per day. ${daysRounded} days since last update.`);
     }
+
+    container.setAttribute('title', tooltipText);
   }
 
   // Initial render

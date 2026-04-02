@@ -36,6 +36,11 @@ function formatFactCheckDate(checkDate) {
  * @param {number|null} score — 0-100 or null
  * @param {string|null} [checkDate] — last fact-check date (ISO or parseable date)
  * @param {boolean} [compact] — use compact sizing (50px track, 6px pointer)
+ * @param {Object} [options]
+ * @param {string|null} [options.titleText] — explicit tooltip text override
+ * @param {string|null} [options.nullTitleText] — explicit tooltip text when score is null
+ * @param {string|null} [options.labelText] — explicit label text override
+ * @param {number|null} [options.ariaValueNow] — explicit aria-valuenow override
  * @returns {string} — HTML string for confidence bar
  * 
  * NOTE: Standard calculation assumes 80px track width and 8px pointer width.
@@ -43,15 +48,24 @@ function formatFactCheckDate(checkDate) {
  * All CSS overrides (.city-header, .section-confidence, .score-card)
  * must maintain these dimensions for correct pointer positioning.
  */
-export function buildConfidenceBarHTML(score, checkDate = null, compact = false) {
+export function buildConfidenceBarHTML(score, checkDate = null, compact = false, options = {}) {
   const compactClass = compact ? ' confidence-bar-compact' : '';
   const formattedDate = formatFactCheckDate(checkDate);
+  const {
+    titleText = null,
+    nullTitleText = null,
+    labelText = null,
+    ariaValueNow = null,
+  } = options;
   
   if (score == null) {
     const nullPosition = compact ? 25 : 40;
-    return `<span class="confidence-bar${compactClass}" title="Data confidence: not yet assessed. Last fact-check: ${formattedDate}.">
+    const fallbackNullTitle = `Data confidence: not yet assessed. Last fact-check: ${formattedDate}.`;
+    const resolvedNullTitle = nullTitleText ?? fallbackNullTitle;
+    const resolvedNullLabel = labelText ?? '—';
+    return `<span class="confidence-bar${compactClass}" title="${resolvedNullTitle}">
       <span class="confidence-bar-track"><span class="confidence-bar-pointer" style="left: ${nullPosition}px;"></span></span>
-      <span class="confidence-bar-label">—</span>
+      <span class="confidence-bar-label">${resolvedNullLabel}</span>
     </span>`;
   }
 
@@ -60,11 +74,14 @@ export function buildConfidenceBarHTML(score, checkDate = null, compact = false)
   const offset = compact ? 3 : 4;
   const range = compact ? 44 : 72;
   const position = Math.round(offset + (score / 100) * range);
-  const titleText = `Data confidence: ${score}%. Last fact-check: ${formattedDate}.`;
+  const fallbackTitleText = `Data confidence: ${score}%. Last fact-check: ${formattedDate}.`;
+  const resolvedTitleText = titleText ?? fallbackTitleText;
+  const resolvedLabel = labelText ?? `${score}%`;
+  const resolvedAriaValueNow = ariaValueNow ?? score;
 
-  return `<span class="confidence-bar${compactClass}" title="${titleText}">
+  return `<span class="confidence-bar${compactClass}" title="${resolvedTitleText}" aria-valuenow="${resolvedAriaValueNow}">
     <span class="confidence-bar-track"><span class="confidence-bar-pointer" style="left: ${position}px;"></span></span>
-    <span class="confidence-bar-label">${score}%</span>
+    <span class="confidence-bar-label">${resolvedLabel}</span>
   </span>`;
 }
 
