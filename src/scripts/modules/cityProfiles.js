@@ -165,6 +165,20 @@ function toggleCityProfile(button) {
 // Expose globally for onclick handlers
 window.toggleCityProfile = toggleCityProfile;
 
+function escapeHtml(value) {
+  return String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function valueOrDash(value) {
+  if (value == null || value === '') return '—';
+  return value;
+}
+
 /**
  * Print a city profile (opens print-friendly popup).
  * @param {string} cityId
@@ -173,36 +187,390 @@ function printCityProfile(cityId) {
   const section = document.getElementById(cityId);
   if (!section) return;
 
+  const masterCity = getCity(cityId);
+  if (!masterCity) return;
+
+  const profile = getCityProfile(cityId) ?? {};
+
   // Temporarily expand for printing
   const wasExpanded = section.classList.contains('expanded');
   if (!wasExpanded) section.classList.add('expanded');
 
-  const printWindow = window.open('', '_blank', 'width=800,height=600');
+  const printWindow = window.open('', '_blank', 'width=1100,height=900');
   if (!printWindow) return;
 
-  const content = section.outerHTML;
+  const cityName = masterCity.basic?.name?.value ?? cityId;
+  const region = masterCity.basic?.region?.value ?? 'Portugal';
+  const tagline = profile?._meta?.tagline ?? 'Nearshoring profile summary';
+
+  const imageUrl = CITY_IMAGES[cityId] ?? '';
+  const wikiUrl = CITY_WIKI_URLS[cityId] ?? '';
+  const cityCredit = CITY_CREDITS[cityId] ?? null;
+
+  const climate = profile?.culture?.climate?.value ?? 'Not specified';
+  const airport = profile?.infrastructure?.airport;
+  const connectivity = profile?.infrastructure?.connectivity;
+
+  const grads = masterCity?.talent?.graduates ?? {};
+  const costs = masterCity?.costs ?? {};
+
+  const techStemPlus = grads?.digitalStemPlus?.value ? formatNumber(grads.digitalStemPlus.value) : '—';
+  const officialStem = grads?.officialStem?.value ? formatNumber(grads.officialStem.value) : '—';
+  const coreICT = grads?.coreICT?.value ? formatNumber(grads.coreICT.value) : '—';
+  const ictPct = grads?.coreICT?.pctOfOfficialStem?.value != null
+    ? `${grads.coreICT.pctOfOfficialStem.value.toFixed(1)}%`
+    : '—';
+
+  const salaryIndex = valueOrDash(costs?.salaryIndex?.value);
+  const colIndex = valueOrDash(costs?.colIndex?.value);
+  const officeRent = costs?.officeRent
+    ? formatRange(costs.officeRent.min, costs.officeRent.max, '€', '/m²')
+    : '—';
+  const residentialRent = costs?.residentialRent
+    ? formatRange(costs.residentialRent.min, costs.residentialRent.max, '€', '/mo')
+    : '—';
+
+  const companies = profile?.ecosystem?.techCompanies?.value ?? [];
+  const companyItems = companies.slice(0, 12).map((company) => {
+    const name = escapeHtml(company?.name ?? 'Unknown');
+    const sector = company?.sector ? ` — ${escapeHtml(company.sector)}` : '';
+    return `<li><strong>${name}</strong>${sector}</li>`;
+  }).join('') || '<li>Company list not available.</li>';
+
+  const institutions = profile?.universityDetail?.institutions ?? [];
+  const universityItems = institutions
+    .filter((i) => i?.type !== 'research')
+    .slice(0, 10)
+    .map((institution) => {
+      const name = escapeHtml(institution?.name ?? 'Unknown institution');
+      const parent = institution?.parent ? ` (${escapeHtml(institution.parent)})` : '';
+      return `<li><strong>${name}</strong>${parent}</li>`;
+    }).join('') || '<li>University data not available.</li>';
+
+  const researchItems = institutions
+    .filter((i) => i?.type === 'research')
+    .slice(0, 8)
+    .map((institution) => `<li>${escapeHtml(institution?.name ?? 'Research institution')}</li>`)
+    .join('') || '<li>No dedicated research institutions listed.</li>';
+
+  const domains = profile?.ecosystem?.domains?.value ?? [];
+  const domainItems = domains.slice(0, 10).map((domain) => {
+    if (typeof domain === 'string') {
+      return `<li>${escapeHtml(domain)}</li>`;
+    }
+    const name = escapeHtml(domain?.name ?? domain?.label ?? 'Domain');
+    const detail = domain?.detail ? ` — ${escapeHtml(domain.detail)}` : '';
+    return `<li>${name}${detail}</li>`;
+  }).join('') || '<li>Domain data not available.</li>';
+
+  const strengths = profile?.culture?.retention?.strengths ?? [];
+  const risks = profile?.culture?.retention?.risks ?? [];
+  const retentionNarrative = profile?.culture?.retention?.narrative ?? '';
+
+  const strengthItems = strengths.map((item) => `<li>${escapeHtml(item)}</li>`).join('') || '<li>No strengths listed.</li>';
+  const riskItems = risks.map((item) => `<li>${escapeHtml(item)}</li>`).join('') || '<li>No risks listed.</li>';
+
+  const qualityOfLife = profile?.culture?.qualityOfLife ?? {};
+  const qualityItems = [
+    qualityOfLife.walkability ? `Walkability: ${qualityOfLife.walkability}` : null,
+    qualityOfLife.healthcare ? `Healthcare: ${qualityOfLife.healthcare}` : null,
+    qualityOfLife.culture ? `Culture: ${qualityOfLife.culture}` : null,
+  ].filter(Boolean).map((item) => `<li>${escapeHtml(item)}</li>`).join('') || '<li>Quality-of-life details not available.</li>';
+
+  const commuteRoutes = profile?.infrastructure?.commuteTimes?.routes ?? [];
+  const commuteItems = commuteRoutes.map((route) => {
+    const to = escapeHtml(route?.to ?? 'destination');
+    const time = escapeHtml(route?.time ?? 'n/a');
+    const mode = route?.mode ? ` · ${escapeHtml(route.mode)}` : '';
+    return `<li>${to}: ${time}${mode}</li>`;
+  }).join('') || '<li>No commute routes listed.</li>';
+
+  const photoCreditHtml = (imageUrl && wikiUrl && cityCredit)
+    ? `<a class="photo-credit" href="${escapeHtml(wikiUrl)}" target="_blank" rel="noopener noreferrer">Photo: ${escapeHtml(cityCredit.author)} · ${escapeHtml(cityCredit.license)} · Wikimedia Commons</a>`
+    : '';
+
   printWindow.document.write(`
     <!DOCTYPE html>
     <html lang="en">
     <head>
       <meta charset="UTF-8">
-      <title>${cityId} — Nearshoring Profile</title>
+      <title>${escapeHtml(cityName)} — Nearshoring City Profile</title>
       <style>
-        body { font-family: Inter, sans-serif; max-width: 800px; margin: 0 auto; padding: 1rem; }
-        .city-header { background: #0f172a; color: white; padding: 1.5rem; border-radius: 8px; }
-        .city-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; padding: 1rem 0; }
-        .grid-item { padding: 1rem; border: 1px solid #e2e8f0; border-radius: 8px; }
-        .grid-item h3 { color: #2563eb; text-transform: uppercase; font-size: 0.8rem; }
-        .city-header-nav, .city-print-btn { display: none; }
-        .city-grid { max-height: none !important; opacity: 1 !important; padding: 1rem !important; }
-        .grid-item.strategic, .grid-item.collaboration, .grid-item.metrics.full-width { grid-column: span 2; }
+        @page {
+          size: A4;
+          margin: 14mm;
+        }
+
+        * {
+          box-sizing: border-box;
+        }
+
+        body {
+          margin: 0;
+          font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+          color: #111827;
+          background: #ffffff;
+          line-height: 1.45;
+          font-size: 11pt;
+        }
+
+        .pdf-wrap {
+          max-width: 180mm;
+          margin: 0 auto;
+        }
+
+        .hero {
+          display: grid;
+          grid-template-columns: 42% 58%;
+          border: 1px solid #d1d5db;
+          border-radius: 10px;
+          overflow: hidden;
+          margin-bottom: 14px;
+          break-inside: avoid;
+        }
+
+        .hero-image {
+          min-height: 220px;
+          background: #f3f4f6;
+        }
+
+        .hero-image img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+        }
+
+        .hero-content {
+          padding: 14px 16px;
+        }
+
+        h1 {
+          margin: 0 0 6px;
+          font-size: 21pt;
+          line-height: 1.2;
+          color: #0f172a;
+        }
+
+        .tagline {
+          margin: 0 0 8px;
+          font-size: 11pt;
+          color: #1f2937;
+          font-weight: 600;
+        }
+
+        .meta {
+          margin: 0;
+          color: #4b5563;
+          font-size: 9.5pt;
+        }
+
+        .snapshot {
+          margin-top: 10px;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 8px;
+        }
+
+        .snapshot-card {
+          border: 1px solid #e5e7eb;
+          border-radius: 8px;
+          padding: 8px;
+          background: #f9fafb;
+        }
+
+        .snapshot-card .label {
+          display: block;
+          font-size: 8.5pt;
+          color: #6b7280;
+          margin-bottom: 2px;
+          text-transform: uppercase;
+          letter-spacing: 0.02em;
+        }
+
+        .snapshot-card .value {
+          font-size: 11.5pt;
+          color: #111827;
+          font-weight: 700;
+        }
+
+        .section {
+          border: 1px solid #e5e7eb;
+          border-radius: 10px;
+          padding: 11px 12px;
+          margin-bottom: 10px;
+          break-inside: avoid;
+        }
+
+        .section h2 {
+          margin: 0 0 8px;
+          font-size: 11pt;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          color: #1d4ed8;
+        }
+
+        .section p {
+          margin: 0 0 8px;
+        }
+
+        .two-col {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 10px;
+        }
+
+        .subhead {
+          margin: 8px 0 5px;
+          font-size: 9.5pt;
+          color: #111827;
+          text-transform: uppercase;
+          letter-spacing: 0.04em;
+        }
+
+        ul {
+          margin: 0;
+          padding-left: 16px;
+        }
+
+        li {
+          margin: 0 0 3px;
+        }
+
+        .photo-credit,
+        .footer-note {
+          display: block;
+          margin-top: 8px;
+          color: #6b7280;
+          font-size: 8.5pt;
+          text-decoration: none;
+        }
+
+        .footer-note {
+          margin-top: 10px;
+        }
+
+        @media print {
+          .hero,
+          .section {
+            break-inside: avoid;
+          }
+
+          a {
+            color: inherit;
+            text-decoration: none;
+          }
+        }
       </style>
     </head>
-    <body>${content}</body>
+    <body>
+      <main class="pdf-wrap">
+        <section class="hero">
+          <div class="hero-image">
+            ${imageUrl ? `<img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(cityName)} city view">` : ''}
+          </div>
+          <div class="hero-content">
+            <h1>${escapeHtml(cityName)}</h1>
+            <p class="tagline">${escapeHtml(tagline)}</p>
+            <p class="meta">${escapeHtml(region)} · Portugal · City Profile Export</p>
+            <div class="snapshot">
+              <div class="snapshot-card"><span class="label">Tech STEM+</span><span class="value">${escapeHtml(String(techStemPlus))}</span></div>
+              <div class="snapshot-card"><span class="label">Core ICT</span><span class="value">${escapeHtml(String(coreICT))}</span></div>
+              <div class="snapshot-card"><span class="label">Salary Index</span><span class="value">${escapeHtml(String(salaryIndex))}</span></div>
+              <div class="snapshot-card"><span class="label">COL + Rent</span><span class="value">${escapeHtml(String(colIndex))}</span></div>
+            </div>
+            ${photoCreditHtml}
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>1. Strategic Snapshot</h2>
+          <p><strong>Climate:</strong> ${escapeHtml(String(climate))}</p>
+          <p><strong>Profile:</strong> ${escapeHtml(retentionNarrative || 'Narrative not available.')}</p>
+        </section>
+
+        <div class="two-col">
+          <section class="section">
+            <h2>2. Talent & Education</h2>
+            <p><strong>Official STEM:</strong> ${escapeHtml(String(officialStem))}</p>
+            <p><strong>ICT % of STEM:</strong> ${escapeHtml(String(ictPct))}</p>
+            <p class="subhead">Universities</p>
+            <ul>${universityItems}</ul>
+            <p class="subhead">Research Institutions</p>
+            <ul>${researchItems}</ul>
+          </section>
+
+          <section class="section">
+            <h2>3. Industry Presence</h2>
+            <p class="subhead">Leading Companies</p>
+            <ul>${companyItems}</ul>
+            <p class="subhead">Tech Domains</p>
+            <ul>${domainItems}</ul>
+          </section>
+        </div>
+
+        <div class="two-col">
+          <section class="section">
+            <h2>4. Cost Structure</h2>
+            <p><strong>Office rent:</strong> ${escapeHtml(String(officeRent))}</p>
+            <p><strong>Residential rent:</strong> ${escapeHtml(String(residentialRent))}</p>
+            <p><strong>Salary index:</strong> ${escapeHtml(String(salaryIndex))} (Lisbon = 100)</p>
+            <p><strong>COL + Rent index:</strong> ${escapeHtml(String(colIndex))} (NYC = 100)</p>
+          </section>
+
+          <section class="section">
+            <h2>5. Infrastructure</h2>
+            <p><strong>Airport:</strong> ${escapeHtml(airport?.name ?? 'Not specified')} (${escapeHtml(airport?.iataCode ?? '—')})</p>
+            <p><strong>Drive time:</strong> ${escapeHtml(airport?.driveTime ?? 'Not specified')}</p>
+            <p><strong>Fiber penetration:</strong> ${escapeHtml(String(valueOrDash(connectivity?.fiberPenetration)))}%</p>
+            <p><strong>Average download:</strong> ${escapeHtml(String(valueOrDash(connectivity?.avgDownloadMbps)))} Mbps</p>
+            <p><strong>Latency to Frankfurt:</strong> ${escapeHtml(String(valueOrDash(connectivity?.latencyFrankfurt)))} ms</p>
+            <p class="subhead">Typical Commute Routes</p>
+            <ul>${commuteItems}</ul>
+          </section>
+        </div>
+
+        <div class="two-col">
+          <section class="section">
+            <h2>6. Retention Strengths</h2>
+            <ul>${strengthItems}</ul>
+          </section>
+          <section class="section">
+            <h2>7. Retention Risks</h2>
+            <ul>${riskItems}</ul>
+          </section>
+        </div>
+
+        <section class="section">
+          <h2>8. Quality of Life Notes</h2>
+          <ul>${qualityItems}</ul>
+          <span class="footer-note">Generated from Nearshoring Cities Portugal v0.95.0 · ${new Date().toISOString().slice(0, 10)}</span>
+        </section>
+      </main>
+    </body>
     </html>
   `);
   printWindow.document.close();
-  setTimeout(() => printWindow.print(), 250);
+
+  const triggerPrint = () => {
+    printWindow.focus();
+    printWindow.print();
+  };
+
+  const images = Array.from(printWindow.document.images || []);
+  if (images.length === 0) {
+    setTimeout(triggerPrint, 180);
+  } else {
+    Promise.all(images.map((image) => {
+      if (image.complete) return Promise.resolve();
+      return new Promise((resolve) => {
+        image.onload = resolve;
+        image.onerror = resolve;
+      });
+    })).finally(() => {
+      setTimeout(triggerPrint, 120);
+    });
+  }
 
   // Restore state
   if (!wasExpanded) section.classList.remove('expanded');
