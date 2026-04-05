@@ -2589,9 +2589,40 @@
   display: flex;
   align-items: center;
   gap: var(--sp-sm);
+  padding: 0.24rem 0.55rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-full);
   z-index: 20;
 }
 .theme-label { font-size: 1rem; }
+
+/* Light mode: make toggle shell and track visibly darker on pale cover backgrounds */
+:root:not([data-theme="dark"]) .theme-toggle {
+  background: rgba(248, 250, 252, 0.82);
+  border-color: rgba(15, 23, 42, 0.22);
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.14);
+  backdrop-filter: blur(6px);
+}
+
+[data-theme="dark"] .theme-toggle {
+  background: rgba(15, 23, 42, 0.7);
+  border-color: rgba(148, 163, 184, 0.34);
+  box-shadow: 0 6px 16px rgba(2, 6, 23, 0.45);
+  backdrop-filter: blur(6px);
+}
+
+:root:not([data-theme="dark"]) .theme-slider {
+  background: linear-gradient(180deg, #334155 0%, #1f2937 100%);
+  border-color: #0f172a;
+  box-shadow:
+    0 2px 8px rgba(15, 23, 42, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+:root:not([data-theme="dark"]) .theme-slider::before {
+  background: #f8fafc;
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.28);
+}
 
 @media (max-width: 640px) {
   .theme-toggle { top: var(--sp-md); right: var(--sp-md); gap: var(--sp-xs); }
