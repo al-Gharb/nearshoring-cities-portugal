@@ -154,16 +154,44 @@ const IDEALISTA_CONFIG = {
  * Toggle city profile expand/collapse.
  * @param {HTMLElement} button
  */
+function setCityProfileExpanded(section, expanded) {
+  if (!section) return;
+  section.classList.toggle('expanded', expanded);
+
+  const toggleButton = section.querySelector('.city-toggle-btn');
+  if (toggleButton) {
+    toggleButton.setAttribute('aria-expanded', String(expanded));
+  }
+}
+
+function openCityProfileSection(section, shouldScroll = false) {
+  if (!section) return;
+  setCityProfileExpanded(section, true);
+
+  if (shouldScroll) {
+    requestAnimationFrame(() => {
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+}
+
 function toggleCityProfile(button) {
   const section = button.closest('.city-section');
   if (!section) return;
 
-  const expanded = section.classList.toggle('expanded');
-  button.setAttribute('aria-expanded', String(expanded));
+  const isExpanded = section.classList.contains('expanded');
+  setCityProfileExpanded(section, !isExpanded);
 }
 
 // Expose globally for onclick handlers
 globalThis.toggleCityProfile = toggleCityProfile;
+globalThis.openCityProfile = (cityId, options = {}) => {
+  const section = document.getElementById(cityId);
+  if (!section || !section.classList.contains('city-section')) return false;
+
+  openCityProfileSection(section, Boolean(options.scroll));
+  return true;
+};
 
 function escapeHtml(value) {
   return String(value ?? '')

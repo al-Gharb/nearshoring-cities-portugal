@@ -48,7 +48,6 @@
   background: #0f172a;
   margin-left: 0.1em;
   vertical-align: baseline;
-  animation: coverCursorBlink 1s infinite;
 }
 
 .cover-subtitle {
@@ -554,7 +553,7 @@
 }
 
 .ai-mascot-eyes {
-  animation: ai-mascot-blink 5.4s infinite;
+  transform: scaleY(1);
 }
 
 .ai-mascot-compass {
@@ -667,11 +666,6 @@
 @keyframes ai-mascot-core-drift {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-4px); }
-}
-
-@keyframes ai-mascot-blink {
-  0%, 44%, 48%, 100% { transform: scaleY(1); }
-  46% { transform: scaleY(0.16); }
 }
 
 @keyframes ai-compass-turn {
@@ -1112,75 +1106,6 @@
 .section-workforce .section-icon { color: #ea580c; }
 .section-cities .section-icon { color: #db2777; }
 .section-simulator .section-icon { color: #8b5cf6; }
-
-/* Target blink animation when navigating via anchor */
-@keyframes section-blink {
-  0%, 100% { box-shadow: 0 0 0 0 transparent; }
-  25%, 75% { box-shadow: 0 0 0 3px var(--accent-color); }
-  50% { box-shadow: 0 0 0 0 transparent; }
-}
-
-.deeper-dive-container:target,
-.intro-block:target {
-  animation: section-blink 1s ease-out;
-}
-
-/* Section-specific blink colors */
-.section-foundation:target { animation-name: section-blink-foundation; }
-.section-macro:target { animation-name: section-blink-macro; }
-.section-infra:target { animation-name: section-blink-infra; }
-.section-strategic:target { animation-name: section-blink-strategic; }
-.section-talent:target { animation-name: section-blink-talent; }
-.section-workforce:target { animation-name: section-blink-workforce; }
-.section-cities:target { animation-name: section-blink-cities; }
-.section-simulator:target { animation-name: section-blink-simulator; }
-.section-notes:target { animation-name: section-blink-notes; }
-
-@keyframes section-blink-foundation {
-  0%, 100% { box-shadow: 0 0 0 0 transparent; }
-  25%, 75% { box-shadow: 0 0 0 3px #94a3b8; }
-  50% { box-shadow: 0 0 0 0 transparent; }
-}
-@keyframes section-blink-macro {
-  0%, 100% { box-shadow: 0 0 0 0 transparent; }
-  25%, 75% { box-shadow: 0 0 0 3px #6366f1; }
-  50% { box-shadow: 0 0 0 0 transparent; }
-}
-@keyframes section-blink-infra {
-  0%, 100% { box-shadow: 0 0 0 0 transparent; }
-  25%, 75% { box-shadow: 0 0 0 3px #0891b2; }
-  50% { box-shadow: 0 0 0 0 transparent; }
-}
-@keyframes section-blink-strategic {
-  0%, 100% { box-shadow: 0 0 0 0 transparent; }
-  25%, 75% { box-shadow: 0 0 0 3px #d97706; }
-  50% { box-shadow: 0 0 0 0 transparent; }
-}
-@keyframes section-blink-talent {
-  0%, 100% { box-shadow: 0 0 0 0 transparent; }
-  25%, 75% { box-shadow: 0 0 0 3px #059669; }
-  50% { box-shadow: 0 0 0 0 transparent; }
-}
-@keyframes section-blink-workforce {
-  0%, 100% { box-shadow: 0 0 0 0 transparent; }
-  25%, 75% { box-shadow: 0 0 0 3px #ea580c; }
-  50% { box-shadow: 0 0 0 0 transparent; }
-}
-@keyframes section-blink-cities {
-  0%, 100% { box-shadow: 0 0 0 0 transparent; }
-  25%, 75% { box-shadow: 0 0 0 3px #db2777; }
-  50% { box-shadow: 0 0 0 0 transparent; }
-}
-@keyframes section-blink-simulator {
-  0%, 100% { box-shadow: 0 0 0 0 transparent; }
-  25%, 75% { box-shadow: 0 0 0 3px #8b5cf6; }
-  50% { box-shadow: 0 0 0 0 transparent; }
-}
-@keyframes section-blink-notes {
-  0%, 100% { box-shadow: 0 0 0 0 transparent; }
-  25%, 75% { box-shadow: 0 0 0 3px #64748b; }
-  50% { box-shadow: 0 0 0 0 transparent; }
-}
 
 .deeper-dive-summary {
   display: flex;

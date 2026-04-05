@@ -36,6 +36,7 @@
   <!-- App CSS (Vite handles bundling) -->
   <link rel="stylesheet" href="./styles/base.css">
   <link rel="stylesheet" href="./styles/freshness.css">
+  <link rel="stylesheet" href="./styles/print.css" media="print">
 </head>
 <body>
 
@@ -435,7 +436,7 @@
     <h2 class="visually-hidden">Analysis sections</h2>
 
     <!-- TABLE OF CONTENTS -->
-    <details class="deeper-dive-container" open>
+    <details class="deeper-dive-container" id="table-of-contents" open>
       <summary class="deeper-dive-summary">
         <i class="fa-solid fa-list" aria-hidden="true"></i>
         <span class="deeper-dive-title">Table of Contents</span>
@@ -1278,7 +1279,7 @@
               <!-- Geostrategic Position -->
               <div class="callout-accent" data-db="content" data-prompt-core="true">
                 <strong><i class="fa-solid fa-globe-europe"></i> Geostrategic Advantage:</strong>
-                Portugal's Atlantic position puts Sines at a uniquely low-latency crossroads between Europe, Africa, the Americas, and the Middle East. It is the westernmost data-landing point in continental Europe.
+                Portugal's Atlantic position puts it at a uniquely low-latency crossroads between Europe, Africa, the Americas, and the Middle East. It is the westernmost data-landing point in continental Europe.
               </div>
 
               <!-- Subsea Cable Map -->
@@ -3097,7 +3098,7 @@
   <a href="#cover" class="back-to-map" id="backToMap" aria-label="Back to map">
     <i class="fa-solid fa-map" aria-hidden="true"></i>
   </a>
-  <a href="#index" class="back-to-index" id="backToIndex" aria-label="Back to index">
+  <a href="#table-of-contents" class="back-to-index" id="backToIndex" aria-label="Back to index">
     <i class="fa-solid fa-list" aria-hidden="true"></i>
   </a>
 

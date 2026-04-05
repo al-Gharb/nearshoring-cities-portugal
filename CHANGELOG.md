@@ -18,6 +18,13 @@ All notable changes to this project are documented in this file.
   - added quality-tooling links (`eslint.config.js`, `stylelint.config.cjs`, `vite.config.js`)
 - Updated [docs/INDEX.md](docs/INDEX.md) with a Quality and Tooling section.
 - Updated [RELEASE_CHECKLIST.md](RELEASE_CHECKLIST.md) to require `npm run lint` in release validation.
+- Removed automatic single-open accordion closing behavior for top-level containers and city profiles.
+- Replaced full Font Awesome CSS import with a generated local subset stylesheet that includes only icon classes used in source files.
+- Deferred loading of the D3 bubble chart and simulator/fact-check generator modules until their sections are opened, reducing initial JavaScript execution.
+- Refactored bubble chart D3 usage to import only required submodules instead of a full namespace import, improving tree-shaking.
+
+### Added
+- Added `scripts/generate_fa_subset.mjs` and npm script `npm run gen:fa-subset` to regenerate icon subset CSS safely.
 
 ### Notes
 - Documentation now matches the current repository tooling and quality gates.

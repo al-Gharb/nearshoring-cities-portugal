@@ -12,7 +12,11 @@
  * Faithfully replicates legacy renderD3BubbleChart() from app.js.
  */
 
-import * as d3 from 'd3';
+import { extent, max } from 'd3-array';
+import { axisBottom, axisLeft } from 'd3-axis';
+import { format } from 'd3-format';
+import { scaleLinear, scaleSqrt, scaleSymlog } from 'd3-scale';
+import { select } from 'd3-selection';
 import { getChartConfig, getCity } from './database.js';
 
 /** Fixed SVG dimensions (responsive via viewBox) */
@@ -116,7 +120,7 @@ export function renderBubbleChart() {
   const tooltip = createTooltip(container);
 
   // ── SVG ──
-  const svg = d3.select(container)
+  const svg = select(container)
     .append('svg')
     .attr('viewBox', `0 0 ${SVG_WIDTH} ${SVG_HEIGHT}`)
     .attr('preserveAspectRatio', 'xMidYMid meet')
@@ -128,14 +132,14 @@ export function renderBubbleChart() {
     .attr('transform', `translate(${MARGIN.left},${MARGIN.top})`);
 
   // ── Scales (symlog for both axes) ──
-  const costExtent = d3.extent(data, d => d.cost);
+  const costExtent = extent(data, d => d.cost);
 
-  const x = d3.scaleSymlog()
+  const x = scaleSymlog()
     .domain([costExtent[0] * 0.9, costExtent[1] * 1.05])
     .range([0, width])
     .constant(3);
 
-  const y = d3.scaleSymlog()
+  const y = scaleSymlog()
     .domain([0, 12000])
     .range([height, 0])
     .constant(1000);
@@ -145,20 +149,20 @@ export function renderBubbleChart() {
   const maxCost = costExtent[1];
   const midCost = (minCost + maxCost) / 2;
 
-  const color = d3.scaleLinear()
+  const color = scaleLinear()
     .domain([minCost, midCost, maxCost])
     .range(['#4CAF50', '#FFD700', '#FF5722']);
 
   // Bubble radius by STEM+ graduates
-  const radius = d3.scaleSqrt()
-    .domain([0, d3.max(data, d => d.grads)])
+  const radius = scaleSqrt()
+    .domain([0, max(data, d => d.grads)])
     .range([6, 28]);
 
   // ── Grid lines ──
   g.append('g')
     .attr('class', 'grid')
     .attr('transform', `translate(0,${height})`)
-    .call(d3.axisBottom(x).ticks(10).tickSize(-height).tickFormat(''))
+    .call(axisBottom(x).ticks(10).tickSize(-height).tickFormat(''))
     .selectAll('line')
     .attr('stroke', 'var(--border-color, #e2e8f0)')
     .attr('stroke-opacity', 0.5)
@@ -166,7 +170,7 @@ export function renderBubbleChart() {
 
   g.append('g')
     .attr('class', 'grid')
-    .call(d3.axisLeft(y).ticks(10).tickSize(-width).tickFormat(''))
+    .call(axisLeft(y).ticks(10).tickSize(-width).tickFormat(''))
     .selectAll('line')
     .attr('stroke', 'var(--border-color, #e2e8f0)')
     .attr('stroke-opacity', 0.5)
@@ -178,7 +182,7 @@ export function renderBubbleChart() {
   // ── X axis ──
   g.append('g')
     .attr('transform', `translate(0,${height})`)
-    .call(d3.axisBottom(x).ticks(10).tickFormat(d3.format('.0f')))
+    .call(axisBottom(x).ticks(10).tickFormat(format('.0f')))
     .selectAll('text')
     .attr('fill', 'var(--text-color, #1e293b)')
     .attr('font-size', '11px');
@@ -203,7 +207,7 @@ export function renderBubbleChart() {
 
   // ── Y axis ──
   g.append('g')
-    .call(d3.axisLeft(y).ticks(10).tickFormat(d => d >= 1000 ? (d / 1000) + 'k' : d))
+    .call(axisLeft(y).ticks(10).tickFormat(d => d >= 1000 ? (d / 1000) + 'k' : d))
     .selectAll('text')
     .attr('fill', 'var(--text-color, #1e293b)')
     .attr('font-size', '11px');
@@ -234,7 +238,7 @@ export function renderBubbleChart() {
 
     const gradsLabel = d.grads.toLocaleString('en-US');
     const ictLabel = d.ict ? d.ict.toLocaleString('en-US') : '0';
-    const costLabel = !isNaN(d.cost) ? d3.format('.0f')(d.cost) : '—';
+    const costLabel = !isNaN(d.cost) ? format('.0f')(d.cost) : '—';
     const officialStemLabel = d.officialStem ? d.officialStem.toLocaleString('en-US') : '—';
     const ictPct = d.officialStem > 0 ? ((d.ict / d.officialStem) * 100).toFixed(1) : '0.0';
     const regionBadge = d.nutsRegion
@@ -310,7 +314,7 @@ export function renderBubbleChart() {
   // Hover on whole city group (so inner circle also triggers tooltip)
   cityGroups
     .on('mouseenter', function (event, d) {
-      d3.select(this).select('.outer-bubble')
+      select(this).select('.outer-bubble')
         .attr('opacity', 0.95)
         .attr('stroke-width', 3.5);
       showTooltip(event, d);
@@ -319,7 +323,7 @@ export function renderBubbleChart() {
       showTooltip(event, d);
     })
     .on('mouseleave', function () {
-      d3.select(this).select('.outer-bubble')
+      select(this).select('.outer-bubble')
         .attr('opacity', 0.7)
         .attr('stroke-width', 2.5);
       hideTooltip();

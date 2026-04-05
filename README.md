@@ -53,6 +53,9 @@ npm run dev
 # Run static checks
 npm run lint
 
+# Regenerate icon CSS subset (after icon class changes)
+npm run gen:fa-subset
+
 # Build for production
 npm run build
 

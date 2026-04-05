@@ -9,12 +9,104 @@ import { loadDatabases, getStore } from './modules/database.js';
 import { computeAllSalaryIndices, computeAllTechStemPlus } from './modules/calculations.js';
 import { initThemeToggle } from './modules/themeToggle.js';
 import { renderCityTable } from './modules/cityTable.js';
-import { renderBubbleChart } from './modules/bubbleChart.js';
 import { renderCityProfiles } from './modules/cityProfiles.js';
-import { initSimulator, generateMasterPrompt } from './modules/promptGenerator.js';
 import { populateAll } from './modules/contentRenderer.js';
 import { initDataFreshness } from './modules/dataFreshness.js';
 import { renderCoverCityList } from './modules/coverCityList.js';
+
+let bubbleChartRenderPromise = null;
+let bubbleChartRendered = false;
+
+let promptGeneratorModulePromise = null;
+let promptGeneratorInitPromise = null;
+let promptGeneratorInitialized = false;
+
+function ensureBubbleChartRendered() {
+  if (bubbleChartRendered) return Promise.resolve();
+  if (bubbleChartRenderPromise) return bubbleChartRenderPromise;
+
+  bubbleChartRenderPromise = import('./modules/bubbleChart.js')
+    .then(({ renderBubbleChart }) => {
+      renderBubbleChart();
+      bubbleChartRendered = true;
+    })
+    .catch((err) => {
+      console.error('Bubble chart lazy-load failed:', err);
+    })
+    .finally(() => {
+      bubbleChartRenderPromise = null;
+    });
+
+  return bubbleChartRenderPromise;
+}
+
+function loadPromptGeneratorModule() {
+  if (!promptGeneratorModulePromise) {
+    promptGeneratorModulePromise = import('./modules/promptGenerator.js');
+  }
+  return promptGeneratorModulePromise;
+}
+
+function ensurePromptGeneratorInitialized() {
+  if (promptGeneratorInitialized) return Promise.resolve();
+  if (promptGeneratorInitPromise) return promptGeneratorInitPromise;
+
+  promptGeneratorInitPromise = loadPromptGeneratorModule()
+    .then(({ initSimulator }) => {
+      initSimulator();
+      promptGeneratorInitialized = true;
+    })
+    .catch((err) => {
+      console.error('Prompt generator lazy-load failed:', err);
+    })
+    .finally(() => {
+      promptGeneratorInitPromise = null;
+    });
+
+  return promptGeneratorInitPromise;
+}
+
+function initDeferredBubbleChart() {
+  const section = document.getElementById('university-talent-flow');
+  const chartContainer = document.getElementById('d3-bubble-chart');
+  if (!section || !chartContainer) return;
+
+  const tryRender = () => {
+    if (section.open) {
+      void ensureBubbleChartRendered();
+    }
+  };
+
+  section.addEventListener('toggle', tryRender);
+  tryRender();
+}
+
+function initDeferredPromptGenerator() {
+  const simulatorSection = document.getElementById('ai-simulator');
+
+  if (simulatorSection) {
+    const tryInit = () => {
+      if (simulatorSection.open) {
+        void ensurePromptGeneratorInitialized();
+      }
+    };
+
+    simulatorSection.addEventListener('toggle', tryInit);
+    tryInit();
+  }
+
+  document.addEventListener('click', (event) => {
+    const trigger = event.target.closest('#generate-prompt-btn, #copy-prompt-btn, #generate-factcheck-btn, #btn-copy-factcheck');
+    if (!trigger || promptGeneratorInitialized) return;
+
+    event.preventDefault();
+    event.stopImmediatePropagation();
+
+    void ensurePromptGeneratorInitialized().then(() => {
+      trigger.click();
+    });
+  }, true);
+}
 
 /* ═══════════════════════════════════════════════════════════════════════════
  * NAVIGATION — Back to Map / Scroll Indicator
@@ -50,7 +142,8 @@ function initBackToMap() {
   if (indexBtn) {
     indexBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      const target = document.getElementById('index');
+      const tocSection = document.getElementById('index');
+      const target = document.getElementById('table-of-contents') || tocSection?.closest('details') || tocSection;
       if (target) {
         // Open parent <details> if closed so the anchor is reachable
         let parent = target.closest('details');
@@ -58,7 +151,7 @@ function initBackToMap() {
           parent.open = true;
           parent = parent.parentElement?.closest('details');
         }
-        setTimeout(() => target.scrollIntoView({ behavior: 'smooth' }), 50);
+        setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
       }
     });
   }
@@ -93,20 +186,72 @@ function initScrollIndicator() {
 /**
  * Handle hash-based navigation (open relevant details).
  */
-function handleInitialHash() {
-  const hash = globalThis.location.hash;
-  if (!hash) return;
+function getAnchorTarget(hash) {
+  if (!hash || hash === '#') return null;
+  const targetId = decodeURIComponent(hash.slice(1));
+  if (!targetId) return null;
+  return document.getElementById(targetId);
+}
 
-  const target = document.querySelector(hash);
-  if (target) {
-    // Open parent details if target is inside one
-    let parent = target.closest('details');
-    while (parent) {
-      parent.open = true;
-      parent = parent.parentElement?.closest('details');
-    }
-    setTimeout(() => target.scrollIntoView({ behavior: 'smooth' }), 100);
+function openAncestorDetails(target) {
+  let parent = target.closest('details');
+  while (parent) {
+    parent.open = true;
+    parent = parent.parentElement?.closest('details');
   }
+}
+
+function updateHashWithoutJump(hash) {
+  const baseUrl = `${globalThis.location.pathname}${globalThis.location.search}`;
+  if (globalThis.location.hash === hash) {
+    history.replaceState(null, '', baseUrl);
+  }
+  history.pushState(null, '', hash);
+}
+
+function handleInitialHash() {
+  const target = getAnchorTarget(globalThis.location.hash);
+  if (!target) return;
+
+  openAncestorDetails(target);
+  if (target.classList.contains('city-section') && typeof globalThis.openCityProfile === 'function') {
+    globalThis.openCityProfile(target.id, { scroll: false });
+  }
+  setTimeout(() => {
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
+}
+
+/**
+ * Intercept internal anchors so targets inside closed <details> become reachable.
+ */
+function initInternalAnchorNavigation() {
+  document.addEventListener('click', (e) => {
+    if (e.defaultPrevented) return;
+
+    const link = e.target.closest('a[href^="#"]');
+    if (!link) return;
+
+    const hash = link.getAttribute('href');
+    if (!hash || hash === '#') return;
+
+    // Let specialized handlers keep ownership where needed.
+    if (hash.startsWith('#src-') || hash === '#verification-archive') return;
+
+    const target = getAnchorTarget(hash);
+    if (!target) return;
+
+    e.preventDefault();
+    openAncestorDetails(target);
+    if (target.classList.contains('city-section') && typeof globalThis.openCityProfile === 'function') {
+      globalThis.openCityProfile(target.id, { scroll: false });
+    }
+    updateHashWithoutJump(hash);
+
+    setTimeout(() => {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 90);
+  });
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -174,15 +319,8 @@ function initRegionTooltip() {
   });
 }
 
-function triggerBlinkAttention(target) {
-  setTimeout(() => {
-    target.classList.add('blink-attention');
-    setTimeout(() => target.classList.remove('blink-attention'), 850);
-  }, 300);
-}
-
 /* ═══════════════════════════════════════════════════════════════════════════
- * STAR LINKS — Methodology navigation with blink animation
+ * STAR LINKS — Methodology navigation
  * ═══════════════════════════════════════════════════════════════════════════ */
 
 function initStarLinks() {
@@ -202,7 +340,6 @@ function initStarLinks() {
         // Small delay to let details element open before scrolling
         setTimeout(() => {
           target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          triggerBlinkAttention(target);
         }, 50);
       } else if (sourcesDetails) {
         // Fallback: scroll to sources section if specific target not found
@@ -217,6 +354,8 @@ function initStarLinks() {
  */
 function initFoundationAnchors() {
   document.addEventListener('click', (e) => {
+    if (e.defaultPrevented) return;
+
     const link = e.target.closest('a[href="#city-database"], a[href="#sources-methodology"]');
     if (!link) return;
 
@@ -266,7 +405,10 @@ function initArchiveToggle() {
     archiveToggle.classList.add('fallen');
     archiveToggle.setAttribute('aria-expanded', 'true');
     setBadge('Open');
-    if (shouldScroll) archive.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    void ensurePromptGeneratorInitialized();
+    if (shouldScroll) {
+      archive.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
     history.pushState(null, null, '#verification-archive');
   };
 
@@ -383,7 +525,6 @@ async function init() {
     renderCoverCityList();
     renderCityTable();
     renderCityProfiles();
-    renderBubbleChart();
 
     // 3b. Place AI simulator before foundation sections and sync TOC order
     reorderSectionFlow();
@@ -401,12 +542,14 @@ async function init() {
     }
 
     // 5. Initialize interactive components
-    initSimulator();
     initBackToMap();
     initScrollIndicator();
     initArchiveToggle();
     initRegionTooltip();
     initStarLinks();
+    initInternalAnchorNavigation();
+    initDeferredBubbleChart();
+    initDeferredPromptGenerator();
     // Normalize all visible source anchors to icon-only anchors
     initUnifiedSourceAnchors();
     initFoundationAnchors();
@@ -421,7 +564,10 @@ async function init() {
 
 // Expose for debugging (dev only)
 if (import.meta.env.DEV) {
-  globalThis.generateMasterPrompt = generateMasterPrompt;
+  globalThis.generateMasterPrompt = async (...args) => {
+    const { generateMasterPrompt } = await loadPromptGeneratorModule();
+    return generateMasterPrompt(...args);
+  };
   globalThis.getStore = getStore;
 }
 

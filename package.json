@@ -11,6 +11,7 @@
     "lint": "npm run lint:js && npm run lint:css",
     "lint:js": "eslint \"src/scripts/**/*.js\" vite.config.js playwright.config.js",
     "lint:css": "stylelint \"src/styles/**/*.css\"",
+    "gen:fa-subset": "node scripts/generate_fa_subset.mjs",
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
     "test:visual": "playwright test tests/visual/",
