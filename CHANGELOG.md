@@ -2,6 +2,26 @@
 
 All notable changes to this project are documented in this file.
 
+## [Unreleased]
+
+### Added
+- Added [CONTRIBUTING.md](CONTRIBUTING.md) with:
+  - local setup requirements
+  - command matrix for dev/lint/test/build
+  - PR workflow and validation expectations
+  - fact-check correction gate (`GO` required before source-data edits)
+
+### Changed
+- Updated [README.md](README.md):
+  - Quick Start now includes Node.js requirement (`>=20`)
+  - added `npm run lint` to baseline verification flow
+  - added quality-tooling links (`eslint.config.js`, `stylelint.config.cjs`, `vite.config.js`)
+- Updated [docs/INDEX.md](docs/INDEX.md) with a Quality and Tooling section.
+- Updated [RELEASE_CHECKLIST.md](RELEASE_CHECKLIST.md) to require `npm run lint` in release validation.
+
+### Notes
+- Documentation now matches the current repository tooling and quality gates.
+
 ## [0.95.0] - 2026-04-02
 
 ### Added

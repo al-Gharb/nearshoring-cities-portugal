@@ -15,6 +15,12 @@
 - [Math Audit Detailed Report](../public/data/DATABASE_MATH_AUDIT_2026-02-17.md)
 - [Source Link Audit](../public/data/source-links-audit-2026-02-18.md)
 
+## Quality and Tooling
+
+- [ESLint Config](../eslint.config.js)
+- [Stylelint Config](../stylelint.config.cjs)
+- [Vite Config](../vite.config.js)
+
 ## Fact-Check Workflow and Archive
 
 - [Fact-Check Process Overview](../factchecks/README.md)

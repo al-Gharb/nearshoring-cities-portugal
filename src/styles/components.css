@@ -796,9 +796,7 @@
 
 /* Provenance data stored in data-source attribute for reference only.
    Visual indicators removed — use .source-link info icons instead. */
-.db-value.has-provenance {
-  /* No visual styling — provenance shown via source-link in labels */
-}
+
 
 /* ─────────────────────────────────────────────────────────────────────────
    SIMULATOR FORM
@@ -1311,6 +1309,13 @@
   font-weight: 600;
   color: var(--text-color);
   margin-bottom: 0.5rem;
+}
+.simulator-group-label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0 0 0.5rem;
 }
 .simulator-field select,
 .simulator-field input,
@@ -2523,12 +2528,11 @@
   .city-header-content h2,
   .city-header-content h3 { font-size: 1.3rem; justify-content: center; }
   .city-header-nav { margin-left: 0; flex-wrap: wrap; justify-content: center; }
-  .city-section.expanded .city-grid { grid-template-columns: 1fr; }
+  .city-section.expanded .city-grid { grid-template-columns: 1fr; padding: var(--sp-lg) var(--sp-md); }
   .city-grid .grid-item.strategic,
   .city-grid .grid-item.collaboration,
   .city-grid .grid-item.metrics { grid-column: span 1; }
   .city-section { margin-bottom: var(--sp-2xl); }
-  .city-section.expanded .city-grid { padding: var(--sp-lg) var(--sp-md); }
   .city-grid { padding: 0 var(--sp-md); }
   .company-list { grid-template-columns: 1fr; }
   .student-orgs-list { grid-template-columns: 1fr; }
@@ -2857,6 +2861,9 @@ h2 .section-confidence .confidence-bar-label {
 .toc-section-foundation {
   border-left-color: #94a3b8;
   background: linear-gradient(90deg, rgba(148, 163, 184, 0.06) 0%, transparent 50%);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.85rem;
+  margin-bottom: 0.35rem;
 }
 .toc-section-macro {
   border-left-color: #6366f1;
@@ -3075,12 +3082,6 @@ h2 .section-confidence .confidence-bar-label {
 
 [data-theme="dark"] .toc-link-simulator {
   color: #a78bfa !important;
-}
-
-.toc-section-foundation {
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 0.85rem;
-  margin-bottom: 0.35rem;
 }
 
 /* Push Sources link to the right side of the foundation row */

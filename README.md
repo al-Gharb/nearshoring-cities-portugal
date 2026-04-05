@@ -41,12 +41,17 @@ The header freshness bar represents how recent the underlying site data is.
 
 ## Quick Start
 
+Prerequisite: Node.js `>= 20`.
+
 ```bash
 # Install dependencies
 npm install
 
 # Start development server
 npm run dev
+
+# Run static checks
+npm run lint
 
 # Build for production
 npm run build
@@ -57,6 +62,12 @@ npm run preview
 # Run tests
 npm run test:all
 ```
+
+## Quality Tooling
+
+- JavaScript lint configuration: [eslint.config.js](eslint.config.js)
+- CSS lint configuration: [stylelint.config.cjs](stylelint.config.cjs)
+- Build configuration: [vite.config.js](vite.config.js)
 
 ---
 

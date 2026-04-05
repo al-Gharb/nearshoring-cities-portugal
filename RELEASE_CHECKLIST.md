@@ -24,6 +24,7 @@ Use this checklist before tagging or deploying a release candidate.
 
 ## 3. Build and Test
 
+- [ ] `npm run lint` passes.
 - [ ] `npm run build` passes.
 - [ ] `npm run test` passes (or `npm run test:all` for release-critical updates).
 - [ ] Manual smoke-check on local preview (`npm run preview`) if UI text/layout changed.
@@ -47,11 +48,11 @@ Use this checklist before tagging or deploying a release candidate.
 - [ ] Excluded artifacts are not staged (`dist/`, `_backups/`, `tests/visual/__screenshots__/`, temp files).
 - [ ] Commit message is baseline-clear and scoped.
 
-## 7. Baseline Commit Target
+## 7. Commit and Tag Hygiene
 
-For the docs baseline pass, target one squashed commit:
-
-`docs(v0.95): baseline documentation refresh`
+- [ ] Commit message(s) and PR title are scoped to the release contents.
+- [ ] If release is squashed, final commit message is clear and version-appropriate.
+- [ ] Release tag annotation summarizes user-visible and data-impacting changes.
 
 ## 8. Sign-off
 

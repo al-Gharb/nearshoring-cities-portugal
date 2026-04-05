@@ -163,20 +163,146 @@ function toggleCityProfile(button) {
 }
 
 // Expose globally for onclick handlers
-window.toggleCityProfile = toggleCityProfile;
+globalThis.toggleCityProfile = toggleCityProfile;
 
 function escapeHtml(value) {
   return String(value ?? '')
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
 }
 
 function valueOrDash(value) {
   if (value == null || value === '') return '—';
   return value;
+}
+
+function hasValue(value) {
+  return value !== null && value !== undefined;
+}
+
+function isFiniteNumber(value) {
+  return typeof value === 'number' && Number.isFinite(value);
+}
+
+function buildSourceInfoLink(value, href, title = '') {
+  if (!hasValue(value)) return '';
+  const titleAttr = title ? ` title="${escapeHtml(title)}"` : '';
+  return ` <a href="${href}" class="source-link"${titleAttr}><i class="fa-solid fa-circle-info"></i></a>`;
+}
+
+function formatPrintGraduateMetrics(grads) {
+  const techStemPlusValue = grads?.digitalStemPlus?.value;
+  const officialStemValue = grads?.officialStem?.value;
+  const coreICTValue = grads?.coreICT?.value;
+  const ictPctValue = grads?.coreICT?.pctOfOfficialStem?.value;
+
+  return {
+    techStemPlus: isFiniteNumber(techStemPlusValue) ? formatNumber(techStemPlusValue) : '—',
+    officialStem: isFiniteNumber(officialStemValue) ? formatNumber(officialStemValue) : '—',
+    coreICT: isFiniteNumber(coreICTValue) ? formatNumber(coreICTValue) : '—',
+    ictPct: isFiniteNumber(ictPctValue) ? `${ictPctValue.toFixed(1)}%` : '—',
+  };
+}
+
+function buildPrintCompanyItems(companies) {
+  if (!companies.length) return '<li>Company list not available.</li>';
+
+  return companies.slice(0, 12).map((company) => {
+    const name = escapeHtml(company?.name ?? 'Unknown');
+    const sector = company?.sector ? ` — ${escapeHtml(company.sector)}` : '';
+    return `<li><strong>${name}</strong>${sector}</li>`;
+  }).join('');
+}
+
+function buildPrintUniversityItems(institutions) {
+  const universityList = institutions
+    .filter((institution) => institution?.type !== 'research')
+    .slice(0, 10)
+    .map((institution) => {
+      const name = escapeHtml(institution?.name ?? 'Unknown institution');
+      const parent = institution?.parent ? ` (${escapeHtml(institution.parent)})` : '';
+      return `<li><strong>${name}</strong>${parent}</li>`;
+    })
+    .join('');
+
+  return universityList || '<li>University data not available.</li>';
+}
+
+function buildPrintResearchItems(institutions) {
+  const researchList = institutions
+    .filter((institution) => institution?.type === 'research')
+    .slice(0, 8)
+    .map((institution) => `<li>${escapeHtml(institution?.name ?? 'Research institution')}</li>`)
+    .join('');
+
+  return researchList || '<li>No dedicated research institutions listed.</li>';
+}
+
+function buildPrintDomainItems(domains) {
+  if (!domains.length) return '<li>Domain data not available.</li>';
+
+  return domains.slice(0, 10).map((domain) => {
+    if (typeof domain === 'string') {
+      return `<li>${escapeHtml(domain)}</li>`;
+    }
+
+    const name = escapeHtml(domain?.name ?? domain?.label ?? 'Domain');
+    const detail = domain?.detail ? ` — ${escapeHtml(domain.detail)}` : '';
+    return `<li>${name}${detail}</li>`;
+  }).join('');
+}
+
+function buildPrintTextList(items, fallbackText) {
+  const html = items.map((item) => `<li>${escapeHtml(item)}</li>`).join('');
+  return html || `<li>${fallbackText}</li>`;
+}
+
+function buildPrintQualityItems(qualityOfLife) {
+  const entries = [
+    qualityOfLife.walkability ? `Walkability: ${qualityOfLife.walkability}` : null,
+    qualityOfLife.healthcare ? `Healthcare: ${qualityOfLife.healthcare}` : null,
+    qualityOfLife.culture ? `Culture: ${qualityOfLife.culture}` : null,
+  ].filter(Boolean);
+
+  const html = entries.map((item) => `<li>${escapeHtml(item)}</li>`).join('');
+  return html || '<li>Quality-of-life details not available.</li>';
+}
+
+function buildPrintCommuteItems(commuteRoutes) {
+  const html = commuteRoutes.map((route) => {
+    const to = escapeHtml(route?.to ?? 'destination');
+    const time = escapeHtml(route?.time ?? 'n/a');
+    const mode = route?.mode ? ` · ${escapeHtml(route.mode)}` : '';
+    return `<li>${to}: ${time}${mode}</li>`;
+  }).join('');
+
+  return html || '<li>No commute routes listed.</li>';
+}
+
+function buildPrintPhotoCredit(imageUrl, wikiUrl, cityCredit) {
+  if (!imageUrl || !wikiUrl || !cityCredit) return '';
+  return `<a class="photo-credit" href="${escapeHtml(wikiUrl)}" target="_blank" rel="noopener noreferrer">Photo: ${escapeHtml(cityCredit.author)} · ${escapeHtml(cityCredit.license)} · Wikimedia Commons</a>`;
+}
+
+function triggerPrintWhenImagesReady(printWindow, onReady) {
+  const images = Array.from(printWindow.document.images || []);
+  if (images.length === 0) {
+    setTimeout(onReady, 180);
+    return;
+  }
+
+  Promise.all(images.map((image) => {
+    if (image.complete) return Promise.resolve();
+    return new Promise((resolve) => {
+      image.onload = resolve;
+      image.onerror = resolve;
+    });
+  })).finally(() => {
+    setTimeout(onReady, 120);
+  });
 }
 
 /**
@@ -213,13 +339,9 @@ function printCityProfile(cityId) {
 
   const grads = masterCity?.talent?.graduates ?? {};
   const costs = masterCity?.costs ?? {};
+  const graduateMetrics = formatPrintGraduateMetrics(grads);
 
-  const techStemPlus = grads?.digitalStemPlus?.value ? formatNumber(grads.digitalStemPlus.value) : '—';
-  const officialStem = grads?.officialStem?.value ? formatNumber(grads.officialStem.value) : '—';
-  const coreICT = grads?.coreICT?.value ? formatNumber(grads.coreICT.value) : '—';
-  const ictPct = grads?.coreICT?.pctOfOfficialStem?.value != null
-    ? `${grads.coreICT.pctOfOfficialStem.value.toFixed(1)}%`
-    : '—';
+  const { techStemPlus, officialStem, coreICT, ictPct } = graduateMetrics;
 
   const salaryIndex = valueOrDash(costs?.salaryIndex?.value);
   const colIndex = valueOrDash(costs?.colIndex?.value);
@@ -231,67 +353,31 @@ function printCityProfile(cityId) {
     : '—';
 
   const companies = profile?.ecosystem?.techCompanies?.value ?? [];
-  const companyItems = companies.slice(0, 12).map((company) => {
-    const name = escapeHtml(company?.name ?? 'Unknown');
-    const sector = company?.sector ? ` — ${escapeHtml(company.sector)}` : '';
-    return `<li><strong>${name}</strong>${sector}</li>`;
-  }).join('') || '<li>Company list not available.</li>';
+  const companyItems = buildPrintCompanyItems(companies);
 
   const institutions = profile?.universityDetail?.institutions ?? [];
-  const universityItems = institutions
-    .filter((i) => i?.type !== 'research')
-    .slice(0, 10)
-    .map((institution) => {
-      const name = escapeHtml(institution?.name ?? 'Unknown institution');
-      const parent = institution?.parent ? ` (${escapeHtml(institution.parent)})` : '';
-      return `<li><strong>${name}</strong>${parent}</li>`;
-    }).join('') || '<li>University data not available.</li>';
-
-  const researchItems = institutions
-    .filter((i) => i?.type === 'research')
-    .slice(0, 8)
-    .map((institution) => `<li>${escapeHtml(institution?.name ?? 'Research institution')}</li>`)
-    .join('') || '<li>No dedicated research institutions listed.</li>';
+  const universityItems = buildPrintUniversityItems(institutions);
+  const researchItems = buildPrintResearchItems(institutions);
 
   const domains = profile?.ecosystem?.domains?.value ?? [];
-  const domainItems = domains.slice(0, 10).map((domain) => {
-    if (typeof domain === 'string') {
-      return `<li>${escapeHtml(domain)}</li>`;
-    }
-    const name = escapeHtml(domain?.name ?? domain?.label ?? 'Domain');
-    const detail = domain?.detail ? ` — ${escapeHtml(domain.detail)}` : '';
-    return `<li>${name}${detail}</li>`;
-  }).join('') || '<li>Domain data not available.</li>';
+  const domainItems = buildPrintDomainItems(domains);
 
   const strengths = profile?.culture?.retention?.strengths ?? [];
   const risks = profile?.culture?.retention?.risks ?? [];
   const retentionNarrative = profile?.culture?.retention?.narrative ?? '';
 
-  const strengthItems = strengths.map((item) => `<li>${escapeHtml(item)}</li>`).join('') || '<li>No strengths listed.</li>';
-  const riskItems = risks.map((item) => `<li>${escapeHtml(item)}</li>`).join('') || '<li>No risks listed.</li>';
+  const strengthItems = buildPrintTextList(strengths, 'No strengths listed.');
+  const riskItems = buildPrintTextList(risks, 'No risks listed.');
 
   const qualityOfLife = profile?.culture?.qualityOfLife ?? {};
-  const qualityItems = [
-    qualityOfLife.walkability ? `Walkability: ${qualityOfLife.walkability}` : null,
-    qualityOfLife.healthcare ? `Healthcare: ${qualityOfLife.healthcare}` : null,
-    qualityOfLife.culture ? `Culture: ${qualityOfLife.culture}` : null,
-  ].filter(Boolean).map((item) => `<li>${escapeHtml(item)}</li>`).join('') || '<li>Quality-of-life details not available.</li>';
+  const qualityItems = buildPrintQualityItems(qualityOfLife);
 
   const commuteRoutes = profile?.infrastructure?.commuteTimes?.routes ?? [];
-  const commuteItems = commuteRoutes.map((route) => {
-    const to = escapeHtml(route?.to ?? 'destination');
-    const time = escapeHtml(route?.time ?? 'n/a');
-    const mode = route?.mode ? ` · ${escapeHtml(route.mode)}` : '';
-    return `<li>${to}: ${time}${mode}</li>`;
-  }).join('') || '<li>No commute routes listed.</li>';
+  const commuteItems = buildPrintCommuteItems(commuteRoutes);
 
-  const photoCreditHtml = (imageUrl && wikiUrl && cityCredit)
-    ? `<a class="photo-credit" href="${escapeHtml(wikiUrl)}" target="_blank" rel="noopener noreferrer">Photo: ${escapeHtml(cityCredit.author)} · ${escapeHtml(cityCredit.license)} · Wikimedia Commons</a>`
-    : '';
+  const photoCreditHtml = buildPrintPhotoCredit(imageUrl, wikiUrl, cityCredit);
 
-  printWindow.document.write(`
-    <!DOCTYPE html>
-    <html lang="en">
+  const printMarkup = `
     <head>
       <meta charset="UTF-8">
       <title>${escapeHtml(cityName)} — Nearshoring City Profile</title>
@@ -548,36 +634,24 @@ function printCityProfile(cityId) {
         </section>
       </main>
     </body>
-    </html>
-  `);
-  printWindow.document.close();
+  `;
+
+  printWindow.document.documentElement.lang = 'en';
+  printWindow.document.documentElement.innerHTML = printMarkup;
 
   const triggerPrint = () => {
     printWindow.focus();
     printWindow.print();
   };
 
-  const images = Array.from(printWindow.document.images || []);
-  if (images.length === 0) {
-    setTimeout(triggerPrint, 180);
-  } else {
-    Promise.all(images.map((image) => {
-      if (image.complete) return Promise.resolve();
-      return new Promise((resolve) => {
-        image.onload = resolve;
-        image.onerror = resolve;
-      });
-    })).finally(() => {
-      setTimeout(triggerPrint, 120);
-    });
-  }
+  triggerPrintWhenImagesReady(printWindow, triggerPrint);
 
   // Restore state
   if (!wasExpanded) section.classList.remove('expanded');
 }
 
 // Expose globally
-window.printCityProfile = printCityProfile;
+globalThis.printCityProfile = printCityProfile;
 
 /**
  * Build the company list HTML for a city's tech companies.
@@ -659,146 +733,162 @@ function buildDomainTags(domains) {
  * @param {Object} climateData — climate object from culture.climate
  * @returns {string}
  */
-function buildClimateSection(climateData) {
-  if (!climateData?.value) return '';
+function buildClimateStatCard({ title, icon, color, value, label }) {
+  return `
+      <div class="climate-stat" title="${title}">
+        <i class="fa-solid ${icon}" style="color: ${color};"></i>
+        <span class="climate-stat-value">${value}</span>
+        <span class="climate-stat-label">${label}</span>
+      </div>
+    `;
+}
 
-  const value = climateData.value;
-  const type = climateData.type || '';
-  const summerTemp = climateData.avgTempSummer;
-  const winterTemp = climateData.avgTempWinter;
-  const sunnyDays = climateData.sunnyDays;
-  const rainDays = climateData.rainDays;
-  const snowDays = climateData.snowDays;
-  const seaInfluence = climateData.seaInfluence;
-  const humidity = climateData.humidity;
-  const bestMonths = climateData.bestMonths;
+function getSeaInfluenceMeta(seaInfluence) {
+  const seaText = seaInfluence.toLowerCase();
+  if (seaText.includes('strong')) {
+    return { color: '#0891b2', label: 'Strong' };
+  }
+  if (seaText.includes('none')) {
+    return { color: '#94a3b8', label: 'None' };
+  }
+  return { color: '#22d3ee', label: 'Moderate' };
+}
 
-  // Calculate average annual temp
-  const avgTemp = (summerTemp && winterTemp) ? Math.round((summerTemp + winterTemp) / 2) : null;
-
-  // Determine climate type icon and colors based on type field
-  const climateStyles = {
-    mediterranean: { icon: 'fa-sun', color: '#f59e0b', bg: 'rgba(245, 158, 11, 0.08)' },
-    atlantic: { icon: 'fa-wind', color: '#0ea5e9', bg: 'rgba(14, 165, 233, 0.08)' },
-    continental: { icon: 'fa-mountain-sun', color: '#8b5cf6', bg: 'rgba(139, 92, 246, 0.08)' },
-    mountain: { icon: 'fa-mountain', color: '#6366f1', bg: 'rgba(99, 102, 241, 0.08)' }
+function getHumidityMeta(humidity) {
+  const humidityMap = {
+    high: { icon: 'fa-droplet', color: '#3b82f6' },
+    low: { icon: 'fa-sun-plant-wilt', color: '#d97706' },
   };
+  const normalized = String(humidity).toLowerCase();
+  const mapped = humidityMap[normalized] ?? { icon: 'fa-droplet-slash', color: '#64748b' };
+  const label = normalized.charAt(0).toUpperCase() + normalized.slice(1);
 
-  const style = climateStyles[type] || climateStyles.mediterranean;
+  return {
+    icon: mapped.icon,
+    color: mapped.color,
+    label,
+  };
+}
 
-  // Build stat cards (6 columns)
+function buildClimateStats(climateData) {
   const statCards = [];
 
-  // Summer temperature
-  if (summerTemp) {
-    statCards.push(`
-      <div class="climate-stat" title="Average summer high">
-        <i class="fa-solid fa-sun" style="color: #f59e0b;"></i>
-        <span class="climate-stat-value">${summerTemp}°</span>
-        <span class="climate-stat-label">Summer</span>
-      </div>
-    `);
+  if (isFiniteNumber(climateData.avgTempSummer)) {
+    statCards.push(buildClimateStatCard({
+      title: 'Average summer high',
+      icon: 'fa-sun',
+      color: '#f59e0b',
+      value: `${climateData.avgTempSummer}°`,
+      label: 'Summer',
+    }));
   }
 
-  // Winter temperature
-  if (winterTemp) {
-    statCards.push(`
-      <div class="climate-stat" title="Average winter high">
-        <i class="fa-solid fa-snowflake" style="color: #0ea5e9;"></i>
-        <span class="climate-stat-value">${winterTemp}°</span>
-        <span class="climate-stat-label">Winter</span>
-      </div>
-    `);
+  if (isFiniteNumber(climateData.avgTempWinter)) {
+    statCards.push(buildClimateStatCard({
+      title: 'Average winter high',
+      icon: 'fa-snowflake',
+      color: '#0ea5e9',
+      value: `${climateData.avgTempWinter}°`,
+      label: 'Winter',
+    }));
   }
 
-  // Sunny days
-  if (sunnyDays) {
-    statCards.push(`
-      <div class="climate-stat" title="Sunny days per year">
-        <i class="fa-solid fa-cloud-sun" style="color: #fbbf24;"></i>
-        <span class="climate-stat-value">${sunnyDays}</span>
-        <span class="climate-stat-label">☀️ Days</span>
-      </div>
-    `);
+  if (isFiniteNumber(climateData.sunnyDays)) {
+    statCards.push(buildClimateStatCard({
+      title: 'Sunny days per year',
+      icon: 'fa-cloud-sun',
+      color: '#fbbf24',
+      value: String(climateData.sunnyDays),
+      label: '☀️ Days',
+    }));
   }
 
-  // Rain days
-  if (rainDays) {
-    statCards.push(`
-      <div class="climate-stat" title="Rainy days per year">
-        <i class="fa-solid fa-cloud-rain" style="color: #3b82f6;"></i>
-        <span class="climate-stat-value">${rainDays}</span>
-        <span class="climate-stat-label">🌧️ Days</span>
-      </div>
-    `);
+  if (isFiniteNumber(climateData.rainDays)) {
+    statCards.push(buildClimateStatCard({
+      title: 'Rainy days per year',
+      icon: 'fa-cloud-rain',
+      color: '#3b82f6',
+      value: String(climateData.rainDays),
+      label: '🌧️ Days',
+    }));
   }
 
-  // Snow days (for mountain climates)
-  if (snowDays) {
-    statCards.push(`
-      <div class="climate-stat" title="Snow days per year">
-        <i class="fa-solid fa-snowflake" style="color: #a5b4fc;"></i>
-        <span class="climate-stat-value">${snowDays}</span>
-        <span class="climate-stat-label">❄️ Days</span>
-      </div>
-    `);
+  if (isFiniteNumber(climateData.snowDays)) {
+    statCards.push(buildClimateStatCard({
+      title: 'Snow days per year',
+      icon: 'fa-snowflake',
+      color: '#a5b4fc',
+      value: String(climateData.snowDays),
+      label: '❄️ Days',
+    }));
   }
 
-  // Sea influence - now in grid (always use wave icon)
-  if (seaInfluence) {
-    const seaColor = seaInfluence.toLowerCase().includes('strong') ? '#0891b2' :
-                     seaInfluence.toLowerCase().includes('none') ? '#94a3b8' : '#22d3ee';
-    const seaLabel = seaInfluence.toLowerCase().includes('strong') ? 'Strong' :
-                     seaInfluence.toLowerCase().includes('none') ? 'None' : 'Moderate';
-    statCards.push(`
-      <div class="climate-stat" title="${seaInfluence}">
-        <i class="fa-solid fa-water" style="color: ${seaColor};"></i>
-        <span class="climate-stat-value">${seaLabel}</span>
-        <span class="climate-stat-label">Sea</span>
-      </div>
-    `);
+  if (climateData.seaInfluence) {
+    const seaMeta = getSeaInfluenceMeta(climateData.seaInfluence);
+    statCards.push(buildClimateStatCard({
+      title: climateData.seaInfluence,
+      icon: 'fa-water',
+      color: seaMeta.color,
+      value: seaMeta.label,
+      label: 'Sea',
+    }));
   }
 
-  // Humidity - now in grid (skip if we already have 6 cards to keep 6x1 max)
-  if (humidity && statCards.length < 6) {
-    const humidityIcon = humidity === 'high' ? 'fa-droplet' : 
-                         humidity === 'low' ? 'fa-sun-plant-wilt' : 'fa-droplet-slash';
-    const humidityColor = humidity === 'high' ? '#3b82f6' : 
-                          humidity === 'low' ? '#d97706' : '#64748b';
-    const humidityLabel = humidity.charAt(0).toUpperCase() + humidity.slice(1);
-    statCards.push(`
-      <div class="climate-stat" title="${humidityLabel} humidity">
-        <i class="fa-solid ${humidityIcon}" style="color: ${humidityColor};"></i>
-        <span class="climate-stat-value">${humidityLabel}</span>
-        <span class="climate-stat-label">Humidity</span>
-      </div>
-    `);
+  if (climateData.humidity && statCards.length < 6) {
+    const humidityMeta = getHumidityMeta(climateData.humidity);
+    statCards.push(buildClimateStatCard({
+      title: `${humidityMeta.label} humidity`,
+      icon: humidityMeta.icon,
+      color: humidityMeta.color,
+      value: humidityMeta.label,
+      label: 'Humidity',
+    }));
   }
 
-  // Best months
-  let bestMonthsHtml = '';
-  if (bestMonths?.length) {
-    bestMonthsHtml = `
+  return statCards.join('');
+}
+
+function buildClimateBestMonths(bestMonths) {
+  if (!bestMonths?.length) return '';
+
+  return `
       <div class="climate-best-months">
         <i class="fa-solid fa-calendar-check" style="color: #22c55e;"></i>
         <span class="best-months-label">Best months:</span>
         <span class="best-months-list">${bestMonths.join(', ')}</span>
       </div>
     `;
-  }
+}
 
-  // Avg temp badge for header
-  const avgTempBadge = avgTemp ? `<span class="climate-avg-temp" title="Annual average temperature"><i class="fa-solid fa-temperature-half"></i> ${avgTemp}° avg</span>` : '';
+function buildClimateSection(climateData) {
+  if (!climateData?.value) return '';
+
+  const climateStyles = {
+    mediterranean: { icon: 'fa-sun', color: '#f59e0b', bg: 'rgba(245, 158, 11, 0.08)' },
+    atlantic: { icon: 'fa-wind', color: '#0ea5e9', bg: 'rgba(14, 165, 233, 0.08)' },
+    continental: { icon: 'fa-mountain-sun', color: '#8b5cf6', bg: 'rgba(139, 92, 246, 0.08)' },
+    mountain: { icon: 'fa-mountain', color: '#6366f1', bg: 'rgba(99, 102, 241, 0.08)' },
+  };
+
+  const style = climateStyles[climateData.type] ?? climateStyles.mediterranean;
+  const statsHtml = buildClimateStats(climateData);
+  const bestMonthsHtml = buildClimateBestMonths(climateData.bestMonths);
+
+  let avgTempBadge = '';
+  if (isFiniteNumber(climateData.avgTempSummer) && isFiniteNumber(climateData.avgTempWinter)) {
+    const avgTemp = Math.round((climateData.avgTempSummer + climateData.avgTempWinter) / 2);
+    avgTempBadge = `<span class="climate-avg-temp" title="Annual average temperature"><i class="fa-solid fa-temperature-half"></i> ${avgTemp}° avg</span>`;
+  }
 
   return `
     <div class="climate-display" style="background: ${style.bg};">
       <div class="climate-header">
         <i class="fa-solid ${style.icon}" style="color: ${style.color};"></i>
-        <span class="climate-type">${value}</span>
+        <span class="climate-type">${climateData.value}</span>
         ${avgTempBadge}
       </div>
       <div class="climate-stats-grid">
-        ${statCards.join('')}
+        ${statsHtml}
       </div>
       ${bestMonthsHtml}
     </div>
@@ -810,56 +900,47 @@ function buildClimateSection(climateData) {
  * @param {Object} profile — city profile from CITY_PROFILES.json
  * @returns {string}
  */
+function buildInstitutionName(institution) {
+  if (institution.url) {
+    return `<a href="${institution.url}" target="_blank" rel="noopener">${institution.name}</a>`;
+  }
+  return institution.name;
+}
+
+function buildInstitutionPrograms(institution) {
+  const programs = institution.focus?.length ? institution.focus : institution.programs;
+  if (!programs?.length) return '';
+  return `<ul class="program-list"><li>${programs.join(', ')}</li></ul>`;
+}
+
+function buildInstitutionList(institutions) {
+  return institutions.map((institution) => {
+    const nameHtml = buildInstitutionName(institution);
+    const parentHtml = institution.parent ? ` <span class="uni-parent">(${institution.parent})</span>` : '';
+    const programsHtml = buildInstitutionPrograms(institution);
+    return `<li><strong>${nameHtml}</strong>${parentHtml}${programsHtml}</li>`;
+  }).join('');
+}
+
+function buildInstitutionSection(title, institutions, labelClass = '') {
+  if (!institutions.length) return '';
+  const classSuffix = labelClass ? ` ${labelClass}` : '';
+  return `<p class="uni-section-label${classSuffix}">${title}</p><ul class="uni-list">${buildInstitutionList(institutions)}</ul>`;
+}
+
 function buildUniversitySection(profile) {
-  const uniDetail = profile?.universityDetail;
-  if (!uniDetail?.institutions?.length) {
+  const institutions = profile?.universityDetail?.institutions ?? [];
+  if (institutions.length === 0) {
     return '<p>University data pending migration.</p>';
   }
 
-  // Separate universities/polytechnics from research institutions
-  const universities = uniDetail.institutions.filter(i => i.type !== 'research');
-  const research = uniDetail.institutions.filter(i => i.type === 'research');
+  const universities = institutions.filter((institution) => institution.type !== 'research');
+  const research = institutions.filter((institution) => institution.type === 'research');
 
-  let html = '';
+  const universitySection = buildInstitutionSection('Universities & Polytechnics', universities);
+  const researchSection = buildInstitutionSection('Research Institutions', research, 'research-label');
 
-  // Universities & Polytechnics section
-  if (universities.length) {
-    html += '<p class="uni-section-label">Universities & Polytechnics</p><ul class="uni-list">';
-    for (const uni of universities) {
-      const nameHtml = uni.url 
-        ? `<a href="${uni.url}" target="_blank" rel="noopener">${uni.name}</a>` 
-        : uni.name;
-      html += `<li><strong>${nameHtml}</strong>`;
-      if (uni.parent) {
-        html += ` <span class="uni-parent">(${uni.parent})</span>`;
-      }
-      if (uni.programs?.length) {
-        html += `<ul class="program-list"><li>${uni.programs.join(', ')}</li></ul>`;
-      }
-      html += '</li>';
-    }
-    html += '</ul>';
-  }
-
-  // Research Institutions section
-  if (research.length) {
-    html += '<p class="uni-section-label research-label">Research Institutions</p><ul class="uni-list">';
-    for (const inst of research) {
-      const nameHtml = inst.url 
-        ? `<a href="${inst.url}" target="_blank" rel="noopener">${inst.name}</a>` 
-        : inst.name;
-      html += `<li><strong>${nameHtml}</strong>`;
-      if (inst.focus?.length) {
-        html += `<ul class="program-list"><li>${inst.focus.join(', ')}</li></ul>`;
-      } else if (inst.programs?.length) {
-        html += `<ul class="program-list"><li>${inst.programs.join(', ')}</li></ul>`;
-      }
-      html += '</li>';
-    }
-    html += '</ul>';
-  }
-
-  return html;
+  return `${universitySection}${researchSection}`;
 }
 
 /**
@@ -870,6 +951,12 @@ function buildUniversitySection(profile) {
 function buildMetricsTable(masterCity) {
   const costs = masterCity?.costs || {};
   const grads = masterCity?.talent?.graduates || {};
+  const salaryIndexValue = costs.salaryIndex?.value;
+  const salaryIndexMethodologyLink = buildSourceInfoLink(
+    salaryIndexValue,
+    '#src-salary-index',
+    'Experimental salary proxy methodology'
+  );
 
   return `<div class="metrics-grid">
     <div class="metric-stat">
@@ -884,7 +971,7 @@ function buildMetricsTable(masterCity) {
     </div>
     <div class="metric-stat">
       <i class="fa-solid fa-chart-line icon-accent"></i>
-      <span class="db-value">${costs.salaryIndex?.value ?? '—'}${costs.salaryIndex?.value != null ? ' <a href="#src-salary-index" class="source-link" title="Experimental salary proxy methodology"><i class="fa-solid fa-circle-info"></i></a>' : ''}</span>
+      <span class="db-value">${salaryIndexValue ?? '—'}${salaryIndexMethodologyLink}</span>
       <span class="metric-label">Salary Index <a href="#src-salary-index" class="source-link"><i class="fa-solid fa-circle-info"></i></a></span>
     </div>
     <div class="metric-stat">
@@ -935,6 +1022,89 @@ function buildIdealista(cityId) {
   `;
 }
 
+function buildCityImageCredit(wikiUrl, cityCredit) {
+  if (!wikiUrl || !cityCredit) return '';
+  return `<a href="${wikiUrl}" target="_blank" rel="noopener noreferrer" class="image-credit">\u00A9 ${cityCredit.author} \u00B7 ${cityCredit.license} \u00B7 Wikimedia Commons</a>`;
+}
+
+function buildCityHeaderImage(imageUrl, name, wikiUrl, cityCredit) {
+  if (!imageUrl) return '';
+  const imageCredit = buildCityImageCredit(wikiUrl, cityCredit);
+  return `
+        <div class="city-header-image">
+          <img src="${imageUrl}" alt="${name} cityscape" loading="eager" decoding="async" width="330" height="220">
+          ${imageCredit}
+        </div>
+      `;
+}
+
+function buildOverviewNarrative(profile) {
+  if (!profile) {
+    return '<p>Detailed profile data pending migration.</p>';
+  }
+  return `<p>${profile.culture?.retention?.narrative ?? ''}</p>`;
+}
+
+function buildTalentInsight(profile) {
+  const insight = profile?.universityDetail?.talentProfile?.value;
+  if (!insight) return '';
+  return `<p class="talent-insight" data-db="profiles">${insight}</p>`;
+}
+
+function buildRetentionSection(retention) {
+  if (!retention) return '';
+
+  const strengths = retention.strengths?.length
+    ? `<p class="retention-strengths"><strong>Strengths:</strong> ${retention.strengths.join(' · ')}</p>`
+    : '';
+  const risks = retention.risks?.length
+    ? `<p class="retention-risks"><strong>Risks:</strong> ${retention.risks.join(' · ')}</p>`
+    : '';
+
+  return `
+        <div class="cost-retention" data-db="profiles" data-prompt-core="true">
+          <h4><i class="fa-solid fa-user-check"></i> Retention Profile</h4>
+          ${strengths}
+          ${risks}
+        </div>
+        `;
+}
+
+function buildStudentOrgsSection(studentOrgs) {
+  if (studentOrgs.length === 0) return '';
+  return `
+        <h3><i class="fa-solid fa-people-group"></i> Student Orgs & Contacts</h3>
+        ${buildStudentOrgsList(studentOrgs)}
+        `;
+}
+
+function buildQualityOfLifeItems(qualityOfLife) {
+  const items = [];
+  if (qualityOfLife.walkability) {
+    items.push(`<li><i class="fa-solid fa-person-walking"></i> ${qualityOfLife.walkability}</li>`);
+  }
+  if (qualityOfLife.healthcare) {
+    items.push(`<li><i class="fa-solid fa-hospital"></i> ${qualityOfLife.healthcare}</li>`);
+  }
+  if (qualityOfLife.culture) {
+    items.push(`<li><i class="fa-solid fa-masks-theater"></i> ${qualityOfLife.culture}</li>`);
+  }
+  return items.join('');
+}
+
+function buildQualityOfLifeSection(qualityOfLife) {
+  if (!qualityOfLife) return '';
+  const items = buildQualityOfLifeItems(qualityOfLife);
+  return `
+        <div class="cost-qol" data-db="profiles" data-prompt-core="true">
+          <h4><i class="fa-solid fa-heart"></i> Quality of Life</h4>
+          <ul class="qol-list">
+            ${items}
+          </ul>
+        </div>
+        `;
+}
+
 /**
  * Build a single city profile section.
  * @param {string} cityId
@@ -966,20 +1136,27 @@ function buildCitySection(cityId) {
   const companies = profile?.ecosystem?.techCompanies?.value ?? [];
   const domains = profile?.ecosystem?.domains?.value ?? [];
   const studentOrgs = profile?.ecosystem?.studentOrgs?.value ?? [];
-  const universities = profile?.universityDetail?.institutions?.map(i => i.name) ?? masterCity.talent?.universities?.value ?? [];
   const climateData = profile?.culture?.climate ?? null;
+  const cityHeaderImage = buildCityHeaderImage(imageUrl, name, wikiUrl, cityCredit);
+  const taglineHtml = tagline ? `<p class="city-subtitle" data-db="profiles">${tagline}</p>` : '';
+  const overviewNarrative = buildOverviewNarrative(profile);
+  const talentInsight = buildTalentInsight(profile);
+  const salaryIndexValue = masterCity.costs?.salaryIndex?.value;
+  const salaryIndexMethodologyLink = buildSourceInfoLink(
+    salaryIndexValue,
+    '#src-salary-index',
+    'Experimental salary proxy methodology'
+  );
+  const retentionSection = buildRetentionSection(profile?.culture?.retention);
+  const studentOrgsSection = buildStudentOrgsSection(studentOrgs);
+  const qualityOfLifeSection = buildQualityOfLifeSection(profile?.culture?.qualityOfLife);
 
   section.innerHTML = `
     <div class="city-header" onclick="toggleCityProfile(this.querySelector('.city-toggle-btn'))">
-      ${imageUrl ? `
-        <div class="city-header-image">
-          <img src="${imageUrl}" alt="${name} cityscape" loading="eager" decoding="async" width="330" height="220">
-          ${wikiUrl && cityCredit ? `<a href="${wikiUrl}" target="_blank" rel="noopener noreferrer" class="image-credit">\u00A9 ${cityCredit.author} \u00B7 ${cityCredit.license} \u00B7 Wikimedia Commons</a>` : ''}
-        </div>
-      ` : ''}
+      ${cityHeaderImage}
       <div class="city-header-content">
         <h2><i class="fa-solid ${icon}"></i>${name}</h2>
-        ${tagline ? `<p class="city-subtitle" data-db="profiles">${tagline}</p>` : ''}
+        ${taglineHtml}
       </div>
       <div class="city-header-nav">
         <button class="city-toggle-btn" onclick="event.stopPropagation(); toggleCityProfile(this)" aria-expanded="false">
@@ -995,7 +1172,7 @@ function buildCitySection(cityId) {
       <div class="grid-item strategic" data-db="profiles" data-prompt-core="true">
         <h3><i class="fa-solid fa-info-circle"></i> Overview</h3>
         ${buildClimateSection(climateData)}
-        ${profile ? `<p>${profile.culture?.retention?.narrative ?? ''}</p>` : '<p>Detailed profile data pending migration.</p>'}
+        ${overviewNarrative}
       </div>
       <div class="grid-item universities" data-db="profiles" data-prompt-core="true">
         <h3><i class="fa-solid fa-university"></i> Universities & Research</h3>
@@ -1025,7 +1202,7 @@ function buildCitySection(cityId) {
             <span class="graduate-label">ICT % of STEM <a href="#src-ict-pct" class="source-link"><i class="fa-solid fa-circle-info"></i></a></span>
           </div>
         </div>
-        ${profile?.universityDetail?.talentProfile?.value ? `<p class="talent-insight" data-db="profiles">${profile.universityDetail.talentProfile.value}</p>` : ''}
+        ${talentInsight}
       </div>
       <div class="grid-item collaboration" data-db="profiles" data-prompt-core="true">
         <h3><i class="fa-solid fa-building"></i> Industry Presence</h3>
@@ -1033,7 +1210,7 @@ function buildCitySection(cityId) {
       </div>
       <div class="grid-item cost" data-db="master,profiles" data-prompt-core="true">
         <h3><i class="fa-solid fa-coins"></i> Cost & Retention</h3>
-        <p><strong>Salary Index:</strong> <span class="db-value" data-city="${cityId}" data-field="salary-index" data-db="master">${masterCity.costs?.salaryIndex?.value ?? '—'}${masterCity.costs?.salaryIndex?.value != null ? ' <a href="#src-salary-index" class="source-link" title="Experimental salary proxy methodology"><i class="fa-solid fa-circle-info"></i></a>' : ''}</span> (Lisbon = 100) <a href="#src-salary-index" class="source-link"><i class="fa-solid fa-circle-info"></i></a></p>
+        <p><strong>Salary Index:</strong> <span class="db-value" data-city="${cityId}" data-field="salary-index" data-db="master">${salaryIndexValue ?? '—'}${salaryIndexMethodologyLink}</span> (Lisbon = 100) <a href="#src-salary-index" class="source-link"><i class="fa-solid fa-circle-info"></i></a></p>
         <p><strong>COL + Rent Index:</strong> <span class="db-value" data-city="${cityId}" data-field="col-index" data-db="master">${masterCity.costs?.colIndex?.value ?? '—'}</span> (NYC = 100) <a href="#src-col-index" class="source-link"><i class="fa-solid fa-circle-info"></i></a></p>
         <p><strong>Office Rent:</strong> <span class="db-value" data-city="${cityId}" data-field="office-rent" data-db="master">${masterCity.costs?.officeRent ? formatRange(masterCity.costs.officeRent.min, masterCity.costs.officeRent.max, '€', '/m²') : '—'}</span> · central, quality offices, 60-200m²</p>
         <p><strong>Residential Rent:</strong> <span class="db-value" data-city="${cityId}" data-field="residential-rent" data-db="master">${masterCity.costs?.residentialRent ? formatRange(masterCity.costs.residentialRent.min, masterCity.costs.residentialRent.max, '€', '/mo') : '—'}</span> · central, modern 1BR apartments, 40-60m²</p>
@@ -1041,31 +1218,13 @@ function buildCitySection(cityId) {
           <h4><i class="fa-solid fa-map-location-dot"></i> Property Search</h4>
           ${buildIdealista(cityId)}
         </div>
-        ${profile?.culture?.retention ? `
-        <div class="cost-retention" data-db="profiles" data-prompt-core="true">
-          <h4><i class="fa-solid fa-user-check"></i> Retention Profile</h4>
-          ${profile.culture.retention.strengths?.length ? `<p class="retention-strengths"><strong>Strengths:</strong> ${profile.culture.retention.strengths.join(' · ')}</p>` : ''}
-          ${profile.culture.retention.risks?.length ? `<p class="retention-risks"><strong>Risks:</strong> ${profile.culture.retention.risks.join(' · ')}</p>` : ''}
-        </div>
-        ` : ''}
+        ${retentionSection}
       </div>
       <div class="grid-item uses" data-db="profiles">
-        ${studentOrgs.length ? `
-        <h3><i class="fa-solid fa-people-group"></i> Student Orgs & Contacts</h3>
-        ${buildStudentOrgsList(studentOrgs)}
-        ` : ''}
+        ${studentOrgsSection}
         <h3><i class="fa-solid fa-tags"></i> Tech Domains</h3>
         ${buildDomainTags(domains)}
-        ${profile?.culture?.qualityOfLife ? `
-        <div class="cost-qol" data-db="profiles" data-prompt-core="true">
-          <h4><i class="fa-solid fa-heart"></i> Quality of Life</h4>
-          <ul class="qol-list">
-            ${profile.culture.qualityOfLife.walkability ? `<li><i class="fa-solid fa-person-walking"></i> ${profile.culture.qualityOfLife.walkability}</li>` : ''}
-            ${profile.culture.qualityOfLife.healthcare ? `<li><i class="fa-solid fa-hospital"></i> ${profile.culture.qualityOfLife.healthcare}</li>` : ''}
-            ${profile.culture.qualityOfLife.culture ? `<li><i class="fa-solid fa-masks-theater"></i> ${profile.culture.qualityOfLife.culture}</li>` : ''}
-          </ul>
-        </div>
-        ` : ''}
+        ${qualityOfLifeSection}
       </div>
       <div class="grid-item metrics full-width" data-db="master">
         <h3><i class="fa-solid fa-table"></i> Key Metrics</h3>

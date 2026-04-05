@@ -1475,6 +1475,7 @@ a.scorecard-source:hover {
 /* Equal-height cards in Regional Talent Flows */
 #regional-talent-flows > .grid-auto-260 {
   align-items: stretch;
+  margin-bottom: var(--sp-xl);
 }
 #regional-talent-flows > .grid-auto-260 > .card {
   display: flex;
@@ -1484,9 +1485,6 @@ a.scorecard-source:hover {
 }
 #regional-talent-flows > .grid-auto-260 > .card > ul {
   flex: 1;
-}
-#regional-talent-flows > .grid-auto-260 {
-  margin-bottom: var(--sp-xl);
 }
 #regional-talent-flows .network-viz-container {
   margin-top: var(--sp-lg);
@@ -2524,8 +2522,6 @@ a.scorecard-source:hover {
 [data-theme="dark"] .city-list-panel h2 i { color: #60a5fa; }
 [data-theme="dark"] .city-link a { color: rgba(255,255,255,0.95); }
 [data-theme="dark"] .city-link a:hover { color: #60a5fa; }
-[data-theme="dark"] .city-subheadline { color: rgba(255,255,255,0.45); }
-[data-theme="dark"] .city-tags { color: #94a3b8; }
 
 [data-theme="dark"] .scroll-indicator svg { stroke: white; }
 

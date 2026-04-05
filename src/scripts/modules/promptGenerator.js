@@ -7,7 +7,7 @@
  * Architecture: simulatorEngine → all math. LLM → reasoning & narrative.
  */
 
-import { getStore, getCity, getCityProfile, getNationalData, getCompensationData, getChartConfig, getRegionalTotals } from './database.js';
+import { getStore, getCity, getCityProfile, getCompensationData, getRegionalTotals } from './database.js';
 import { buildPromptTemplate } from './promptTemplate.js';
 import { computeAnalysis } from './simulatorEngine.js';
 
@@ -46,43 +46,73 @@ function getCityWorkforceEstimate(cityId, cityData) {
   };
 }
 
+function parseRangeDuration(match) {
+  if (!match) return null;
+
+  const start = Number.parseInt(match[1], 10);
+  const end = Number.parseInt(match[2], 10);
+  const unit = match[3] || 'min';
+  if (!Number.isFinite(start) || !Number.isFinite(end)) return null;
+
+  const maxValue = Math.max(start, end);
+  return /^(h|hr|hour)/.test(unit) ? maxValue * 60 : maxValue;
+}
+
+function parseHourMinuteDuration(match) {
+  if (!match) return null;
+
+  const hours = Number.parseInt(match[1], 10);
+  const minutes = Number.parseInt(match[2], 10);
+  if (!Number.isFinite(hours) || !Number.isFinite(minutes)) return null;
+
+  return (hours * 60) + minutes;
+}
+
+function parseHourDuration(match) {
+  if (!match) return null;
+
+  const hours = Number.parseFloat(match[1].replace(',', '.'));
+  if (!Number.isFinite(hours)) return null;
+
+  return Math.round(hours * 60);
+}
+
+function parseMinuteDuration(match) {
+  if (!match) return null;
+
+  const minutes = Number.parseInt(match[1], 10);
+  return Number.isFinite(minutes) ? minutes : null;
+}
+
 function parseDurationToMinutes(rawValue) {
   if (!rawValue) return null;
 
-  const text = String(rawValue).toLowerCase().replace(/~/g, '').trim();
+  const text = String(rawValue).toLowerCase().replaceAll('~', '').trim();
 
-  const rangeMatch = text.match(/(\d{1,2})\s*[-–]\s*(\d{1,3})\s*(h|hr|hour|hours|min|mins|minute|minutes)?/);
-  if (rangeMatch) {
-    const start = Number.parseInt(rangeMatch[1], 10);
-    const end = Number.parseInt(rangeMatch[2], 10);
-    const unit = rangeMatch[3] || 'min';
-    if (Number.isFinite(start) && Number.isFinite(end)) {
-      const maxValue = Math.max(start, end);
-      return /^h|hr|hour/.test(unit) ? maxValue * 60 : maxValue;
+  const parsers = [
+    {
+      regex: /(\d{1,2})\s*[-–]\s*(\d{1,3})\s*(h|hr|hour|hours|min|mins|minute|minutes)?/,
+      toMinutes: parseRangeDuration,
+    },
+    {
+      regex: /(\d{1,2})\s*h\s*(\d{1,2})/,
+      toMinutes: parseHourMinuteDuration,
+    },
+    {
+      regex: /(\d{1,2}(?:[.,]\d)?)\s*(h|hr|hour|hours)/,
+      toMinutes: parseHourDuration,
+    },
+    {
+      regex: /(\d{1,3})\s*(min|mins|minute|minutes)/,
+      toMinutes: parseMinuteDuration,
+    },
+  ];
+
+  for (const parser of parsers) {
+    const minutes = parser.toMinutes(parser.regex.exec(text));
+    if (minutes !== null) {
+      return minutes;
     }
-  }
-
-  const hourMinuteCompact = text.match(/(\d{1,2})\s*h\s*(\d{1,2})/);
-  if (hourMinuteCompact) {
-    const hours = Number.parseInt(hourMinuteCompact[1], 10);
-    const minutes = Number.parseInt(hourMinuteCompact[2], 10);
-    if (Number.isFinite(hours) && Number.isFinite(minutes)) {
-      return (hours * 60) + minutes;
-    }
-  }
-
-  const hourOnly = text.match(/(\d{1,2}(?:[.,]\d)?)\s*(h|hr|hour|hours)/);
-  if (hourOnly) {
-    const hours = Number.parseFloat(hourOnly[1].replace(',', '.'));
-    if (Number.isFinite(hours)) {
-      return Math.round(hours * 60);
-    }
-  }
-
-  const minuteOnly = text.match(/(\d{1,3})\s*(min|mins|minute|minutes)/);
-  if (minuteOnly) {
-    const minutes = Number.parseInt(minuteOnly[1], 10);
-    return Number.isFinite(minutes) ? minutes : null;
   }
 
   return null;
@@ -101,9 +131,6 @@ function getAirportAccessMinutes(cityId) {
 
 // getCityMeta() removed in Experimental v3 — metadata (climate, coworking, airport) no longer injected into prompt.
 // These are now advisory context the LLM can reference from the city database tags/companies fields.
-
-// Default fallback for ICT percentage (still used in fact-check generators below)
-const DEFAULT_ICT_PCT = 15;
 
 /**
  * Build salary bands lookup from COMPENSATION_DATA.json.
@@ -163,17 +190,23 @@ function buildSalaryBands(compData) {
   return bands;
 }
 
+function normalizeTierKey(key) {
+  if (key === 'midLevel') return 'mid';
+  if (key === 'leadPrincipal') return 'lead';
+  return key;
+}
+
 /**
  * Build tier multipliers from COMPENSATION_DATA.json.
  */
 function buildTierMultipliers(compData) {
   if (!compData?.seniorityMultipliers) {
-    return { junior: 0.85, mid: 1.00, senior: 1.25, lead: 1.40 };
+    return { junior: 0.85, mid: 1, senior: 1.25, lead: 1.4 };
   }
   const tiers = {};
   for (const [key, tier] of Object.entries(compData.seniorityMultipliers)) {
     // Normalize keys: midLevel→mid, leadPrincipal→lead
-    const normKey = key === 'midLevel' ? 'mid' : key === 'leadPrincipal' ? 'lead' : key;
+    const normKey = normalizeTierKey(key);
     tiers[normKey] = tier.multiplier;
   }
   return tiers;
@@ -185,9 +218,9 @@ function buildTierMultipliers(compData) {
 function buildStackPremiums(compData) {
   if (!compData?.techStackPremiums) {
     return {
-      'core-backend': 0, frontend: 0.05, 'mobile-native': 0.10,
+      'core-backend': 0, frontend: 0.05, 'mobile-native': 0.1,
       'devops-cloud': 0.15, 'systems-rust': 0.25, 'ml-mlops': 0.25,
-      security: 0.30, blockchain: 0.40,
+      security: 0.3, blockchain: 0.4,
     };
   }
   const keyMap = {
@@ -278,9 +311,9 @@ function sanitizeFreeText(value, maxLen = 300) {
   if (!value) return '';
   return String(value)
     .normalize('NFKC')
-    .replace(/[\u0000-\u001F\u007F]/g, ' ')
-    .replace(/[<>`]/g, '')
-    .replace(/\s+/g, ' ')
+    .replaceAll(/[\u0000-\u001F\u007F]/g, ' ')
+    .replaceAll(/[<>`]/g, '')
+    .replaceAll(/\s+/g, ' ')
     .trim()
     .slice(0, maxLen);
 }
@@ -299,13 +332,13 @@ function sanitizeFreeText(value, maxLen = 300) {
 function parseLocalizedInteger(raw) {
   if (!raw) return null;
 
-  let cleaned = String(raw).replace(/[^\d.,\s]/g, '').replace(/\s+/g, '');
+  let cleaned = String(raw).replaceAll(/[^\d.,\s]/g, '').replaceAll(/\s+/g, '');
   if (!cleaned) return null;
 
   // If trailing decimal separator exists (e.g., 55.000,00), drop decimal part for integer budget logic.
-  cleaned = cleaned.replace(/[.,](\d{1,2})$/, '');
+  cleaned = cleaned.replaceAll(/[.,](\d{1,2})$/, '');
 
-  const digitsOnly = cleaned.replace(/[^\d]/g, '');
+  const digitsOnly = cleaned.replaceAll(/[^\d]/g, '');
   if (!digitsOnly) return null;
 
   const parsed = Number.parseInt(digitsOnly, 10);
@@ -319,7 +352,7 @@ function parseLocalizedInteger(raw) {
  */
 function parseTeamSize(raw) {
   if (!raw) return null;
-  const match = String(raw).match(/(\d{1,4})/);
+  const match = /(\d{1,4})/.exec(String(raw));
   if (!match) return null;
   const parsed = Number.parseInt(match[1], 10);
   return Number.isFinite(parsed) && parsed > 0 ? parsed : null;
@@ -332,6 +365,14 @@ function clampInteger(value, min, max) {
 
 function normalizeSelect(value, allowed, fallback) {
   return allowed.includes(value) ? value : fallback;
+}
+
+function resolveTierKey(hiringStrategy) {
+  if (!hiringStrategy) return 'mid';
+  if (hiringStrategy.includes('senior')) return 'senior';
+  if (hiringStrategy.includes('junior')) return 'junior';
+  if (hiringStrategy.includes('lead')) return 'lead';
+  return 'mid';
 }
 
 function getStackSelection() {
@@ -468,17 +509,14 @@ export function generateMasterPrompt() {
   if (teamSize) inputs.teamSize = String(teamSize);
 
   // Resolve seniority tier multiplier from form or default to mid (1.00)
-  const tierKey = inputs.hiringStrategy?.includes('senior') ? 'senior'
-    : inputs.hiringStrategy?.includes('junior') ? 'junior'
-    : inputs.hiringStrategy?.includes('lead') ? 'lead'
-    : 'mid';
-  const resolvedTierMultiplier = tierMultipliers[tierKey] ?? 1.00;
+  const tierKey = resolveTierKey(inputs.hiringStrategy);
+  const resolvedTierMultiplier = tierMultipliers[tierKey] ?? 1;
 
   // Resolve stack premium — pick highest from selected stacks
   const selectedStacks = (inputs.searchedStack || '').toLowerCase();
   let resolvedStackPremium = 0;
   for (const [key, premium] of Object.entries(stackPremiums)) {
-    if (selectedStacks.includes(key.replace(/-/g, ' ')) || selectedStacks.includes(key)) {
+    if (selectedStacks.includes(key.replaceAll('-', ' ')) || selectedStacks.includes(key)) {
       resolvedStackPremium = Math.max(resolvedStackPremium, premium);
     }
   }
@@ -591,6 +629,15 @@ function generateDataCategoryClaims(categoryKey) {
   }
 }
 
+function formatClaimValue(value, formatType) {
+  if (value === null || value === undefined) return 'N/A';
+  if (formatType === 'percent') return `${Number(value).toFixed(1)}%`;
+  if (formatType === 'currency') return `€${Math.round(value).toLocaleString()}`;
+  if (formatType === 'currency-decimal') return `€${Number(value).toFixed(1)}`;
+  if (formatType === 'integer') return `${Math.round(value).toLocaleString()}`;
+  return String(value);
+}
+
 /**
  * Generate Macroeconomic claims from WEBSITE_CONTENT.json
  */
@@ -621,21 +668,87 @@ function generateMacroeconomicClaims(content) {
     addClaim(`Macroeconomic comparison note: ${table.naNote}`);
   }
 
-  function formatClaimValue(value, formatType) {
-    if (value === null || value === undefined) return 'N/A';
-    if (formatType === 'percent') return `${Number(value).toFixed(1)}%`;
-    if (formatType === 'currency') return `€${Math.round(value).toLocaleString()}`;
-    if (formatType === 'currency-decimal') return `€${Number(value).toFixed(1)}`;
-    if (formatType === 'integer') return `${Math.round(value).toLocaleString()}`;
-    return String(value);
-  }
-
   return claims;
 }
 
 /**
  * Generate Digital Infrastructure claims from WEBSITE_CONTENT.json
  */
+function addFtthClaims(addClaim, infra) {
+  const ftth = infra.ftthPenetration;
+  if (ftth?.coverage) addClaim(`FTTH network coverage: ${ftth.coverage.value}% of dwellings`);
+  if (ftth?.takeUp) addClaim(`FTTH take-up rate: ${ftth.takeUp.value}% of covered households`);
+  if (ftth?.fiberShare) addClaim(`Fiber share of broadband: ${ftth.fiberShare.value}% of connections`);
+  if (ftth?.lisbonMetroCoverage) addClaim(`Lisbon Metro FTTH coverage: ${ftth.lisbonMetroCoverage.value}%`);
+}
+
+function addFiveGClaims(addClaim, infra) {
+  const fiveG = infra.fiveGCoverage;
+  if (fiveG?.populationCoverage) addClaim(`5G population coverage: ${fiveG.populationCoverage}%`);
+  if (fiveG?.operators) addClaim(`5G operators: ${fiveG.operators.join(', ')}`);
+}
+
+function addFixedBroadbandClaims(addClaim, infra) {
+  const bb = infra.fixedBroadband;
+  if (bb?.averageTraffic) {
+    addClaim(`Average fixed broadband traffic: ${bb.averageTraffic.value} ${bb.averageTraffic.unit} (${bb.averageTraffic.period})`);
+  }
+  if (bb?.businessGrade) {
+    addClaim(`Business-grade fiber: ${bb.businessGrade.value} ${bb.businessGrade.unit} symmetric available`);
+  }
+  if (bb?.consumerFiber500Mbps) {
+    addClaim(`Consumer fiber 500 Mbps: €${bb.consumerFiber500Mbps.value}/month`);
+  }
+  if (bb?.euRanking) addClaim(`EU ranking: ${bb.euRanking}`);
+}
+
+function addLatencyClaims(addClaim, infra) {
+  const latency = infra.latency;
+  if (latency?.toFrankfurt) {
+    addClaim(`Latency to Frankfurt: ${latency.toFrankfurt.qualifier || ''} ${latency.toFrankfurt.value}ms`.trim());
+  }
+  if (latency?.toAmsterdam) {
+    addClaim(`Latency to Amsterdam: ${latency.toAmsterdam.qualifier || ''} ${latency.toAmsterdam.value}ms`.trim());
+  }
+  if (latency?.toSaoPaulo) addClaim(`Latency to São Paulo: ${latency.toSaoPaulo.value}ms (EllaLink)`);
+  if (latency?.toNewYork) addClaim(`Latency to New York: ${latency.toNewYork.value}ms`);
+}
+
+function addSubseaClaims(addClaim, infra) {
+  if (infra.terrestrialConnectivity?.value) {
+    addClaim(infra.terrestrialConnectivity.value);
+  }
+
+  const cables = infra.subseaCables;
+  if (cables?.summary) {
+    addClaim(`${cables.summary.operational} operational submarine cables, ${cables.summary.planned} planned`);
+  }
+  if (!cables?.cables) return;
+
+  cables.cables
+    .filter((cable) => cable.status === 'Active')
+    .forEach((cable) => {
+      let text = `${cable.name} cable: ${cable.destinations}`;
+      if (cable.capacity) text += ` (${cable.capacity})`;
+      addClaim(text);
+    });
+}
+
+function addDataCenterClaims(addClaim, infra) {
+  const dataCenters = infra.dataCenters;
+  if (dataCenters?.microsoft) {
+    addClaim(`Microsoft: ${dataCenters.microsoft.investment} data center investment in Sines`);
+  }
+  if (dataCenters?.alticeCovilha) {
+    addClaim(`${dataCenters.alticeCovilha.value}`);
+  }
+
+  const sines = infra.sinesTechHub;
+  if (sines?.designation) {
+    addClaim(`Sines: ${sines.designation} — ${sines.description}`);
+  }
+}
+
 function generateDigitalInfraClaims(content) {
   const claims = [];
   let claimNum = 1;
@@ -647,59 +760,13 @@ function generateDigitalInfraClaims(content) {
   
   const infra = content?.digitalInfrastructure;
   if (!infra) return claims;
-  
-  // FTTH
-  const ftth = infra.ftthPenetration;
-  if (ftth?.coverage) addClaim(`FTTH network coverage: ${ftth.coverage.value}% of dwellings`);
-  if (ftth?.takeUp) addClaim(`FTTH take-up rate: ${ftth.takeUp.value}% of covered households`);
-  if (ftth?.fiberShare) addClaim(`Fiber share of broadband: ${ftth.fiberShare.value}% of connections`);
-  if (ftth?.lisbonMetroCoverage) addClaim(`Lisbon Metro FTTH coverage: ${ftth.lisbonMetroCoverage.value}%`);
-  
-  // 5G
-  const fiveG = infra.fiveGCoverage;
-  if (fiveG?.populationCoverage) addClaim(`5G population coverage: ${fiveG.populationCoverage}%`);
-  if (fiveG?.operators) addClaim(`5G operators: ${fiveG.operators.join(', ')}`);
-  
-  // Fixed broadband
-  const bb = infra.fixedBroadband;
-  if (bb?.averageTraffic) addClaim(`Average fixed broadband traffic: ${bb.averageTraffic.value} ${bb.averageTraffic.unit} (${bb.averageTraffic.period})`);
-  if (bb?.businessGrade) addClaim(`Business-grade fiber: ${bb.businessGrade.value} ${bb.businessGrade.unit} symmetric available`);
-  if (bb?.consumerFiber500Mbps) addClaim(`Consumer fiber 500 Mbps: €${bb.consumerFiber500Mbps.value}/month`);
-  if (bb?.euRanking) addClaim(`EU ranking: ${bb.euRanking}`);
-  
-  // Latency
-  const lat = infra.latency;
-  if (lat?.toFrankfurt) addClaim(`Latency to Frankfurt: ${lat.toFrankfurt.qualifier || ''} ${lat.toFrankfurt.value}ms`.trim());
-  if (lat?.toAmsterdam) addClaim(`Latency to Amsterdam: ${lat.toAmsterdam.qualifier || ''} ${lat.toAmsterdam.value}ms`.trim());
-  if (lat?.toSaoPaulo) addClaim(`Latency to São Paulo: ${lat.toSaoPaulo.value}ms (EllaLink)`);
-  if (lat?.toNewYork) addClaim(`Latency to New York: ${lat.toNewYork.value}ms`);
-  
-  // Terrestrial
-  if (infra.terrestrialConnectivity?.value) {
-    addClaim(infra.terrestrialConnectivity.value);
-  }
-  
-  // Subsea cables
-  const cables = infra.subseaCables;
-  if (cables?.summary) {
-    addClaim(`${cables.summary.operational} operational submarine cables, ${cables.summary.planned} planned`);
-  }
-  if (cables?.cables) {
-    cables.cables.filter(c => c.status === 'Active').forEach(c => {
-      let text = `${c.name} cable: ${c.destinations}`;
-      if (c.capacity) text += ` (${c.capacity})`;
-      addClaim(text);
-    });
-  }
-  
-  // Data centers
-  const dc = infra.dataCenters;
-  if (dc?.microsoft) addClaim(`Microsoft: ${dc.microsoft.investment} data center investment in Sines`);
-  if (dc?.alticeCovilha) addClaim(`${dc.alticeCovilha.value}`);
-  
-  // Sines Tech Hub
-  const sines = infra.sinesTechHub;
-  if (sines?.designation) addClaim(`Sines: ${sines.designation} — ${sines.description}`);
+
+  addFtthClaims(addClaim, infra);
+  addFiveGClaims(addClaim, infra);
+  addFixedBroadbandClaims(addClaim, infra);
+  addLatencyClaims(addClaim, infra);
+  addSubseaClaims(addClaim, infra);
+  addDataCenterClaims(addClaim, infra);
   
   return claims;
 }
@@ -780,6 +847,71 @@ function generateResidentialRentClaims(master) {
  * Includes both externally verifiable metrics and internal calculations.
  * v1.0 — Full city database fact-check
  */
+function addCityDatabaseCostClaims(addClaim, cityName, regionTag, cityData) {
+  if (cityData.costs?.officeRent) {
+    const min = cityData.costs.officeRent.min;
+    const max = cityData.costs.officeRent.max;
+    if (min && max) {
+      addClaim(`${cityName}${regionTag} office rent: \u20ac${min}-${max}/m\u00b2/month (good-quality, below-prime office space)`);
+    } else if (min) {
+      addClaim(`${cityName}${regionTag} office rent: from \u20ac${min}/m\u00b2/month (good-quality, below-prime office space)`);
+    }
+  }
+
+  if (cityData.costs?.residentialRent) {
+    const min = cityData.costs.residentialRent.min;
+    const max = cityData.costs.residentialRent.max;
+    if (min && max) {
+      addClaim(`${cityName} residential rent: \u20ac${min}-${max}/month (1-bedroom ~50 m\u00b2, city center)`);
+    } else if (min) {
+      addClaim(`${cityName} residential rent: from \u20ac${min}/month (1-bedroom ~50 m\u00b2, city center)`);
+    }
+  }
+
+  if (cityData.costs?.colIndex?.value) {
+    addClaim(`${cityName} Cost of Living Plus Rent Index: ${cityData.costs.colIndex.value} (NYC=100, includes domestic rents; distinct from excl-rent index)`);
+  }
+}
+
+function addCityDatabaseTalentClaims(addClaim, cityName, cityData) {
+  const officialStem = cityData.talent?.graduates?.officialStem?.value;
+  const techStemPlus = cityData.talent?.graduates?.digitalStemPlus?.value;
+  const coreICT = cityData.talent?.graduates?.coreICT?.value;
+
+  if (officialStem) {
+    addClaim(`${cityName} Official STEM graduates (CNAEF 05+06+07): ${officialStem}/year`, true);
+  }
+  if (techStemPlus) {
+    addClaim(`${cityName} Tech STEM+ graduates: ${techStemPlus}/year (internal benchmark estimate)`, true);
+  }
+  if (coreICT && officialStem) {
+    const ictPct = ((coreICT / officialStem) * 100).toFixed(1);
+    addClaim(`${cityName} Core ICT graduates (CNAEF 481+523): ${coreICT}/year (${ictPct}% of Official STEM)`, true);
+  } else if (coreICT) {
+    addClaim(`${cityName} Core ICT graduates (CNAEF 481+523): ${coreICT}/year`, true);
+  }
+
+  if (cityData.costs?.salaryIndex?.value) {
+    addClaim(`${cityName} Salary Index: ${cityData.costs.salaryIndex.value} (Lisbon=100)`, true);
+  }
+}
+
+function addCityDatabaseRegionalTotalsClaims(addClaim, regionalTotals) {
+  if (!regionalTotals) return;
+
+  for (const [regionName, totals] of Object.entries(regionalTotals)) {
+    if (totals.officialStem != null) {
+      addClaim(`${regionName} region total: ${totals.officialStem} Official STEM graduates (CNAEF 05+06+07, 2023/24)`);
+    }
+    if (totals.coreICT != null) {
+      addClaim(`${regionName} region total: ${totals.coreICT} Core ICT graduates (CNAEF 481+523, 2023/24)`);
+    }
+    if (totals.digitalStemPlus != null) {
+      addClaim(`${regionName} region total: ${totals.digitalStemPlus} Tech STEM+ graduates (internal benchmark estimate)`, true);
+    }
+  }
+}
+
 function generateCityDatabaseClaims(master) {
   const claims = [];
   let claimNum = 1;
@@ -797,7 +929,7 @@ function generateCityDatabaseClaims(master) {
   if (!master?.cities) return claims;
 
   // Get display order from config, fallback to alphabetical
-  const displayOrder = master.config?.displayOrder || Object.keys(master.cities).sort();
+  const displayOrder = master.config?.displayOrder || Object.keys(master.cities).sort((a, b) => a.localeCompare(b));
   
   for (const cityId of displayOrder) {
     const cityData = master.cities[cityId];
@@ -807,75 +939,12 @@ function generateCityDatabaseClaims(master) {
                      cityId.charAt(0).toUpperCase() + cityId.slice(1);
     const region = cityData.basic?.region?.value || '';
     const regionTag = region ? ` [${region}]` : '';
-    
-    // ─── COST METRICS (EXTERNALLY VERIFIABLE) ───
-    
-    // Office Rent: Good-quality below-prime office space
-    if (cityData.costs?.officeRent) {
-      const min = cityData.costs.officeRent.min;
-      const max = cityData.costs.officeRent.max;
-      if (min && max) {
-        addClaim(`${cityName}${regionTag} office rent: \u20ac${min}-${max}/m\u00b2/month (good-quality, below-prime office space)`);
-      } else if (min) {
-        addClaim(`${cityName}${regionTag} office rent: from \u20ac${min}/m\u00b2/month (good-quality, below-prime office space)`);
-      }
-    }
-    
-    // Residential Rent: 1-bedroom ~50 m², city center
-    if (cityData.costs?.residentialRent) {
-      const min = cityData.costs.residentialRent.min;
-      const max = cityData.costs.residentialRent.max;
-      if (min && max) {
-        addClaim(`${cityName} residential rent: \u20ac${min}-${max}/month (1-bedroom ~50 m\u00b2, city center)`);
-      } else if (min) {
-        addClaim(`${cityName} residential rent: from \u20ac${min}/month (1-bedroom ~50 m\u00b2, city center)`);
-      }
-    }
-    
-    // COL+Rent Index: externally verifiable comparative cost index (plus-rent variant)
-    if (cityData.costs?.colIndex?.value) {
-      addClaim(`${cityName} Cost of Living Plus Rent Index: ${cityData.costs.colIndex.value} (NYC=100, includes domestic rents; distinct from excl-rent index)`);
-    }
-    
-    // ─── TALENT & SALARY METRICS (METHODOLOGY CHECKS) ───
-    
-    const officialStem = cityData.talent?.graduates?.officialStem?.value;
-    const techStemPlus = cityData.talent?.graduates?.digitalStemPlus?.value;
-    const coreICT = cityData.talent?.graduates?.coreICT?.value;
-    
-    if (officialStem) {
-      addClaim(`${cityName} Official STEM graduates (CNAEF 05+06+07): ${officialStem}/year`, true);
-    }
-    if (techStemPlus) {
-      addClaim(`${cityName} Tech STEM+ graduates: ${techStemPlus}/year (internal benchmark estimate)`, true);
-    }
-    if (coreICT && officialStem) {
-      const ictPct = ((coreICT / officialStem) * 100).toFixed(1);
-      addClaim(`${cityName} Core ICT graduates (CNAEF 481+523): ${coreICT}/year (${ictPct}% of Official STEM)`, true);
-    } else if (coreICT) {
-      addClaim(`${cityName} Core ICT graduates (CNAEF 481+523): ${coreICT}/year`, true);
-    }
-    
-    // Salary Index
-    if (cityData.costs?.salaryIndex?.value) {
-      addClaim(`${cityName} Salary Index: ${cityData.costs.salaryIndex.value} (Lisbon=100)`, true);
-    }
+
+    addCityDatabaseCostClaims(addClaim, cityName, regionTag, cityData);
+    addCityDatabaseTalentClaims(addClaim, cityName, cityData);
   }
 
-  // ─── REGIONAL TOTALS (DGEEC AGGREGATES) ───
-  if (master.regionalTotals) {
-    for (const [regionName, totals] of Object.entries(master.regionalTotals)) {
-      if (totals.officialStem != null) {
-        addClaim(`${regionName} region total: ${totals.officialStem} Official STEM graduates (CNAEF 05+06+07, 2023/24)`);
-      }
-      if (totals.coreICT != null) {
-        addClaim(`${regionName} region total: ${totals.coreICT} Core ICT graduates (CNAEF 481+523, 2023/24)`);
-      }
-      if (totals.digitalStemPlus != null) {
-        addClaim(`${regionName} region total: ${totals.digitalStemPlus} Tech STEM+ graduates (internal benchmark estimate)`, true);
-      }
-    }
-  }
+  addCityDatabaseRegionalTotalsClaims(addClaim, master.regionalTotals);
 
   return claims;
 }
@@ -989,6 +1058,125 @@ Begin verification.`;
 /**
  * Generate Workforce/Talent claims from WEBSITE_CONTENT.json + COMPENSATION_DATA.json
  */
+function addWorkforceStatisticsClaims(addClaim, content) {
+  const stats = content?.workforceStatistics;
+  if (!stats) return;
+
+  if (stats.ictEmployment) {
+    addClaim(`ICT specialists as % of employment: ${stats.ictEmployment.value}% (${stats.ictEmployment.year})`);
+  }
+
+  if (stats.techWorkforceTotal?.official) {
+    const yearSuffix = stats.techWorkforceTotal.year ? ` (${stats.techWorkforceTotal.year})` : '';
+    addClaim(`Total IT professionals (Eurostat): ~${stats.techWorkforceTotal.official.toLocaleString()}${yearSuffix}`);
+  }
+
+  if (stats.rankInEU?.value && stats.rankInEU?.totalCountries) {
+    const rankYear = stats.rankInEU.year ? ` (${stats.rankInEU.year})` : '';
+    addClaim(`EU rank by IT workforce size: ${stats.rankInEU.value}th of ${stats.rankInEU.totalCountries}${rankYear}`);
+  }
+
+  if (stats.annualGrowthRate?.value) {
+    const method = stats.annualGrowthRate.method;
+    const period = stats.annualGrowthRate.period || '';
+    const methodSuffix = method ? ` (${method} ${period})` : '';
+    addClaim(`Tech workforce annual growth rate: ~${stats.annualGrowthRate.value}%${methodSuffix}`.trim());
+  }
+
+  if (!stats.cityBreakdown || !stats.techWorkforceTotal?.official) return;
+
+  const total = stats.techWorkforceTotal.official;
+  stats.cityBreakdown.forEach((city) => {
+    const pct = Math.round((city.official / total) * 100);
+    const label = city.city === 'Others' ? 'Other cities' : city.city;
+    addClaim(`${label}: ~${city.official.toLocaleString()} IT professionals (${pct}%)`);
+  });
+}
+
+function addHiringInsightsClaims(addClaim, content) {
+  const insights = content?.hiringInsights;
+  if (!insights) return;
+
+  if (insights.ictShortageSignal?.value) {
+    addClaim(`ICT shortage signal: ${insights.ictShortageSignal.value}`);
+  }
+
+  if (insights.ictVacancyRate?.portugal?.value && insights.ictVacancyRate?.eu27?.value) {
+    addClaim(`ICT vacancy rate: Portugal ${insights.ictVacancyRate.portugal.value}% vs EU27 ${insights.ictVacancyRate.eu27.value}% (${insights.ictVacancyRate.year})`);
+  }
+
+  if (insights.remoteWorkPenetration?.portugal && insights.remoteWorkPenetration?.eu27) {
+    addClaim(
+      `Remote work share: Portugal ${insights.remoteWorkPenetration.portugal.sometimes}% sometimes / ${insights.remoteWorkPenetration.portugal.usually}% usually; EU27 ${insights.remoteWorkPenetration.eu27.sometimes}% / ${insights.remoteWorkPenetration.eu27.usually}% (${insights.remoteWorkPenetration.year})`
+    );
+  }
+
+  if (insights.regionalQualificationBaseline?.regions) {
+    const regions = insights.regionalQualificationBaseline.regions;
+    addClaim(`Regional tertiary education baseline: Lisbon Metro ${regions.lisbonMetropolitanArea}%, Norte ${regions.norte}%, Centro ${regions.centro}%, Algarve ${regions.algarve}% (${insights.regionalQualificationBaseline.year})`);
+  }
+}
+
+function addLaborMarketClaims(addClaim, content) {
+  const laborMarket = content?.laborMarket;
+  if (laborMarket?.retention?.medianTenure) {
+    addClaim(`Median tenure (Startup Portugal): ${laborMarket.retention.medianTenure.value} ${laborMarket.retention.medianTenure.unit}`);
+  }
+}
+
+function addDamiaClaims(addClaim, content) {
+  const benchmark = content?.laborMarket?.damiaBenchmark;
+  if (!benchmark) return;
+
+  if (benchmark.methodology?.window && benchmark.methodology?.sampleSize) {
+    addClaim(`Damia salary benchmark methodology: ${benchmark.methodology.window} dataset with ${benchmark.methodology.sampleSize.toLocaleString()} candidates`);
+  }
+  if (benchmark.methodology?.basis) {
+    addClaim(`Damia salary benchmark basis: ${benchmark.methodology.basis}`);
+  }
+  if (benchmark.methodology?.seniorityBands?.junior) {
+    addClaim(`Damia seniority bands: Junior ${benchmark.methodology.seniorityBands.junior}, Mid ${benchmark.methodology.seniorityBands.mid}, Senior ${benchmark.methodology.seniorityBands.senior}`);
+  }
+
+  benchmark.roleSeniorityTable?.forEach((row) => {
+    const levels = [];
+    if (row.junior && row.junior !== '—') levels.push(`Junior ${row.junior}`);
+    if (row.mid && row.mid !== '—') levels.push(`Mid ${row.mid}`);
+    if (row.senior && row.senior !== '—') levels.push(`Senior ${row.senior}`);
+    if (row.lead && row.lead !== '—') levels.push(`Lead/Management ${row.lead}`);
+    if (levels.length > 0) {
+      addClaim(`${row.role} salary range (annual gross): ${levels.join(', ')}`);
+    }
+    if (row.techStack && row.techStack !== '—') {
+      addClaim(`${row.role} tech-stack context: ${row.techStack}`);
+    }
+  });
+
+  benchmark.techStackSignals?.forEach((signal) => {
+    addClaim(`Tech-stack market signal: ${signal}`);
+  });
+}
+
+function addIneRegionalClaims(addClaim, compensation) {
+  const ine = compensation?.ineRegionalEarnings;
+  if (!ine?.regions || !ine?.displayOrder) return;
+
+  const conversionFactor = 14 / 12;
+  const baselineRegion = ine.regions[ine.lisbonBaselineRegion];
+  const lisbonBachelor14x = baselineRegion?.[ine.lisbonBaselineField] || 1;
+
+  ine.displayOrder.forEach((regionKey) => {
+    const region = ine.regions[regionKey];
+    if (!region || region.display === false) return;
+    const bachelor14x = region[ine.lisbonBaselineField];
+    if (bachelor14x == null) return;
+
+    const bachelor12x = Math.round(bachelor14x * conversionFactor);
+    const pctVsLisbon = ((bachelor14x / lisbonBachelor14x) * 100).toFixed(1);
+    addClaim(`Average monthly earnings (12× equiv, Bachelor): ${region.name} €${bachelor12x.toLocaleString()} (${pctVsLisbon}% vs Lisbon)`);
+  });
+}
+
 function generateWorkforceClaims(content, compensation) {
   const claims = [];
   let claimNum = 1;
@@ -997,109 +1185,12 @@ function generateWorkforceClaims(content, compensation) {
     claims.push({ id: `WRK-${String(claimNum).padStart(2, '0')}`, claim: text.trim() });
     claimNum++;
   };
-  
-  // Workforce statistics
-  const ws = content?.workforceStatistics;
-  if (ws?.ictEmployment) {
-    addClaim(`ICT specialists as % of employment: ${ws.ictEmployment.value}% (${ws.ictEmployment.year})`);
-  }
-  if (ws?.techWorkforceTotal?.official) {
-    const year = ws.techWorkforceTotal.year ? ` (${ws.techWorkforceTotal.year})` : '';
-    addClaim(`Total IT professionals (Eurostat): ~${ws.techWorkforceTotal.official.toLocaleString()}${year}`);
-  }
-  if (ws?.rankInEU?.value && ws?.rankInEU?.totalCountries) {
-    const rankYear = ws.rankInEU.year ? ` (${ws.rankInEU.year})` : '';
-    addClaim(`EU rank by IT workforce size: ${ws.rankInEU.value}th of ${ws.rankInEU.totalCountries}${rankYear}`);
-  }
-  if (ws?.annualGrowthRate?.value) {
-    const growthMethod = ws.annualGrowthRate.method ? ` (${ws.annualGrowthRate.method} ${ws.annualGrowthRate.period || ''})` : '';
-    addClaim(`Tech workforce annual growth rate: ~${ws.annualGrowthRate.value}%${growthMethod}`.trim());
-  }
-  
-  // City breakdown — official field (matches website bar chart)
-  if (ws?.cityBreakdown && ws?.techWorkforceTotal?.official) {
-    const total = ws.techWorkforceTotal.official;
-    ws.cityBreakdown.forEach(city => {
-      const pct = Math.round((city.official / total) * 100);
-      const label = city.city === 'Others' ? `Other cities` : city.city;
-      addClaim(`${label}: ~${city.official.toLocaleString()} IT professionals (${pct}%)`);
-    });
-  }
-  
-  // Hiring insights
-  const hi = content?.hiringInsights;
-  if (hi?.ictShortageSignal?.value) {
-    addClaim(`ICT shortage signal: ${hi.ictShortageSignal.value}`);
-  }
-  if (hi?.ictVacancyRate?.portugal?.value && hi?.ictVacancyRate?.eu27?.value) {
-    addClaim(`ICT vacancy rate: Portugal ${hi.ictVacancyRate.portugal.value}% vs EU27 ${hi.ictVacancyRate.eu27.value}% (${hi.ictVacancyRate.year})`);
-  }
-  if (hi?.remoteWorkPenetration?.portugal && hi?.remoteWorkPenetration?.eu27) {
-    addClaim(
-      `Remote work share: Portugal ${hi.remoteWorkPenetration.portugal.sometimes}% sometimes / ${hi.remoteWorkPenetration.portugal.usually}% usually; EU27 ${hi.remoteWorkPenetration.eu27.sometimes}% / ${hi.remoteWorkPenetration.eu27.usually}% (${hi.remoteWorkPenetration.year})`
-    );
-  }
-  if (hi?.regionalQualificationBaseline?.regions) {
-    const r = hi.regionalQualificationBaseline.regions;
-    addClaim(`Regional tertiary education baseline: Lisbon Metro ${r.lisbonMetropolitanArea}%, Norte ${r.norte}%, Centro ${r.centro}%, Algarve ${r.algarve}% (${hi.regionalQualificationBaseline.year})`);
-  }
-  
-  // Labor market
-  const lm = content?.laborMarket;
-  if (lm?.retention?.medianTenure) addClaim(`Median tenure (Startup Portugal): ${lm.retention.medianTenure.value} ${lm.retention.medianTenure.unit}`);
-  
-  // ─── Damia salary benchmark (data-prompt-core from WEBSITE_CONTENT laborMarket) ───
-  const damia = lm?.damiaBenchmark;
-  if (damia?.methodology?.window && damia?.methodology?.sampleSize) {
-    addClaim(`Damia salary benchmark methodology: ${damia.methodology.window} dataset with ${damia.methodology.sampleSize.toLocaleString()} candidates`);
-  }
-  if (damia?.methodology?.basis) {
-    addClaim(`Damia salary benchmark basis: ${damia.methodology.basis}`);
-  }
-  if (damia?.methodology?.seniorityBands?.junior) {
-    addClaim(`Damia seniority bands: Junior ${damia.methodology.seniorityBands.junior}, Mid ${damia.methodology.seniorityBands.mid}, Senior ${damia.methodology.seniorityBands.senior}`);
-  }
 
-  if (damia?.roleSeniorityTable) {
-    damia.roleSeniorityTable.forEach((row) => {
-      const levels = [];
-      if (row.junior && row.junior !== '—') levels.push(`Junior ${row.junior}`);
-      if (row.mid && row.mid !== '—') levels.push(`Mid ${row.mid}`);
-      if (row.senior && row.senior !== '—') levels.push(`Senior ${row.senior}`);
-      if (row.lead && row.lead !== '—') levels.push(`Lead/Management ${row.lead}`);
-      if (levels.length > 0) {
-        addClaim(`${row.role} salary range (annual gross): ${levels.join(', ')}`);
-      }
-      if (row.techStack && row.techStack !== '—') {
-        addClaim(`${row.role} tech-stack context: ${row.techStack}`);
-      }
-    });
-  }
-
-  if (damia?.techStackSignals) {
-    damia.techStackSignals.forEach((signal) => {
-      addClaim(`Tech-stack market signal: ${signal}`);
-    });
-  }
-  
-  // ─── INE Regional Earnings (data-prompt-core ine-earnings-card — from COMPENSATION_DATA) ───
-  // INE 2023 MTSSS/GEP Personnel Tables — Bachelor earnings + % vs Lisbon only
-  const ine = compensation?.ineRegionalEarnings;
-  if (ine?.regions && ine?.displayOrder) {
-    const CONV = 14 / 12;
-    const baselineRegion = ine.regions[ine.lisbonBaselineRegion];
-    const lisbonBachelor14x = baselineRegion?.[ine.lisbonBaselineField] || 1;
-
-    ine.displayOrder.forEach(regionKey => {
-      const region = ine.regions[regionKey];
-      if (!region || region.display === false) return;
-      const bachelor14x = region[ine.lisbonBaselineField];
-      if (bachelor14x == null) return;
-      const bachelor12x = Math.round(bachelor14x * CONV);
-      const pctVsLisbon = ((bachelor14x / lisbonBachelor14x) * 100).toFixed(1);
-      addClaim(`Average monthly earnings (12× equiv, Bachelor): ${region.name} €${bachelor12x.toLocaleString()} (${pctVsLisbon}% vs Lisbon)`);
-    });
-  }
+  addWorkforceStatisticsClaims(addClaim, content);
+  addHiringInsightsClaims(addClaim, content);
+  addLaborMarketClaims(addClaim, content);
+  addDamiaClaims(addClaim, content);
+  addIneRegionalClaims(addClaim, compensation);
   
   return claims;
 }
@@ -1107,6 +1198,95 @@ function generateWorkforceClaims(content, compensation) {
 /**
  * Generate Strategic & Tax claims from WEBSITE_CONTENT.json
  */
+function addStrategicTaxClaims(addClaim, content) {
+  const tax = content?.taxIncentives;
+  if (!tax) return;
+
+  if (tax.sifideII?.value) {
+    addClaim(`SIFIDE II R&D Tax Credit: ${tax.sifideII.value}`);
+    if (tax.sifideII.eligibleCosts) addClaim(`SIFIDE II eligible costs: ${tax.sifideII.eligibleCosts}`);
+    if (tax.sifideII.application) addClaim(`SIFIDE II application: ${tax.sifideII.application}`);
+  }
+
+  if (tax.techVisa?.value) {
+    addClaim(`Tech Visa (skilled immigration): ${tax.techVisa.value}`);
+    if (tax.techVisa.detail) addClaim(`Tech Visa: ${tax.techVisa.detail}`);
+  }
+
+  if (tax.ifici?.value) {
+    addClaim(`IFICI (scientific research & innovation tax regime): ${tax.ifici.value}`);
+    if (tax.ifici.detail) addClaim(`IFICI: ${tax.ifici.detail}`);
+  }
+
+  if (!tax.corporateTax?.standard) return;
+  addClaim(`Standard corporate tax rate (IRC): ${tax.corporateTax.standard}%`);
+  if (tax.corporateTax.smeRate) {
+    addClaim(`SME reduced IRC rate: ${tax.corporateTax.smeRate}% on first ${tax.corporateTax.smeThreshold ?? '€50,000'}`);
+  }
+  if (tax.corporateTax.surtaxes) {
+    addClaim(`Corporate surtaxes: ${tax.corporateTax.surtaxes}`);
+  }
+}
+
+function addStrategicConnectivityClaims(addClaim, content) {
+  const geostrategic = content?.connectivity?.geostrategic;
+  if (geostrategic?.uniquePosition) addClaim(geostrategic.uniquePosition);
+  geostrategic?.reach?.forEach((reachItem) => addClaim(`Reach: ${reachItem}`));
+  if (geostrategic?.latencyAdvantage) addClaim(geostrategic.latencyAdvantage);
+
+  if (content?.connectivity?.sinesHub?.value) {
+    addClaim(`Sines Hub: ${content.connectivity.sinesHub.value}`);
+  }
+
+  if (content?.connectivity?.subseaCables?.value) {
+    addClaim(`Strategic subsea cables: ${content.connectivity.subseaCables.value.join(', ')}`);
+  }
+}
+
+function addStrategicCostClaims(addClaim, content) {
+  const col = content?.costOfLiving;
+  if (!col) return;
+
+  if (col.monthlyEssentials?.value) {
+    const noteSuffix = col.monthlyEssentials.note ? ` (${col.monthlyEssentials.note})` : '';
+    addClaim(`Monthly essentials (single, outside Lisbon): €${col.monthlyEssentials.value}${noteSuffix}`);
+  }
+  if (col.utilities?.value) {
+    addClaim(`Utilities (${col.utilities.includes || 'electricity, water, internet'}): €${col.utilities.value}/month`);
+  }
+  if (col.comparisonToEurope?.value) {
+    addClaim(`Cost of living (COL+Rent Index): ${col.comparisonToEurope.value} ${col.comparisonToEurope.label || 'cheaper than major European cities'}`);
+  }
+}
+
+function addStrategicQualityOfLifeClaims(addClaim, content) {
+  const qol = content?.qualityOfLife;
+  if (!qol) return;
+
+  if (qol.healthcare?.publicSystem) {
+    addClaim(`Portugal: Universal public healthcare (${qol.healthcare.publicSystem.name}) — ${qol.healthcare.publicSystem.description}`);
+  }
+  if (qol.healthcare?.privateInsurance) {
+    addClaim(`Portugal private health insurance: ${qol.healthcare.privateInsurance.costRange} — ${qol.healthcare.privateInsurance.details}`);
+  }
+  if (qol.healthcare?.ehci) {
+    const healthcare = qol.healthcare.ehci;
+    addClaim(`${healthcare.source}: Portugal ranked ${healthcare.rank}th / ${healthcare.totalCountries} ${healthcare.label} (${healthcare.year})`);
+  }
+
+  if (qol.safety?.gpi) {
+    const safety = qol.safety.gpi;
+    addClaim(`${safety.source}: Portugal ranked ${safety.rank}th ${safety.label} (${safety.year})`);
+  }
+  if (qol.safety?.crimeRate) {
+    addClaim(`Portugal crime rate: ${qol.safety.crimeRate.value} — ${qol.safety.crimeRate.detail}`);
+  }
+  if (qol.safety?.political) {
+    const political = qol.safety.political;
+    addClaim(`Portugal: ${political.description}; EU member since ${political.euMemberSince}, NATO since ${political.natoMemberSince}`);
+  }
+}
+
 function generateStrategicClaims(content) {
   const claims = [];
   let claimNum = 1;
@@ -1115,78 +1295,11 @@ function generateStrategicClaims(content) {
     claims.push({ id: `STR-${String(claimNum).padStart(2, '0')}`, claim: text.trim() });
     claimNum++;
   };
-  
-  const tax = content?.taxIncentives;
-  if (tax?.sifideII?.value) {
-    addClaim(`SIFIDE II R&D Tax Credit: ${tax.sifideII.value}`);
-    if (tax.sifideII.eligibleCosts) addClaim(`SIFIDE II eligible costs: ${tax.sifideII.eligibleCosts}`);
-    if (tax.sifideII.application) addClaim(`SIFIDE II application: ${tax.sifideII.application}`);
-  }
-  if (tax?.techVisa?.value) {
-    addClaim(`Tech Visa (skilled immigration): ${tax.techVisa.value}`);
-    if (tax.techVisa.detail) addClaim(`Tech Visa: ${tax.techVisa.detail}`);
-  }
-  if (tax?.ifici?.value) {
-    addClaim(`IFICI (scientific research & innovation tax regime): ${tax.ifici.value}`);
-    if (tax.ifici.detail) addClaim(`IFICI: ${tax.ifici.detail}`);
-  }
-  if (tax?.corporateTax?.standard) {
-    addClaim(`Standard corporate tax rate (IRC): ${tax.corporateTax.standard}%`);
-    if (tax.corporateTax.smeRate) addClaim(`SME reduced IRC rate: ${tax.corporateTax.smeRate}% on first ${tax.corporateTax.smeThreshold ?? '€50,000'}`);
-    if (tax.corporateTax.surtaxes) addClaim(`Corporate surtaxes: ${tax.corporateTax.surtaxes}`);
-  }
-  
-  // Connectivity geostrategic
-  const geo = content?.connectivity?.geostrategic;
-  if (geo?.uniquePosition) addClaim(geo.uniquePosition);
-  if (geo?.reach) geo.reach.forEach(r => addClaim(`Reach: ${r}`));
-  if (geo?.latencyAdvantage) addClaim(geo.latencyAdvantage);
-  
-  // Sines
-  if (content?.connectivity?.sinesHub?.value) addClaim(`Sines Hub: ${content.connectivity.sinesHub.value}`);
-  
-  // Cables
-  if (content?.connectivity?.subseaCables?.value) {
-    addClaim(`Strategic subsea cables: ${content.connectivity.subseaCables.value.join(', ')}`);
-  }
-  
-  // ─── Cost of Living (data-prompt-core stat-heroes) ───
-  const col = content?.costOfLiving;
-  if (col?.monthlyEssentials?.value) {
-    addClaim(`Monthly essentials (single, outside Lisbon): €${col.monthlyEssentials.value} ${col.monthlyEssentials.note ? `(${col.monthlyEssentials.note})` : ''}`);
-  }
-  if (col?.utilities?.value) {
-    addClaim(`Utilities (${col.utilities.includes || 'electricity, water, internet'}): €${col.utilities.value}/month`);
-  }
-  if (col?.comparisonToEurope?.value) {
-    addClaim(`Cost of living (COL+Rent Index): ${col.comparisonToEurope.value} ${col.comparisonToEurope.label || 'cheaper than major European cities'}`);
-  }
-  
-  // ─── Quality of Life & Security (from WEBSITE_CONTENT qualityOfLife) ───
-  const qol = content?.qualityOfLife;
-  // Healthcare
-  if (qol?.healthcare?.publicSystem) {
-    addClaim(`Portugal: Universal public healthcare (${qol.healthcare.publicSystem.name}) — ${qol.healthcare.publicSystem.description}`);
-  }
-  if (qol?.healthcare?.privateInsurance) {
-    addClaim(`Portugal private health insurance: ${qol.healthcare.privateInsurance.costRange} — ${qol.healthcare.privateInsurance.details}`);
-  }
-  if (qol?.healthcare?.ehci) {
-    const e = qol.healthcare.ehci;
-    addClaim(`${e.source}: Portugal ranked ${e.rank}th / ${e.totalCountries} ${e.label} (${e.year})`);
-  }
-  // Safety
-  if (qol?.safety?.gpi) {
-    const g = qol.safety.gpi;
-    addClaim(`${g.source}: Portugal ranked ${g.rank}th ${g.label} (${g.year})`);
-  }
-  if (qol?.safety?.crimeRate) {
-    addClaim(`Portugal crime rate: ${qol.safety.crimeRate.value} — ${qol.safety.crimeRate.detail}`);
-  }
-  if (qol?.safety?.political) {
-    const p = qol.safety.political;
-    addClaim(`Portugal: ${p.description}; EU member since ${p.euMemberSince}, NATO since ${p.natoMemberSince}`);
-  }
+
+  addStrategicTaxClaims(addClaim, content);
+  addStrategicConnectivityClaims(addClaim, content);
+  addStrategicCostClaims(addClaim, content);
+  addStrategicQualityOfLifeClaims(addClaim, content);
   
   return claims;
 }
@@ -1236,7 +1349,8 @@ async function populateClaimCounts() {
   // Find all claim count elements with data-category attribute
   const countElements = document.querySelectorAll('[data-claims-category]');
   for (const el of countElements) {
-    const categoryKey = el.getAttribute('data-claims-category');
+    const categoryKey = el.dataset.claimsCategory;
+    if (!categoryKey) continue;
     
     // For city profiles, generate claims dynamically
     if (categoryKey.startsWith('city:')) {
@@ -1253,6 +1367,215 @@ async function populateClaimCounts() {
   }
 }
 
+function createCityClaimAdder(claims, prefix) {
+  let claimNum = 1;
+
+  return (text, internal = false) => {
+    if (!text || text === 'undefined' || text === 'null') return;
+    claims.push({
+      id: `${prefix}-${String(claimNum).padStart(2, '0')}`,
+      claim: text.trim(),
+      internal,
+    });
+    claimNum++;
+  };
+}
+
+function addCityMetaClaims(addClaim, profile, cityName) {
+  if (profile._meta?.tagline) {
+    addClaim(`${cityName}: "${profile._meta.tagline}"`);
+  }
+  if (profile._meta?.coverTags?.length) {
+    addClaim(`${cityName} specialization domains: ${profile._meta.coverTags.join(', ')}`);
+  }
+}
+
+function addCityTechCompanyClaims(addClaim, profile, cityName) {
+  profile.ecosystem?.techCompanies?.value?.forEach((company) => {
+    let text = `${company.name}`;
+    if (company.sector) text += ` (${company.sector})`;
+    if (company.description) text += `: ${company.description}`;
+    if (company.notableFact) text += ` — ${company.notableFact}`;
+    addClaim(text);
+  });
+
+  if (profile.ecosystem?.techCompanies?.count) {
+    const note = profile.ecosystem.techCompanies.countNote || '';
+    const noteSuffix = note ? ` (${note})` : '';
+    addClaim(`${cityName}: ${profile.ecosystem.techCompanies.count}+ tech companies${noteSuffix}`);
+  }
+}
+
+function addCityDomainClaims(addClaim, profile, cityName) {
+  profile.ecosystem?.domains?.value?.forEach((domain) => {
+    if (domain.name && domain.detail) {
+      addClaim(`${cityName} domain: ${domain.name} — ${domain.detail}`);
+    }
+  });
+}
+
+function addCityCoworkingClaims(addClaim, profile, cityName) {
+  profile.ecosystem?.coworking?.spaces?.forEach((space) => {
+    addClaim(`${space.name} (${space.type})`);
+  });
+
+  if (profile.ecosystem?.coworking?.totalSpaces) {
+    addClaim(`${profile.ecosystem.coworking.totalSpaces}+ coworking spaces in ${cityName}`);
+  }
+}
+
+function addCityStudentOrgClaims(addClaim, profile) {
+  profile.ecosystem?.studentOrgs?.value?.forEach((org) => {
+    let text = `${org.name}`;
+    if (org.description) text += `: ${org.description}`;
+    if (org.url) text += ` (${org.url})`;
+    addClaim(text);
+  });
+}
+
+function addCityClusterClaims(addClaim, profile, cityName) {
+  const clusters = profile.ecosystem?.clusters;
+  if (clusters?.value) {
+    addClaim(`${cityName}: ${clusters.value}`);
+  }
+  if (clusters?.regionalShare) {
+    addClaim(`${cityName}: ${clusters.regionalShare}`);
+  }
+  if (clusters?.nearbyHub) {
+    addClaim(`${cityName} nearby hub: ${clusters.nearbyHub}`);
+  }
+  if (clusters?.techClusterName) {
+    addClaim(`Tech cluster: ${clusters.techClusterName}`);
+  }
+}
+
+function addCityInfrastructureClaims(addClaim, profile, cityName) {
+  const airport = profile.infrastructure?.airport;
+  if (airport) {
+    const iata = airport.iataCode || airport.iata || '';
+    if (airport.name && airport.distanceKm) {
+      const iataStr = iata ? ` (${iata})` : '';
+      addClaim(`${airport.name}${iataStr}, ${airport.distanceKm}km from ${cityName}`);
+    } else if (airport.name && airport.driveTime) {
+      addClaim(`${cityName} airport access via ${airport.name}, ${airport.driveTime}`);
+    }
+  }
+
+  profile.infrastructure?.commuteTimes?.routes?.forEach((route) => {
+    const toCity = route.to.charAt(0).toUpperCase() + route.to.slice(1);
+    addClaim(`${cityName} to ${toCity}: ${route.time} by ${route.mode}`);
+  });
+
+  const connectivity = profile.infrastructure?.connectivity;
+  if (connectivity?.fiberPenetration) {
+    addClaim(`${cityName} fiber penetration: ${connectivity.fiberPenetration}%`);
+  }
+  if (connectivity?.avgDownloadMbps) {
+    addClaim(`${cityName} average download: ${connectivity.avgDownloadMbps} Mbps`);
+  }
+  if (connectivity?.latencyFrankfurt) {
+    addClaim(`${cityName} latency to Frankfurt: ${connectivity.latencyFrankfurt}ms`);
+  }
+}
+
+function addCityUniversityClaims(addClaim, profile, cityName) {
+  const institutions = profile.universityDetail?.institutions;
+  if (institutions) {
+    institutions.forEach((institution) => {
+      if (institution.type !== 'university') return;
+      const parent = institution.parent ? ` — ${institution.parent}` : '';
+      addClaim(`${institution.name}${parent}`);
+      if (institution.programs?.length) {
+        addClaim(`${institution.name} programs: ${institution.programs.join(', ')}`);
+      }
+    });
+
+    institutions.forEach((institution) => {
+      if (institution.type === 'research' && institution.focus) {
+        addClaim(`${institution.name}: ${institution.focus.join(', ')}`);
+      }
+    });
+  }
+
+  if (profile.universityDetail?.talentProfile?.value) {
+    addClaim(`${cityName} talent: ${profile.universityDetail.talentProfile.value}`);
+  }
+}
+
+function addCityClimateClaims(addClaim, profile, cityName) {
+  const climate = profile.culture?.climate;
+  if (!climate) return;
+
+  if (climate.sunshineHours && climate.type) {
+    addClaim(`${cityName}: ~${climate.sunshineHours} sunshine hours/year, ${climate.type} climate`);
+  }
+  if (climate.avgTempSummer != null && climate.avgTempWinter != null) {
+    addClaim(`${cityName} temperatures: ${climate.avgTempWinter}°C winter avg, ${climate.avgTempSummer}°C summer avg`);
+  }
+  if (climate.rainDays) {
+    addClaim(`${cityName}: ~${climate.rainDays} rain days/year`);
+  }
+  if (climate.seaInfluence) {
+    addClaim(`${cityName} climate influence: ${climate.seaInfluence}`);
+  }
+  if (climate.bestMonths?.length) {
+    addClaim(`${cityName} best months: ${climate.bestMonths.join(', ')}`);
+  }
+}
+
+function addCityQualityOfLifeClaims(addClaim, profile, cityName) {
+  const qualityOfLife = profile.culture?.qualityOfLife;
+  if (qualityOfLife?.walkability) addClaim(`${cityName} walkability: ${qualityOfLife.walkability}`);
+  if (qualityOfLife?.healthcare) addClaim(`${cityName} healthcare: ${qualityOfLife.healthcare}`);
+  if (qualityOfLife?.culture) addClaim(`${cityName} culture: ${qualityOfLife.culture}`);
+}
+
+function addCityRetentionClaims(addClaim, profile, cityName) {
+  const retention = profile.culture?.retention;
+  if (retention?.narrative) addClaim(`${cityName}: ${retention.narrative}`);
+  if (retention?.strengths?.length) addClaim(`${cityName} strengths: ${retention.strengths.join(', ')}`);
+  if (retention?.risks?.length) addClaim(`${cityName} risks: ${retention.risks.join(', ')}`);
+}
+
+function addCityCultureClaims(addClaim, profile, cityName) {
+  addCityClimateClaims(addClaim, profile, cityName);
+  addCityQualityOfLifeClaims(addClaim, profile, cityName);
+  addCityRetentionClaims(addClaim, profile, cityName);
+}
+
+function addCityMasterCostClaims(addClaim, cityData, cityName) {
+  if (cityData.costs?.officeRent?.min || cityData.costs?.officeRent?.max) {
+    const min = cityData.costs.officeRent.min;
+    const max = cityData.costs.officeRent.max;
+    if (min && max) {
+      addClaim(`${cityName} office rent: \u20ac${min}-${max}/m\u00b2/month (good-quality, below-prime office space)`);
+    } else if (min) {
+      addClaim(`${cityName} office rent: from \u20ac${min}/m\u00b2/month (good-quality, below-prime office space)`);
+    }
+  }
+
+  if (cityData.costs?.residentialRent?.min || cityData.costs?.residentialRent?.max) {
+    const min = cityData.costs.residentialRent.min;
+    const max = cityData.costs.residentialRent.max;
+    if (min && max) {
+      addClaim(`${cityName} residential rent: \u20ac${min}-${max}/month (1-bedroom ~50 m\u00b2, city center)`);
+    } else if (min) {
+      addClaim(`${cityName} residential rent: from \u20ac${min}/month (1-bedroom ~50 m\u00b2, city center)`);
+    }
+  }
+
+  if (cityData.costs?.colIndex?.value) {
+    addClaim(`${cityName} Cost of Living Plus Rent Index: ${cityData.costs.colIndex.value} (NYC=100, includes domestic rents; distinct from excl-rent index)`);
+  }
+}
+
+function addCityMasterMetricClaims(addClaim, cityData, cityName) {
+  if (!cityData) return;
+
+  addCityMasterCostClaims(addClaim, cityData, cityName);
+  addCityDatabaseTalentClaims(addClaim, cityName, cityData);
+}
+
 /**
  * Generate claims dynamically from CITY_PROFILES.json + MASTER.json for a given city.
  * Extracts ALL displayable data for comprehensive fact-checking.
@@ -1267,282 +1590,21 @@ async function generateCityClaimsFromSource(cityId) {
 
   const claims = [];
   const prefix = cityId.substring(0, 3).toUpperCase();
-  let claimNum = 1;
-  
-  // Helper: add a verifiable claim
-  const addClaim = (text, internal = false) => {
-    if (!text || text === 'undefined' || text === 'null') return;
-    claims.push({
-      id: `${prefix}-${String(claimNum).padStart(2, '0')}`,
-      claim: text.trim(),
-      internal // Mark internal calculations
-    });
-    claimNum++;
-  };
+  const addClaim = createCityClaimAdder(claims, prefix);
 
   // Use proper city name with diacritics from DB
   const cityName = cityData?.basic?.name?.value || cityId.charAt(0).toUpperCase() + cityId.slice(1);
 
-  // ═══════════════════════════════════════════════════════════════════════════
-  // META: TAGLINE & COVER TAGS
-  // ═══════════════════════════════════════════════════════════════════════════
-  if (profile._meta?.tagline) {
-    addClaim(`${cityName}: "${profile._meta.tagline}"`);
-  }
-  if (profile._meta?.coverTags?.length) {
-    addClaim(`${cityName} specialization domains: ${profile._meta.coverTags.join(', ')}`);
-  }
-
-  // ═══════════════════════════════════════════════════════════════════════════
-  // ECOSYSTEM: TECH COMPANIES
-  // ═══════════════════════════════════════════════════════════════════════════
-  if (profile.ecosystem?.techCompanies?.value) {
-    for (const company of profile.ecosystem.techCompanies.value) {
-      let text = `${company.name}`;
-      if (company.sector) text += ` (${company.sector})`;
-      if (company.description) text += `: ${company.description}`;
-      if (company.notableFact) text += ` — ${company.notableFact}`;
-      addClaim(text);
-    }
-  }
-  // Company count
-  if (profile.ecosystem?.techCompanies?.count) {
-    const note = profile.ecosystem.techCompanies.countNote || '';
-    addClaim(`${cityName}: ${profile.ecosystem.techCompanies.count}+ tech companies${note ? ` (${note})` : ''}`);
-  }
-
-  // ═══════════════════════════════════════════════════════════════════════════
-  // ECOSYSTEM: DOMAINS
-  // ═══════════════════════════════════════════════════════════════════════════
-  if (profile.ecosystem?.domains?.value) {
-    for (const domain of profile.ecosystem.domains.value) {
-      if (domain.name && domain.detail) {
-        addClaim(`${cityName} domain: ${domain.name} — ${domain.detail}`);
-      }
-    }
-  }
-
-  // ═══════════════════════════════════════════════════════════════════════════
-  // ECOSYSTEM: COWORKING
-  // ═══════════════════════════════════════════════════════════════════════════
-  if (profile.ecosystem?.coworking?.spaces) {
-    for (const space of profile.ecosystem.coworking.spaces) {
-      addClaim(`${space.name} (${space.type})`);
-    }
-  }
-  if (profile.ecosystem?.coworking?.totalSpaces) {
-    addClaim(`${profile.ecosystem.coworking.totalSpaces}+ coworking spaces in ${cityName}`);
-  }
-
-  // ═══════════════════════════════════════════════════════════════════════════
-  // ECOSYSTEM: STUDENT ORGS & CONTACTS
-  // ═══════════════════════════════════════════════════════════════════════════
-  if (profile.ecosystem?.studentOrgs?.value) {
-    for (const org of profile.ecosystem.studentOrgs.value) {
-      let text = `${org.name}`;
-      if (org.description) text += `: ${org.description}`;
-      if (org.url) text += ` (${org.url})`;
-      addClaim(text);
-    }
-  }
-
-  // ═══════════════════════════════════════════════════════════════════════════
-  // ECOSYSTEM: CLUSTERS & REGIONAL CONTEXT
-  // ═══════════════════════════════════════════════════════════════════════════
-  if (profile.ecosystem?.clusters?.value) {
-    addClaim(`${cityName}: ${profile.ecosystem.clusters.value}`);
-  }
-  if (profile.ecosystem?.clusters?.regionalShare) {
-    addClaim(`${cityName}: ${profile.ecosystem.clusters.regionalShare}`);
-  }
-  if (profile.ecosystem?.clusters?.nearbyHub) {
-    addClaim(`${cityName} nearby hub: ${profile.ecosystem.clusters.nearbyHub}`);
-  }
-  if (profile.ecosystem?.clusters?.techClusterName) {
-    addClaim(`Tech cluster: ${profile.ecosystem.clusters.techClusterName}`);
-  }
-
-  // ═══════════════════════════════════════════════════════════════════════════
-  // INFRASTRUCTURE: AIRPORT
-  // ═══════════════════════════════════════════════════════════════════════════
-  if (profile.infrastructure?.airport) {
-    const airport = profile.infrastructure.airport;
-    const iata = airport.iataCode || airport.iata || '';
-    if (airport.name && airport.distanceKm) {
-      const iataStr = iata ? ` (${iata})` : '';
-      addClaim(`${airport.name}${iataStr}, ${airport.distanceKm}km from ${cityName}`);
-    } else if (airport.name && airport.driveTime) {
-      addClaim(`${cityName} airport access via ${airport.name}, ${airport.driveTime}`);
-    }
-  }
-
-  // ═══════════════════════════════════════════════════════════════════════════
-  // INFRASTRUCTURE: COMMUTE TIMES
-  // ═══════════════════════════════════════════════════════════════════════════
-  if (profile.infrastructure?.commuteTimes?.routes) {
-    for (const route of profile.infrastructure.commuteTimes.routes) {
-      const toCity = route.to.charAt(0).toUpperCase() + route.to.slice(1);
-      addClaim(`${cityName} to ${toCity}: ${route.time} by ${route.mode}`);
-    }
-  }
-
-  // ═══════════════════════════════════════════════════════════════════════════
-  // INFRASTRUCTURE: CONNECTIVITY
-  // ═══════════════════════════════════════════════════════════════════════════
-  if (profile.infrastructure?.connectivity) {
-    const conn = profile.infrastructure.connectivity;
-    if (conn.fiberPenetration) {
-      addClaim(`${cityName} fiber penetration: ${conn.fiberPenetration}%`);
-    }
-    if (conn.avgDownloadMbps) {
-      addClaim(`${cityName} average download: ${conn.avgDownloadMbps} Mbps`);
-    }
-    if (conn.latencyFrankfurt) {
-      addClaim(`${cityName} latency to Frankfurt: ${conn.latencyFrankfurt}ms`);
-    }
-  }
-
-  // ═══════════════════════════════════════════════════════════════════════════
-  // UNIVERSITIES & RESEARCH
-  // ═══════════════════════════════════════════════════════════════════════════
-  if (profile.universityDetail?.institutions) {
-    for (const inst of profile.universityDetail.institutions) {
-      if (inst.type === 'university') {
-        const parent = inst.parent ? ` — ${inst.parent}` : '';
-        addClaim(`${inst.name}${parent}`);
-        // Also add programs if available
-        if (inst.programs?.length) {
-          addClaim(`${inst.name} programs: ${inst.programs.join(', ')}`);
-        }
-      }
-    }
-  }
-
-  // Research centers
-  if (profile.universityDetail?.institutions) {
-    for (const inst of profile.universityDetail.institutions) {
-      if (inst.type === 'research' && inst.focus) {
-        const focusText = inst.focus.join(', ');
-        addClaim(`${inst.name}: ${focusText}`);
-      }
-    }
-  }
-
-  // Talent profile narrative
-  if (profile.universityDetail?.talentProfile?.value) {
-    addClaim(`${cityName} talent: ${profile.universityDetail.talentProfile.value}`);
-  }
-
-  // ═══════════════════════════════════════════════════════════════════════════
-  // CULTURE: CLIMATE
-  // ═══════════════════════════════════════════════════════════════════════════
-  if (profile.culture?.climate) {
-    const climate = profile.culture.climate;
-    if (climate.sunshineHours && climate.type) {
-      addClaim(`${cityName}: ~${climate.sunshineHours} sunshine hours/year, ${climate.type} climate`);
-    }
-    if (climate.avgTempSummer != null && climate.avgTempWinter != null) {
-      addClaim(`${cityName} temperatures: ${climate.avgTempWinter}°C winter avg, ${climate.avgTempSummer}°C summer avg`);
-    }
-    if (climate.rainDays) {
-      addClaim(`${cityName}: ~${climate.rainDays} rain days/year`);
-    }
-    if (climate.seaInfluence) {
-      addClaim(`${cityName} climate influence: ${climate.seaInfluence}`);
-    }
-    if (climate.bestMonths?.length) {
-      addClaim(`${cityName} best months: ${climate.bestMonths.join(', ')}`);
-    }
-  }
-
-  // ═══════════════════════════════════════════════════════════════════════════
-  // CULTURE: QUALITY OF LIFE
-  // ═══════════════════════════════════════════════════════════════════════════
-  if (profile.culture?.qualityOfLife) {
-    const qol = profile.culture.qualityOfLife;
-    if (qol.walkability) {
-      addClaim(`${cityName} walkability: ${qol.walkability}`);
-    }
-    if (qol.healthcare) {
-      addClaim(`${cityName} healthcare: ${qol.healthcare}`);
-    }
-    if (qol.culture) {
-      addClaim(`${cityName} culture: ${qol.culture}`);
-    }
-  }
-
-  // ═══════════════════════════════════════════════════════════════════════════
-  // CULTURE: RETENTION
-  // ═══════════════════════════════════════════════════════════════════════════
-  if (profile.culture?.retention) {
-    const ret = profile.culture.retention;
-    if (ret.narrative) {
-      addClaim(`${cityName}: ${ret.narrative}`);
-    }
-    if (ret.strengths?.length) {
-      addClaim(`${cityName} strengths: ${ret.strengths.join(', ')}`);
-    }
-    if (ret.risks?.length) {
-      addClaim(`${cityName} risks: ${ret.risks.join(', ')}`);
-    }
-  }
-
-  // ═══════════════════════════════════════════════════════════════════════════
-  // MASTER.JSON METRICS — Detailed claims for fact-checking
-  // ═══════════════════════════════════════════════════════════════════════════
-  if (cityData) {
-    // ─── COST METRICS (EXTERNALLY VERIFIABLE) ───
-    // Office Rent: Good-quality below-prime office space
-    if (cityData.costs?.officeRent?.min || cityData.costs?.officeRent?.max) {
-      const min = cityData.costs.officeRent.min;
-      const max = cityData.costs.officeRent.max;
-      if (min && max) {
-        addClaim(`${cityName} office rent: \u20ac${min}-${max}/m\u00b2/month (good-quality, below-prime office space)`);
-      } else if (min) {
-        addClaim(`${cityName} office rent: from \u20ac${min}/m\u00b2/month (good-quality, below-prime office space)`);
-      }
-    }
-    
-    // Residential Rent: 1-bedroom ~50 m², city center
-    if (cityData.costs?.residentialRent?.min || cityData.costs?.residentialRent?.max) {
-      const min = cityData.costs.residentialRent.min;
-      const max = cityData.costs.residentialRent.max;
-      if (min && max) {
-        addClaim(`${cityName} residential rent: \u20ac${min}-${max}/month (1-bedroom ~50 m\u00b2, city center)`);
-      } else if (min) {
-        addClaim(`${cityName} residential rent: from \u20ac${min}/month (1-bedroom ~50 m\u00b2, city center)`);
-      }
-    }
-    
-    // COL+Rent Index: externally verifiable comparative cost index (plus-rent variant)
-    if (cityData.costs?.colIndex?.value) {
-      addClaim(`${cityName} Cost of Living Plus Rent Index: ${cityData.costs.colIndex.value} (NYC=100, includes domestic rents; distinct from excl-rent index)`);
-    }
-    
-    // ─── TALENT & SALARY METRICS (METHODOLOGY CHECKS) ───
-    
-    const officialStem = cityData.talent?.graduates?.officialStem?.value;
-    const techStemPlus = cityData.talent?.graduates?.digitalStemPlus?.value;
-    const coreICT = cityData.talent?.graduates?.coreICT?.value;
-    
-    if (officialStem) {
-      addClaim(`${cityName} Official STEM graduates (CNAEF 05+06+07): ${officialStem}/year`, true);
-    }
-    if (techStemPlus) {
-      addClaim(`${cityName} Tech STEM+ graduates: ${techStemPlus}/year (internal benchmark estimate)`, true);
-    }
-    if (coreICT && officialStem) {
-      const ictPct = ((coreICT / officialStem) * 100).toFixed(1);
-      addClaim(`${cityName} Core ICT graduates (CNAEF 481+523): ${coreICT}/year (${ictPct}% of Official STEM)`, true);
-    } else if (coreICT) {
-      addClaim(`${cityName} Core ICT graduates (CNAEF 481+523): ${coreICT}/year`, true);
-    }
-    
-    // Salary Index
-    if (cityData.costs?.salaryIndex?.value) {
-      addClaim(`${cityName} Salary Index: ${cityData.costs.salaryIndex.value} (Lisbon=100)`, true);
-    }
-  }
+  addCityMetaClaims(addClaim, profile, cityName);
+  addCityTechCompanyClaims(addClaim, profile, cityName);
+  addCityDomainClaims(addClaim, profile, cityName);
+  addCityCoworkingClaims(addClaim, profile, cityName);
+  addCityStudentOrgClaims(addClaim, profile);
+  addCityClusterClaims(addClaim, profile, cityName);
+  addCityInfrastructureClaims(addClaim, profile, cityName);
+  addCityUniversityClaims(addClaim, profile, cityName);
+  addCityCultureClaims(addClaim, profile, cityName);
+  addCityMasterMetricClaims(addClaim, cityData, cityName);
 
   return claims;
 }
@@ -1552,52 +1614,59 @@ async function generateCityClaimsFromSource(cityId) {
  * v2.3 — Dynamic claims from source DBs with unified JSONL output contract.
  * @returns {Promise<string>} The formatted fact-check prompt
  */
-async function generateFactCheckPrompt() {
-  const selected = document.querySelector('input[name="factcheck-category"]:checked');
-  if (!selected) {
-    return '⚠️ Please select a category to fact-check.';
+function getFactcheckCategoryLabel(categoryKey) {
+  const categoryLabels = {
+    macroeconomic: 'Macroeconomic',
+    digitalInfra: 'Digital Infrastructure',
+    officeRent: 'Office Rent',
+    residentialRent: 'Residential Rent',
+    workforce: 'Workforce Talent',
+    strategic: 'Strategic & Tax',
+    taxIncentives: 'Strategic & Tax',
+    universityTalent: 'University Talent',
+    graduates: 'University Talent',
+    cityDatabase: 'City Database (All Metrics)',
+  };
+
+  return categoryLabels[categoryKey] || categoryKey;
+}
+
+function getCategoryTaskContext(categoryKey) {
+  if (categoryKey === 'officeRent') {
+    return `
+
+### CATEGORY CONTEXT — OFFICE RENT (Read First)
+
+- These office-rent values are from a database pipeline based on live market observations and human review.
+- Scope is **practical offices** that real SMEs and operating teams typically rent: **central locations, good-quality non-prime offices, ~60–300 m²**.
+- This is **not a prime-CBD institutional benchmark** (e.g., brokerage prime series used for large corporations).
+- Treat this as a **practical operating benchmark, not a scientific market index**.
+- If direct city-level sources are missing, switch to **reasoning mode**: use nearby-city comparables and market structure, and estimate whether the range is realistic for practical use right now.
+- Use **UNVERIFIABLE only as last resort** when you genuinely have no defensible basis for estimation.
+`;
   }
 
-  const categoryKey = selected.value;
-  let categoryTaskContext = '';
-  const claimsDb = await loadFactcheckClaims();
-  
-  // Get methodology from claims DB
-  const methodology = claimsDb?.verificationMethodology;
-  if (!methodology) {
-    return '⚠️ Could not load verification methodology from claims database.';
+  if (categoryKey === 'residentialRent') {
+    return `
+
+### CATEGORY CONTEXT — RESIDENTIAL RENT (Read First)
+
+- These residential-rent values are from a database pipeline based on live market observations and human review.
+- Scope is **practical 1-bedroom housing** that companies and hires commonly use for relocation planning: **modern 1BR units, central areas, ~40–60 m²**.
+- This is intended for **real hiring/relocation budgeting**, not for luxury or investor-grade segmentation.
+- Treat this as a **practical operating benchmark, not a scientific housing index**.
+- If direct city-level sources are missing, switch to **reasoning mode**: use nearby-city comparables and market structure, and estimate whether the range is realistic for practical use right now.
+- Use **UNVERIFIABLE only as last resort** when you genuinely have no defensible basis for estimation.
+`;
   }
 
-  let verifiableClaims;
-  let categoryLabel;
-  let internalWarning = '';
+  return '';
+}
 
-  // For city profiles, generate claims dynamically from CITY_PROFILES.json
-  if (categoryKey.startsWith('city:')) {
-    const cityId = categoryKey.replace('city:', '');
-    const profile = getCityProfile(cityId);
-    
-    if (!profile) {
-      return `⚠️ City "${cityId}" not found in CITY_PROFILES database.`;
-    }
-    
-    const allClaims = await generateCityClaimsFromSource(cityId);
-    
-    // Separate internal vs external claims
-    const externalClaims = allClaims.filter(c => !c.internal);
-    const internalClaims = allClaims.filter(c => c.internal);
-    
-    // Include ALL claims for verification (external + internal methodology checks)
-    verifiableClaims = allClaims;
-    categoryLabel = `${profile._meta?.cityId?.charAt(0).toUpperCase()}${profile._meta?.cityId?.slice(1)} City Database`;
-    
-    if (verifiableClaims.length === 0) {
-      return `⚠️ No claims could be generated for ${cityId}. Check CITY_PROFILES.json data.`;
-    }
-    
-    // Add internal calculation methodology explanation
-    if (internalClaims.length > 0) {
-      internalWarning = `
+function getInternalMethodologyWarning(internalClaims) {
+  if (internalClaims.length === 0) return '';
+
+  return `
 ---
 
 ## METRIC DEFINITIONS (READ CAREFULLY)
@@ -1623,62 +1692,106 @@ These metrics use our **internal methodology**. You cannot find these exact numb
 
 **For internal calculations:** Mark as SUPPORTED if numbers are **reasonable given the city's profile** (university count, population, COL). Mark as CONTRADICTED if clearly implausible or mathematically inconsistent.
 `;
-    }
-  } else {
-    // For data categories, generate claims dynamically from WEBSITE_CONTENT/MASTER
-    const categoryLabels = {
-      'macroeconomic': 'Macroeconomic',
-      'digitalInfra': 'Digital Infrastructure',
-      'officeRent': 'Office Rent',
-      'residentialRent': 'Residential Rent',
-      'workforce': 'Workforce Talent',
-      'strategic': 'Strategic & Tax',
-      'taxIncentives': 'Strategic & Tax',     // HTML alias
-      'universityTalent': 'University Talent',
-      'graduates': 'University Talent',        // HTML alias
-      'cityDatabase': 'City Database (All Metrics)'
-    };
-    
-    verifiableClaims = generateDataCategoryClaims(categoryKey);
-    categoryLabel = categoryLabels[categoryKey] || categoryKey;
+}
 
-    if (categoryKey === 'officeRent') {
-      categoryTaskContext = `
+async function buildCityFactcheckContext(categoryKey) {
+  const cityId = categoryKey.replace('city:', '');
+  const profile = getCityProfile(cityId);
 
-### CATEGORY CONTEXT — OFFICE RENT (Read First)
-
-- These office-rent values are from a database pipeline based on live market observations and human review.
-- Scope is **practical offices** that real SMEs and operating teams typically rent: **central locations, good-quality non-prime offices, ~60–300 m²**.
-- This is **not a prime-CBD institutional benchmark** (e.g., brokerage prime series used for large corporations).
-- Treat this as a **practical operating benchmark, not a scientific market index**.
-- If direct city-level sources are missing, switch to **reasoning mode**: use nearby-city comparables and market structure, and estimate whether the range is realistic for practical use right now.
-- Use **UNVERIFIABLE only as last resort** when you genuinely have no defensible basis for estimation.
-`;
-    }
-
-    if (categoryKey === 'residentialRent') {
-      categoryTaskContext = `
-
-### CATEGORY CONTEXT — RESIDENTIAL RENT (Read First)
-
-- These residential-rent values are from a database pipeline based on live market observations and human review.
-- Scope is **practical 1-bedroom housing** that companies and hires commonly use for relocation planning: **modern 1BR units, central areas, ~40–60 m²**.
-- This is intended for **real hiring/relocation budgeting**, not for luxury or investor-grade segmentation.
-- Treat this as a **practical operating benchmark, not a scientific housing index**.
-- If direct city-level sources are missing, switch to **reasoning mode**: use nearby-city comparables and market structure, and estimate whether the range is realistic for practical use right now.
-- Use **UNVERIFIABLE only as last resort** when you genuinely have no defensible basis for estimation.
-`;
-    }
-    
-    if (verifiableClaims.length === 0) {
-      return `⚠️ No claims could be generated for "${categoryKey}". Check WEBSITE_CONTENT.json or MASTER.json data.`;
-    }
-    
-    // cityDatabase uses a specialized prompt builder
-    if (categoryKey === 'cityDatabase') {
-      return buildCityDatabasePrompt(verifiableClaims, methodology);
-    }
+  if (!profile) {
+    return { error: `⚠️ City "${cityId}" not found in CITY_PROFILES database.` };
   }
+
+  const allClaims = await generateCityClaimsFromSource(cityId);
+  if (allClaims.length === 0) {
+    return { error: `⚠️ No claims could be generated for ${cityId}. Check CITY_PROFILES.json data.` };
+  }
+
+  const internalClaims = allClaims.filter((claim) => claim.internal);
+  const cityLabelBase = profile._meta?.cityId || cityId;
+
+  return {
+    categoryLabel: `${cityLabelBase.charAt(0).toUpperCase()}${cityLabelBase.slice(1)} City Database`,
+    verifiableClaims: allClaims,
+    internalWarning: getInternalMethodologyWarning(internalClaims),
+    categoryTaskContext: '',
+  };
+}
+
+function buildDataFactcheckContext(categoryKey, methodology) {
+  const verifiableClaims = generateDataCategoryClaims(categoryKey);
+  if (verifiableClaims.length === 0) {
+    return { error: `⚠️ No claims could be generated for "${categoryKey}". Check WEBSITE_CONTENT.json or MASTER.json data.` };
+  }
+
+  if (categoryKey === 'cityDatabase') {
+    return { specialPrompt: buildCityDatabasePrompt(verifiableClaims, methodology) };
+  }
+
+  return {
+    categoryLabel: getFactcheckCategoryLabel(categoryKey),
+    verifiableClaims,
+    internalWarning: '',
+    categoryTaskContext: getCategoryTaskContext(categoryKey),
+  };
+}
+
+function buildInternalClaimsSection(internalClaimsOnly) {
+  if (internalClaimsOnly.length === 0) return '';
+
+  const internalClaimsTable = internalClaimsOnly
+    .map((claim) => `| ${claim.id} | ${claim.claim} |`)
+    .join('\n');
+
+  return `
+
+---
+
+## INTERNAL METHODOLOGY CLAIMS (Verify if REASONABLE)
+
+These use our internal calculations. Check if the numbers **make sense** given the city's context.
+
+| ID | Claim |
+|----|-------|
+${internalClaimsTable}`;
+}
+
+async function generateFactCheckPrompt() {
+  const selected = document.querySelector('input[name="factcheck-category"]:checked');
+  if (!selected) {
+    return '⚠️ Please select a category to fact-check.';
+  }
+
+  const categoryKey = selected.value;
+  const claimsDb = await loadFactcheckClaims();
+  
+  // Get methodology from claims DB
+  const methodology = claimsDb?.verificationMethodology;
+  if (!methodology) {
+    return '⚠️ Could not load verification methodology from claims database.';
+  }
+
+  const context = categoryKey.startsWith('city:')
+    ? await buildCityFactcheckContext(categoryKey)
+    : buildDataFactcheckContext(categoryKey, methodology);
+
+  if (context.error) {
+    return context.error;
+  }
+
+  if (context.specialPrompt) {
+    return context.specialPrompt;
+  }
+
+  const {
+    verifiableClaims,
+    categoryLabel,
+    internalWarning,
+    categoryTaskContext,
+  } = context;
+  const categoryLabelText = typeof categoryLabel === 'string'
+    ? categoryLabel
+    : String(categoryLabel ?? categoryKey);
 
   // Build claims list — separate internal and external for city profiles
   const externalClaimsOnly = verifiableClaims.filter(c => !c.internal);
@@ -1694,21 +1807,7 @@ These metrics use our **internal methodology**. You cannot find these exact numb
     }).join('\n');
   }
   
-  // Add internal claims section if present
-  let internalClaimsSection = '';
-  if (internalClaimsOnly.length > 0) {
-    internalClaimsSection = `
-
----
-
-## INTERNAL METHODOLOGY CLAIMS (Verify if REASONABLE)
-
-These use our internal calculations. Check if the numbers **make sense** given the city's context.
-
-| ID | Claim |
-|----|-------|
-${internalClaimsOnly.map(c => `| ${c.id} | ${c.claim} |`).join('\n')}`;
-  }
+  const internalClaimsSection = buildInternalClaimsSection(internalClaimsOnly);
 
   // Status codes
   const statusCodes = methodology.statusCodes.map(s => 
@@ -1716,7 +1815,7 @@ ${internalClaimsOnly.map(c => `| ${c.id} | ${c.claim} |`).join('\n')}`;
   ).join('\n');
 
   const prompt = `# FACT-CHECK VERIFICATION PROMPT — Experimental v3
-## Category: ${categoryLabel}
+## Category: ${categoryLabelText}
 > **Claims to verify:** ${verifiableClaims.length} (${externalClaimsOnly.length} external + ${internalClaimsOnly.length} methodology)
 
 ---
@@ -1794,6 +1893,35 @@ Begin verification.`;
 }
 
 /**
+ * Validate simulator prerequisites before prompt generation.
+ * Throws with actionable error messages so users never get a silent failure.
+ */
+function assertSimulatorReady() {
+  const store = getStore();
+  if (!store?.master?.cities || Object.keys(store.master.cities).length === 0) {
+    throw new Error('City database not loaded yet. Please wait 1-2 seconds and try again.');
+  }
+  if (!store?.compensation?.baseBands) {
+    throw new Error('Compensation database not loaded. Please refresh and try again.');
+  }
+}
+
+function selectTextContent(element) {
+  const selection = globalThis.getSelection();
+  if (!selection) return false;
+
+  const range = document.createRange();
+  range.selectNodeContents(element);
+  selection.removeAllRanges();
+  selection.addRange(range);
+  return true;
+}
+
+function clearTextSelection() {
+  globalThis.getSelection()?.removeAllRanges();
+}
+
+/**
  * Initialize the AI Simulator form and buttons.
  */
 export function initSimulator() {
@@ -1825,7 +1953,7 @@ export function initSimulator() {
       if (!field) return;
 
       field.addEventListener('input', () => {
-        field.value = field.value.replace(/[^\d.,\s€]/g, '');
+        field.value = field.value.replaceAll(/[^\d.,\s€]/g, '');
       });
 
       field.addEventListener('blur', () => {
@@ -1837,7 +1965,7 @@ export function initSimulator() {
     const teamSizeField = document.getElementById('sim-team-size');
     if (teamSizeField) {
       teamSizeField.addEventListener('input', () => {
-        teamSizeField.value = teamSizeField.value.replace(/[^\d\-–\speople]/gi, '');
+        teamSizeField.value = teamSizeField.value.replaceAll(/[^\d\s\-–a-z]/gi, '');
       });
 
       teamSizeField.addEventListener('blur', () => {
@@ -1874,7 +2002,7 @@ export function initSimulator() {
       : [baseRole];
 
     roleGroup.innerHTML = '';
-    allRoles.forEach((roleLabel, index) => {
+    allRoles.forEach((roleLabel) => {
       const label = document.createElement('label');
       label.className = 'checkbox-label';
 
@@ -1889,20 +2017,6 @@ export function initSimulator() {
       label.append(` ${roleLabel}`);
       roleGroup.appendChild(label);
     });
-  }
-
-  /**
-   * Validate simulator prerequisites before prompt generation.
-   * Throws with actionable error messages so users never get a silent failure.
-   */
-  function assertSimulatorReady() {
-    const store = getStore();
-    if (!store?.master?.cities || Object.keys(store.master.cities).length === 0) {
-      throw new Error('City database not loaded yet. Please wait 1-2 seconds and try again.');
-    }
-    if (!store?.compensation?.baseBands) {
-      throw new Error('Compensation database not loaded. Please refresh and try again.');
-    }
   }
 
   function validateRequiredMathInputs() {
@@ -1988,7 +2102,7 @@ export function initSimulator() {
         const step = SPELL_STEPS[i];
         // Re-trigger pop animation
         stepEl.style.animation = 'none';
-        stepEl.offsetHeight;
+        stepEl.getBoundingClientRect();
         stepEl.style.animation = '';
         stepEl.innerHTML = `<i class="fa-solid ${step.icon}" aria-hidden="true"></i> ${step.text}`;
         fillEl.style.width = `${((i + 1) / totalSteps) * 100}%`;
@@ -2040,7 +2154,7 @@ export function initSimulator() {
         aiLinks.forEach((link, i) => {
           setTimeout(() => {
             link.style.animation = 'none';
-            link.offsetHeight; // reflow
+            link.getBoundingClientRect(); // reflow
             link.style.animation = 'ai-link-flash 0.6s ease';
           }, i * 100);
         });
@@ -2050,17 +2164,11 @@ export function initSimulator() {
           copyBtn.innerHTML = originalHTML;
         }, 2500);
       } catch {
-        // Fallback: select pre content
-        const range = document.createRange();
-        range.selectNodeContents(outputEl);
-        const sel = window.getSelection();
-        sel.removeAllRanges();
-        sel.addRange(range);
-        document.execCommand('copy');
-        sel.removeAllRanges();
+        if (!selectTextContent(outputEl)) return;
         copyBtn.classList.add('copied');
-        copyBtn.innerHTML = '<i class="fa-solid fa-check" aria-hidden="true"></i> Copied!';
+        copyBtn.innerHTML = '<i class="fa-solid fa-keyboard" aria-hidden="true"></i> Press Ctrl+C';
         setTimeout(() => {
+          clearTextSelection();
           copyBtn.classList.remove('copied');
           copyBtn.innerHTML = originalHTML;
         }, 2500);
@@ -2132,17 +2240,11 @@ function initFactCheckGenerator() {
           copyBtn.innerHTML = originalHTML;
         }, 2500);
       } catch {
-        // Fallback
-        const range = document.createRange();
-        range.selectNodeContents(outputEl);
-        const sel = window.getSelection();
-        sel.removeAllRanges();
-        sel.addRange(range);
-        document.execCommand('copy');
-        sel.removeAllRanges();
+        if (!selectTextContent(outputEl)) return;
         copyBtn.classList.add('copied');
-        copyBtn.innerHTML = '<i class="fa-solid fa-check" aria-hidden="true"></i> Copied!';
+        copyBtn.innerHTML = '<i class="fa-solid fa-keyboard" aria-hidden="true"></i> Press Ctrl+C';
         setTimeout(() => {
+          clearTextSelection();
           copyBtn.classList.remove('copied');
           copyBtn.innerHTML = originalHTML;
         }, 2500);

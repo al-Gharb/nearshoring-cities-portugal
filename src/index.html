@@ -66,7 +66,7 @@
     </div>
 
     <!-- Portugal Map (SVG inline — real NUTS II polygon paths) -->
-    <div class="map-container" role="img" aria-label="Interactive map of Portugal showing featured and secondary tech cities">
+    <div class="map-container" aria-label="Interactive map of Portugal showing featured and secondary tech cities">
       <div class="map-wrapper">
         <div class="portugal-map" id="portugal-map">
           <svg viewBox="0 0 552 842" xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
@@ -1945,7 +1945,7 @@
               <div id="value-matrix" class="section-block">
                 <h3><i class="fa-solid fa-crosshairs" aria-hidden="true"></i> Talent vs Cost Value Matrix</h3>
                 <p>Interactive bubble chart: X-axis = Cost of Living Index, Y-axis = Tech STEM+ graduates/year, bubble size = ICT graduate share. Click any city for details.</p>
-                <div id="d3-bubble-chart" class="d3-chart-container" data-db="master" role="img" aria-label="Interactive scatter plot comparing talent output versus cost of living for Portuguese cities">
+                <div id="d3-bubble-chart" class="d3-chart-container" data-db="master" aria-label="Interactive scatter plot comparing talent output versus cost of living for Portuguese cities">
                   <!-- D3.js renders the chart here -->
                 </div>
               </div>
@@ -2582,8 +2582,8 @@
             </div>
 
             <div class="simulator-field simulator-field-full">
-              <label id="sim-role-type-label"><i class="fa-solid fa-user-tag" aria-hidden="true"></i> Role Type</label>
-              <div id="sim-role-type-group" class="checkbox-grid" role="group" aria-labelledby="sim-role-type-label">
+              <p id="sim-role-type-label" class="simulator-group-label"><i class="fa-solid fa-user-tag" aria-hidden="true"></i> Role Type</p>
+              <div id="sim-role-type-group" class="checkbox-grid" aria-labelledby="sim-role-type-label">
                 <!-- Dynamically populated from salary table roles (WEBSITE_CONTENT.json) -->
               </div>
               <span class="simulator-hint">Affects talent pool relevance and salary estimates</span>

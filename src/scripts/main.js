@@ -94,7 +94,7 @@ function initScrollIndicator() {
  * Handle hash-based navigation (open relevant details).
  */
 function handleInitialHash() {
-  const hash = window.location.hash;
+  const hash = globalThis.location.hash;
   if (!hash) return;
 
   const target = document.querySelector(hash);
@@ -130,7 +130,7 @@ function initRegionTooltip() {
 
   regions.forEach(region => {
     region.addEventListener('mouseenter', () => {
-      const regionName = region.getAttribute('data-region');
+      const regionName = region.dataset.region;
       if (!regionName) return;
 
       tooltipTimeout = setTimeout(() => {
@@ -174,6 +174,13 @@ function initRegionTooltip() {
   });
 }
 
+function triggerBlinkAttention(target) {
+  setTimeout(() => {
+    target.classList.add('blink-attention');
+    setTimeout(() => target.classList.remove('blink-attention'), 850);
+  }, 300);
+}
+
 /* ═══════════════════════════════════════════════════════════════════════════
  * STAR LINKS — Methodology navigation with blink animation
  * ═══════════════════════════════════════════════════════════════════════════ */
@@ -195,17 +202,11 @@ function initStarLinks() {
         // Small delay to let details element open before scrolling
         setTimeout(() => {
           target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          // Add blink animation
-          setTimeout(() => {
-            target.classList.add('blink-attention');
-            setTimeout(() => target.classList.remove('blink-attention'), 850);
-          }, 300);
+          triggerBlinkAttention(target);
         }, 50);
-      } else {
+      } else if (sourcesDetails) {
         // Fallback: scroll to sources section if specific target not found
-        if (sourcesDetails) {
-          sourcesDetails.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        sourcesDetails.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }
   });
@@ -286,14 +287,18 @@ function initArchiveToggle() {
     history.pushState(null, null, ' ');
   };
 
-  window.toggleVerificationArchive = (e) => {
+  globalThis.toggleVerificationArchive = (e) => {
     if (e) e.preventDefault();
     const isOpen = archive.classList.contains('reveal');
-    if (!isOpen) { setBadge('Opening'); openArchive(); }
-    else { closeArchive(); }
+    if (isOpen) {
+      closeArchive();
+    } else {
+      setBadge('Opening');
+      openArchive();
+    }
   };
 
-  archiveToggle.addEventListener('click', window.toggleVerificationArchive);
+  archiveToggle.addEventListener('click', globalThis.toggleVerificationArchive);
 
   // Intercept any click on [href="#verification-archive"] (e.g. TOC link) to auto-open
   document.addEventListener('click', (e) => {
@@ -301,12 +306,16 @@ function initArchiveToggle() {
     if (!link) return;
     e.preventDefault();
     const isOpen = archive.classList.contains('reveal');
-    if (!isOpen) { setBadge('Opening'); openArchive(); }
-    else { archive.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    if (isOpen) {
+      archive.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      setBadge('Opening');
+      openArchive();
+    }
   });
 
   // Open archive if URL hash targets it
-  if (window.location.hash === '#verification-archive') {
+  if (globalThis.location.hash === '#verification-archive') {
     openArchive(false);
   }
 
@@ -337,8 +346,8 @@ function reorderSectionFlow() {
   const sourcesMethodology = document.getElementById('sources-methodology');
 
   if (simulator && cityDatabase && sourcesMethodology) {
-    simulator.insertAdjacentElement('afterend', cityDatabase);
-    cityDatabase.insertAdjacentElement('afterend', sourcesMethodology);
+    simulator.after(cityDatabase);
+    cityDatabase.after(sourcesMethodology);
   }
 
   const tocFoundationRow = document.querySelector('.toc-section-foundation');
@@ -349,7 +358,7 @@ function reorderSectionFlow() {
     tocFoundationRow.parentElement &&
     tocFoundationRow.parentElement === tocSimulatorRow.parentElement
   ) {
-    tocSimulatorRow.insertAdjacentElement('afterend', tocFoundationRow);
+    tocSimulatorRow.after(tocFoundationRow);
   }
 }
 
@@ -410,17 +419,10 @@ async function init() {
   }
 }
 
-// Boot
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', init);
-} else {
-  init();
-}
-
 // Expose for debugging (dev only)
 if (import.meta.env.DEV) {
-  window.generateMasterPrompt = generateMasterPrompt;
-  window.getStore = getStore;
+  globalThis.generateMasterPrompt = generateMasterPrompt;
+  globalThis.getStore = getStore;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -450,11 +452,81 @@ function initDebugToggle() {
   });
 }
 
-// Init debug toggle on load
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initDebugToggle);
-} else {
+function bootstrap() {
   initDebugToggle();
+  void init();
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', bootstrap, { once: true });
+} else {
+  bootstrap();
+}
+
+function isIconOnlySourceAnchor(anchor, visibleLabel) {
+  return Boolean(anchor.querySelector('i'))
+    && (!visibleLabel || visibleLabel.length <= 2 || /^\W+$/.test(visibleLabel));
+}
+
+function getInternalSourceLabel(href) {
+  const target = document.querySelector(href);
+  if (!target) return '';
+  const heading = target.querySelector('h4')?.textContent?.trim();
+  const summary = target.querySelector('summary')?.textContent?.trim();
+  return heading || summary || '';
+}
+
+function getFallbackSourceLabel(anchor, href) {
+  const titleLabel = anchor.getAttribute('title') || '';
+  if (titleLabel) return titleLabel;
+
+  try {
+    return new URL(anchor.href).hostname || anchor.href;
+  } catch {
+    return anchor.href || href || 'source';
+  }
+}
+
+function normalizeSourceLabel(label) {
+  const compact = label.replaceAll(/\s+/g, ' ').trim();
+  return compact.replace(/^src:\s*/i, '');
+}
+
+function resolveSourceLabel(anchor, href, isInternal) {
+  const visibleLabel = (anchor.textContent || '').trim();
+  const iconOnly = isIconOnlySourceAnchor(anchor, visibleLabel);
+
+  if (visibleLabel && !iconOnly) {
+    return { label: normalizeSourceLabel(visibleLabel), iconOnly };
+  }
+
+  const internalLabel = isInternal ? getInternalSourceLabel(href) : '';
+  const fallbackLabel = internalLabel || getFallbackSourceLabel(anchor, href);
+  return { label: normalizeSourceLabel(fallbackLabel), iconOnly };
+}
+
+function getSourceIconHtml(anchor) {
+  const iconElement = anchor.querySelector('i');
+  if (iconElement) {
+    return iconElement.outerHTML;
+  }
+
+  if (anchor.classList.contains('source-link-external')) {
+    return '<i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>';
+  }
+
+  return '<i class="fa-solid fa-circle-info" aria-hidden="true"></i>';
+}
+
+function applySourceIcon(anchor, iconOnly, iconHtml) {
+  if (iconOnly) {
+    anchor.innerHTML = iconHtml;
+    return;
+  }
+
+  if (!anchor.querySelector('i')) {
+    anchor.insertAdjacentHTML('beforeend', ` ${iconHtml}`);
+  }
 }
 
 /**
@@ -465,66 +537,19 @@ if (document.readyState === 'loading') {
  */
 function initUnifiedSourceAnchors() {
   const anchors = document.querySelectorAll('a.source-link, a.source-link-external');
-  anchors.forEach(a => {
-    if (a.dataset.unified === 'true') return; // already processed
+  anchors.forEach((anchor) => {
+    if (anchor.dataset.unified === 'true') return; // already processed
 
-    const href = a.getAttribute('href') || '';
+    const href = anchor.getAttribute('href') || '';
     const isInternal = href.startsWith('#src-');
+    const { label, iconOnly } = resolveSourceLabel(anchor, href, isInternal);
+    const iconHtml = getSourceIconHtml(anchor);
 
-    // Extract visible label text (if present)
-    let label = (a.textContent || '').trim();
+    applySourceIcon(anchor, iconOnly, iconHtml);
 
-    // Detect icon-only anchors or very short symbols
-    const hasIconOnly = a.querySelector('i') && (!label || label.length <= 2 || /^\W+$/.test(label));
-
-    if (!label || hasIconOnly) {
-      if (isInternal) {
-        // Try to read the corresponding source-entry title in the sources list
-        const target = document.querySelector(href);
-        if (target) {
-          const h = target.querySelector('h4');
-          const s = target.querySelector('summary');
-          label = (h && h.textContent) ? h.textContent.trim() : (s && s.textContent) ? s.textContent.trim() : '';
-        }
-      }
-
-      // Fallbacks for external or still-empty labels
-      if (!label) {
-        label = a.getAttribute('title') || '';
-      }
-      if (!label) {
-        try { label = new URL(a.href).hostname || a.href; } catch(e) { label = a.href || href || 'source'; }
-      }
-    }
-
-    // Clean label and avoid duplicate prefix
-    label = label.replace(/\s+/g, ' ').trim();
-    if (/^src:\s*/i.test(label)) label = label.replace(/^src:\s*/i, '');
-
-    // Choose icon: prefer existing icon if present, else arrow for external, else info
-    let iconEl = a.querySelector('i');
-    let iconHtml;
-    if (iconEl) {
-      iconHtml = iconEl.outerHTML;
-    } else if (a.classList.contains('source-link-external')) {
-      iconHtml = '<i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>';
-    } else {
-      iconHtml = '<i class="fa-solid fa-circle-info" aria-hidden="true"></i>';
-    }
-
-    // If the anchor is icon-only, render it as an icon and set a11y labels.
-    // Otherwise preserve existing visible text and ensure an icon is present.
-    if (hasIconOnly) {
-      a.innerHTML = iconHtml;
-    } else {
-      // If there's no icon, append one to the existing content.
-      if (!a.querySelector('i')) {
-        a.insertAdjacentHTML('beforeend', ' ' + iconHtml);
-      }
-    }
-    a.setAttribute('aria-label', `Source: ${label}`);
-    a.setAttribute('title', label);
-    a.dataset.unified = 'true';
+    anchor.setAttribute('aria-label', `Source: ${label}`);
+    anchor.setAttribute('title', label);
+    anchor.dataset.unified = 'true';
   });
 }
 

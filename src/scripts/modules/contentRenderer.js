@@ -15,8 +15,71 @@ import { buildConfidenceBarHTML } from '../utils/confidenceBar.js';
  * Format a number with locale separators (e.g., 36840 → "36,840").
  */
 function fmt(n) {
-  if (n == null || isNaN(n)) return '—';
-  return Number(n).toLocaleString('en-US');
+  if (n == null) return '—';
+  const parsed = Number(n);
+  if (Number.isNaN(parsed)) return '—';
+  return parsed.toLocaleString('en-US');
+}
+
+const PROMPT_CORE_FIELDS = new Set([
+  'stem-grads',
+  'official-stem',
+  'ict-grads',
+  'salary-index',
+  'col-index',
+  'office-rent',
+  'residential-rent',
+]);
+
+function setDbTag(element, db) {
+  element.dataset.db = db;
+}
+
+function setTextAndDb(element, text, db = 'content') {
+  if (!element) return;
+  element.textContent = text;
+  setDbTag(element, db);
+}
+
+function setHtmlAndDb(element, html, db = 'content') {
+  if (!element) return;
+  element.innerHTML = html;
+  setDbTag(element, db);
+}
+
+function setHtmlAndDbById(id, html, db = 'content') {
+  const element = document.getElementById(id);
+  if (!element) return;
+  setHtmlAndDb(element, html, db);
+}
+
+function setStatCardContent(container, value, label, db = 'content') {
+  if (!container) return;
+
+  const valueElement = container.querySelector('.stat-value');
+  const labelElement = container.querySelector('.stat-label');
+
+  setTextAndDb(valueElement, value, db);
+  setTextAndDb(labelElement, label, db);
+}
+
+function formatMacroValue(value, formatType) {
+  if (value === null || value === undefined) return 'N/A';
+
+  if (formatType === 'percent') return `${Number(value).toFixed(1)}%`;
+  if (formatType === 'currency') return `€${fmt(Math.round(value))}`;
+  if (formatType === 'currency-decimal') return `€${Number(value).toFixed(1)}`;
+  if (formatType === 'integer') return fmt(Math.round(value));
+
+  return String(value);
+}
+
+function fmtCountryValue(value, year, formatType) {
+  const formatted = formatMacroValue(value, formatType);
+  return `
+      <span class="macro-country-value">${formatted}</span>
+      <div class="macro-country-year">(${year || 'n/a'})</div>
+    `;
 }
 
 /**
@@ -47,6 +110,49 @@ function getFieldMeta(city, field) {
   }
 }
 
+function getDbFieldValue(city, field) {
+  const grads = city.talent?.graduates || {};
+  const costs = city.costs || {};
+
+  switch (field) {
+    case 'stem-grads':
+      return grads.digitalStemPlus?.value ? fmt(grads.digitalStemPlus.value) : '—';
+    case 'official-stem':
+      return grads.officialStem?.value ? fmt(grads.officialStem.value) : '—';
+    case 'ict-grads':
+      return grads.coreICT?.value ? fmt(grads.coreICT.value) : '—';
+    case 'ict-pct':
+      return grads.coreICT?.pctOfOfficialStem?.value
+        ? `${grads.coreICT.pctOfOfficialStem.value}%`
+        : '—';
+    case 'salary-index':
+      return costs.salaryIndex?.value ?? '—';
+    case 'col-index':
+      return costs.colIndex?.value ?? '—';
+    case 'office-rent':
+      return costs.officeRent
+        ? `€${costs.officeRent.min}–€${costs.officeRent.max}`
+        : '—';
+    case 'residential-rent':
+      return costs.residentialRent
+        ? `€${costs.residentialRent.min}–€${costs.residentialRent.max}`
+        : '—';
+    default:
+      return '—';
+  }
+}
+
+function applyProvenance(span, meta) {
+  if (!meta?.provider) return;
+
+  span.dataset.source = meta.provider;
+  span.dataset.sourceType = meta.type || 'data';
+  if (meta.methodology) {
+    span.dataset.methodology = meta.methodology;
+  }
+  span.classList.add('has-provenance');
+}
+
 /**
  * Populate all .db-value spans that have [data-city][data-field].
  * Reads from MASTER.json cities via getCity().
@@ -61,63 +167,14 @@ function populateDbValues() {
     const city = getCity(cityId);
     if (!city) return;
 
-    let value = '—';
-    const grads = city.talent?.graduates || {};
-    const costs = city.costs || {};
+    span.textContent = getDbFieldValue(city, field);
+    setDbTag(span, 'master');
 
-    switch (field) {
-      case 'stem-grads':
-        value = grads.digitalStemPlus?.value ? fmt(grads.digitalStemPlus.value) : '—';
-        break;
-      case 'official-stem':
-        value = grads.officialStem?.value ? fmt(grads.officialStem.value) : '—';
-        break;
-      case 'ict-grads':
-        value = grads.coreICT?.value ? fmt(grads.coreICT.value) : '—';
-        break;
-      case 'ict-pct':
-        value = grads.coreICT?.pctOfOfficialStem?.value
-          ? `${grads.coreICT.pctOfOfficialStem.value}%` : '—';
-        break;
-      case 'salary-index':
-        value = costs.salaryIndex?.value ?? '—';
-        break;
-      case 'col-index':
-        value = costs.colIndex?.value ?? '—';
-        break;
-      case 'office-rent':
-        value = costs.officeRent
-          ? `€${costs.officeRent.min}–€${costs.officeRent.max}` : '—';
-        break;
-      case 'residential-rent':
-        value = costs.residentialRent
-          ? `€${costs.residentialRent.min}–€${costs.residentialRent.max}` : '—';
-        break;
-      default:
-        break;
+    if (PROMPT_CORE_FIELDS.has(field)) {
+      span.dataset.promptCore = 'true';
     }
 
-    span.textContent = value;
-
-    // Mark database source for debug highlighting
-    span.setAttribute('data-db', 'master');
-
-    // Mark fields that feed into fact-check prompt generators
-    const promptCoreFields = ['stem-grads', 'official-stem', 'ict-grads', 'salary-index', 'col-index', 'office-rent', 'residential-rent'];
-    if (promptCoreFields.includes(field)) {
-      span.setAttribute('data-prompt-core', 'true');
-    }
-
-    // Attach provenance data for tooltip
-    const meta = getFieldMeta(city, field);
-    if (meta?.provider) {
-      span.setAttribute('data-source', meta.provider);
-      span.setAttribute('data-source-type', meta.type || 'data');
-      if (meta.methodology) {
-        span.setAttribute('data-methodology', meta.methodology);
-      }
-      span.classList.add('has-provenance');
-    }
+    applyProvenance(span, getFieldMeta(city, field));
   });
 }
 
@@ -144,29 +201,29 @@ function populateMethodology() {
 
   if (introStem) {
     introStem.textContent = `~${fmt(totalStem)}`;
-    introStem.setAttribute('data-db', 'master');
+    setDbTag(introStem, 'master');
   }
   if (cardStem) {
     cardStem.textContent = `~${fmt(totalStem)}/year (2026 gross est.)`;
-    cardStem.setAttribute('data-db', 'master');
+    setDbTag(cardStem, 'master');
   }
   if (cardIct) {
     const pct = totalStem > 0 ? Math.round((totalICT / totalStem) * 100) : 0;
     cardIct.textContent = `~${fmt(totalICT)}/year (${pct}%)`;
-    cardIct.setAttribute('data-db', 'master');
+    setDbTag(cardIct, 'master');
   }
   if (compCoreIct) {
     compCoreIct.textContent = fmt(totalICT);
-    compCoreIct.setAttribute('data-db', 'master');
+    setDbTag(compCoreIct, 'master');
   }
   if (compCoreIctShare) {
     const pct = totalStem > 0 ? ((totalICT / totalStem) * 100).toFixed(1) : '0.0';
     compCoreIctShare.textContent = `${pct}%`;
-    compCoreIctShare.setAttribute('data-db', 'master');
+    setDbTag(compCoreIctShare, 'master');
   }
   if (totalStemEl) {
     totalStemEl.textContent = `~${fmt(totalStem)}`;
-    totalStemEl.setAttribute('data-db', 'master');
+    setDbTag(totalStemEl, 'master');
   }
 }
 
@@ -181,7 +238,6 @@ export function renderFactCheckCards() {
 
   const store = getStore();
   const profiles = store.profiles?.cities || {};
-  const master = store.master?.cities || {};
   const chartConfig = store.master?.config?.chartConfig || {};
   const cityConfigs = chartConfig.cityConfig || {};
 
@@ -234,11 +290,11 @@ function populateCityTags() {
   if (!containers.length) return;
 
   containers.forEach(container => {
-    const cityId = container.getAttribute('data-city');
+    const cityId = container.dataset.city;
     const profile = getCityProfile(cityId);
     const tags = profile?.ecosystem?.domains?.value || [];
     if (tags.length > 0) {
-      container.setAttribute('data-db', 'profiles');
+      setDbTag(container, 'profiles');
       container.innerHTML = tags.map(tag => `<span class="city-tag" data-db="profiles">${tag}</span>`).join(' ');
     }
   });
@@ -255,11 +311,11 @@ function populateSectionConfidence() {
   const spans = document.querySelectorAll('.section-confidence[data-section]');
 
   spans.forEach(span => {
-    const sectionId = span.getAttribute('data-section');
+    const sectionId = span.dataset.section;
     const section = sectionScores[sectionId];
 
     // Mark as content database source
-    span.setAttribute('data-db', 'content');
+    setDbTag(span, 'content');
 
     if (section) {
       span.innerHTML = buildConfidenceBarHTML(section.checkScore, section.checkDate);
@@ -281,13 +337,14 @@ function populateTocConfidence() {
   const spans = document.querySelectorAll('.toc-confidence[data-toc-section]');
 
   spans.forEach(span => {
-    const sectionId = span.getAttribute('data-toc-section');
+    const sectionId = span.dataset.tocSection;
     const section = sectionScores[sectionId];
 
     // Mark as content database source
-    span.setAttribute('data-db', 'content');
+    setDbTag(span, 'content');
 
-    if (section && section.checkScore != null) {
+    const hasCheckScore = section?.checkScore !== null && section?.checkScore !== undefined;
+    if (hasCheckScore) {
       // Use compact mode for TOC bars (50px track, 6px pointer)
       span.innerHTML = buildConfidenceBarHTML(section.checkScore, section.checkDate, true);
     } else {
@@ -450,17 +507,17 @@ function populateMacroComparisonTable() {
 
   if (titleEl && table.title) {
     titleEl.textContent = table.title;
-    titleEl.setAttribute('data-db', 'content');
+    setDbTag(titleEl, 'content');
   }
 
   if (subtitleEl && table.subtitle) {
     subtitleEl.textContent = table.subtitle;
-    subtitleEl.setAttribute('data-db', 'content');
+    setDbTag(subtitleEl, 'content');
   }
 
   if (noteEl && table.naNote) {
     noteEl.textContent = table.naNote;
-    noteEl.setAttribute('data-db', 'content');
+    setDbTag(noteEl, 'content');
   }
 
   if (!bodyEl) return;
@@ -486,26 +543,7 @@ function populateMacroComparisonTable() {
   });
 
   bodyEl.innerHTML = rows.join('');
-  bodyEl.setAttribute('data-db', 'content');
-
-  function fmtCountryValue(value, year, formatType) {
-    const formatted = formatMacroValue(value, formatType);
-    return `
-      <span class="macro-country-value">${formatted}</span>
-      <div class="macro-country-year">(${year || 'n/a'})</div>
-    `;
-  }
-
-  function formatMacroValue(value, formatType) {
-    if (value === null || value === undefined) return 'N/A';
-
-    if (formatType === 'percent') return `${Number(value).toFixed(1)}%`;
-    if (formatType === 'currency') return `€${fmt(Math.round(value))}`;
-    if (formatType === 'currency-decimal') return `€${Number(value).toFixed(1)}`;
-    if (formatType === 'integer') return fmt(Math.round(value));
-
-    return String(value);
-  }
+  setDbTag(bodyEl, 'content');
 }
 
 /**
@@ -529,10 +567,7 @@ function populateDigitalInfraHeroes() {
   for (const { id, data } of entries) {
     const el = document.getElementById(id);
     if (!el || !data) continue;
-    const valEl = el.querySelector('.stat-value');
-    const lblEl = el.querySelector('.stat-label');
-    if (valEl) { valEl.textContent = data.value; valEl.setAttribute('data-db', 'content'); }
-    if (lblEl) { lblEl.textContent = data.label; lblEl.setAttribute('data-db', 'content'); }
+    setStatCardContent(el, data.value, data.label);
   }
 }
 
@@ -548,32 +583,29 @@ function populateTaxIncentives() {
   // SIFIDE II
   const sifide = document.getElementById('tax-sifide-body');
   if (sifide && tax.sifideII) {
-    sifide.innerHTML = `
+    setHtmlAndDb(sifide, `
       <p><strong>R&D Tax Credit:</strong> ${tax.sifideII.value}.</p>
       <p>Eligible costs include ${tax.sifideII.eligibleCosts.toLowerCase()}.</p>
       <p class="scorecard-source">${tax.sifideII.application} via <a href="#src-ani" class="source-link">ANI</a></p>
-    `;
-    sifide.setAttribute('data-db', 'content');
+    `);
   }
 
   // Tech Visa
   const techvisa = document.getElementById('tax-techvisa-body');
   if (techvisa && tax.techVisa) {
-    techvisa.innerHTML = `
+    setHtmlAndDb(techvisa, `
       <p>${tax.techVisa.value}. ${tax.techVisa.detail}</p>
       <p class="scorecard-source">Managed by <a href="#src-iapmei" class="source-link">IAPMEI</a> + AIMA/SEF</p>
-    `;
-    techvisa.setAttribute('data-db', 'content');
+    `);
   }
 
   // IFICI
   const ifici = document.getElementById('tax-ifici-body');
   if (ifici && tax.ifici) {
-    ifici.innerHTML = `
+    setHtmlAndDb(ifici, `
       <p>${tax.ifici.value.replace('20%', '<strong>20%</strong>')} for qualifying research and innovation professionals.</p>
       <p class="scorecard-source">${tax.ifici.detail} <a href="#src-pwc-ifici" class="source-link">Source</a></p>
-    `;
-    ifici.setAttribute('data-db', 'content');
+    `);
   }
 
   // Corporate Tax (IRC)
@@ -582,14 +614,13 @@ function populateTaxIncentives() {
     const ct = tax.corporateTax;
     const scheduleLine = ct.standardSchedule ? `<p><strong>Rate path:</strong> ${ct.standardSchedule}.</p>` : '';
     const effectiveLine = ct.effectiveFrom ? `<p><strong>Effective:</strong> ${ct.effectiveFrom}.</p>` : '';
-    irc.innerHTML = `
+    setHtmlAndDb(irc, `
       <p><strong>Standard IRC:</strong> ${ct.standard}% on taxable profit. <strong>SMEs:</strong> ${ct.smeRate}% on the first ${ct.smeThreshold}; ${ct.standard}% thereafter.</p>
       ${scheduleLine}
       ${effectiveLine}
       <p>${ct.surtaxes}.</p>
       <p class="scorecard-source"><a href="#src-pwc-cit-irc" class="source-link">PwC Portugal</a></p>
-    `;
-    irc.setAttribute('data-db', 'content');
+    `);
   }
 }
 
@@ -611,10 +642,7 @@ function populateCostOfLiving() {
   for (const t of targets) {
     const el = document.getElementById(t.id);
     if (!el) continue;
-    const valEl = el.querySelector('.stat-value');
-    const lblEl = el.querySelector('.stat-label');
-    if (valEl) { valEl.textContent = t.value; valEl.setAttribute('data-db', 'content'); }
-    if (lblEl) { lblEl.textContent = t.label; lblEl.setAttribute('data-db', 'content'); }
+    setStatCardContent(el, t.value, t.label);
   }
 }
 
@@ -634,8 +662,11 @@ function populateEmployerCosts() {
   const mealAnnual = Math.round(meal * 220);
   const multiplier = (1 + ss / 100).toFixed(4);
 
-  el.innerHTML = `<strong>Note:</strong> <strong>All values are in 12× format</strong> (converted from Portugal's original 14-payment data for international comparison). *Employer Total = Gross annual × ${multiplier} (${ss}% Social Security) + meal allowance (~€${fmt(mealAnnual)}/yr), showing full range from Junior to Lead. Lead/Principal = Senior × 1.12 (40% vs 25% above midpoint). <strong>Source:</strong> <a href="#src-ine" class="source-link">INE</a> + Portuguese employer cost rules.`;
-  el.setAttribute('data-db', 'compensation');
+  setHtmlAndDb(
+    el,
+    `<strong>Note:</strong> <strong>All values are in 12× format</strong> (converted from Portugal's original 14-payment data for international comparison). *Employer Total = Gross annual × ${multiplier} (${ss}% Social Security) + meal allowance (~€${fmt(mealAnnual)}/yr), showing full range from Junior to Lead. Lead/Principal = Senior × 1.12 (40% vs 25% above midpoint). <strong>Source:</strong> <a href="#src-ine" class="source-link">INE</a> + Portuguese employer cost rules.`,
+    'compensation'
+  );
 }
 
 /**
@@ -682,10 +713,7 @@ function populateWorkforceHeroes() {
   for (const t of targets) {
     const el = document.getElementById(t.id);
     if (!el) continue;
-    const valEl = el.querySelector('.stat-value');
-    const lblEl = el.querySelector('.stat-label');
-    if (valEl) { valEl.textContent = t.value; valEl.setAttribute('data-db', 'content'); }
-    if (lblEl) { lblEl.textContent = t.label; lblEl.setAttribute('data-db', 'content'); }
+    setStatCardContent(el, t.value, t.label);
   }
 }
 
@@ -723,8 +751,7 @@ function populateWorkforceBarChart() {
       </div>`;
   }).join('');
 
-  container.innerHTML = rows;
-  container.setAttribute('data-db', 'content');
+  setHtmlAndDb(container, rows);
 }
 
 /**
@@ -752,12 +779,12 @@ function populateHiringInsights() {
     if (titleEl && t.data.title) {
       const icon = titleEl.querySelector('i')?.outerHTML || '';
       titleEl.innerHTML = `${icon} ${t.data.title}`.trim();
-      titleEl.setAttribute('data-db', 'content');
+      setDbTag(titleEl, 'content');
     }
 
     if (textEl) {
       textEl.innerHTML = `${t.data.value} <a href="${t.sourceRef}" class="source-link"><i class="fa-solid fa-circle-info"></i></a>`;
-      textEl.setAttribute('data-db', 'content');
+      setDbTag(textEl, 'content');
     }
   }
 }
@@ -772,60 +799,46 @@ function populateQualityOfLife() {
   const qol = store.content?.national?.qualityOfLife;
   if (!qol) return;
 
-  // Healthcare
   const pub = qol.healthcare?.publicSystem;
   if (pub) {
-    const el = document.getElementById('qol-healthcare-public');
-    if (el) {
-      el.innerHTML = `<strong>Public (${pub.name}):</strong> ${pub.description}`;
-      el.setAttribute('data-db', 'content');
-    }
+    setHtmlAndDbById('qol-healthcare-public', `<strong>Public (${pub.name}):</strong> ${pub.description}`);
   }
 
   const priv = qol.healthcare?.privateInsurance;
   if (priv) {
-    const el = document.getElementById('qol-healthcare-private');
-    if (el) {
-      el.innerHTML = `<strong>Private:</strong> ${priv.costRange} — ${priv.details}`;
-      el.setAttribute('data-db', 'content');
-    }
+    setHtmlAndDbById('qol-healthcare-private', `<strong>Private:</strong> ${priv.costRange} — ${priv.details}`);
   }
 
   const ehci = qol.healthcare?.ehci;
   if (ehci) {
-    const el = document.getElementById('qol-healthcare-ehci');
-    if (el) {
-      el.innerHTML = `<strong><a href="#src-ehci" class="source-link">${ehci.source}</a>:</strong> Ranked ${ehci.rank}th / ${ehci.totalCountries} ${ehci.label} (${ehci.year})`;
-      el.setAttribute('data-db', 'content');
-    }
+    setHtmlAndDbById(
+      'qol-healthcare-ehci',
+      `<strong><a href="#src-ehci" class="source-link">${ehci.source}</a>:</strong> Ranked ${ehci.rank}th / ${ehci.totalCountries} ${ehci.label} (${ehci.year})`
+    );
   }
 
-  // Safety
   const gpi = qol.safety?.gpi;
   if (gpi) {
-    const el = document.getElementById('qol-safety-gpi');
-    if (el) {
-      el.innerHTML = `<strong><a href="#src-gpi" class="source-link">Global Peace Index</a>:</strong> ${gpi.rank}th ${gpi.label} (${gpi.year})`;
-      el.setAttribute('data-db', 'content');
-    }
+    setHtmlAndDbById(
+      'qol-safety-gpi',
+      `<strong><a href="#src-gpi" class="source-link">Global Peace Index</a>:</strong> ${gpi.rank}th ${gpi.label} (${gpi.year})`
+    );
   }
 
   const crime = qol.safety?.crimeRate;
   if (crime) {
-    const el = document.getElementById('qol-safety-crime');
-    if (el) {
-      el.innerHTML = `<strong>Crime:</strong> ${crime.value} — ${crime.detail} <a href="#src-eurostat" class="source-link"><i class="fa-solid fa-circle-info"></i></a>`;
-      el.setAttribute('data-db', 'content');
-    }
+    setHtmlAndDbById(
+      'qol-safety-crime',
+      `<strong>Crime:</strong> ${crime.value} — ${crime.detail} <a href="#src-eurostat" class="source-link"><i class="fa-solid fa-circle-info"></i></a>`
+    );
   }
 
   const pol = qol.safety?.political;
   if (pol) {
-    const el = document.getElementById('qol-safety-political');
-    if (el) {
-      el.innerHTML = `<strong>Political:</strong> ${pol.description}; EU member since ${pol.euMemberSince}, NATO since ${pol.natoMemberSince}`;
-      el.setAttribute('data-db', 'content');
-    }
+    setHtmlAndDbById(
+      'qol-safety-political',
+      `<strong>Political:</strong> ${pol.description}; EU member since ${pol.euMemberSince}, NATO since ${pol.natoMemberSince}`
+    );
   }
 }
 
