@@ -166,12 +166,24 @@ function setCityProfileExpanded(section, expanded) {
 
 function openCityProfileSection(section, shouldScroll = false) {
   if (!section) return;
+  const header = section.querySelector('.city-header') || section;
   setCityProfileExpanded(section, true);
 
   if (shouldScroll) {
     requestAnimationFrame(() => {
-      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      header.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
+
+    // City open/close uses max-height transitions. Re-align once transitions settle
+    // so we don't finish at the lower part of the newly opened profile.
+    setTimeout(() => {
+      if (!section.classList.contains('expanded')) return;
+
+      const topOffset = header.getBoundingClientRect().top;
+      if (Math.abs(topOffset) > 12) {
+        header.scrollIntoView({ behavior: 'auto', block: 'start' });
+      }
+    }, 520);
   }
 }
 
@@ -180,14 +192,25 @@ function toggleCityProfile(button) {
   if (!section) return;
 
   const isExpanded = section.classList.contains('expanded');
-  setCityProfileExpanded(section, !isExpanded);
+  if (isExpanded) {
+    setCityProfileExpanded(section, false);
+    return;
+  }
+
+  openCityProfileSection(section, true);
 }
 
 // Expose globally for onclick handlers
 globalThis.toggleCityProfile = toggleCityProfile;
+globalThis.closeAllCityProfiles = () => {
+  document.querySelectorAll('#city-profiles-content .city-section.expanded').forEach((section) => {
+    setCityProfileExpanded(section, false);
+  });
+};
+
 globalThis.openCityProfile = (cityId, options = {}) => {
   const section = document.getElementById(cityId);
-  if (!section || !section.classList.contains('city-section')) return false;
+  if (!section?.classList.contains('city-section')) return false;
 
   openCityProfileSection(section, Boolean(options.scroll));
   return true;

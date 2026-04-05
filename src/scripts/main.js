@@ -73,7 +73,7 @@ function initDeferredBubbleChart() {
 
   const tryRender = () => {
     if (section.open) {
-      void ensureBubbleChartRendered();
+      ensureBubbleChartRendered();
     }
   };
 
@@ -87,7 +87,7 @@ function initDeferredPromptGenerator() {
   if (simulatorSection) {
     const tryInit = () => {
       if (simulatorSection.open) {
-        void ensurePromptGeneratorInitialized();
+        ensurePromptGeneratorInitialized();
       }
     };
 
@@ -102,7 +102,7 @@ function initDeferredPromptGenerator() {
     event.preventDefault();
     event.stopImmediatePropagation();
 
-    void ensurePromptGeneratorInitialized().then(() => {
+    ensurePromptGeneratorInitialized().then(() => {
       trigger.click();
     });
   }, true);
@@ -182,6 +182,107 @@ function initScrollIndicator() {
 /* ═══════════════════════════════════════════════════════════════════════════
  * COLLAPSIBLE SECTIONS — Details/Summary behavior for TOC + data sections
  * ═══════════════════════════════════════════════════════════════════════════ */
+
+function captureDetailsAnchorTop(details, anchorElement) {
+  if (!details || !anchorElement) return;
+  details.__preToggleSummaryTop = anchorElement.getBoundingClientRect().top;
+}
+
+function stabilizeDetailsScroll(details, anchorElement) {
+  const beforeTop = details?.__preToggleSummaryTop;
+  details.__preToggleSummaryTop = null;
+
+  if (typeof beforeTop !== 'number' || !anchorElement) return;
+
+  const afterTop = anchorElement.getBoundingClientRect().top;
+  const delta = afterTop - beforeTop;
+  if (Math.abs(delta) > 1) {
+    window.scrollBy(0, delta);
+  }
+}
+
+function getAccordionDetailsSiblings(details) {
+  const parent = details.parentElement;
+  if (!parent) return [];
+
+  return Array.from(parent.children).filter((element) => {
+    return element !== details
+      && element.tagName === 'DETAILS'
+      && element.classList.contains('deeper-dive-container');
+  });
+}
+
+/**
+ * Accordion behavior for top-level main collapsible details containers.
+ * When one container opens, close open sibling containers in the same parent.
+ * Keeps the opened summary visually anchored to avoid page-jump feeling.
+ */
+function initDetailsAccordion() {
+  const containers = document.querySelectorAll('main#main-content > details.deeper-dive-container');
+  containers.forEach((details) => {
+    const summary = details.querySelector(':scope > summary');
+    if (!summary) return;
+
+    const setContainerHash = () => {
+      if (!details.id) return;
+      const baseUrl = `${globalThis.location.pathname}${globalThis.location.search}`;
+      history.replaceState(null, '', `${baseUrl}#${details.id}`);
+    };
+
+    const markSummaryInteraction = () => {
+      captureDetailsAnchorTop(details, summary);
+      details.__openedFromSummaryInteraction = true;
+      setContainerHash();
+    };
+
+    summary.addEventListener('click', () => {
+      markSummaryInteraction();
+    }, true);
+
+    summary.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        markSummaryInteraction();
+      }
+    });
+
+    details.addEventListener('toggle', () => {
+      if (!details.open) {
+        if (details.id === 'city-profiles' && typeof globalThis.closeAllCityProfiles === 'function') {
+          globalThis.closeAllCityProfiles();
+        }
+        details.__preToggleSummaryTop = null;
+        details.__openedFromSummaryInteraction = false;
+        return;
+      }
+
+      const shouldAnchorToTop = Boolean(details.__openedFromSummaryInteraction);
+      const openSiblings = getAccordionDetailsSiblings(details).filter((sibling) => sibling.open);
+      if (openSiblings.length === 0) {
+        details.__preToggleSummaryTop = null;
+      } else {
+        openSiblings.forEach((sibling) => {
+          sibling.open = false;
+        });
+
+        // Avoid double movement: summary interactions already anchor to this section.
+        if (shouldAnchorToTop) {
+          details.__preToggleSummaryTop = null;
+        } else {
+          stabilizeDetailsScroll(details, summary);
+        }
+      }
+
+      // Match anchor-navigation behavior when users open containers manually.
+      if (shouldAnchorToTop) {
+        requestAnimationFrame(() => {
+          details.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      }
+
+      details.__openedFromSummaryInteraction = false;
+    });
+  });
+}
 
 /**
  * Handle hash-based navigation (open relevant details).
@@ -405,7 +506,7 @@ function initArchiveToggle() {
     archiveToggle.classList.add('fallen');
     archiveToggle.setAttribute('aria-expanded', 'true');
     setBadge('Open');
-    void ensurePromptGeneratorInitialized();
+    ensurePromptGeneratorInitialized();
     if (shouldScroll) {
       archive.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
@@ -544,6 +645,7 @@ async function init() {
     // 5. Initialize interactive components
     initBackToMap();
     initScrollIndicator();
+    initDetailsAccordion();
     initArchiveToggle();
     initRegionTooltip();
     initStarLinks();
