@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "generatedAt": "2026-02-06T22:11:02Z",
+    "generatedAt": "2026-04-06T00:00:00Z",
     "source": "MASTER.json"
   },
   "xAxis": {
@@ -21,8 +21,8 @@
       "name": "Porto",
       "region": "Norte",
       "featured": true,
-      "x": 91.9,
-      "y": 6908,
+      "x": 93.1,
+      "y": 3476,
       "r": 720,
       "col": 40,
       "labelOffset": {
@@ -36,8 +36,8 @@
       "name": "Braga",
       "region": "Norte",
       "featured": true,
-      "x": 88.7,
-      "y": 1927,
+      "x": 89.8,
+      "y": 970,
       "r": 219,
       "col": 35,
       "labelOffset": {
@@ -51,8 +51,8 @@
       "name": "Guimarães",
       "region": "Norte",
       "featured": true,
-      "x": 87.4,
-      "y": 1539,
+      "x": 88.5,
+      "y": 775,
       "r": 142,
       "col": 33,
       "labelOffset": {
@@ -66,8 +66,8 @@
       "name": "Vila Real",
       "region": "Norte",
       "featured": false,
-      "x": 86.7,
-      "y": 884,
+      "x": 87.9,
+      "y": 445,
       "r": 65,
       "col": 32,
       "labelOffset": {}
@@ -77,8 +77,8 @@
       "name": "Viana do Castelo",
       "region": "Norte",
       "featured": false,
-      "x": 87.4,
-      "y": 655,
+      "x": 88.5,
+      "y": 330,
       "r": 44,
       "col": 33,
       "labelOffset": {}
@@ -88,8 +88,8 @@
       "name": "Bragança",
       "region": "Norte",
       "featured": false,
-      "x": 84.1,
-      "y": 843,
+      "x": 85.3,
+      "y": 424,
       "r": 56,
       "col": 28,
       "labelOffset": {}
@@ -99,8 +99,8 @@
       "name": "Coimbra",
       "region": "Centro",
       "featured": true,
-      "x": 83.9,
-      "y": 1467,
+      "x": 84.5,
+      "y": 1063,
       "r": 146,
       "col": 34,
       "labelOffset": {
@@ -114,8 +114,8 @@
       "name": "Aveiro",
       "region": "Centro",
       "featured": true,
-      "x": 85.8,
-      "y": 1193,
+      "x": 86.4,
+      "y": 865,
       "r": 140,
       "col": 37,
       "labelOffset": {
@@ -129,8 +129,8 @@
       "name": "Covilhã",
       "region": "Centro",
       "featured": true,
-      "x": 81.3,
-      "y": 1033,
+      "x": 81.9,
+      "y": 748,
       "r": 63,
       "col": 30,
       "labelOffset": {
@@ -144,8 +144,8 @@
       "name": "Viseu",
       "region": "Centro",
       "featured": false,
-      "x": 82.6,
-      "y": 809,
+      "x": 83.2,
+      "y": 586,
       "r": 39,
       "col": 32,
       "labelOffset": {}
@@ -155,8 +155,8 @@
       "name": "Castelo Branco",
       "region": "Centro",
       "featured": false,
-      "x": 81.3,
-      "y": 364,
+      "x": 81.9,
+      "y": 264,
       "r": 22,
       "col": 30,
       "labelOffset": {}
@@ -166,8 +166,8 @@
       "name": "Leiria",
       "region": "Centro",
       "featured": false,
-      "x": 84.5,
-      "y": 1488,
+      "x": 85.1,
+      "y": 161,
       "r": 86,
       "col": 35,
       "labelOffset": {}
@@ -177,8 +177,8 @@
       "name": "Santarém",
       "region": "Oeste and Vale do Tejo",
       "featured": false,
-      "x": 81.4,
-      "y": 170,
+      "x": 82.4,
+      "y": 176,
       "r": 76,
       "col": 30,
       "labelOffset": {}
@@ -188,8 +188,8 @@
       "name": "Tomar",
       "region": "Oeste and Vale do Tejo",
       "featured": false,
-      "x": 81.4,
-      "y": 287,
+      "x": 82.4,
+      "y": 293,
       "r": 73,
       "col": 30,
       "labelOffset": {}
@@ -200,7 +200,7 @@
       "region": "Lisbon Metropolitan Area",
       "featured": true,
       "x": 100,
-      "y": 10273,
+      "y": 5472,
       "r": 1103,
       "col": 46,
       "labelOffset": {
@@ -214,8 +214,8 @@
       "name": "Setúbal",
       "region": "Península de Setúbal",
       "featured": true,
-      "x": 91.9,
-      "y": 3179,
+      "x": 92.5,
+      "y": 1194,
       "r": 195,
       "col": 36,
       "labelOffset": {
@@ -229,8 +229,8 @@
       "name": "Évora",
       "region": "Alentejo",
       "featured": true,
-      "x": 85.3,
-      "y": 387,
+      "x": 86.5,
+      "y": 237,
       "r": 29,
       "col": 32,
       "labelOffset": {
@@ -244,8 +244,8 @@
       "name": "Beja",
       "region": "Alentejo",
       "featured": false,
-      "x": 82.7,
-      "y": 91,
+      "x": 83.9,
+      "y": 56,
       "r": 9,
       "col": 28,
       "labelOffset": {}
@@ -255,8 +255,8 @@
       "name": "Portalegre",
       "region": "Alentejo",
       "featured": false,
-      "x": 82.7,
-      "y": 74,
+      "x": 83.9,
+      "y": 45,
       "r": 7,
       "col": 28,
       "labelOffset": {}
@@ -266,8 +266,8 @@
       "name": "Faro",
       "region": "Algarve",
       "featured": true,
-      "x": 85.7,
-      "y": 911,
+      "x": 86.5,
+      "y": 374,
       "r": 33,
       "col": 38,
       "labelOffset": {
@@ -278,5 +278,3 @@
     }
   ]
 }
-
-

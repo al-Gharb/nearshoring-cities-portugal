@@ -554,9 +554,9 @@
                 <th scope="col" title="Higher education institutions (HEIs) located in or near this city">Universities</th>
                   <th scope="col" class="col-numeric col-stem-official" title="Official STEM graduates/year — DGEEC CNAEF codes 05+06+07. City values are ≈estimates proportionally derived from official DGEEC regional totals; subtotals (*) are the actual DGEEC figures."><i class="fa-solid fa-user-graduate" aria-hidden="true"></i> Official STEM</th>
                   <th scope="col" class="col-numeric col-ict" title="Core ICT graduates/year — DGEEC CNAEF codes 481 (CS) + 523 (Electronics). City values are ≈estimates proportionally derived from official DGEEC regional totals; subtotals (*) are the actual DGEEC figures."><i class="fa-solid fa-user-graduate" aria-hidden="true"></i> ICT/yr</th>
-                  <th scope="col" class="col-numeric col-ict col-with-badge" title="Auto-calculated: (Core ICT ÷ Official STEM) × 100 — shows what share of STEM graduates specialize in ICT"><span class="th-content"><span class="th-text">ICT %</span><span class="badge-auto" title="Auto-calculated: (Core ICT ÷ Official STEM) × 100">auto</span></span></th>
-                  <th scope="col" class="col-numeric col-stemplus col-with-badge" title="Tech STEM+ graduates/year — internal estimate shown as approximate (≈), not an official DGEEC classification"><span class="th-content"><span class="th-text"><i class="fa-solid fa-user-graduate" aria-hidden="true"></i><i class="fa-solid fa-user" aria-hidden="true"></i> STEM+/yr</span><span class="badge-auto" title="Internal estimate from MASTER.json (approximate)">auto</span></span></th>
-                  <th scope="col" class="col-numeric col-with-badge" title="Salary Index (experimental proxy) — auto-calculated from INE Bachelor baseline by NUTS II, then adjusted with IT convergence + city COL"><span class="th-content"><span class="th-text">Salary Index</span><span class="badge-auto" title="Experimental proxy: [baseline + (100 − baseline) × 0.45] + (COL − 33) × 0.65, cap 100">auto</span></span></th>
+                  <th scope="col" class="col-numeric col-ict col-with-badge" title="Auto-calculated: (Core ICT ÷ Official STEM) × 100 — shows what share of STEM graduates specialize in ICT"><span class="th-content"><span class="th-text">ICT %</span><a href="#src-ict-pct" class="badge-auto badge-auto-link" title="Auto-calculated: (Core ICT ÷ Official STEM) × 100. See ICT % methodology.">auto</a></span></th>
+                  <th scope="col" class="col-numeric col-stemplus col-with-badge" title="Tech STEM+ graduates/year — projected annual hiring-relevant tech graduate pool (gross, end-2026), shown as approximate (≈), not an official DGEEC classification"><span class="th-content"><span class="th-text"><i class="fa-solid fa-user-graduate" aria-hidden="true"></i><i class="fa-solid fa-user" aria-hidden="true"></i> STEM+/yr</span><a href="#src-tech-stemplus" class="badge-auto badge-auto-link" title="Tech STEM+ = projected annual hiring-relevant tech graduate pool (gross, end-2026): Tier 1 STEM subset + Tier 2 vocational additive. See methodology.">auto</a></span></th>
+                  <th scope="col" class="col-numeric col-with-badge" title="Salary Index (experimental proxy) — auto-calculated from INE Bachelor baseline by NUTS II, then adjusted with IT convergence + city COL"><span class="th-content"><span class="th-text">Salary Index</span><a href="#src-salary-index" class="badge-auto badge-auto-link" title="Experimental proxy: [baseline + (100 − baseline) × 0.45] + (COL − 33) × 0.65, cap 100. See Salary Index methodology.">auto</a></span></th>
                   <th scope="col" class="col-numeric" title="Office rent per m²/month — Source: Idealista live listings, semi-automated HITL+agent extraction. Scope: quality offices in central locations, 60–300 m².">Office €/m²</th>
                   <th scope="col" class="col-numeric" title="Residential rent per month — Source: Idealista live listings, semi-automated HITL+agent extraction. Scope: 1-bedroom modern apartments, central areas, 40–60 m².">Res. Rent €</th>
                   <th scope="col" class="col-numeric" title="Cost of Living + Rent Index — Source: Numbeo (NYC = 100). Where unavailable, Numbeo-style estimate derived from regional cost patterns, AI fact-checked.">COL + Rent Index</th>
@@ -609,7 +609,8 @@
               <li><strong>Metrics:</strong> Average monthly earnings by NUTS region and education level</li>
               <li><strong>Indicator:</strong> 0012653 — Average monthly earnings (€) by NUTS 2024 and Level of education</li>
               <li><strong>Update frequency:</strong> Annual</li>
-              <li><strong>Data year:</strong> 2023</li>
+              <li><strong>Data year:</strong> 2024</li>
+              <li><strong>Last source update:</strong> 27 Mar 2026</li>
               <li><strong>Note:</strong> Original INE data is in Portugal's 14× payment format. <strong>All salary values displayed in this document are already converted to 12× format</strong> for international comparison (14× source data × 14/12 ≈ ×1.167).</li>
             </ul>
             <a href="https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_indicadores&contecto=pi&indOcorrCod=0012653&selTab=tab0" target="_blank" rel="noopener" class="source-link-external">
@@ -928,13 +929,13 @@
                 <ol>
                   <li><strong>Official input layer:</strong> Compute regional baseline from INE Bachelor earnings (% vs Lisbon). This is the anchor signal.<br>
                     <code>baseline = (regionBachelor / lisbonBachelor) × 100</code><br>
-                    <em>Example (Norte): 1947.58 / 2527.71 × 100 = 77.0</em></li>
+                    <em>Example (Norte): 2104.58 / 2658.64 × 100 = 79.2</em></li>
                   <li><strong>Modeling layer — IT convergence (Step 1):</strong> Compress baseline toward 100 to reflect lower regional dispersion in IT pay vs all-sector averages.<br>
                     <code>compressed = baseline + (100 − baseline) × 0.45</code><br>
-                    <em>Example (Norte, baseline 77.0%): 77.0 + (100 − 77.0) × 0.45 = 87.35</em></li>
+                    <em>Example (Norte, baseline 79.2%): 79.2 + (100 − 79.2) × 0.45 = 88.6</em></li>
                   <li><strong>Modeling layer — COL adjustment (Step 2):</strong> Shift by city cost-of-living relative to national average.<br>
                     <code>salaryIndex = compressed + (COL − 33) × 0.65</code><br>
-                    <em>Example (Porto, COL 40): 87.35 + (40 − 33) × 0.65 = 87.35 + 4.55 = 91.9</em></li>
+                    <em>Example (Porto, COL 40): 88.6 + (40 − 33) × 0.65 = 88.6 + 4.55 = 93.1</em></li>
                 </ol>
                 <div class="formula-block">
                   <code>salaryIndex = [baseline + (100 − baseline) × 0.45] + (COL − 33) × 0.65</code><br>
@@ -948,9 +949,9 @@
                 </ul>
                 <p><strong>Example: Porto</strong></p>
                 <div class="example-block">
-                  INE Norte Bachelor = 77.0% of Lisbon · COL Index = 40<br>
-                  Step 1: 77.0 + (100 − 77.0) × 0.45 = <strong>87.35</strong> (compressed)<br>
-                  Step 2: 87.35 + (40 − 33) × 0.65 = <strong>91.9</strong> (final salary index)
+                  INE Norte Bachelor = 79.2% of Lisbon · COL Index = 40<br>
+                  Step 1: 79.2 + (100 − 79.2) × 0.45 = <strong>88.6</strong> (compressed)<br>
+                  Step 2: 88.6 + (40 − 33) × 0.65 = <strong>93.1</strong> (final salary index)
                 </div>
                 <ul class="source-metrics">
                   <li><strong>Inputs:</strong> INE regional Bachelor earnings (COMPENSATION_DATA.json) + Numbeo COL index (MASTER.json per city)</li>
@@ -992,7 +993,7 @@
 
                 <!-- Introduction -->
                 <p>
-                  This document uses <strong>two complementary metrics</strong>: <span class="meth-card-red meth-card-title meth-inline">Official STEM</span> (DGEEC official count, CNAEF 05+06+07, which already includes CTeSP higher-education graduates) and <span class="meth-card-blue meth-card-title meth-inline">Tech STEM+</span> (<span id="meth-intro-stem" class="meth-dynamic">~16,782</span> gross/year). Tech STEM+ is an internal <em>hiring-relevant</em> benchmark projected to end-2026.
+                  This document uses <strong>two complementary metrics</strong>: <span class="meth-card-red meth-card-title meth-inline">Official STEM</span> (DGEEC official count, CNAEF 05+06+07, which already includes CTeSP higher-education graduates) and <span class="meth-card-blue meth-card-title meth-inline">Tech STEM+</span> (<span id="meth-intro-stem" class="meth-dynamic">~17,954</span> gross/year). Tech STEM+ is an internal <em>hiring-relevant</em> benchmark projected to end-2026.
                 </p>
 
                 <!-- Why Two Metrics -->
@@ -1020,20 +1021,20 @@
                     <div class="meth-card-title"><i class="fa-solid fa-user-graduate"></i><i class="fa-solid fa-user"></i> Tech STEM+</div>
                     <div class="meth-card-source">Tier 1a + 1b + 1c (STEM subset) + Tier 2 (vocational)</div>
                     <div class="meth-card-desc">Hiring-relevant gross pool</div>
-                    <div id="meth-card-stem" class="meth-card-total">~16,782/year (2026 gross est.)</div>
+                    <div id="meth-card-stem" class="meth-card-total">~17,954/year (2026 gross est.)</div>
                   </div>
                   <div class="meth-card meth-card-green">
                     <div class="meth-card-title">Core ICT <span class="meth-card-source">subset</span></div>
                     <div class="meth-card-source">CNAEF 06 only</div>
                     <div class="meth-card-desc">Pure CS/IT specialists</div>
-                    <div id="meth-card-ict" class="meth-card-total">~3,267/year (15%)</div>
+                    <div id="meth-card-ict" class="meth-card-total">~3,267/year (2023/24 baseline)</div>
                   </div>
                 </div>
 
                 <!-- Breakdown Table -->
                 <div class="card">
                   <div><strong>Tech STEM+ Composition</strong> <span class="meth-card-source">Portugal mainland (NUTS2)</span></div>
-                  <p><em>Projected to end-2026 from a 2023/24 base using component-level CAGR assumptions. CTeSP is excluded as a separate tier — those graduates are already counted inside the DGEEC field totals used for Core ICT and Engineering Subset.</em></p>
+                  <p><em>Baseline composition (2023/24): these values are the pre-projection base used for the end-2026 CAGR assumptions below. CTeSP is excluded as a separate tier — those graduates are already counted inside the DGEEC field totals used for Core ICT and Engineering Subset.</em></p>
                   <div class="table-wrapper">
                     <table class="methodology-table">
                       <thead>
@@ -1051,7 +1052,7 @@
                           <td class="meth-card-source">CNAEF 06 (100%)</td>
                           <td id="meth-comp-core-ict" class="col-numeric meth-card-green meth-card-total">3,267</td>
                           <td id="meth-comp-core-ict-share" class="col-numeric">19.5%</td>
-                          <td>Official DGEEC NUTS2 total; includes CTeSP programmers already</td>
+                          <td>Official DGEEC NUTS2 baseline; includes CTeSP programmers already</td>
                         </tr>
                         <tr>
                           <td><strong>Engineering Subset</strong> <span class="meth-card-source">Tier 1b</span></td>
@@ -1075,10 +1076,10 @@
                           <td>Secondary-level only (Cursos Profissionais); outside DGEEC HE counts; most uncertain component</td>
                         </tr>
                         <tr class="region-summary-row">
-                          <td colspan="2"><strong>Total Tech STEM+ (Gross 2026)</strong></td>
+                          <td colspan="2"><strong>Total Tech STEM+ (2023/24 Baseline)</strong></td>
                           <td id="meth-total-stem" class="col-numeric">16,782</td>
                           <td class="col-numeric">100%</td>
-                          <td>Mainland projected annual hiring pool</td>
+                          <td>Mainland baseline before CAGR projection to end-2026</td>
                         </tr>
                       </tbody>
                     </table>
@@ -1133,14 +1134,14 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr><td><strong>Norte</strong></td><td class="col-numeric">6,001</td></tr>
-                        <tr><td><strong>Centro</strong></td><td class="col-numeric">3,446</td></tr>
-                        <tr><td><strong>Oeste e Vale do Tejo</strong></td><td class="col-numeric">438</td></tr>
-                        <tr><td><strong>Lisbon Metro</strong></td><td class="col-numeric">5,115</td></tr>
-                        <tr><td><strong>Península de Setúbal</strong></td><td class="col-numeric">1,116</td></tr>
-                        <tr><td><strong>Alentejo</strong></td><td class="col-numeric">316</td></tr>
-                        <tr><td><strong>Algarve</strong></td><td class="col-numeric">350</td></tr>
-                        <tr class="region-summary-row"><td><strong>Mainland Total</strong></td><td class="col-numeric"><strong>16,782</strong></td></tr>
+                        <tr><td><strong>Norte</strong></td><td class="col-numeric">6,420</td></tr>
+                        <tr><td><strong>Centro</strong></td><td class="col-numeric">3,687</td></tr>
+                        <tr><td><strong>Oeste e Vale do Tejo</strong></td><td class="col-numeric">469</td></tr>
+                        <tr><td><strong>Lisbon Metro</strong></td><td class="col-numeric">5,472</td></tr>
+                        <tr><td><strong>Península de Setúbal</strong></td><td class="col-numeric">1,194</td></tr>
+                        <tr><td><strong>Alentejo</strong></td><td class="col-numeric">338</td></tr>
+                        <tr><td><strong>Algarve</strong></td><td class="col-numeric">374</td></tr>
+                        <tr class="region-summary-row"><td><strong>Mainland Total</strong></td><td class="col-numeric"><strong>17,954</strong></td></tr>
                       </tbody>
                     </table>
                   </div>
@@ -1840,7 +1841,7 @@
 
                 <!-- INE Earnings by Region -->
                 <div class="ine-earnings-card" data-db="content" data-prompt-core="true">
-                  <h4><i class="fa-solid fa-chart-bar" aria-hidden="true"></i> Average Monthly Earnings by Region (<a href="#src-ine" class="source-link">INE</a> 2023)</h4>
+                  <h4><i class="fa-solid fa-chart-bar" aria-hidden="true"></i> Average Monthly Earnings by Region (<a href="#src-ine" class="source-link">INE</a> 2024)</h4>
                   <div class="table-wrapper">
                     <table class="ine-table" aria-label="Average monthly earnings by region, 12× equivalent">
                       <thead>
@@ -1859,7 +1860,7 @@
                       </tbody>
                     </table>
                   </div>
-                  <p class="scorecard-footer"><strong>Source:</strong> <a href="#src-ine" class="source-link">INE (2023)</a> — MTSSS/GEP Personnel Tables (Indicator 0012653), average gross monthly earnings (€) by NUTS 2024 and education level. Original 14× values converted to 12× monthly equivalent (×14/12 ≈ ×1.167). % vs Lisbon = Bachelor earnings ÷ G. Lisboa Bachelor — used as official baseline input to the experimental salary index proxy.</p>
+                  <p class="scorecard-footer"><strong>Source:</strong> <a href="#src-ine" class="source-link">INE (2024)</a> — MTSSS/GEP Personnel Tables (Indicator 0012653), average gross monthly earnings (€) by NUTS 2024 and education level. Data reference period: 2024 (last updated 27 Mar 2026). Original 14× values converted to 12× monthly equivalent (×14/12 ≈ ×1.167). % vs Lisbon = Bachelor earnings ÷ G. Lisboa Bachelor — used as official baseline input to the experimental salary index proxy.</p>
                 </div>
 
                 <!-- Labor market callouts -->

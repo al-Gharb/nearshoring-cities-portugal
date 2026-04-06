@@ -39,6 +39,16 @@ The header freshness bar represents how recent the underlying site data is.
 - Display: two-decimal percentage format (`99,xx%` style)
 - Tooltip explains the calculation and reminds users this is recency, not fact-check confidence
 
+## City Database Methodology Shortcuts
+
+In the City Database table header, the three `auto` badges are direct methodology shortcuts inside the Sources & Methodologies section:
+
+- `ICT %` auto badge → `#src-ict-pct`
+- `STEM+/yr` auto badge → `#src-tech-stemplus`
+- `Salary Index` auto badge → `#src-salary-index`
+
+Tech STEM+ tooltip wording in the table is aligned to the methodology definition: projected annual hiring-relevant tech graduate pool (gross, end-2026), shown as an internal approximate estimate.
+
 ## Quick Start
 
 Prerequisite: Node.js `>= 20`.

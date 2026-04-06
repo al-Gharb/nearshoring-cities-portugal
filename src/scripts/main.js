@@ -425,9 +425,9 @@ function initRegionTooltip() {
  * ═══════════════════════════════════════════════════════════════════════════ */
 
 function initStarLinks() {
-  // Handle all source-link clicks with #src-* targets (event delegation for dynamic content)
+  // Handle all in-page methodology/source links with #src-* targets.
   document.body.addEventListener('click', (e) => {
-    const link = e.target.closest('a.source-link[href^="#src-"]');
+    const link = e.target.closest('a[href^="#src-"]');
     if (link) {
       e.preventDefault();
       const targetId = link.getAttribute('href').substring(1); // Remove #

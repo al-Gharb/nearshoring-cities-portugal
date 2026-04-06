@@ -185,19 +185,13 @@ function populateMethodology() {
   const store = getStore();
   const regionalTotals = store.master?.regionalTotals || {};
   let totalStem = 0;
-  let totalICT = 0;
 
   for (const totals of Object.values(regionalTotals)) {
     totalStem += totals?.digitalStemPlus ?? 0;
-    totalICT += totals?.coreICT ?? 0;
   }
 
   const introStem = document.getElementById('meth-intro-stem');
   const cardStem = document.getElementById('meth-card-stem');
-  const cardIct = document.getElementById('meth-card-ict');
-  const totalStemEl = document.getElementById('meth-total-stem');
-  const compCoreIct = document.getElementById('meth-comp-core-ict');
-  const compCoreIctShare = document.getElementById('meth-comp-core-ict-share');
 
   if (introStem) {
     introStem.textContent = `~${fmt(totalStem)}`;
@@ -206,24 +200,6 @@ function populateMethodology() {
   if (cardStem) {
     cardStem.textContent = `~${fmt(totalStem)}/year (2026 gross est.)`;
     setDbTag(cardStem, 'master');
-  }
-  if (cardIct) {
-    const pct = totalStem > 0 ? Math.round((totalICT / totalStem) * 100) : 0;
-    cardIct.textContent = `~${fmt(totalICT)}/year (${pct}%)`;
-    setDbTag(cardIct, 'master');
-  }
-  if (compCoreIct) {
-    compCoreIct.textContent = fmt(totalICT);
-    setDbTag(compCoreIct, 'master');
-  }
-  if (compCoreIctShare) {
-    const pct = totalStem > 0 ? ((totalICT / totalStem) * 100).toFixed(1) : '0.0';
-    compCoreIctShare.textContent = `${pct}%`;
-    setDbTag(compCoreIctShare, 'master');
-  }
-  if (totalStemEl) {
-    totalStemEl.textContent = `~${fmt(totalStem)}`;
-    setDbTag(totalStemEl, 'master');
   }
 }
 

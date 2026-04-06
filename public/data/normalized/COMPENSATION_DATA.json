@@ -2,7 +2,7 @@
   "_meta": {
     "schema": "3.0",
     "database": "COMPENSATION_DATA",
-    "lastUpdated": "2026-02-06T00:00:00Z",
+    "lastUpdated": "2026-04-06T00:00:00Z",
     "version": "1.0.0",
     "baseline": {
       "location": "Lisbon",
@@ -521,9 +521,10 @@
   },
   "ineRegionalEarnings": {
     "source": "INE — MTSSS/GEP Personnel Tables (Indicator 0012653)",
-    "year": 2023,
+    "year": 2024,
+    "sourceLastUpdated": "2026-03-27",
     "format": "14x",
-    "formatNote": "Raw values are official 14× Portuguese format. Display auto-converts to 12× equivalent (×14/12 ≈ ×1.167). Percentage vs Lisbon is auto-calculated from Bachelor column.",
+    "formatNote": "Raw values are official 14× Portuguese format. Data reference period is 2024. Display auto-converts to 12× equivalent (×14/12 ≈ ×1.167). Percentage vs Lisbon is auto-calculated from Bachelor column.",
     "lisbonBaselineField": "bachelor",
     "lisbonBaselineRegion": "grandeLisboa",
     "displayColumns": [
@@ -558,93 +559,93 @@
     ],
     "regions": {
       "portugal": {
-        "name": "Portugal",
-        "nutsII": "National",
+        "name": "Continente",
+        "nutsII": "Continente",
         "display": false,
-        "total": 1460.81,
-        "primary": 970.16,
-        "profCourse": 1413.22,
-        "preBologna": 2190.46,
-        "bachelor": 2152.25,
-        "master": 2379.77
+        "total": 1582.75,
+        "primary": 1032.94,
+        "profCourse": 1513.67,
+        "preBologna": 2368.66,
+        "bachelor": 2295.58,
+        "master": 2580.29
       },
       "norte": {
         "name": "Norte",
         "nutsII": "Norte",
         "display": true,
-        "total": 1348.66,
-        "primary": 951.14,
-        "profCourse": 1357.46,
-        "preBologna": 2024.07,
-        "bachelor": 1947.58,
-        "master": 2156.48
+        "total": 1474.68,
+        "primary": 1025.04,
+        "profCourse": 1421.91,
+        "preBologna": 2156.58,
+        "bachelor": 2104.58,
+        "master": 2404.1
       },
       "centro": {
         "name": "Centro",
         "nutsII": "Centro",
         "display": true,
-        "total": 1305.72,
-        "primary": 966.6,
-        "profCourse": 1245.53,
-        "preBologna": 1755.46,
-        "bachelor": 1756.21,
-        "master": 1965.84
+        "total": 1410.88,
+        "primary": 1050.27,
+        "profCourse": 1327.74,
+        "preBologna": 1870.46,
+        "bachelor": 1876.25,
+        "master": 2141.18
       },
       "oesteTejo": {
         "name": "Oeste/Tejo",
         "nutsII": "Oeste e Vale do Tejo",
         "display": true,
-        "total": 1249.77,
-        "primary": 995.32,
-        "profCourse": 1271.5,
-        "preBologna": 1832.99,
-        "bachelor": 1763.35,
-        "master": 1978
+        "total": 1346.57,
+        "primary": 1031.35,
+        "profCourse": 1396.79,
+        "preBologna": 2002.77,
+        "bachelor": 1902.4,
+        "master": 2222.88
       },
       "grandeLisboa": {
         "name": "G. Lisboa",
         "nutsII": "Grande Lisboa",
         "highlight": true,
         "display": true,
-        "total": 1817.17,
-        "primary": 987.94,
-        "profCourse": 1673.49,
-        "preBologna": 2543.41,
-        "bachelor": 2527.71,
-        "master": 2713.93
+        "total": 1935.68,
+        "primary": 1037.15,
+        "profCourse": 1794.08,
+        "preBologna": 2767.71,
+        "bachelor": 2658.64,
+        "master": 2883.97
       },
       "peninsulaSetubal": {
         "name": "P. Setúbal",
         "nutsII": "Península de Setúbal",
         "display": true,
-        "total": 1433.11,
-        "primary": 953.06,
-        "profCourse": 1283.38,
-        "preBologna": 2132.3,
-        "bachelor": 2066.26,
-        "master": 2139.84
+        "total": 1545.45,
+        "primary": 1027.87,
+        "profCourse": 1482.67,
+        "preBologna": 2352.63,
+        "bachelor": 2202.86,
+        "master": 2394.85
       },
       "alentejo": {
         "name": "Alentejo",
         "nutsII": "Alentejo",
         "display": true,
-        "total": 1326.13,
-        "primary": 973.58,
-        "profCourse": 1336.05,
-        "preBologna": 1957.42,
-        "bachelor": 1880.4,
-        "master": 2285.68
+        "total": 1409.53,
+        "primary": 1047.27,
+        "profCourse": 1464.31,
+        "preBologna": 2012.6,
+        "bachelor": 2039.73,
+        "master": 2400.58
       },
       "algarve": {
         "name": "Algarve",
         "nutsII": "Algarve",
         "display": true,
-        "total": 1238.68,
-        "primary": 954.85,
-        "profCourse": 1367.6,
-        "preBologna": 1774.68,
-        "bachelor": 1722.67,
-        "master": 1955.57
+        "total": 1320.22,
+        "primary": 1012.04,
+        "profCourse": 1478.07,
+        "preBologna": 1884.7,
+        "bachelor": 1850.96,
+        "master": 2270.7
       }
     },
     "regionToCityMapping": {
@@ -695,16 +696,16 @@
         "techStack": "coreBackend",
         "techPremium": 0,
         "city": "Porto",
-        "cityIndex": 91.9,
-        "_salaryIndexCalculation": "INE Norte baseline 77.0% → compressed 87.35 → +COL(40−33)×0.65 = +4.55 → 91.9"
+        "cityIndex": 93.1,
+        "_salaryIndexCalculation": "INE Norte baseline 79.2% → compressed 88.54 → +COL(40−33)×0.65 = +4.55 → 93.1"
       },
       "calculation": {
         "step1": "3646 × 1.25 = 4558 (after tier multiplier)",
         "step2": "4558 × (1 + 0.00) = 4558 (no tech premium)",
-        "step3": "4558 × (91.9 / 100) = 4189 EUR/month (12x format)"
+        "step3": "4558 × (93.1 / 100) = 4247 EUR/month (12x format)"
       },
       "result": {
-        "grossMonthly": 4188,
+        "grossMonthly": 4247,
         "unit": "EUR"
       }
     },
@@ -718,16 +719,16 @@
         "techStack": "dataML",
         "techPremium": 0.25,
         "city": "Braga",
-        "cityIndex": 88.7,
-        "_salaryIndexCalculation": "INE Norte baseline 77.0% → compressed 87.35 → +COL(35−33)×0.65 = +1.30 → 88.7"
+        "cityIndex": 89.8,
+        "_salaryIndexCalculation": "INE Norte baseline 79.2% → compressed 88.54 → +COL(35−33)×0.65 = +1.30 → 89.8"
       },
       "calculation": {
         "step1": "4132 × 1.00 = 4132 (mid-level baseline)",
         "step2": "4132 × (1 + 0.25) = 5165 (with ML premium)",
-        "step3": "5165 × (88.7 / 100) = 4581 EUR/month (12x format)"
+        "step3": "5165 × (89.8 / 100) = 4638 EUR/month (12x format)"
       },
       "result": {
-        "grossMonthly": 4581,
+        "grossMonthly": 4638,
         "unit": "EUR"
       }
     }

@@ -39,6 +39,7 @@ Use this checklist before tagging or deploying a release candidate.
 ## 5. Source and Link Quality
 
 - [ ] Internal source anchors (`#src-*`) resolve in `src/index.html`.
+- [ ] City Database header `auto` badges navigate to the correct methodology anchors (`#src-ict-pct`, `#src-tech-stemplus`, `#src-salary-index`).
 - [ ] High-priority source-link audit findings are either fixed or tracked.
 - [ ] No accidental direct external links bypassing source registry when a `#src-*` entry exists.
 

@@ -16,16 +16,16 @@ Data-driven analysis of Portugal's best cities for IT nearshoring. Covers 20 cit
 
 ## Cities
 
-- [Lisbon](https://al-gharb.github.io/nearshoring-cities-portugal/#city-lisbon): Capital; largest tech hub; Microsoft, Google, Amazon; 3,660 Tech STEM+ graduates/yr.
-- [Porto](https://al-gharb.github.io/nearshoring-cities-portugal/#city-porto): Second city; strong fintech and engineering cluster; Bosch, Natixis, Critical TechWorks; 3,210 Tech STEM+ graduates/yr.
-- [Braga](https://al-gharb.github.io/nearshoring-cities-portugal/#city-braga): Fast-growing tech scene; INL, Bosch, Axians; University of Minho; 1,890 Tech STEM+ graduates/yr.
-- [Guimarães](https://al-gharb.github.io/nearshoring-cities-portugal/#city-guimaraes): Industrial and engineering base; close to Porto/Braga cluster; 680 Tech STEM+ graduates/yr.
-- [Coimbra](https://al-gharb.github.io/nearshoring-cities-portugal/#city-coimbra): Historic university city; UC ranked top-5 nationally; health-tech and research focus; 1,120 Tech STEM+ graduates/yr.
-- [Aveiro](https://al-gharb.github.io/nearshoring-cities-portugal/#city-aveiro): University of Aveiro (top engineering); Nokia, Altice labs; 890 Tech STEM+ graduates/yr.
-- [Covilhã](https://al-gharb.github.io/nearshoring-cities-portugal/#city-covilha): Interior location; University of Beira Interior; lowest cost city in analysis; 420 Tech STEM+ graduates/yr.
-- [Évora](https://al-gharb.github.io/nearshoring-cities-portugal/#city-evora): UNESCO heritage city; University of Évora; agri-tech and sustainability niche; 310 Tech STEM+ graduates/yr.
-- [Faro](https://al-gharb.github.io/nearshoring-cities-portugal/#city-faro): Algarve capital; Universidade do Algarve; tourism-tech and international talent pool; 290 Tech STEM+ graduates/yr.
-- [Setúbal](https://al-gharb.github.io/nearshoring-cities-portugal/#city-setubal): Arrábida peninsula; Polytechnic of Setúbal; proximity to Lisbon (45 min); 480 Tech STEM+ graduates/yr.
+- [Lisbon](https://al-gharb.github.io/nearshoring-cities-portugal/#city-lisbon): Capital; largest tech hub; Microsoft, Google, Amazon; 5,472 Tech STEM+ graduates/yr.
+- [Porto](https://al-gharb.github.io/nearshoring-cities-portugal/#city-porto): Second city; strong fintech and engineering cluster; Bosch, Natixis, Critical TechWorks; 3,476 Tech STEM+ graduates/yr.
+- [Braga](https://al-gharb.github.io/nearshoring-cities-portugal/#city-braga): Fast-growing tech scene; INL, Bosch, Axians; University of Minho; 970 Tech STEM+ graduates/yr.
+- [Guimarães](https://al-gharb.github.io/nearshoring-cities-portugal/#city-guimaraes): Industrial and engineering base; close to Porto/Braga cluster; 775 Tech STEM+ graduates/yr.
+- [Coimbra](https://al-gharb.github.io/nearshoring-cities-portugal/#city-coimbra): Historic university city; UC ranked top-5 nationally; health-tech and research focus; 1,063 Tech STEM+ graduates/yr.
+- [Aveiro](https://al-gharb.github.io/nearshoring-cities-portugal/#city-aveiro): University of Aveiro (top engineering); Nokia, Altice labs; 865 Tech STEM+ graduates/yr.
+- [Covilhã](https://al-gharb.github.io/nearshoring-cities-portugal/#city-covilha): Interior location; University of Beira Interior; lowest cost city in analysis; 748 Tech STEM+ graduates/yr.
+- [Évora](https://al-gharb.github.io/nearshoring-cities-portugal/#city-evora): UNESCO heritage city; University of Évora; agri-tech and sustainability niche; 237 Tech STEM+ graduates/yr.
+- [Faro](https://al-gharb.github.io/nearshoring-cities-portugal/#city-faro): Algarve capital; Universidade do Algarve; tourism-tech and international talent pool; 374 Tech STEM+ graduates/yr.
+- [Setúbal](https://al-gharb.github.io/nearshoring-cities-portugal/#city-setubal): Arrábida peninsula; Polytechnic of Setúbal; proximity to Lisbon (45 min); 1,194 Tech STEM+ graduates/yr.
 
 ## Data
 
@@ -55,7 +55,7 @@ Primary data sources used in this analysis:
 ## Notes
 
 - **Internal calculations** — not for external verification:
-  - *Tech STEM+ composite*: tiered model combining core ICT + engineering subset + math/stats subset + CTeSP + vocational programmes. Methodology documented at `#methodology-graduates`.
+  - *Tech STEM+ composite*: tiered model combining core ICT + engineering subset + math/stats subset + vocational Tier 2 (CTeSP already counted inside DGEEC higher-education totals for ICT/engineering fields). Methodology documented at `#methodology-graduates`.
   - *Salary Index*: INE regional average wages divided by Lisbon baseline. Methodology at `#methodology-salaries`.
   - *ICT %*: coreIct ÷ officialStem (derived ratio).
 - **Static read-only site** — no API endpoints; all data is embedded in JSON files under `/data/normalized/`.

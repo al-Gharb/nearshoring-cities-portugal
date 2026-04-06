@@ -2,7 +2,7 @@
   "_meta": {
     "schema": "3.0",
     "database": "MASTER",
-    "lastUpdated": "2026-02-08T09:11:03Z",
+    "lastUpdated": "2026-04-06T00:00:00Z",
     "version": "1.0.0",
     "recordCount": 20
   },
@@ -92,8 +92,22 @@
             "description": "2-year diplomas: Web Dev, Programming"
           }
         },
-        "nationalEstimate": 16782,
-        "year": 2023
+        "nationalEstimate": 17954,
+        "year": 2026,
+        "baselineYear": "2023/24",
+        "projectionHorizonYears": 2,
+        "projectionCagr": {
+          "coreICT": 0.06,
+          "engineeringSubset": 0.03,
+          "mathStatsSubset": 0.03,
+          "vocationalTier2": 0.02
+        },
+        "projectedComponents": {
+          "coreICT": 3671,
+          "engineeringSubset": 9825,
+          "mathStatsSubset": 1691,
+          "vocationalTier2": 2767
+        }
       },
       "coreICT": {
         "description": "Pure CS/IT specialists (subset of Tech STEM+)",
@@ -209,37 +223,37 @@
   "regionalTotals": {
     "Norte": {
       "officialStem": 10044,
-      "digitalStemPlus": 6001,
+      "digitalStemPlus": 6420,
       "coreICT": 1246
     },
     "Centro": {
       "officialStem": 5842,
-      "digitalStemPlus": 3446,
+      "digitalStemPlus": 3687,
       "coreICT": 496
     },
     "Oeste and Vale do Tejo": {
       "officialStem": 360,
-      "digitalStemPlus": 438,
+      "digitalStemPlus": 469,
       "coreICT": 149
     },
     "Lisbon Metropolitan Area": {
       "officialStem": 8089,
-      "digitalStemPlus": 5115,
+      "digitalStemPlus": 5472,
       "coreICT": 1103
     },
     "Península de Setúbal": {
       "officialStem": 2503,
-      "digitalStemPlus": 1116,
+      "digitalStemPlus": 1194,
       "coreICT": 195
     },
     "Alentejo": {
       "officialStem": 435,
-      "digitalStemPlus": 316,
+      "digitalStemPlus": 338,
       "coreICT": 45
     },
     "Algarve": {
       "officialStem": 717,
-      "digitalStemPlus": 350,
+      "digitalStemPlus": 374,
       "coreICT": 33
     }
   },
@@ -322,7 +336,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 5115,
+            "value": 5472,
             "year": 2023,
             "meta": {
               "source": {
@@ -338,7 +352,8 @@
                 "updateFrequency": "annual",
                 "nextReview": "2026-09-01"
               }
-            }
+            },
+            "approximate": true
           },
           "coreICT": {
             "value": 1103,
@@ -553,7 +568,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 3250,
+            "value": 3476,
             "year": 2023,
             "meta": {
               "source": {
@@ -569,7 +584,8 @@
                 "updateFrequency": "annual",
                 "nextReview": "2026-09-01"
               }
-            }
+            },
+            "approximate": true
           },
           "coreICT": {
             "value": 720,
@@ -623,7 +639,7 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 91.9,
+          "value": 93.1,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
@@ -784,7 +800,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 906,
+            "value": 970,
             "year": 2023,
             "meta": {
               "source": {
@@ -800,7 +816,8 @@
                 "updateFrequency": "annual",
                 "nextReview": "2026-09-01"
               }
-            }
+            },
+            "approximate": true
           },
           "coreICT": {
             "value": 219,
@@ -854,7 +871,7 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 88.7,
+          "value": 89.8,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
@@ -1014,7 +1031,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 724,
+            "value": 775,
             "year": 2023,
             "meta": {
               "source": {
@@ -1030,7 +1047,8 @@
                 "updateFrequency": "annual",
                 "nextReview": "2026-09-01"
               }
-            }
+            },
+            "approximate": true
           },
           "coreICT": {
             "value": 142,
@@ -1084,7 +1102,7 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 87.4,
+          "value": 88.5,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
@@ -1245,7 +1263,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 993,
+            "value": 1063,
             "year": 2023,
             "meta": {
               "source": {
@@ -1261,7 +1279,8 @@
                 "updateFrequency": "annual",
                 "nextReview": "2026-09-01"
               }
-            }
+            },
+            "approximate": true
           },
           "coreICT": {
             "value": 146,
@@ -1315,7 +1334,7 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 83.9,
+          "value": 84.5,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
@@ -1475,7 +1494,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 808,
+            "value": 865,
             "year": 2023,
             "meta": {
               "source": {
@@ -1491,7 +1510,8 @@
                 "updateFrequency": "annual",
                 "nextReview": "2026-09-01"
               }
-            }
+            },
+            "approximate": true
           },
           "coreICT": {
             "value": 140,
@@ -1545,7 +1565,7 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 85.8,
+          "value": 86.4,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
@@ -1705,7 +1725,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 700,
+            "value": 748,
             "year": 2023,
             "meta": {
               "source": {
@@ -1721,7 +1741,8 @@
                 "updateFrequency": "annual",
                 "nextReview": "2026-09-01"
               }
-            }
+            },
+            "approximate": true
           },
           "coreICT": {
             "value": 63,
@@ -1775,7 +1796,7 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 81.3,
+          "value": 81.9,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
@@ -1935,7 +1956,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 222,
+            "value": 237,
             "year": 2023,
             "meta": {
               "source": {
@@ -1951,7 +1972,8 @@
                 "updateFrequency": "annual",
                 "nextReview": "2026-09-01"
               }
-            }
+            },
+            "approximate": true
           },
           "coreICT": {
             "value": 29,
@@ -2005,7 +2027,7 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 85.3,
+          "value": 86.5,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
@@ -2165,7 +2187,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 350,
+            "value": 374,
             "year": 2023,
             "meta": {
               "source": {
@@ -2181,7 +2203,8 @@
                 "updateFrequency": "annual",
                 "nextReview": "2026-09-01"
               }
-            }
+            },
+            "approximate": true
           },
           "coreICT": {
             "value": 33,
@@ -2235,7 +2258,7 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 85.7,
+          "value": 86.5,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
@@ -2396,7 +2419,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 1116,
+            "value": 1194,
             "year": 2023,
             "meta": {
               "source": {
@@ -2412,7 +2435,8 @@
                 "updateFrequency": "annual",
                 "nextReview": "2026-09-01"
               }
-            }
+            },
+            "approximate": true
           },
           "coreICT": {
             "value": 195,
@@ -2466,7 +2490,7 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 91.9,
+          "value": 92.5,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
@@ -2626,7 +2650,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 416,
+            "value": 445,
             "year": 2023,
             "meta": {
               "source": {
@@ -2642,7 +2666,8 @@
                 "updateFrequency": "annual",
                 "nextReview": "2026-09-01"
               }
-            }
+            },
+            "approximate": true
           },
           "coreICT": {
             "value": 65,
@@ -2696,7 +2721,7 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 86.7,
+          "value": 87.9,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
@@ -2857,7 +2882,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 308,
+            "value": 330,
             "year": 2023,
             "meta": {
               "source": {
@@ -2873,7 +2898,8 @@
                 "updateFrequency": "annual",
                 "nextReview": "2026-09-01"
               }
-            }
+            },
+            "approximate": true
           },
           "coreICT": {
             "value": 44,
@@ -2927,7 +2953,7 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 87.4,
+          "value": 88.5,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
@@ -3088,7 +3114,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 397,
+            "value": 424,
             "year": 2023,
             "meta": {
               "source": {
@@ -3104,7 +3130,8 @@
                 "updateFrequency": "annual",
                 "nextReview": "2026-09-01"
               }
-            }
+            },
+            "approximate": true
           },
           "coreICT": {
             "value": 56,
@@ -3158,7 +3185,7 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 84.1,
+          "value": 85.3,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
@@ -3319,7 +3346,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 150,
+            "value": 161,
             "year": 2023,
             "meta": {
               "source": {
@@ -3335,7 +3362,8 @@
                 "updateFrequency": "annual",
                 "nextReview": "2026-09-01"
               }
-            }
+            },
+            "approximate": true
           },
           "coreICT": {
             "value": 86,
@@ -3389,7 +3417,7 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 84.5,
+          "value": 85.1,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
@@ -3550,7 +3578,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 164,
+            "value": 176,
             "year": 2023,
             "meta": {
               "source": {
@@ -3566,7 +3594,8 @@
                 "updateFrequency": "annual",
                 "nextReview": "2026-09-01"
               }
-            }
+            },
+            "approximate": true
           },
           "coreICT": {
             "value": 76,
@@ -3620,7 +3649,7 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 81.4,
+          "value": 82.4,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
@@ -3781,7 +3810,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 548,
+            "value": 586,
             "year": 2023,
             "meta": {
               "source": {
@@ -3797,7 +3826,8 @@
                 "updateFrequency": "annual",
                 "nextReview": "2026-09-01"
               }
-            }
+            },
+            "approximate": true
           },
           "coreICT": {
             "value": 39,
@@ -3851,7 +3881,7 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 82.6,
+          "value": 83.2,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
@@ -4012,7 +4042,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 247,
+            "value": 264,
             "year": 2023,
             "meta": {
               "source": {
@@ -4028,7 +4058,8 @@
                 "updateFrequency": "annual",
                 "nextReview": "2026-09-01"
               }
-            }
+            },
+            "approximate": true
           },
           "coreICT": {
             "value": 22,
@@ -4082,7 +4113,7 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 81.3,
+          "value": 81.9,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
@@ -4243,7 +4274,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 274,
+            "value": 293,
             "year": 2023,
             "meta": {
               "source": {
@@ -4259,7 +4290,8 @@
                 "updateFrequency": "annual",
                 "nextReview": "2026-09-01"
               }
-            }
+            },
+            "approximate": true
           },
           "coreICT": {
             "value": 73,
@@ -4313,7 +4345,7 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 81.4,
+          "value": 82.4,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
@@ -4474,7 +4506,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 52,
+            "value": 56,
             "year": 2023,
             "meta": {
               "source": {
@@ -4490,7 +4522,8 @@
                 "updateFrequency": "annual",
                 "nextReview": "2026-09-01"
               }
-            }
+            },
+            "approximate": true
           },
           "coreICT": {
             "value": 9,
@@ -4544,7 +4577,7 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 82.7,
+          "value": 83.9,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
@@ -4705,7 +4738,7 @@
             "approximate": true
           },
           "digitalStemPlus": {
-            "value": 42,
+            "value": 45,
             "year": 2023,
             "meta": {
               "source": {
@@ -4721,7 +4754,8 @@
                 "updateFrequency": "annual",
                 "nextReview": "2026-09-01"
               }
-            }
+            },
+            "approximate": true
           },
           "coreICT": {
             "value": 7,
@@ -4775,7 +4809,7 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 82.7,
+          "value": 83.9,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
@@ -4863,4 +4897,3 @@
     }
   }
 }
-

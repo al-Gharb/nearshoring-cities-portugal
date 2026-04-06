@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "generatedAt": "2026-02-06T22:11:02Z",
+    "generatedAt": "2026-04-06T00:00:00Z",
     "source": "MASTER.json"
   },
   "regionOrder": [
@@ -16,51 +16,51 @@
     {
       "region": "Norte",
       "cityCount": 6,
-      "stemTotal": 12756,
+      "stemTotal": 6420,
       "ictTotal": 1246,
-      "ictPct": 9.8
+      "ictPct": 19.4
     },
     {
       "region": "Centro",
       "cityCount": 6,
-      "stemTotal": 6354,
+      "stemTotal": 3687,
       "ictTotal": 496,
-      "ictPct": 7.8
+      "ictPct": 13.5
     },
     {
       "region": "Oeste and Vale do Tejo",
       "cityCount": 2,
-      "stemTotal": 457,
+      "stemTotal": 469,
       "ictTotal": 149,
-      "ictPct": 32.6
+      "ictPct": 31.8
     },
     {
       "region": "Lisbon Metropolitan Area",
       "cityCount": 1,
-      "stemTotal": 10273,
+      "stemTotal": 5472,
       "ictTotal": 1103,
-      "ictPct": 10.7
+      "ictPct": 20.2
     },
     {
       "region": "Península de Setúbal",
       "cityCount": 1,
-      "stemTotal": 3179,
+      "stemTotal": 1194,
       "ictTotal": 195,
-      "ictPct": 6.1
+      "ictPct": 16.3
     },
     {
       "region": "Alentejo",
       "cityCount": 3,
-      "stemTotal": 552,
+      "stemTotal": 338,
       "ictTotal": 45,
-      "ictPct": 8.2
+      "ictPct": 13.3
     },
     {
       "region": "Algarve",
       "cityCount": 1,
-      "stemTotal": 911,
+      "stemTotal": 374,
       "ictTotal": 33,
-      "ictPct": 3.6
+      "ictPct": 8.8
     }
   ],
   "rows": [
@@ -74,10 +74,10 @@
         "UPorto",
         "IPP"
       ],
-      "stemGrads": 6908,
+      "stemGrads": 3476,
       "ictGrads": 720,
       "ictPct": 13.2,
-      "salaryIndex": 91.9,
+      "salaryIndex": 93.1,
       "officeRent": "16-20",
       "residentialRent": "800-1200",
       "colIndex": 40
@@ -92,10 +92,10 @@
         "UMinho",
         "IPCA"
       ],
-      "stemGrads": 1927,
+      "stemGrads": 970,
       "ictGrads": 219,
       "ictPct": 14.4,
-      "salaryIndex": 88.7,
+      "salaryIndex": 89.8,
       "officeRent": "11-14",
       "residentialRent": "750-1000",
       "colIndex": 35
@@ -109,10 +109,10 @@
       "universities": [
         "UMinho (Engineering Campus)"
       ],
-      "stemGrads": 1539,
+      "stemGrads": 775,
       "ictGrads": 142,
       "ictPct": 11.7,
-      "salaryIndex": 87.4,
+      "salaryIndex": 88.5,
       "officeRent": "9-12",
       "residentialRent": "650-850",
       "colIndex": 33
@@ -126,10 +126,10 @@
       "universities": [
         "UTAD"
       ],
-      "stemGrads": 884,
+      "stemGrads": 445,
       "ictGrads": 65,
       "ictPct": 9.3,
-      "salaryIndex": 86.7,
+      "salaryIndex": 87.9,
       "officeRent": "8-10",
       "residentialRent": "450-650",
       "colIndex": 32
@@ -143,10 +143,10 @@
       "universities": [
         "IPVC"
       ],
-      "stemGrads": 655,
+      "stemGrads": 330,
       "ictGrads": 44,
       "ictPct": 8.5,
-      "salaryIndex": 87.4,
+      "salaryIndex": 88.5,
       "officeRent": "9-12",
       "residentialRent": "500-700",
       "colIndex": 33
@@ -160,10 +160,10 @@
       "universities": [
         "IPB"
       ],
-      "stemGrads": 843,
+      "stemGrads": 424,
       "ictGrads": 56,
       "ictPct": 8.4,
-      "salaryIndex": 84.1,
+      "salaryIndex": 85.3,
       "officeRent": "6-8",
       "residentialRent": "350-550",
       "colIndex": 28
@@ -178,10 +178,10 @@
         "UCoimbra",
         "IPC"
       ],
-      "stemGrads": 1467,
+      "stemGrads": 1063,
       "ictGrads": 146,
       "ictPct": 8.7,
-      "salaryIndex": 83.9,
+      "salaryIndex": 84.5,
       "officeRent": "10-13",
       "residentialRent": "700-900",
       "colIndex": 34
@@ -195,10 +195,10 @@
       "universities": [
         "UAveiro"
       ],
-      "stemGrads": 1193,
+      "stemGrads": 865,
       "ictGrads": 140,
       "ictPct": 10.2,
-      "salaryIndex": 85.8,
+      "salaryIndex": 86.4,
       "officeRent": "12-15",
       "residentialRent": "750-1000",
       "colIndex": 37
@@ -212,10 +212,10 @@
       "universities": [
         "UBI"
       ],
-      "stemGrads": 1033,
+      "stemGrads": 748,
       "ictGrads": 63,
       "ictPct": 5.3,
-      "salaryIndex": 81.3,
+      "salaryIndex": 81.9,
       "officeRent": "7-10",
       "residentialRent": "450-700",
       "colIndex": 30
@@ -229,10 +229,10 @@
       "universities": [
         "IPV"
       ],
-      "stemGrads": 809,
+      "stemGrads": 586,
       "ictGrads": 39,
       "ictPct": 4.2,
-      "salaryIndex": 82.6,
+      "salaryIndex": 83.2,
       "officeRent": "8-11",
       "residentialRent": "450-650",
       "colIndex": 32
@@ -246,10 +246,10 @@
       "universities": [
         "IPCB"
       ],
-      "stemGrads": 364,
+      "stemGrads": 264,
       "ictGrads": 22,
       "ictPct": 5.3,
-      "salaryIndex": 81.3,
+      "salaryIndex": 81.9,
       "officeRent": "7-10",
       "residentialRent": "400-600",
       "colIndex": 30
@@ -263,10 +263,10 @@
       "universities": [
         "IPL"
       ],
-      "stemGrads": 1488,
+      "stemGrads": 161,
       "ictGrads": 86,
       "ictPct": 33.7,
-      "salaryIndex": 84.5,
+      "salaryIndex": 85.1,
       "officeRent": "10-13",
       "residentialRent": "550-750",
       "colIndex": 35
@@ -280,10 +280,10 @@
       "universities": [
         "IPS"
       ],
-      "stemGrads": 170,
+      "stemGrads": 176,
       "ictGrads": 76,
       "ictPct": 56.3,
-      "salaryIndex": 81.4,
+      "salaryIndex": 82.4,
       "officeRent": "11-14",
       "residentialRent": "450-700",
       "colIndex": 30
@@ -297,10 +297,10 @@
       "universities": [
         "IPT"
       ],
-      "stemGrads": 287,
+      "stemGrads": 293,
       "ictGrads": 73,
       "ictPct": 32.4,
-      "salaryIndex": 81.4,
+      "salaryIndex": 82.4,
       "officeRent": "7-10",
       "residentialRent": "400-600",
       "colIndex": 30
@@ -317,7 +317,7 @@
         "ISCTE",
         "IPL"
       ],
-      "stemGrads": 10273,
+      "stemGrads": 5472,
       "ictGrads": 1103,
       "ictPct": 13.6,
       "salaryIndex": 100,
@@ -335,10 +335,10 @@
         "IPS",
         "ESE Setúbal"
       ],
-      "stemGrads": 3179,
+      "stemGrads": 1194,
       "ictGrads": 195,
       "ictPct": 7.8,
-      "salaryIndex": 91.9,
+      "salaryIndex": 92.5,
       "officeRent": "10-13",
       "residentialRent": "950-1200",
       "colIndex": 36
@@ -352,10 +352,10 @@
       "universities": [
         "UÉvora"
       ],
-      "stemGrads": 387,
+      "stemGrads": 237,
       "ictGrads": 29,
       "ictPct": 9.5,
-      "salaryIndex": 85.3,
+      "salaryIndex": 86.5,
       "officeRent": "8-11",
       "residentialRent": "700-900",
       "colIndex": 32
@@ -369,10 +369,10 @@
       "universities": [
         "IPBeja"
       ],
-      "stemGrads": 91,
+      "stemGrads": 56,
       "ictGrads": 9,
       "ictPct": 12.5,
-      "salaryIndex": 82.7,
+      "salaryIndex": 83.9,
       "officeRent": "6-9",
       "residentialRent": "350-550",
       "colIndex": 28
@@ -386,10 +386,10 @@
       "universities": [
         "IPP"
       ],
-      "stemGrads": 74,
+      "stemGrads": 45,
       "ictGrads": 7,
       "ictPct": 12.1,
-      "salaryIndex": 82.7,
+      "salaryIndex": 83.9,
       "officeRent": "6-9",
       "residentialRent": "350-550",
       "colIndex": 28
@@ -403,10 +403,10 @@
       "universities": [
         "UALG"
       ],
-      "stemGrads": 911,
+      "stemGrads": 374,
       "ictGrads": 33,
       "ictPct": 4.6,
-      "salaryIndex": 85.7,
+      "salaryIndex": 86.5,
       "officeRent": "12-15",
       "residentialRent": "900-1100",
       "colIndex": 38
@@ -418,5 +418,3 @@
     "ictGrads": 3267
   }
 }
-
-

@@ -134,7 +134,7 @@ export function calculateICTPct(coreICT, officialStem) {
  *   NATIONAL_COL_AVG = 33   — Numbeo national average COL (NYC = 100)
  *   COL_SENSITIVITY  = 0.65 — each COL point above/below avg → ±0.65
  *
- * @param {number} regionalBaseline — INE Bachelor % vs Lisbon (e.g. 77.0 for Norte)
+ * @param {number} regionalBaseline — INE Bachelor % vs Lisbon (e.g. 79.2 for Norte)
  * @param {number} colIndex — Numbeo Cost-of-Living index (NYC = 100)
  * @returns {number} — salary index (Lisbon = 100)
  */

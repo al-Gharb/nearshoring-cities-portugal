@@ -329,6 +329,26 @@ button:focus-visible,
 .col-with-badge .badge-auto {
   margin: 0;
 }
+
+a.badge-auto.badge-auto-link {
+  display: inline-block;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a.badge-auto.badge-auto-link:hover,
+a.badge-auto.badge-auto-link:focus-visible {
+  color: #fff;
+  text-decoration: none;
+  filter: brightness(1.06);
+}
+
+a.badge-auto.badge-auto-link:focus-visible {
+  outline: 2px solid rgba(59, 130, 246, 0.4);
+  outline-offset: 1px;
+}
+
 .badge-beta {
   padding: 0.2rem 0.6rem;
   background: linear-gradient(135deg, #7c3aed 0%, #2563eb 50%, #8b5cf6 100%);

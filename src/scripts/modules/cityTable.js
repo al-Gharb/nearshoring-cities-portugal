@@ -132,7 +132,7 @@ function createCityRow(rowData) {
   stemCell.classList.add('col-numeric', 'col-stemplus', 'approximate-value');
   if (rowData.stemPlus != null) {
     stemCell.textContent = formatNumber(rowData.stemPlus);
-    stemCell.title = 'Internal Tech STEM+ benchmark estimate (approximate), not an official DGEEC classification';
+    stemCell.title = 'Tech STEM+ = projected annual hiring-relevant tech graduate pool (gross, end-2026): Tier 1 STEM subset + Tier 2 vocational additive (approximate, internal estimate)';
   } else {
     stemCell.textContent = '—';
   }
@@ -248,7 +248,7 @@ function createRegionSummaryRow(regionName, totals) {
   stemCell.classList.add('col-numeric', 'col-stemplus', 'approximate-value');
   if (totals?.digitalStemPlus != null) {
     stemCell.textContent = formatNumber(totals.digitalStemPlus);
-    stemCell.title = 'Internal Tech STEM+ benchmark estimate — regional gross 2026 totals (approximate)';
+    stemCell.title = 'Tech STEM+ = projected annual hiring-relevant tech graduate pool (gross, end-2026): Tier 1 STEM subset + Tier 2 vocational additive. Regional gross 2026 total (approximate)';
   } else {
     stemCell.textContent = '—';
   }
@@ -316,7 +316,7 @@ function createGrandTotalsRow(allRegionalTotals) {
   stemCell.classList.add('col-numeric', 'col-stemplus', 'approximate-value');
   stemCell.id = 'total-stem-grads';
   stemCell.textContent = formatNumber(totalStemPlus);
-  stemCell.title = 'Internal Tech STEM+ benchmark estimate — sum of all regional gross 2026 values (approximate)';
+  stemCell.title = 'Tech STEM+ = projected annual hiring-relevant tech graduate pool (gross, end-2026): Tier 1 STEM subset + Tier 2 vocational additive. Sum of all regional gross 2026 values (approximate)';
   tr.appendChild(stemCell);
 
   // Salary — N/A

@@ -1219,7 +1219,9 @@
       }
     },
     "salaryByRegion": {
-      "source": "INE/MTSSS Personnel Tables 2023",
+      "source": "INE/MTSSS Personnel Tables 2024",
+      "dataReferencePeriod": 2024,
+      "sourceLastUpdated": "2026-03-27",
       "indicator": "0012653",
       "url": "https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_indicadores&contecto=pi&indOcorrCod=0012653&selTab=tab0",
       "note": "Original INE data is 14× monthly. Values stored here are converted to 12× equivalent (×14/12) for international comparability.",
@@ -1227,59 +1229,59 @@
       "regions": [
         {
           "nuts": "G. Lisboa",
-          "total": 2120.03,
-          "primary": 1152.6,
-          "bachelor": 2948.99,
-          "master": 3166.25,
+          "total": 2258.29,
+          "primary": 1210.01,
+          "bachelor": 3101.75,
+          "master": 3364.63,
           "index": 100.0
         },
         {
           "nuts": "P. Setúbal",
-          "total": 1671.96,
-          "primary": 1111.9,
-          "bachelor": 2410.64,
-          "master": 2496.48,
-          "index": 78.9
+          "total": 1803.03,
+          "primary": 1199.18,
+          "bachelor": 2570.0,
+          "master": 2793.99,
+          "index": 82.9
         },
         {
           "nuts": "Norte",
-          "total": 1573.44,
-          "primary": 1109.66,
-          "bachelor": 2272.18,
-          "master": 2515.89,
-          "index": 74.2
+          "total": 1720.46,
+          "primary": 1195.88,
+          "bachelor": 2455.34,
+          "master": 2804.78,
+          "index": 79.2
         },
         {
           "nuts": "Alentejo",
-          "total": 1547.15,
-          "primary": 1135.84,
-          "bachelor": 2193.8,
-          "master": 2666.63,
-          "index": 73.0
+          "total": 1644.45,
+          "primary": 1221.82,
+          "bachelor": 2379.69,
+          "master": 2800.68,
+          "index": 76.7
         },
         {
           "nuts": "Centro",
-          "total": 1523.34,
-          "primary": 1127.7,
-          "bachelor": 2049.25,
-          "master": 2293.48,
-          "index": 71.9
+          "total": 1646.03,
+          "primary": 1225.32,
+          "bachelor": 2188.96,
+          "master": 2498.04,
+          "index": 70.6
         },
         {
           "nuts": "Oeste/Tejo",
-          "total": 1458.07,
-          "primary": 1161.21,
-          "bachelor": 2057.24,
-          "master": 2307.67,
-          "index": 68.8
+          "total": 1571.0,
+          "primary": 1203.24,
+          "bachelor": 2219.47,
+          "master": 2593.36,
+          "index": 71.6
         },
         {
           "nuts": "Algarve",
-          "total": 1445.13,
-          "primary": 1113.99,
-          "bachelor": 2009.78,
-          "master": 2281.5,
-          "index": 68.2
+          "total": 1540.26,
+          "primary": 1180.71,
+          "bachelor": 2159.45,
+          "master": 2649.15,
+          "index": 69.6
         }
       ],
       "meta": {

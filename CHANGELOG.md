@@ -28,6 +28,20 @@ All notable changes to this project are documented in this file.
 - Replaced full Font Awesome CSS import with a generated local subset stylesheet that includes only icon classes used in source files.
 - Deferred loading of the D3 bubble chart and simulator/fact-check generator modules until their sections are opened, reducing initial JavaScript execution.
 - Refactored bubble chart D3 usage to import only required submodules instead of a full namespace import, improving tree-shaking.
+- Updated INE regional earnings dataset from 2023 to 2024 across normalized databases and UI references:
+  - refreshed `ineRegionalEarnings` values in `public/data/normalized/COMPENSATION_DATA.json`
+  - refreshed legacy `salaryByRegion` values in `public/data/normalized/WEBSITE_CONTENT.json`
+  - updated INE source metadata in `public/data/sources.json` (2024 period, published 2026-03-27)
+  - updated salary-index methodology examples and INE year labels in `src/index.html`
+- Aligned Tech STEM+ methodology numbers with the stated 2-year CAGR projection logic:
+  - updated projected component totals and national estimate in `public/data/normalized/MASTER.json`
+  - updated projected regional Tech STEM+ totals in `public/data/normalized/MASTER.json`
+  - persisted recalculated city-level Tech STEM+ allocations from updated regional totals in `public/data/normalized/MASTER.json`
+  - synchronized projection values in `src/index.html`, `src/scripts/modules/contentRenderer.js`, `public/data/rendered/city_table.json`, `public/data/rendered/bubble_chart.json`, and `public/llms.txt`
+- Updated City Database methodology navigation and metric definitions:
+  - made the three header `auto` badges clickable to their methodology anchors (`#src-ict-pct`, `#src-tech-stemplus`, `#src-salary-index`)
+  - expanded Tech STEM+ tooltip copy in city, regional-subtotal, and mainland-total cells to state the metric definition (projected annual hiring-relevant tech graduate pool, gross end-2026)
+  - generalized `#src-*` anchor click handling so new in-table methodology links open and scroll reliably
 
 ### Notes
 

@@ -2,7 +2,7 @@
   "_meta": {
     "schema": "1.1",
     "description": "Machine-readable source registry. All databases and docs reference this single file by provider ID. One place to update when URLs change.",
-    "lastUpdated": "2026-02-08T00:00:00Z"
+    "lastUpdated": "2026-04-06T00:00:00Z"
   },
 
   "sources": {
@@ -89,12 +89,12 @@
       "expiresAfter": "24M",
       "covers": ["cnaefCodes", "studyClassifications", "stemDefinition", "ictDefinition"]
     },
-    "ine-mtsss-2023": {
+    "ine-mtsss-2024": {
       "provider": "INE/MTSSS",
-      "title": "Personnel Tables / Quadros de Pessoal 2023",
+      "title": "Personnel Tables / Quadros de Pessoal 2024",
       "url": "https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_indicadores&contecto=pi&indOcorrCod=0012653&selTab=tab0",
       "type": "official",
-      "publishedDate": "2024-06-01",
+      "publishedDate": "2026-03-27",
       "expiresAfter": "12M",
       "covers": ["salaryByRegion"]
     },
