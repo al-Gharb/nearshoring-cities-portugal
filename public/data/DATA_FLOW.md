@@ -43,6 +43,30 @@
 
 ---
 
+## Rendered Snapshot Exports (Generated)
+
+`public/data/rendered/*.json` are generated snapshots for export/integration workflows.
+They are not the runtime source for the main UI rendering modules.
+
+```
+MASTER.json + COMPENSATION_DATA.json
+      │
+      └── scripts/generate_rendered_snapshots.mjs
+          ├── city_table.json
+          └── bubble_chart.json
+```
+
+Generation commands:
+
+```bash
+npm run gen:rendered   # write snapshots
+npm run check:rendered # fail if snapshots are stale
+```
+
+`npm run build` runs `prebuild`, which regenerates these snapshots before the Vite bundle.
+
+---
+
 ## MASTER.json → HTML Rendering
 
 ```
@@ -273,6 +297,8 @@ WEBSITE_CONTENT.json → national.laborMarket.damiaBenchmark
 | City fact-check cards | CITY_PROFILES | `contentRenderer.js` | ✅ Dynamic |
 | Methodology totals | MASTER | `contentRenderer.js` | ✅ Dynamic |
 | Cover page city tags | CITY_PROFILES | `contentRenderer.js` | ✅ Dynamic |
+| Rendered city table export (`public/data/rendered/city_table.json`) | MASTER + COMPENSATION_DATA | `scripts/generate_rendered_snapshots.mjs` | ✅ Generated |
+| Rendered bubble export (`public/data/rendered/bubble_chart.json`) | MASTER + COMPENSATION_DATA | `scripts/generate_rendered_snapshots.mjs` | ✅ Generated |
 | Macroeconomic scorecard | WEBSITE_CONTENT | `contentRenderer.js` | ✅ Dynamic |
 | Digital infra heroes | WEBSITE_CONTENT | `contentRenderer.js` | ✅ Dynamic |
 | EU Context: ICT card | WEBSITE_CONTENT | `contentRenderer.js` | ✅ Dynamic |
@@ -310,6 +336,7 @@ Prompt template guardrails also enforce:
 - data boundary behavior (prompt figures are authoritative; optional external context must be explicitly labeled),
 - JSON integrity requirement (valid syntax and unchanged numeric values).
 
-**All data is now dynamically rendered from JSON databases.** Update the source database and rebuild — all HTML values will update automatically.
+**Runtime HTML rendering is dynamic from normalized JSON databases.**
+Generated exports in `public/data/rendered/` are synchronized by `npm run gen:rendered` (or automatically via `npm run build` prebuild).
 
 

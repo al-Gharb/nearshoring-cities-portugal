@@ -52,6 +52,22 @@ All notable changes to this project are documented in this file.
   - added concise per-section descriptor lines for main TOC entries
   - added a foundation-row explanatory note for City Database + Sources/Methodologies context
 - Recalibrated retention strengths/risks wording across all 10 featured city profiles to align with current cost and talent metrics (reduced affordability overstatements in mid-cost hubs such as Braga, Setúbal, and Évora).
+- Updated secondary-city housing and cost-of-living calibration for Santarém/Tomar:
+  - set COL index to `33` for both cities in `public/data/normalized/MASTER.json`
+  - positioned 1-bedroom rents at `€600-800/month` (Santarém) and `€550-750/month` (Tomar)
+  - synchronized rendered snapshots in `public/data/rendered/city_table.json` and `public/data/rendered/bubble_chart.json`
+- Applied rent-only outlier refinements (no COL changes):
+  - Vila Real 1-bedroom rent: `€450-650` → `€500-700`
+  - Viana do Castelo 1-bedroom rent: `€500-700` → `€500-750`
+  - Setúbal office rent: `€10-13/m²` → `€12-15/m²`
+- Added deterministic rendered snapshot automation:
+  - new script `scripts/generate_rendered_snapshots.mjs` to generate/check `public/data/rendered/city_table.json` and `public/data/rendered/bubble_chart.json`
+  - new npm scripts `gen:rendered` and `check:rendered`
+  - `npm run build` now includes `prebuild` snapshot regeneration
+  - rendered bubble snapshot contract is now featured-city only (10 points from `MASTER.config.chartConfig.cityConfig`)
+- Hardened contributor and agent workflow docs for source-of-truth + generated snapshots in:
+  - `README.md`, `CONTRIBUTING.md`, `RELEASE_CHECKLIST.md`, `docs/INDEX.md`
+  - `public/data/DATA_FLOW.md`, `factchecks/README.md`, `.github/copilot-instructions.md`
 
 ### Notes
 

@@ -24,6 +24,7 @@ Use this checklist before tagging or deploying a release candidate.
 
 ## 3. Build and Test
 
+- [ ] `npm run check:rendered` passes.
 - [ ] `npm run lint` passes.
 - [ ] `npm run build` passes.
 - [ ] `npm run test` passes (or `npm run test:all` for release-critical updates).
@@ -32,6 +33,8 @@ Use this checklist before tagging or deploying a release candidate.
 ## 4. Data and Fact-Check Governance
 
 - [ ] Any database edits in `public/data/normalized/` have matching rationale in PR.
+- [ ] Changes to `MASTER.json` or `COMPENSATION_DATA.json` include synchronized `public/data/rendered/city_table.json` and `public/data/rendered/bubble_chart.json`.
+- [ ] `public/data/rendered/*` `_meta.generatedAt` matches source freshness expectations (`MASTER._meta.lastUpdated`).
 - [ ] `WEBSITE_CONTENT.json` `_meta.lastUpdated` is current enough to keep header freshness meaningful.
 - [ ] Fact-check correction updates include explicit HITL `GO` approval trail.
 - [ ] No internal metrics are presented as externally verified facts.

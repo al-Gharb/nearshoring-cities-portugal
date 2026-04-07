@@ -131,7 +131,7 @@
       "ictPct": 9.3,
       "salaryIndex": 87.9,
       "officeRent": "8-10",
-      "residentialRent": "450-650",
+      "residentialRent": "500-700",
       "colIndex": 32
     },
     {
@@ -148,7 +148,7 @@
       "ictPct": 8.5,
       "salaryIndex": 88.5,
       "officeRent": "9-12",
-      "residentialRent": "500-700",
+      "residentialRent": "500-750",
       "colIndex": 33
     },
     {
@@ -165,7 +165,7 @@
       "ictPct": 8.4,
       "salaryIndex": 85.3,
       "officeRent": "6-8",
-      "residentialRent": "350-550",
+      "residentialRent": "400-600",
       "colIndex": 28
     },
     {
@@ -267,7 +267,7 @@
       "ictGrads": 86,
       "ictPct": 33.7,
       "salaryIndex": 85.1,
-      "officeRent": "10-13",
+      "officeRent": "12-15",
       "residentialRent": "550-750",
       "colIndex": 35
     },
@@ -283,10 +283,10 @@
       "stemGrads": 176,
       "ictGrads": 76,
       "ictPct": 56.3,
-      "salaryIndex": 82.4,
+      "salaryIndex": 84.4,
       "officeRent": "11-14",
-      "residentialRent": "450-700",
-      "colIndex": 30
+      "residentialRent": "600-800",
+      "colIndex": 33
     },
     {
       "id": "tomar",
@@ -300,10 +300,10 @@
       "stemGrads": 293,
       "ictGrads": 73,
       "ictPct": 32.4,
-      "salaryIndex": 82.4,
+      "salaryIndex": 84.4,
       "officeRent": "7-10",
-      "residentialRent": "400-600",
-      "colIndex": 30
+      "residentialRent": "550-750",
+      "colIndex": 33
     },
     {
       "id": "lisbon",
@@ -339,7 +339,7 @@
       "ictGrads": 195,
       "ictPct": 7.8,
       "salaryIndex": 92.5,
-      "officeRent": "10-13",
+      "officeRent": "12-15",
       "residentialRent": "950-1200",
       "colIndex": 36
     },
@@ -374,7 +374,7 @@
       "ictPct": 12.5,
       "salaryIndex": 83.9,
       "officeRent": "6-9",
-      "residentialRent": "350-550",
+      "residentialRent": "400-600",
       "colIndex": 28
     },
     {
@@ -391,7 +391,7 @@
       "ictPct": 12.1,
       "salaryIndex": 83.9,
       "officeRent": "6-9",
-      "residentialRent": "350-550",
+      "residentialRent": "400-600",
       "colIndex": 28
     },
     {
@@ -414,7 +414,7 @@
   ],
   "totals": {
     "cities": 20,
-    "stemGrads": 34482,
+    "stemGrads": 17954,
     "ictGrads": 3267
   }
 }

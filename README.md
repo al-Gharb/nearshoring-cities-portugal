@@ -65,6 +65,12 @@ npm install
 # Start development server
 npm run dev
 
+# Regenerate rendered snapshots from normalized data
+npm run gen:rendered
+
+# Verify rendered snapshots are in sync
+npm run check:rendered
+
 # Run static checks
 npm run lint
 
@@ -126,9 +132,9 @@ npm run test:all
 │       │   ├── WEBSITE_CONTENT.json # Section content (macroeconomic, infra)
 │       │   ├── COMPENSATION_DATA.json # Salary bands & multipliers
 │       │   └── FACTCHECK_CLAIMS_v2.json # Verification methodology only
-│       └── rendered/             # Pre-computed chart data
-│           ├── bubble_chart.json
-│           └── city_table.json
+│       └── rendered/             # Generated snapshots from normalized data
+│           ├── bubble_chart.json # Regenerate via npm run gen:rendered
+│           └── city_table.json   # Regenerate via npm run gen:rendered
 │
 ├── docs/                         # Documentation index and supporting docs
 ├── CHANGELOG.md                  # Baseline and release history

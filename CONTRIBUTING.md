@@ -20,6 +20,8 @@ npm install
 
 ```bash
 npm run dev         # local development server
+npm run gen:rendered # regenerate rendered snapshots from normalized data
+npm run check:rendered # verify rendered snapshots are in sync
 npm run lint        # eslint + stylelint
 npm run lint:js     # javascript lint only
 npm run lint:css    # css lint only
@@ -35,6 +37,7 @@ npm run preview     # preview built output
 1. Create a focused branch for one change set.
 2. Keep commits scoped and descriptive.
 3. Before opening a PR, run at minimum:
+   - `npm run check:rendered`
    - `npm run lint`
    - `npm run build`
 4. If UI, data, or rendering logic changed, also run `npm run test:all` when feasible.
@@ -57,6 +60,9 @@ Rules:
 - Avoid duplicating values in JS when data binding is possible.
 - After data edits, verify rendering paths using [public/data/DATA_FLOW.md](public/data/DATA_FLOW.md).
 - Keep internal/derived metrics clearly identified as methodology outputs.
+- Rendered snapshots under [public/data/rendered](public/data/rendered) are generated derivatives, not authoritative input data.
+- After changes to [public/data/normalized/MASTER.json](public/data/normalized/MASTER.json) or [public/data/normalized/COMPENSATION_DATA.json](public/data/normalized/COMPENSATION_DATA.json), run `npm run gen:rendered`.
+- Do not hand-edit `public/data/rendered/*.json` except emergency recovery; regenerate immediately afterward and verify with `npm run check:rendered`.
 
 ## 5. Fact-Check Correction Workflow
 

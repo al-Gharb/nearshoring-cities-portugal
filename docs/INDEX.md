@@ -42,5 +42,4 @@
 
 - `_backups/` is archival content and out of scope for active baseline documentation updates.
 - For data corrections, update source databases first and regenerate/verify downstream outputs.
-
-
+- Rendered snapshot sync workflow lives in [CONTRIBUTING.md](../CONTRIBUTING.md) and [public/data/DATA_FLOW.md](../public/data/DATA_FLOW.md) (`npm run gen:rendered`, `npm run check:rendered`).

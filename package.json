@@ -6,8 +6,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "npm run gen:rendered",
     "build": "vite build",
     "preview": "vite preview",
+    "gen:rendered": "node scripts/generate_rendered_snapshots.mjs",
+    "check:rendered": "node scripts/generate_rendered_snapshots.mjs --check",
     "lint": "npm run lint:js && npm run lint:css",
     "lint:js": "eslint \"src/scripts/**/*.js\" vite.config.js playwright.config.js",
     "lint:css": "stylelint \"src/styles/**/*.css\"",

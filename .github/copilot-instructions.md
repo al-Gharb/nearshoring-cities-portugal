@@ -371,6 +371,7 @@ npm run dev     # http://localhost:3000/nearshoring-cities-portugal/
 ### Build for Production
 
 ```bash
+npm run check:rendered # Verify rendered snapshots are in sync
 npm run build   # Output in dist/
 npm run preview # Preview build at localhost:4173
 ```
@@ -379,8 +380,19 @@ npm run preview # Preview build at localhost:4173
 
 1. Edit `public/data/normalized/MASTER.json` for metrics
 2. Edit `public/data/normalized/CITY_PROFILES.json` for ecosystem
-3. **Check `public/data/DATA_FLOW.md`** for hardcoded HTML values that need manual sync
-4. Rebuild: `npm run build`
+3. If `MASTER.json` or `COMPENSATION_DATA.json` changed, regenerate rendered snapshots:
+  - `npm run gen:rendered`
+  - `npm run check:rendered`
+4. **Check `public/data/DATA_FLOW.md`** for dynamic vs generated export surfaces
+5. Rebuild: `npm run build`
+
+### Rendered Snapshot Policy (Agents + Contributors)
+
+- Source of truth remains `public/data/normalized/*.json`.
+- `public/data/rendered/city_table.json` and `public/data/rendered/bubble_chart.json` are generated derivatives.
+- Do not hand-edit rendered snapshots unless performing emergency recovery; run `npm run gen:rendered` immediately afterward.
+- For deterministic exports, `_meta.generatedAt` in rendered snapshots follows `MASTER.json` freshness metadata.
+- Any PR touching `MASTER.json`/`COMPENSATION_DATA.json` must include rendered snapshot updates and a passing `npm run check:rendered`.
 
 ### Add New City
 

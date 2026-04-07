@@ -18,7 +18,8 @@
 4. Agent builds       → Consensus matrix + suggested corrections
 5. HITL reviews       → Approves ("GO") or rejects individual corrections
 6. Agent implements   → Updates source JSON database(s)
-7. Rebuild            → npm run build → verify on site
+7. Sync exports       → npm run gen:rendered && npm run check:rendered
+8. Rebuild            → npm run build → verify on site
 ```
 
 ### Prompt Policy

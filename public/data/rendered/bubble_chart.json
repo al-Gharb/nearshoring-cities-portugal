@@ -17,6 +17,21 @@
   },
   "points": [
     {
+      "id": "lisbon",
+      "name": "Lisbon",
+      "region": "Lisbon Metropolitan Area",
+      "featured": true,
+      "x": 100,
+      "y": 5472,
+      "r": 1103,
+      "col": 46,
+      "labelOffset": {
+        "position": "above",
+        "extraPad": 6,
+        "anchor": "middle"
+      }
+    },
+    {
       "id": "porto",
       "name": "Porto",
       "region": "Norte",
@@ -62,39 +77,6 @@
       }
     },
     {
-      "id": "vilareal",
-      "name": "Vila Real",
-      "region": "Norte",
-      "featured": false,
-      "x": 87.9,
-      "y": 445,
-      "r": 65,
-      "col": 32,
-      "labelOffset": {}
-    },
-    {
-      "id": "vianacastelo",
-      "name": "Viana do Castelo",
-      "region": "Norte",
-      "featured": false,
-      "x": 88.5,
-      "y": 330,
-      "r": 44,
-      "col": 33,
-      "labelOffset": {}
-    },
-    {
-      "id": "braganca",
-      "name": "Bragança",
-      "region": "Norte",
-      "featured": false,
-      "x": 85.3,
-      "y": 424,
-      "r": 56,
-      "col": 28,
-      "labelOffset": {}
-    },
-    {
       "id": "coimbra",
       "name": "Coimbra",
       "region": "Centro",
@@ -119,8 +101,8 @@
       "r": 140,
       "col": 37,
       "labelOffset": {
-        "position": "above",
-        "extraPad": 6,
+        "position": "below",
+        "extraPad": 12,
         "anchor": "middle"
       }
     },
@@ -133,91 +115,6 @@
       "y": 748,
       "r": 63,
       "col": 30,
-      "labelOffset": {
-        "position": "below",
-        "extraPad": 12,
-        "anchor": "middle"
-      }
-    },
-    {
-      "id": "viseu",
-      "name": "Viseu",
-      "region": "Centro",
-      "featured": false,
-      "x": 83.2,
-      "y": 586,
-      "r": 39,
-      "col": 32,
-      "labelOffset": {}
-    },
-    {
-      "id": "castelobranco",
-      "name": "Castelo Branco",
-      "region": "Centro",
-      "featured": false,
-      "x": 81.9,
-      "y": 264,
-      "r": 22,
-      "col": 30,
-      "labelOffset": {}
-    },
-    {
-      "id": "leiria",
-      "name": "Leiria",
-      "region": "Centro",
-      "featured": false,
-      "x": 85.1,
-      "y": 161,
-      "r": 86,
-      "col": 35,
-      "labelOffset": {}
-    },
-    {
-      "id": "santarem",
-      "name": "Santarém",
-      "region": "Oeste and Vale do Tejo",
-      "featured": false,
-      "x": 82.4,
-      "y": 176,
-      "r": 76,
-      "col": 30,
-      "labelOffset": {}
-    },
-    {
-      "id": "tomar",
-      "name": "Tomar",
-      "region": "Oeste and Vale do Tejo",
-      "featured": false,
-      "x": 82.4,
-      "y": 293,
-      "r": 73,
-      "col": 30,
-      "labelOffset": {}
-    },
-    {
-      "id": "lisbon",
-      "name": "Lisbon",
-      "region": "Lisbon Metropolitan Area",
-      "featured": true,
-      "x": 100,
-      "y": 5472,
-      "r": 1103,
-      "col": 46,
-      "labelOffset": {
-        "position": "above",
-        "extraPad": 6,
-        "anchor": "middle"
-      }
-    },
-    {
-      "id": "setubal",
-      "name": "Setúbal",
-      "region": "Península de Setúbal",
-      "featured": true,
-      "x": 92.5,
-      "y": 1194,
-      "r": 195,
-      "col": 36,
       "labelOffset": {
         "position": "below",
         "extraPad": 12,
@@ -240,28 +137,6 @@
       }
     },
     {
-      "id": "beja",
-      "name": "Beja",
-      "region": "Alentejo",
-      "featured": false,
-      "x": 83.9,
-      "y": 56,
-      "r": 9,
-      "col": 28,
-      "labelOffset": {}
-    },
-    {
-      "id": "portalegre",
-      "name": "Portalegre",
-      "region": "Alentejo",
-      "featured": false,
-      "x": 83.9,
-      "y": 45,
-      "r": 7,
-      "col": 28,
-      "labelOffset": {}
-    },
-    {
       "id": "faro",
       "name": "Faro",
       "region": "Algarve",
@@ -274,6 +149,21 @@
         "position": "right",
         "extraPad": 3,
         "anchor": "start"
+      }
+    },
+    {
+      "id": "setubal",
+      "name": "Setúbal",
+      "region": "Península de Setúbal",
+      "featured": true,
+      "x": 92.5,
+      "y": 1194,
+      "r": 195,
+      "col": 36,
+      "labelOffset": {
+        "position": "below",
+        "extraPad": 12,
+        "anchor": "middle"
       }
     }
   ]

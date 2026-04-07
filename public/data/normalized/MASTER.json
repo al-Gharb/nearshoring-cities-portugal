@@ -2509,8 +2509,8 @@
           }
         },
         "officeRent": {
-          "min": 10,
-          "max": 13,
+          "min": 12,
+          "max": 15,
           "unit": "EUR/m2/month",
           "meta": {
             "source": {
@@ -2760,8 +2760,8 @@
           }
         },
         "residentialRent": {
-          "min": 450,
-          "max": 650,
+          "min": 500,
+          "max": 700,
           "unit": "EUR/month",
           "type": "T1",
           "meta": {
@@ -2993,7 +2993,7 @@
         },
         "residentialRent": {
           "min": 500,
-          "max": 700,
+          "max": 750,
           "unit": "EUR/month",
           "type": "T1",
           "meta": {
@@ -3436,8 +3436,8 @@
           }
         },
         "officeRent": {
-          "min": 10,
-          "max": 13,
+          "min": 12,
+          "max": 15,
           "unit": "EUR/m2/month",
           "meta": {
             "source": {
@@ -3649,7 +3649,7 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 82.4,
+          "value": 84.4,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
@@ -3688,8 +3688,8 @@
           }
         },
         "residentialRent": {
-          "min": 450,
-          "max": 700,
+          "min": 600,
+          "max": 800,
           "unit": "EUR/month",
           "type": "T1",
           "meta": {
@@ -3709,7 +3709,7 @@
           }
         },
         "colIndex": {
-          "value": 30,
+          "value": 33,
           "baseline": "New York = 100",
           "meta": {
             "source": {
@@ -4345,7 +4345,7 @@
       },
       "costs": {
         "salaryIndex": {
-          "value": 82.4,
+          "value": 84.4,
           "baseline": "Lisbon = 100",
           "meta": {
             "source": {
@@ -4384,8 +4384,8 @@
           }
         },
         "residentialRent": {
-          "min": 400,
-          "max": 600,
+          "min": 550,
+          "max": 750,
           "unit": "EUR/month",
           "type": "T1",
           "meta": {
@@ -4405,7 +4405,7 @@
           }
         },
         "colIndex": {
-          "value": 30,
+          "value": 33,
           "baseline": "New York = 100",
           "meta": {
             "source": {
