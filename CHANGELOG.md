@@ -21,8 +21,9 @@ All notable changes to this project are documented in this file.
   - added quality-tooling links (`eslint.config.js`, `stylelint.config.cjs`, `vite.config.js`)
 - Updated [docs/INDEX.md](docs/INDEX.md) with a Quality and Tooling section.
 - Updated [RELEASE_CHECKLIST.md](RELEASE_CHECKLIST.md) to require `npm run lint` in release validation.
-- Restored single-open accordion behavior for top-level main collapsible containers, with independent city-profile expand/collapse behavior.
-- Improved accordion open transitions when switching between top-level containers by stabilizing summary position during sibling close and avoiding down-then-up scroll jumps.
+- Removed top-level container auto-close behavior: opening one main container no longer closes other open main containers.
+- Simplified top-level container toggle logic in `src/scripts/main.js` after removing sibling auto-close flow and related scroll-stabilization helpers.
+- Standardized container anchor offset to `5px` to avoid top-edge clipping when scrolled into view (`.deeper-dive-container`, intro-block anchor sections, and `.city-section`).
 - Closing the top-level City Profiles container now collapses all expanded city profile cards.
 - City profile opening now aligns to the profile header and performs a post-transition re-alignment pass for stable viewport positioning.
 - Replaced full Font Awesome CSS import with a generated local subset stylesheet that includes only icon classes used in source files.
@@ -42,6 +43,14 @@ All notable changes to this project are documented in this file.
   - made the three header `auto` badges clickable to their methodology anchors (`#src-ict-pct`, `#src-tech-stemplus`, `#src-salary-index`)
   - expanded Tech STEM+ tooltip copy in city, regional-subtotal, and mainland-total cells to state the metric definition (projected annual hiring-relevant tech graduate pool, gross end-2026)
   - generalized `#src-*` anchor click handling so new in-table methodology links open and scroll reliably
+- Updated floating bottom-right navigation controls:
+  - grouped `Jump to index` and `Jump to cover map` into a shared floating button cluster
+  - added a full-width `Close All` button below them to collapse all open containers in main content
+  - aligned print behavior to hide the full floating nav cluster
+- Expanded Table of Contents clarity without structural rewrites:
+  - added a compact TOC guidance line describing how to read the document flow
+  - added concise per-section descriptor lines for main TOC entries
+  - added a foundation-row explanatory note for City Database + Sources/Methodologies context
 
 ### Notes
 

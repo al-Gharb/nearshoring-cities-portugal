@@ -49,6 +49,11 @@ In the City Database table header, the three `auto` badges are direct methodolog
 
 Tech STEM+ tooltip wording in the table is aligned to the methodology definition: projected annual hiring-relevant tech graduate pool (gross, end-2026), shown as an internal approximate estimate.
 
+## Collapsible Container Behavior
+
+- Top-level main containers are independent (opening a new one does not auto-close other open containers).
+- Container scroll targets use a `5px` top offset to avoid cut-off headers when jumping to anchors.
+
 ## Quick Start
 
 Prerequisite: Node.js `>= 20`.

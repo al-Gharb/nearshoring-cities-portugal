@@ -116,21 +116,50 @@ function initDeferredPromptGenerator() {
  * Show/hide floating navigation buttons based on scroll position.
  */
 function initBackToMap() {
+  const floatingNav = document.getElementById('floatingNav');
   const mapBtn = document.getElementById('backToMap');
   const indexBtn = document.getElementById('backToIndex');
-  if (!mapBtn && !indexBtn) return;
+  const collapseAllBtn = document.getElementById('collapseAllContainers');
+  if (!floatingNav && !mapBtn && !indexBtn && !collapseAllBtn) return;
 
   const observer = new IntersectionObserver(
     ([entry]) => {
       const visible = !entry.isIntersecting;
-      if (mapBtn) mapBtn.classList.toggle('visible', visible);
-      if (indexBtn) indexBtn.classList.toggle('visible', visible);
+      if (floatingNav) {
+        floatingNav.classList.toggle('visible', visible);
+      } else {
+        if (mapBtn) mapBtn.classList.toggle('visible', visible);
+        if (indexBtn) indexBtn.classList.toggle('visible', visible);
+        if (collapseAllBtn) collapseAllBtn.classList.toggle('visible', visible);
+      }
     },
     { threshold: 0 }
   );
 
   const cover = document.getElementById('cover');
   if (cover) observer.observe(cover);
+
+  const scrollToIndexAnchor = ({ openToc = true } = {}) => {
+    const tocDetails = document.getElementById('table-of-contents');
+    if (tocDetails?.tagName === 'DETAILS') {
+      tocDetails.open = openToc;
+    }
+
+    const tocSection = document.getElementById('index');
+    const target = tocDetails || tocSection?.closest('details') || tocSection;
+    if (!target) return;
+
+    if (openToc) {
+      // Open parent <details> if closed so the anchor is reachable.
+      let parent = target.closest('details');
+      while (parent) {
+        parent.open = true;
+        parent = parent.parentElement?.closest('details');
+      }
+    }
+
+    setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+  };
 
   if (mapBtn) {
     mapBtn.addEventListener('click', () => {
@@ -142,17 +171,23 @@ function initBackToMap() {
   if (indexBtn) {
     indexBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      const tocSection = document.getElementById('index');
-      const target = document.getElementById('table-of-contents') || tocSection?.closest('details') || tocSection;
-      if (target) {
-        // Open parent <details> if closed so the anchor is reachable
-        let parent = target.closest('details');
-        while (parent) {
-          parent.open = true;
-          parent = parent.parentElement?.closest('details');
-        }
-        setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+      scrollToIndexAnchor({ openToc: true });
+    });
+  }
+
+  if (collapseAllBtn) {
+    collapseAllBtn.addEventListener('click', () => {
+      // Close all open details containers in main content, including TOC.
+      document.querySelectorAll('main#main-content details[open]').forEach((details) => {
+        details.open = false;
+      });
+
+      if (typeof globalThis.closeAllCityProfiles === 'function') {
+        globalThis.closeAllCityProfiles();
       }
+
+      // After collapsing, bring users back to the closed TOC container.
+      scrollToIndexAnchor({ openToc: false });
     });
   }
 }
@@ -183,45 +218,16 @@ function initScrollIndicator() {
  * COLLAPSIBLE SECTIONS — Details/Summary behavior for TOC + data sections
  * ═══════════════════════════════════════════════════════════════════════════ */
 
-function captureDetailsAnchorTop(details, anchorElement) {
-  if (!details || !anchorElement) return;
-  details.__preToggleSummaryTop = anchorElement.getBoundingClientRect().top;
-}
-
-function stabilizeDetailsScroll(details, anchorElement) {
-  const beforeTop = details?.__preToggleSummaryTop;
-  details.__preToggleSummaryTop = null;
-
-  if (typeof beforeTop !== 'number' || !anchorElement) return;
-
-  const afterTop = anchorElement.getBoundingClientRect().top;
-  const delta = afterTop - beforeTop;
-  if (Math.abs(delta) > 1) {
-    window.scrollBy(0, delta);
-  }
-}
-
-function getAccordionDetailsSiblings(details) {
-  const parent = details.parentElement;
-  if (!parent) return [];
-
-  return Array.from(parent.children).filter((element) => {
-    return element !== details
-      && element.tagName === 'DETAILS'
-      && element.classList.contains('deeper-dive-container');
-  });
-}
-
 /**
- * Accordion behavior for top-level main collapsible details containers.
- * When one container opens, close open sibling containers in the same parent.
- * Keeps the opened summary visually anchored to avoid page-jump feeling.
+ * Main details behavior for top-level collapsible containers.
+ * Containers are independent (no auto-close on sibling open).
  */
 function initDetailsAccordion() {
   const containers = document.querySelectorAll('main#main-content > details.deeper-dive-container');
   containers.forEach((details) => {
     const summary = details.querySelector(':scope > summary');
     if (!summary) return;
+    let shouldScrollOnOpen = false;
 
     const setContainerHash = () => {
       if (!details.id) return;
@@ -230,14 +236,11 @@ function initDetailsAccordion() {
     };
 
     const markSummaryInteraction = () => {
-      captureDetailsAnchorTop(details, summary);
-      details.__openedFromSummaryInteraction = true;
+      shouldScrollOnOpen = !details.open;
       setContainerHash();
     };
 
-    summary.addEventListener('click', () => {
-      markSummaryInteraction();
-    }, true);
+    summary.addEventListener('click', markSummaryInteraction, true);
 
     summary.addEventListener('keydown', (event) => {
       if (event.key === 'Enter' || event.key === ' ') {
@@ -250,36 +253,20 @@ function initDetailsAccordion() {
         if (details.id === 'city-profiles' && typeof globalThis.closeAllCityProfiles === 'function') {
           globalThis.closeAllCityProfiles();
         }
-        details.__preToggleSummaryTop = null;
-        details.__openedFromSummaryInteraction = false;
+        shouldScrollOnOpen = false;
         return;
       }
 
-      const shouldAnchorToTop = Boolean(details.__openedFromSummaryInteraction);
-      const openSiblings = getAccordionDetailsSiblings(details).filter((sibling) => sibling.open);
-      if (openSiblings.length === 0) {
-        details.__preToggleSummaryTop = null;
-      } else {
-        openSiblings.forEach((sibling) => {
-          sibling.open = false;
-        });
+      const shouldAnchorToTop = shouldScrollOnOpen;
 
-        // Avoid double movement: summary interactions already anchor to this section.
-        if (shouldAnchorToTop) {
-          details.__preToggleSummaryTop = null;
-        } else {
-          stabilizeDetailsScroll(details, summary);
-        }
-      }
-
-      // Match anchor-navigation behavior when users open containers manually.
+      // Match city-profile feel: one smooth movement to the opened summary.
       if (shouldAnchorToTop) {
         requestAnimationFrame(() => {
-          details.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          summary.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
       }
 
-      details.__openedFromSummaryInteraction = false;
+      shouldScrollOnOpen = false;
     });
   });
 }
