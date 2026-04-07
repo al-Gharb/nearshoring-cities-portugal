@@ -403,14 +403,14 @@
         },
         "retention": {
           "strengths": [
-            "Capital city amenities",
-            "Largest talent pool",
-            "Most international"
+            "Deepest employer and startup density",
+            "Largest graduate and ICT pipeline",
+            "Strong international talent pull"
           ],
           "risks": [
-            "Highest cost of living",
-            "Intense competition for engineers",
-            "Remote work competition from EU"
+            "Highest cost of living and housing costs",
+            "Strong competition for senior engineers",
+            "Higher salary pressure than regional hubs"
           ],
           "narrative": "Portugal's capital and largest tech hub. Home to 50+ multinational R&D centres and the densest startup ecosystem in the country. Strong in Fintech, AI/NLP, and Enterprise SaaS. Highest talent concentration but also highest competition for skilled engineers. The baseline city for salary and cost comparisons."
         }
@@ -760,13 +760,14 @@
         },
         "retention": {
           "strengths": [
-            "Quality of life",
-            "Growing tech scene",
-            "Lower cost vs Lisbon"
+            "Large talent pool with strong engineering depth",
+            "High quality of life in a major urban hub",
+            "Costs below Lisbon while keeping scale"
           ],
           "risks": [
-            "Remote work competition from EU",
-            "Lisbon salary gap"
+            "Rents rising versus interior alternatives",
+            "Competition from Lisbon and remote EU offers",
+            "Senior-hire competition across Norte corridor"
           ],
           "narrative": "Porto, the 'Invincible City,' is Portugal's second-largest tech hub. Ideal for Industrial AI, predictive maintenance, and IoT-to-Cloud pipelines, Porto combines lower costs with world-class engineering talent. Home to Critical TechWorks (BMW JV) and INESC TEC, the city offers cost reduction versus Lisbon while maintaining top-tier talent access. Porto anchors the broader Norte corridor; employers often recruit across Porto, Braga, and Guimarães as a combined talent pool."
         }
@@ -1037,15 +1038,16 @@
         },
         "retention": {
           "strengths": [
-            "Very low cost of living",
-            "Strong university pipeline",
-            "Porto proximity"
+            "Competitive costs versus Lisbon and Porto",
+            "Strong UMinho talent pipeline",
+            "45-minute access to Porto talent market"
           ],
           "risks": [
-            "Smaller ecosystem scale",
-            "Brain drain to Porto/Lisbon"
+            "Smaller local ecosystem than Lisbon/Porto",
+            "Senior talent outflow to Porto/Lisbon",
+            "Lower role diversity for late-stage scaleups"
           ],
-          "narrative": "Braga hosts the UMinho campus with strong computer science programs and the Bosch R&D centre. The city's deep tech ecosystem centres on cybersecurity (Checkmarx) and enterprise software (Primavera BSS). Low cost of living and proximity to Porto (45 min) make it attractive for satellite offices."
+          "narrative": "Braga hosts the UMinho campus with strong computer science programs and the Bosch R&D centre. The city's deep tech ecosystem centres on cybersecurity (Checkmarx) and enterprise software (Primavera BSS). Costs remain below Lisbon and Porto, and proximity to Porto (45 min) makes it attractive for satellite offices."
         }
       },
       "verification": {
@@ -1291,13 +1293,14 @@
         },
         "retention": {
           "strengths": [
-            "Lowest costs in Norte corridor",
-            "Bosch anchor employer",
-            "University proximity"
+            "Lower costs within the Norte corridor",
+            "Bosch and industrial demand anchor hiring",
+            "Direct access to UMinho engineering talent"
           ],
           "risks": [
-            "Small ecosystem beyond automotive",
-            "Brain drain to Porto"
+            "Narrower ecosystem beyond industrial domains",
+            "Senior talent often migrates to Porto/Braga",
+            "Limited density of large tech employers"
           ],
           "narrative": "The UMinho Engineering Campus in Guimarães drives the city's specialisation in smart manufacturing, computer vision, and quality control. Bosch Car Multimedia and Continental provide anchor demand. The city shares a talent pool with Braga and Porto in the Northern Cluster."
         }
@@ -1591,13 +1594,14 @@
         },
         "retention": {
           "strengths": [
-            "Strong university pipeline",
-            "Lower hiring competition",
-            "Academic talent"
+            "Strong University of Coimbra talent pipeline",
+            "Lower hiring pressure than Lisbon/Porto",
+            "Balanced cost profile for university-city operations"
           ],
           "risks": [
-            "Brain drain to Lisbon/Porto",
-            "Limited ecosystem scale"
+            "Graduate outflow to Lisbon and Porto",
+            "Limited number of large private tech employers",
+            "Smaller local market for rapid team scaling"
           ],
           "narrative": "Home to Portugal's oldest university (est. 1290) and a strong computer science tradition. Coimbra's ecosystem revolves around safety-critical systems (Critical Software), AI/ML research (Feedzai), and the IPN incubator. Bio-AI and healthcare tech are emerging strengths."
         }
@@ -1850,13 +1854,14 @@
         },
         "retention": {
           "strengths": [
-            "Strong telecom R&D anchor",
-            "High quality of life",
-            "Beach access"
+            "Telecom and embedded R&D specialization",
+            "Strong quality-of-life and retention appeal",
+            "Costs below Lisbon with good corridor access"
           ],
           "risks": [
-            "Small city scale",
-            "Competition from Porto for senior talent"
+            "Smaller senior-talent market than Porto/Lisbon",
+            "Competition from Porto for experienced hires",
+            "Limited ecosystem depth outside core specialties"
           ],
           "narrative": "Aveiro's tech profile is shaped by Altice Labs, Nokia R&D, and the University of Aveiro's telecom expertise. Strong in edge cloud, 5G/IoT, and embedded systems. The lagoon city offers a high quality of life at Centro-region cost levels."
         }
@@ -2071,14 +2076,14 @@
         },
         "retention": {
           "strengths": [
-            "Low cost of living",
-            "Limited competition for talent",
-            "Mountain lifestyle"
+            "Lowest cost profile among featured cities",
+            "UBI technical pipeline for specialized roles",
+            "Lower local competition for junior talent"
           ],
           "risks": [
-            "Geographic isolation",
-            "High relocation rate",
-            "Limited ecosystem"
+            "Geographic isolation from coastal hiring hubs",
+            "High graduate relocation toward larger cities",
+            "Limited local employer diversity"
           ],
           "narrative": "A mountain city with the University of Beira Interior (UBI). Low cost of living makes it viable for remote-first or captive-centre models. Aerospace research is a niche strength via UBI programs."
         }
@@ -2292,15 +2297,16 @@
         },
         "retention": {
           "strengths": [
-            "Very low cost of living",
-            "Lisbon proximity for hybrid",
-            "UNESCO heritage lifestyle"
+            "Lower operating costs than coastal hubs",
+            "Lisbon-accessible hybrid operating model",
+            "Distinct lifestyle retention appeal"
           ],
           "risks": [
-            "Very limited tech ecosystem",
-            "Brain drain to Lisbon"
+            "Very small local tech ecosystem",
+            "Senior talent frequently migrates to Lisbon",
+            "Limited scale for specialized team growth"
           ],
-          "narrative": "Alentejo's university city with the University of Évora and the PITE technology park. Emerging focus on green tech, agri-AI, and ESG applications. Very low cost of living but limited tech ecosystem scale."
+          "narrative": "Alentejo's university city with the University of Évora and the PITE technology park. Emerging focus on green tech, agri-AI, and ESG applications. Costs are lower than major coastal hubs, but the tech ecosystem remains limited in scale."
         }
       },
       "verification": {
@@ -2557,14 +2563,14 @@
         },
         "retention": {
           "strengths": [
-            "Best climate in Portugal",
-            "Beach lifestyle",
-            "International airport"
+            "International airport and global lifestyle appeal",
+            "UAlg pipeline plus remote-work attractiveness",
+            "Strong retention pull for lifestyle-first talent"
           ],
           "risks": [
-            "Very limited tech ecosystem",
-            "Tourism-dominated economy",
-            "Seasonal fluctuations"
+            "Higher housing pressure than many interior cities",
+            "Tourism seasonality can distort local costs",
+            "Limited local depth of product-tech employers"
           ],
           "narrative": "The capital of the Algarve, Faro combines beach lifestyle with the University of Algarve's STEM programs. The city is growing as a base for remote-first companies and traveltech startups, leveraging 300+ sunny days per year."
         }
@@ -2753,15 +2759,16 @@
         },
         "retention": {
           "strengths": [
-            "Lisbon proximity",
-            "Significantly lower costs",
-            "Nature and lifestyle"
+            "Fast access to Lisbon talent and clients",
+            "Office costs below Lisbon city-center levels",
+            "Industrial base supports applied-tech hiring"
           ],
           "risks": [
-            "Limited own tech ecosystem",
-            "Dependent on Lisbon for most tech jobs"
+            "Housing costs pressured by Lisbon spillover",
+            "Local tech ecosystem still secondary to Lisbon",
+            "Many senior career paths remain Lisbon-centric"
           ],
-          "narrative": "Setúbal sits across the Tagus from Lisbon, offering significantly lower costs while maintaining access to the capital's talent pool. Volkswagen Autoeuropa anchors the region's Industry 4.0 and automotive tech cluster."
+          "narrative": "Setúbal sits across the Tagus from Lisbon, offering lower office costs while maintaining access to the capital's talent pool. Volkswagen Autoeuropa anchors the region's Industry 4.0 and automotive tech cluster."
         }
       },
       "verification": {

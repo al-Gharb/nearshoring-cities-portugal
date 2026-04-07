@@ -51,6 +51,7 @@ All notable changes to this project are documented in this file.
   - added a compact TOC guidance line describing how to read the document flow
   - added concise per-section descriptor lines for main TOC entries
   - added a foundation-row explanatory note for City Database + Sources/Methodologies context
+- Recalibrated retention strengths/risks wording across all 10 featured city profiles to align with current cost and talent metrics (reduced affordability overstatements in mid-cost hubs such as Braga, Setúbal, and Évora).
 
 ### Notes
 
