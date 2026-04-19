@@ -336,7 +336,7 @@ function parseLocalizedInteger(raw) {
   if (!cleaned) return null;
 
   // If trailing decimal separator exists (e.g., 55.000,00), drop decimal part for integer budget logic.
-  cleaned = cleaned.replaceAll(/[.,](\d{1,2})$/, '');
+  cleaned = cleaned.replace(/[.,](\d{1,2})$/, '');
 
   const digitsOnly = cleaned.replaceAll(/[^\d]/g, '');
   if (!digitsOnly) return null;
