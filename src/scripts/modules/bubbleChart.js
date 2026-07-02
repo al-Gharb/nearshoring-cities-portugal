@@ -18,6 +18,7 @@ import { format } from 'd3-format';
 import { scaleLinear, scaleSqrt, scaleSymlog } from 'd3-scale';
 import { select } from 'd3-selection';
 import { getChartConfig, getCity } from './database.js';
+import { pickCurrentValue } from './calculations.js';
 
 /** Fixed SVG dimensions (responsive via viewBox) */
 const SVG_WIDTH = 900;
@@ -40,9 +41,9 @@ function buildChartData() {
     const grads = city.talent?.graduates || {};
     const costs = city.costs || {};
 
-    const stemPlus = grads.digitalStemPlus?.value ?? grads.officialStem?.value ?? 0;
-    const ict = grads.coreICT?.value ?? 0;
-    const officialStem = grads.officialStem?.value ?? 0;
+    const stemPlus = grads.digitalStemPlus?.value ?? pickCurrentValue(grads.officialStem) ?? 0;
+    const ict = pickCurrentValue(grads.coreICT) ?? 0;
+    const officialStem = pickCurrentValue(grads.officialStem) ?? 0;
     const colIndex = costs.colIndex?.value ?? 0;
     const salaryIndex = costs.salaryIndex?.value ?? 0;
     const officeRentMin = costs.officeRent?.min ?? 0;

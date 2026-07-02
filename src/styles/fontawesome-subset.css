@@ -11,6 +11,8 @@
 .fa-brands,.fab{font-weight:400}
 .fa-anchor:before{content:"\f13d"}
 .fa-arrow-right-to-city:before{content:"\e4b3"}
+.fa-arrow-trend-down:before{content:"\e097"}
+.fa-arrow-trend-up:before{content:"\e098"}
 .fa-arrow-up-right-from-square:before{content:"\f08e"}
 .fa-arrows-spin:before{content:"\e4bb"}
 .fa-ban:before{content:"\f05e"}
@@ -35,6 +37,7 @@
 .fa-circle-nodes:before{content:"\e4e2"}
 .fa-city:before{content:"\f64f"}
 .fa-clipboard-check:before{content:"\f46c"}
+.fa-clock-rotate-left:before{content:"\f1da"}
 .fa-clock:before{content:"\f017"}
 .fa-cloud-rain:before{content:"\f73d"}
 .fa-cloud-sun:before{content:"\f6c4"}
@@ -86,6 +89,7 @@
 .fa-map-location-dot:before{content:"\f5a0"}
 .fa-map:before{content:"\f279"}
 .fa-masks-theater:before{content:"\f630"}
+.fa-minus:before{content:"\f068"}
 .fa-money-bill-wave:before{content:"\f53a"}
 .fa-mountain-city:before{content:"\e52e"}
 .fa-mountain-sun:before{content:"\e52f"}

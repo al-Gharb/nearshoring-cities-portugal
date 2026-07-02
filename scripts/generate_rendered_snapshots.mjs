@@ -2,7 +2,7 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { calculateICTPct, computeAllSalaryIndices, computeAllTechStemPlus } from '../src/scripts/modules/calculations.js';
+import { calculateICTPct, calculateYoYPct, computeAllSalaryIndices, computeAllTechStemPlus, pickCurrentValue } from '../src/scripts/modules/calculations.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, '..');
@@ -70,6 +70,8 @@ function buildCityTable(master) {
     );
     const ictGrads = assertNumber(grads?.coreICT?.value, `${cityId}.graduates.coreICT.value`);
     const officialStem = assertNumber(grads?.officialStem?.value, `${cityId}.graduates.officialStem.value`);
+    const officialStem2425 = grads?.officialStem?.value2425 ?? null;
+    const ictGrads2425 = grads?.coreICT?.value2425 ?? null;
 
     return {
       id: cityId,
@@ -82,7 +84,12 @@ function buildCityTable(master) {
         : [],
       stemGrads,
       ictGrads,
+      ictGrads2425,
+      ictGradsYoY: calculateYoYPct(ictGrads2425, ictGrads),
       ictPct: Number(calculateICTPct(ictGrads, officialStem)),
+      officialStem,
+      officialStem2425,
+      officialStemYoY: calculateYoYPct(officialStem2425, officialStem),
       salaryIndex: assertNumber(costs?.salaryIndex?.value, `${cityId}.costs.salaryIndex.value`),
       officeRent: formatRange(costs?.officeRent?.min, costs?.officeRent?.max),
       residentialRent: formatRange(costs?.residentialRent?.min, costs?.residentialRent?.max),
@@ -94,6 +101,15 @@ function buildCityTable(master) {
     const regionRows = rows.filter((row) => row.region === region);
     const stemTotal = regionRows.reduce((sum, row) => sum + row.stemGrads, 0);
     const ictTotal = regionRows.reduce((sum, row) => sum + row.ictGrads, 0);
+    const officialStemTotal = regionRows.reduce((sum, row) => sum + row.officialStem, 0);
+    const hasOfficialStem2425 = regionRows.every((row) => row.officialStem2425 != null);
+    const hasIct2425 = regionRows.every((row) => row.ictGrads2425 != null);
+    const officialStemTotal2425 = hasOfficialStem2425
+      ? regionRows.reduce((sum, row) => sum + row.officialStem2425, 0)
+      : null;
+    const ictTotal2425 = hasIct2425
+      ? regionRows.reduce((sum, row) => sum + row.ictGrads2425, 0)
+      : null;
 
     return {
       region,
@@ -101,6 +117,11 @@ function buildCityTable(master) {
       stemTotal,
       ictTotal,
       ictPct: stemTotal > 0 ? Number(((ictTotal / stemTotal) * 100).toFixed(1)) : 0,
+      officialStemTotal,
+      officialStemTotal2425,
+      officialStemYoY: calculateYoYPct(officialStemTotal2425, officialStemTotal),
+      ictTotal2425,
+      ictYoY: calculateYoYPct(ictTotal2425, ictTotal),
     };
   });
 
@@ -150,8 +171,8 @@ function buildBubbleChart(master) {
       region: assertString(city?.basic?.region?.value, `${cityId}.basic.region.value`),
       featured: city?.basic?.featured === true,
       x: assertNumber(costs?.salaryIndex?.value, `${cityId}.costs.salaryIndex.value`),
-      y: assertNumber(grads?.digitalStemPlus?.value ?? grads?.officialStem?.value, `${cityId}.graduates.digitalStemPlus.value`),
-      r: assertNumber(grads?.coreICT?.value, `${cityId}.graduates.coreICT.value`),
+      y: assertNumber(grads?.digitalStemPlus?.value ?? pickCurrentValue(grads?.officialStem), `${cityId}.graduates.digitalStemPlus.value`),
+      r: assertNumber(pickCurrentValue(grads?.coreICT), `${cityId}.graduates.coreICT.value`),
       col: assertNumber(costs?.colIndex?.value, `${cityId}.costs.colIndex.value`),
       labelOffset: labelOffsets?.[cityId] || {},
     };

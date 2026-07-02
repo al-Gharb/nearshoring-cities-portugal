@@ -10,6 +10,7 @@
 import { getStore, getCity, getCityProfile, getCompensationData, getRegionalTotals } from './database.js';
 import { buildPromptTemplate } from './promptTemplate.js';
 import { computeAnalysis } from './simulatorEngine.js';
+import { calculateYoYPct } from './calculations.js';
 
 /* ═══════════════════════════════════════════════════════════════════════════
  * DATA COLLECTION — Build portugalData from normalized databases
@@ -873,26 +874,77 @@ function addCityDatabaseCostClaims(addClaim, cityName, regionTag, cityData) {
   }
 }
 
+/**
+ * Build a " (+X.X% YoY vs 2023/24)" suffix for a 24/25 claim, or '' if not computable.
+ * @param {number|null} current2425
+ * @param {number|null} previous2324
+ * @returns {string}
+ */
+function buildYoYClaimSuffix(current2425, previous2324) {
+  const yoy = calculateYoYPct(current2425, previous2324);
+  if (yoy == null) return '';
+  const sign = yoy > 0 ? '+' : '';
+  return ` (${sign}${yoy}% YoY vs 2023/24)`;
+}
+
+function addOfficialStemClaims(addClaim, label, officialStem, officialStem2425) {
+  if (officialStem) {
+    addClaim(`${label} Official STEM graduates (CNAEF 05+06+07): ${officialStem}/year`, true);
+  }
+  if (officialStem2425 != null) {
+    const yoyText = buildYoYClaimSuffix(officialStem2425, officialStem);
+    addClaim(`${label} Official STEM graduates (CNAEF 05+06+07), 2024/25: ${officialStem2425}/year${yoyText}`, true);
+  }
+}
+
+function addCoreICTClaims(addClaim, label, coreICT, officialStem, coreICT2425) {
+  if (coreICT && officialStem) {
+    const ictPct = ((coreICT / officialStem) * 100).toFixed(1);
+    addClaim(`${label} Core ICT graduates (CNAEF 481+523): ${coreICT}/year (${ictPct}% of Official STEM)`, true);
+  } else if (coreICT) {
+    addClaim(`${label} Core ICT graduates (CNAEF 481+523): ${coreICT}/year`, true);
+  }
+  if (coreICT2425 != null) {
+    const yoyText = buildYoYClaimSuffix(coreICT2425, coreICT);
+    addClaim(`${label} Core ICT graduates (CNAEF 481+523), 2024/25: ${coreICT2425}/year${yoyText}`, true);
+  }
+}
+
 function addCityDatabaseTalentClaims(addClaim, cityName, cityData) {
   const officialStem = cityData.talent?.graduates?.officialStem?.value;
+  const officialStem2425 = cityData.talent?.graduates?.officialStem?.value2425;
   const techStemPlus = cityData.talent?.graduates?.digitalStemPlus?.value;
   const coreICT = cityData.talent?.graduates?.coreICT?.value;
+  const coreICT2425 = cityData.talent?.graduates?.coreICT?.value2425;
 
-  if (officialStem) {
-    addClaim(`${cityName} Official STEM graduates (CNAEF 05+06+07): ${officialStem}/year`, true);
-  }
+  addOfficialStemClaims(addClaim, cityName, officialStem, officialStem2425);
   if (techStemPlus) {
     addClaim(`${cityName} Tech STEM+ graduates: ${techStemPlus}/year (internal benchmark estimate)`, true);
   }
-  if (coreICT && officialStem) {
-    const ictPct = ((coreICT / officialStem) * 100).toFixed(1);
-    addClaim(`${cityName} Core ICT graduates (CNAEF 481+523): ${coreICT}/year (${ictPct}% of Official STEM)`, true);
-  } else if (coreICT) {
-    addClaim(`${cityName} Core ICT graduates (CNAEF 481+523): ${coreICT}/year`, true);
-  }
+  addCoreICTClaims(addClaim, cityName, coreICT, officialStem, coreICT2425);
 
   if (cityData.costs?.salaryIndex?.value) {
     addClaim(`${cityName} Salary Index: ${cityData.costs.salaryIndex.value} (Lisbon=100)`, true);
+  }
+}
+
+function addRegionOfficialStemTotalClaims(addClaim, regionName, totals) {
+  if (totals.officialStem != null) {
+    addClaim(`${regionName} region total: ${totals.officialStem} Official STEM graduates (CNAEF 05+06+07, 2023/24)`);
+  }
+  if (totals.officialStem2425 != null) {
+    const yoyText = buildYoYClaimSuffix(totals.officialStem2425, totals.officialStem);
+    addClaim(`${regionName} region total: ${totals.officialStem2425} Official STEM graduates (CNAEF 05+06+07, 2024/25)${yoyText}`);
+  }
+}
+
+function addRegionCoreICTTotalClaims(addClaim, regionName, totals) {
+  if (totals.coreICT != null) {
+    addClaim(`${regionName} region total: ${totals.coreICT} Core ICT graduates (CNAEF 481+523, 2023/24)`);
+  }
+  if (totals.coreICT2425 != null) {
+    const yoyText = buildYoYClaimSuffix(totals.coreICT2425, totals.coreICT);
+    addClaim(`${regionName} region total: ${totals.coreICT2425} Core ICT graduates (CNAEF 481+523, 2024/25)${yoyText}`);
   }
 }
 
@@ -900,12 +952,8 @@ function addCityDatabaseRegionalTotalsClaims(addClaim, regionalTotals) {
   if (!regionalTotals) return;
 
   for (const [regionName, totals] of Object.entries(regionalTotals)) {
-    if (totals.officialStem != null) {
-      addClaim(`${regionName} region total: ${totals.officialStem} Official STEM graduates (CNAEF 05+06+07, 2023/24)`);
-    }
-    if (totals.coreICT != null) {
-      addClaim(`${regionName} region total: ${totals.coreICT} Core ICT graduates (CNAEF 481+523, 2023/24)`);
-    }
+    addRegionOfficialStemTotalClaims(addClaim, regionName, totals);
+    addRegionCoreICTTotalClaims(addClaim, regionName, totals);
     if (totals.digitalStemPlus != null) {
       addClaim(`${regionName} region total: ${totals.digitalStemPlus} Tech STEM+ graduates (internal benchmark estimate)`, true);
     }

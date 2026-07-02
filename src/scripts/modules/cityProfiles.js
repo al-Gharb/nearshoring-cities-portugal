@@ -5,7 +5,7 @@
  */
 
 import { getStore, getCity, getCityProfile, getChartConfig } from './database.js';
-import { formatNumber, formatRange } from './calculations.js';
+import { formatNumber, formatRange, pickCurrentValue, calculateICTPct } from './calculations.js';
 import { buildConfidenceBarHTML } from '../utils/confidenceBar.js';
 
 /**
@@ -246,9 +246,9 @@ function buildSourceInfoLink(value, href, title = '') {
 
 function formatPrintGraduateMetrics(grads) {
   const techStemPlusValue = grads?.digitalStemPlus?.value;
-  const officialStemValue = grads?.officialStem?.value;
-  const coreICTValue = grads?.coreICT?.value;
-  const ictPctValue = grads?.coreICT?.pctOfOfficialStem?.value;
+  const officialStemValue = pickCurrentValue(grads?.officialStem);
+  const coreICTValue = pickCurrentValue(grads?.coreICT);
+  const ictPctValue = officialStemValue > 0 ? Number(calculateICTPct(coreICTValue, officialStemValue)) : null;
 
   return {
     techStemPlus: isFiniteNumber(techStemPlusValue) ? formatNumber(techStemPlusValue) : '—',
@@ -1009,15 +1009,18 @@ function buildMetricsTable(masterCity) {
     'Experimental salary proxy methodology'
   );
 
+  const officialStemValue = pickCurrentValue(grads.officialStem);
+  const coreICTValue = pickCurrentValue(grads.coreICT);
+
   return `<div class="metrics-grid">
     <div class="metric-stat">
       <i class="fa-solid fa-user-graduate icon-stem"></i>
-      <span class="db-value">${grads.officialStem?.value ? formatNumber(grads.officialStem.value) : '—'}</span>
+      <span class="db-value">${officialStemValue != null ? formatNumber(officialStemValue) : '—'}</span>
       <span class="metric-label">Official STEM <a href="#src-dgeec" class="source-link"><i class="fa-solid fa-circle-info"></i></a></span>
     </div>
     <div class="metric-stat">
       <i class="fa-solid fa-user-graduate icon-ict"></i>
-      <span class="db-value">${grads.coreICT?.value ? formatNumber(grads.coreICT.value) : '—'}</span>
+      <span class="db-value">${coreICTValue != null ? formatNumber(coreICTValue) : '—'}</span>
       <span class="metric-label">Core ICT <a href="#src-dgeec" class="source-link"><i class="fa-solid fa-circle-info"></i></a></span>
     </div>
     <div class="metric-stat">
@@ -1239,17 +1242,17 @@ function buildCitySection(cityId) {
           </div>
           <div class="graduate-stat">
             <i class="fa-solid fa-user-graduate icon-stem"></i>
-            <span class="db-value" data-city="${cityId}" data-field="official-stem" data-db="master">${masterCity.talent?.graduates?.officialStem?.value ? formatNumber(masterCity.talent.graduates.officialStem.value) : '—'}</span>
+            <span class="db-value" data-city="${cityId}" data-field="official-stem" data-db="master">${pickCurrentValue(masterCity.talent?.graduates?.officialStem) != null ? formatNumber(pickCurrentValue(masterCity.talent?.graduates?.officialStem)) : '—'}</span>
             <span class="graduate-label">Official STEM <a href="#src-dgeec" class="source-link"><i class="fa-solid fa-circle-info"></i></a></span>
           </div>
           <div class="graduate-stat">
             <i class="fa-solid fa-user-graduate icon-ict"></i>
-            <span class="db-value" data-city="${cityId}" data-field="ict-grads" data-db="master">${masterCity.talent?.graduates?.coreICT?.value ? formatNumber(masterCity.talent.graduates.coreICT.value) : '—'}</span>
+            <span class="db-value" data-city="${cityId}" data-field="ict-grads" data-db="master">${pickCurrentValue(masterCity.talent?.graduates?.coreICT) != null ? formatNumber(pickCurrentValue(masterCity.talent?.graduates?.coreICT)) : '—'}</span>
             <span class="graduate-label">Core ICT <a href="#src-dgeec" class="source-link"><i class="fa-solid fa-circle-info"></i></a></span>
           </div>
           <div class="graduate-stat">
             <i class="fa-solid fa-chart-pie icon-ict"></i>
-            <span class="db-value" data-city="${cityId}" data-field="ict-pct" data-db="master">${masterCity.talent?.graduates?.coreICT?.pctOfOfficialStem?.value ? masterCity.talent.graduates.coreICT.pctOfOfficialStem.value.toFixed(1) + '%' : '—'}</span>
+            <span class="db-value" data-city="${cityId}" data-field="ict-pct" data-db="master">${calculateICTPct(pickCurrentValue(masterCity.talent?.graduates?.coreICT), pickCurrentValue(masterCity.talent?.graduates?.officialStem))}%</span>
             <span class="graduate-label">ICT % of STEM <a href="#src-ict-pct" class="source-link"><i class="fa-solid fa-circle-info"></i></a></span>
           </div>
         </div>

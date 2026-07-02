@@ -4,7 +4,6 @@
     "description": "Machine-readable source registry. All databases and docs reference this single file by provider ID. One place to update when URLs change.",
     "lastUpdated": "2026-04-06T00:00:00Z"
   },
-
   "sources": {
     "anacom-q4-2024": {
       "provider": "ANACOM",
@@ -13,7 +12,12 @@
       "type": "official",
       "publishedDate": "2025-03-15",
       "expiresAfter": "12M",
-      "covers": ["ftthPenetration", "fiveGCoverage", "fixedBroadband", "terrestrialConnectivity"]
+      "covers": [
+        "ftthPenetration",
+        "fiveGCoverage",
+        "fixedBroadband",
+        "terrestrialConnectivity"
+      ]
     },
     "telegeography-2024": {
       "provider": "Telegeography",
@@ -22,7 +26,9 @@
       "type": "official",
       "publishedDate": "2025-01-01",
       "expiresAfter": "12M",
-      "covers": ["subseaCables"]
+      "covers": [
+        "subseaCables"
+      ]
     },
     "ec-autumn-2025": {
       "provider": "European Commission",
@@ -31,7 +37,11 @@
       "type": "official",
       "publishedDate": "2025-11-01",
       "expiresAfter": "6M",
-      "covers": ["realGdpGrowth", "unemploymentRate", "hicpInflation"],
+      "covers": [
+        "realGdpGrowth",
+        "unemploymentRate",
+        "hicpInflation"
+      ],
       "note": "Primary source for GDP forecasts per fact-check Feb 2026"
     },
     "cfp-2025-2029": {
@@ -41,7 +51,13 @@
       "type": "official",
       "publishedDate": "2025-11-01",
       "expiresAfter": "6M",
-      "covers": ["realGdpGrowth", "unemploymentRate", "hicpInflation", "netLending", "publicDebtToGdp"],
+      "covers": [
+        "realGdpGrowth",
+        "unemploymentRate",
+        "hicpInflation",
+        "netLending",
+        "publicDebtToGdp"
+      ],
       "note": "Secondary to EC Autumn 2025 for GDP forecasts"
     },
     "eurostat-2024": {
@@ -51,7 +67,14 @@
       "type": "official",
       "publishedDate": "2025-06-01",
       "expiresAfter": "12M",
-      "covers": ["ictSpecialistsPctEmployment", "ictGraduatesPctAllGraduates", "femaleIctSpecialists", "gdpNominal", "population", "gdpPerCapita"]
+      "covers": [
+        "ictSpecialistsPctEmployment",
+        "ictGraduatesPctAllGraduates",
+        "femaleIctSpecialists",
+        "gdpNominal",
+        "population",
+        "gdpPerCapita"
+      ]
     },
     "eurostat-countryfacts-eu-de-pt": {
       "provider": "Eurostat",
@@ -60,7 +83,10 @@
       "type": "official",
       "publishedDate": "2026-02-01",
       "expiresAfter": "12M",
-      "covers": ["macroeconomicComparison", "euCountryComparison"]
+      "covers": [
+        "macroeconomicComparison",
+        "euCountryComparison"
+      ]
     },
     "dgeec-infocursos-2324": {
       "provider": "DGEEC InfoCursos",
@@ -69,7 +95,24 @@
       "type": "official",
       "publishedDate": "2025-01-15",
       "expiresAfter": "12M",
-      "covers": ["stemGraduates", "ictGraduates", "universityData"]
+      "covers": [
+        "stemGraduates",
+        "ictGraduates",
+        "universityData"
+      ]
+    },
+    "dgeec-infocursos-2425": {
+      "provider": "DGEEC InfoCursos",
+      "title": "InfoCursos Graduate Statistics 2024/25",
+      "url": "https://estatisticas-educacao.dgeec.medu.pt/eef/2024/ensino_superior/alunos/diplomados.asp",
+      "type": "official",
+      "publishedDate": "2026-01-15",
+      "expiresAfter": "12M",
+      "covers": [
+        "stemGraduates",
+        "ictGraduates",
+        "universityData"
+      ]
     },
     "dgeec-universities-2024": {
       "provider": "DGEEC",
@@ -78,7 +121,11 @@
       "type": "official",
       "publishedDate": "2024-01-01",
       "expiresAfter": "24M",
-      "covers": ["universities", "polytechnics", "institutionList"]
+      "covers": [
+        "universities",
+        "polytechnics",
+        "institutionList"
+      ]
     },
     "dgeec-cnaef-2024": {
       "provider": "DGEEC",
@@ -87,7 +134,12 @@
       "type": "official",
       "publishedDate": "2024-01-01",
       "expiresAfter": "24M",
-      "covers": ["cnaefCodes", "studyClassifications", "stemDefinition", "ictDefinition"]
+      "covers": [
+        "cnaefCodes",
+        "studyClassifications",
+        "stemDefinition",
+        "ictDefinition"
+      ]
     },
     "ine-mtsss-2024": {
       "provider": "INE/MTSSS",
@@ -96,7 +148,9 @@
       "type": "official",
       "publishedDate": "2026-03-27",
       "expiresAfter": "12M",
-      "covers": ["salaryByRegion"]
+      "covers": [
+        "salaryByRegion"
+      ]
     },
     "numbeo-jan-2026": {
       "provider": "Numbeo",
@@ -105,7 +159,10 @@
       "type": "survey",
       "publishedDate": "2026-01-01",
       "expiresAfter": "6M",
-      "covers": ["costOfLiving", "colIndex"],
+      "covers": [
+        "costOfLiving",
+        "colIndex"
+      ],
       "note": "Where direct city data unavailable, Numbeo-style estimates derived from regional patterns"
     },
     "idealista-2026": {
@@ -115,7 +172,10 @@
       "type": "survey",
       "publishedDate": "2026-01-01",
       "expiresAfter": "6M",
-      "covers": ["officeRent", "residentialRent"],
+      "covers": [
+        "officeRent",
+        "residentialRent"
+      ],
       "note": "Sole rent source: semi-automated extraction from live listings with HITL review. Office scope: quality central offices (60-300 m2). Residential scope: 1BR modern central apartments (40-60 m2)."
     },
     "damia-tech-salary-benchmark-2025": {
@@ -125,7 +185,12 @@
       "type": "survey",
       "publishedDate": "2025-01-01",
       "expiresAfter": "12M",
-      "covers": ["techSalaries", "seniorityBands", "salaryRoleSeniorityTable", "techStackInsights"],
+      "covers": [
+        "techSalaries",
+        "seniorityBands",
+        "salaryRoleSeniorityTable",
+        "techStackInsights"
+      ],
       "note": "Primary salary benchmark source for role/seniority annual ranges in Strategic Considerations. Methodology states 2018-2024 dataset with 5,358 candidates based on recruitment-stage salary expectations."
     },
     "ani-sifide": {
@@ -135,7 +200,9 @@
       "type": "official",
       "publishedDate": "2025-01-01",
       "expiresAfter": "12M",
-      "covers": ["sifideII"],
+      "covers": [
+        "sifideII"
+      ],
       "note": "32.5% base credit + 50% incremental on increased R&D spend"
     },
     "iapmei-techvisa": {
@@ -145,7 +212,9 @@
       "type": "official",
       "publishedDate": "2025-01-01",
       "expiresAfter": "12M",
-      "covers": ["techVisa"]
+      "covers": [
+        "techVisa"
+      ]
     },
     "pwc-ifici": {
       "provider": "PwC Portugal",
@@ -154,7 +223,9 @@
       "type": "official",
       "publishedDate": "2024-01-01",
       "expiresAfter": "24M",
-      "covers": ["ifici"],
+      "covers": [
+        "ifici"
+      ],
       "note": "20% flat IRS rate for 10 years, replaces NHR from 2024"
     },
     "pwc-cit-rates-reduction-2025": {
@@ -164,7 +235,11 @@
       "type": "official",
       "publishedDate": "2025-11-07",
       "expiresAfter": "24M",
-      "covers": ["corporateTax", "ircRates", "smeRate"],
+      "covers": [
+        "corporateTax",
+        "ircRates",
+        "smeRate"
+      ],
       "note": "Law 64/2025: standard CIT rate 19% (2026), 18% (2027), 17% (2028); SMEs and Small Mid Caps 15% on first €50,000 from 2026."
     },
     "aws-cloudping": {
@@ -174,7 +249,9 @@
       "type": "survey",
       "publishedDate": "2025-01-01",
       "expiresAfter": "12M",
-      "covers": ["latency"]
+      "covers": [
+        "latency"
+      ]
     },
     "bloomberg-microsoft-2025": {
       "provider": "Bloomberg",
@@ -183,7 +260,9 @@
       "type": "press",
       "publishedDate": "2025-11-11",
       "expiresAfter": "24M",
-      "covers": ["microsoftInvestment"]
+      "covers": [
+        "microsoftInvestment"
+      ]
     },
     "dcd-microsoft-2025": {
       "provider": "DCD",
@@ -192,7 +271,9 @@
       "type": "press",
       "publishedDate": "2025-11-11",
       "expiresAfter": "24M",
-      "covers": ["microsoftInvestment"]
+      "covers": [
+        "microsoftInvestment"
+      ]
     },
     "desi-2024": {
       "provider": "DESI / EC Digital Decade",
@@ -201,7 +282,11 @@
       "type": "official",
       "publishedDate": "2024-06-01",
       "expiresAfter": "12M",
-      "covers": ["euBroadbandRanking", "fiveGCoverage", "digitalDecade"],
+      "covers": [
+        "euBroadbandRanking",
+        "fiveGCoverage",
+        "digitalDecade"
+      ],
       "note": "Also covers EC Digital Decade metrics (alias: ec-digital-decade-2024)"
     },
     "ec-digital-decade-2024": {
@@ -211,7 +296,11 @@
       "type": "official",
       "publishedDate": "2024-06-01",
       "expiresAfter": "12M",
-      "covers": ["fiveGCoverage", "digitalDecade", "connectivity"],
+      "covers": [
+        "fiveGCoverage",
+        "digitalDecade",
+        "connectivity"
+      ],
       "note": "5G and digital infrastructure country data. Referenced by WEBSITE_CONTENT.json"
     },
     "eu-education-monitor-2025": {
@@ -221,7 +310,10 @@
       "type": "official",
       "publishedDate": "2025-10-01",
       "expiresAfter": "12M",
-      "covers": ["laborMarketShortages", "tertiaryAttainment"]
+      "covers": [
+        "laborMarketShortages",
+        "tertiaryAttainment"
+      ]
     },
     "sines-data-centre": {
       "provider": "Sines Data Centre / Start Campus",
@@ -230,7 +322,10 @@
       "type": "official",
       "publishedDate": "2025-01-01",
       "expiresAfter": "24M",
-      "covers": ["sinesHub", "startCampus"]
+      "covers": [
+        "sinesHub",
+        "startCampus"
+      ]
     },
     "ecb-2024": {
       "provider": "ECB",
@@ -239,7 +334,9 @@
       "type": "official",
       "publishedDate": "2025-12-01",
       "expiresAfter": "3M",
-      "covers": ["sovereignYield10Y"]
+      "covers": [
+        "sovereignYield10Y"
+      ]
     },
     "eurostat-isoc-sks-itspt": {
       "provider": "Eurostat",
@@ -248,7 +345,12 @@
       "type": "official",
       "publishedDate": "2025-04-14",
       "expiresAfter": "12M",
-      "covers": ["techWorkforceTotal", "cityBreakdown", "rankInEU", "annualGrowthRate"],
+      "covers": [
+        "techWorkforceTotal",
+        "cityBreakdown",
+        "rankInEU",
+        "annualGrowthRate"
+      ],
       "note": "Official EU dataset used for Portugal ICT specialist headcount and trend calculations"
     },
     "startup-portugal": {
@@ -258,7 +360,9 @@
       "type": "survey",
       "publishedDate": "2025-01-01",
       "expiresAfter": "12M",
-      "covers": ["retention"]
+      "covers": [
+        "retention"
+      ]
     },
     "a3es": {
       "provider": "A3ES",
@@ -267,7 +371,10 @@
       "type": "official",
       "publishedDate": "2025-01-01",
       "expiresAfter": "24M",
-      "covers": ["universityAccreditation", "programAccreditation"]
+      "covers": [
+        "universityAccreditation",
+        "programAccreditation"
+      ]
     },
     "gpi-2024": {
       "provider": "Institute for Economics & Peace",
@@ -276,7 +383,10 @@
       "type": "official",
       "publishedDate": "2024-06-01",
       "expiresAfter": "12M",
-      "covers": ["peaceRanking", "safetyScore"]
+      "covers": [
+        "peaceRanking",
+        "safetyScore"
+      ]
     },
     "ef-epi-2024": {
       "provider": "Education First",
@@ -285,7 +395,9 @@
       "type": "survey",
       "publishedDate": "2024-11-01",
       "expiresAfter": "12M",
-      "covers": ["englishProficiency"]
+      "covers": [
+        "englishProficiency"
+      ]
     },
     "ehci-2018": {
       "provider": "Health Consumer Powerhouse",
@@ -294,10 +406,10 @@
       "type": "survey",
       "publishedDate": "2019-02-01",
       "expiresAfter": "N/A",
-      "covers": ["healthcareRanking"],
+      "covers": [
+        "healthcareRanking"
+      ],
       "note": "Last published edition. No newer version available as of Feb 2026."
     }
   }
 }
-
-

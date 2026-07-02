@@ -2,7 +2,7 @@
   "_meta": {
     "schema": "3.0",
     "database": "MASTER",
-    "lastUpdated": "2026-04-06T00:00:00Z",
+    "lastUpdated": "2026-07-02T00:00:00Z",
     "version": "1.0.0",
     "recordCount": 20
   },
@@ -54,19 +54,19 @@
       }
     },
     "graduateMethodology": {
-      "_verificationNote": "Regional totals (officialStem, coreICT) are official DGEEC NUTS II figures (2023/24). City-level officialStem and coreICT values are proportional estimates derived from these regional totals, distributed by institutional size. These are marked approximate=true and prefixed with ≈ in the UI. digitalStemPlus is an internal benchmark estimate and is marked approximate in the UI.",
+      "_verificationNote": "Regional totals (officialStem, coreICT) are official DGEEC NUTS II figures. City-level officialStem and coreICT values are proportional estimates derived from these regional totals, distributed by institutional size. These are marked approximate=true and prefixed with ≈ in the UI. digitalStemPlus is an internal benchmark estimate and is marked approximate in the UI. A 2023/24 DGEEC column is retained for reference; the 2024/25 column is now the primary value consumed by profiles, charts, and prompts. City-level 2024/25 values were apportioned using each city's 2023/24 share of its region (same methodology as the 2023/24 baseline).",
       "officialStem": {
         "description": "DGEEC classification: CNAEF 05 (Physical/Math), 06 (ICT), 07 (Engineering)",
         "source": "DGEEC InfoCursos",
         "sourceURL": "https://estatisticas-educacao.dgeec.medu.pt/eef/2024/ensino_superior/alunos/diplomados.asp",
-        "lastUpdated": "June 2024",
+        "lastUpdated": "June 2025",
         "cnaefCodes": [
           "05 (Physical/Math)",
           "06 (ICT)",
           "07 (Engineering)"
         ],
-        "national": 27990,
-        "year": 2023
+        "national": 29691,
+        "year": 2024
       },
       "digitalStemPlus": {
         "description": "Hiring-relevant talent pool: STEM + CTeSP + Adjacent programs",
@@ -92,10 +92,10 @@
             "description": "2-year diplomas: Web Dev, Programming"
           }
         },
-        "nationalEstimate": 17954,
+        "nationalEstimate": 17897,
         "year": 2026,
-        "baselineYear": "2023/24",
-        "projectionHorizonYears": 2,
+        "baselineYear": "2024/25",
+        "projectionHorizonYears": 1,
         "projectionCagr": {
           "coreICT": 0.06,
           "engineeringSubset": 0.03,
@@ -103,10 +103,10 @@
           "vocationalTier2": 0.02
         },
         "projectedComponents": {
-          "coreICT": 3671,
-          "engineeringSubset": 9825,
-          "mathStatsSubset": 1691,
-          "vocationalTier2": 2767
+          "coreICT": 4008,
+          "engineeringSubset": 9534,
+          "mathStatsSubset": 1642,
+          "vocationalTier2": 2713
         }
       },
       "coreICT": {
@@ -116,8 +116,8 @@
           "523 (Electronics/Automation)"
         ],
         "avgShare": 0.16,
-        "national": 3267,
-        "year": 2023
+        "national": 3781,
+        "year": 2024
       }
     },
     "chartConfig": {
@@ -223,38 +223,52 @@
   "regionalTotals": {
     "Norte": {
       "officialStem": 10044,
-      "digitalStemPlus": 6420,
-      "coreICT": 1246
+      "officialStem2425": 11140,
+      "digitalStemPlus": 6400,
+      "coreICT": 1246,
+      "coreICT2425": 1538
     },
     "Centro": {
       "officialStem": 5842,
-      "digitalStemPlus": 3687,
-      "coreICT": 496
+      "officialStem2425": 6223,
+      "digitalStemPlus": 3675,
+      "coreICT": 496,
+      "coreICT2425": 598
     },
     "Oeste and Vale do Tejo": {
       "officialStem": 360,
-      "digitalStemPlus": 469,
-      "coreICT": 149
+      "officialStem2425": 402,
+      "digitalStemPlus": 467,
+      "coreICT": 149,
+      "coreICT2425": 170
     },
     "Lisbon Metropolitan Area": {
       "officialStem": 8089,
-      "digitalStemPlus": 5472,
-      "coreICT": 1103
+      "officialStem2425": 8066,
+      "digitalStemPlus": 5455,
+      "coreICT": 1103,
+      "coreICT2425": 1185
     },
     "Península de Setúbal": {
       "officialStem": 2503,
-      "digitalStemPlus": 1194,
-      "coreICT": 195
+      "officialStem2425": 2636,
+      "digitalStemPlus": 1190,
+      "coreICT": 195,
+      "coreICT2425": 199
     },
     "Alentejo": {
       "officialStem": 435,
-      "digitalStemPlus": 338,
-      "coreICT": 45
+      "officialStem2425": 505,
+      "digitalStemPlus": 337,
+      "coreICT": 45,
+      "coreICT2425": 45
     },
     "Algarve": {
       "officialStem": 717,
-      "digitalStemPlus": 374,
-      "coreICT": 33
+      "officialStem2425": 719,
+      "digitalStemPlus": 373,
+      "coreICT": 33,
+      "coreICT2425": 46
     }
   },
   "cities": {
@@ -318,6 +332,8 @@
           "officialStem": {
             "value": 8089,
             "year": 2023,
+            "value2425": 8066,
+            "year2425": 2024,
             "meta": {
               "source": {
                 "type": "estimated",
@@ -358,6 +374,8 @@
           "coreICT": {
             "value": 1103,
             "year": 2023,
+            "value2425": 1185,
+            "year2425": 2024,
             "pctOfDigitalStem": {
               "value": 17,
               "meta": {
@@ -550,6 +568,8 @@
           "officialStem": {
             "value": 5439,
             "year": 2023,
+            "value2425": 6033,
+            "year2425": 2024,
             "meta": {
               "source": {
                 "type": "estimated",
@@ -590,6 +610,8 @@
           "coreICT": {
             "value": 720,
             "year": 2023,
+            "value2425": 889,
+            "year2425": 2024,
             "pctOfDigitalStem": {
               "value": 17.3,
               "meta": {
@@ -782,6 +804,8 @@
           "officialStem": {
             "value": 1517,
             "year": 2023,
+            "value2425": 1683,
+            "year2425": 2024,
             "meta": {
               "source": {
                 "type": "estimated",
@@ -822,6 +846,8 @@
           "coreICT": {
             "value": 219,
             "year": 2023,
+            "value2425": 271,
+            "year2425": 2024,
             "pctOfDigitalStem": {
               "value": 18.9,
               "meta": {
@@ -1013,6 +1039,8 @@
           "officialStem": {
             "value": 1212,
             "year": 2023,
+            "value2425": 1344,
+            "year2425": 2024,
             "meta": {
               "source": {
                 "type": "estimated",
@@ -1053,6 +1081,8 @@
           "coreICT": {
             "value": 142,
             "year": 2023,
+            "value2425": 175,
+            "year2425": 2024,
             "pctOfDigitalStem": {
               "value": 15.3,
               "meta": {
@@ -1245,6 +1275,8 @@
           "officialStem": {
             "value": 1684,
             "year": 2023,
+            "value2425": 1794,
+            "year2425": 2024,
             "meta": {
               "source": {
                 "type": "estimated",
@@ -1285,6 +1317,8 @@
           "coreICT": {
             "value": 146,
             "year": 2023,
+            "value2425": 176,
+            "year2425": 2024,
             "pctOfDigitalStem": {
               "value": 14.3,
               "meta": {
@@ -1476,6 +1510,8 @@
           "officialStem": {
             "value": 1370,
             "year": 2023,
+            "value2425": 1459,
+            "year2425": 2024,
             "meta": {
               "source": {
                 "type": "estimated",
@@ -1516,6 +1552,8 @@
           "coreICT": {
             "value": 140,
             "year": 2023,
+            "value2425": 169,
+            "year2425": 2024,
             "pctOfDigitalStem": {
               "value": 16.8,
               "meta": {
@@ -1707,6 +1745,8 @@
           "officialStem": {
             "value": 1186,
             "year": 2023,
+            "value2425": 1263,
+            "year2425": 2024,
             "meta": {
               "source": {
                 "type": "estimated",
@@ -1747,6 +1787,8 @@
           "coreICT": {
             "value": 63,
             "year": 2023,
+            "value2425": 76,
+            "year2425": 2024,
             "pctOfDigitalStem": {
               "value": 8.8,
               "meta": {
@@ -1938,6 +1980,8 @@
           "officialStem": {
             "value": 305,
             "year": 2023,
+            "value2425": 354,
+            "year2425": 2024,
             "meta": {
               "source": {
                 "type": "estimated",
@@ -1978,6 +2022,8 @@
           "coreICT": {
             "value": 29,
             "year": 2023,
+            "value2425": 29,
+            "year2425": 2024,
             "pctOfDigitalStem": {
               "value": 10.6,
               "meta": {
@@ -2169,6 +2215,8 @@
           "officialStem": {
             "value": 717,
             "year": 2023,
+            "value2425": 719,
+            "year2425": 2024,
             "meta": {
               "source": {
                 "type": "estimated",
@@ -2209,6 +2257,8 @@
           "coreICT": {
             "value": 33,
             "year": 2023,
+            "value2425": 46,
+            "year2425": 2024,
             "pctOfDigitalStem": {
               "value": 7,
               "meta": {
@@ -2401,6 +2451,8 @@
           "officialStem": {
             "value": 2503,
             "year": 2023,
+            "value2425": 2636,
+            "year2425": 2024,
             "meta": {
               "source": {
                 "type": "estimated",
@@ -2441,6 +2493,8 @@
           "coreICT": {
             "value": 195,
             "year": 2023,
+            "value2425": 199,
+            "year2425": 2024,
             "pctOfDigitalStem": {
               "value": 12.7,
               "meta": {
@@ -2632,6 +2686,8 @@
           "officialStem": {
             "value": 696,
             "year": 2023,
+            "value2425": 772,
+            "year2425": 2024,
             "meta": {
               "source": {
                 "type": "estimated",
@@ -2672,6 +2728,8 @@
           "coreICT": {
             "value": 65,
             "year": 2023,
+            "value2425": 80,
+            "year2425": 2024,
             "pctOfDigitalStem": {
               "value": 12.2,
               "meta": {
@@ -2864,6 +2922,8 @@
           "officialStem": {
             "value": 516,
             "year": 2023,
+            "value2425": 572,
+            "year2425": 2024,
             "meta": {
               "source": {
                 "type": "estimated",
@@ -2904,6 +2964,8 @@
           "coreICT": {
             "value": 44,
             "year": 2023,
+            "value2425": 54,
+            "year2425": 2024,
             "pctOfDigitalStem": {
               "value": 11.1,
               "meta": {
@@ -3096,6 +3158,8 @@
           "officialStem": {
             "value": 664,
             "year": 2023,
+            "value2425": 736,
+            "year2425": 2024,
             "meta": {
               "source": {
                 "type": "estimated",
@@ -3136,6 +3200,8 @@
           "coreICT": {
             "value": 56,
             "year": 2023,
+            "value2425": 69,
+            "year2425": 2024,
             "pctOfDigitalStem": {
               "value": 11,
               "meta": {
@@ -3328,6 +3394,8 @@
           "officialStem": {
             "value": 255,
             "year": 2023,
+            "value2425": 272,
+            "year2425": 2024,
             "meta": {
               "source": {
                 "type": "estimated",
@@ -3368,6 +3436,8 @@
           "coreICT": {
             "value": 86,
             "year": 2023,
+            "value2425": 104,
+            "year2425": 2024,
             "pctOfDigitalStem": {
               "value": 8.3,
               "meta": {
@@ -3560,6 +3630,8 @@
           "officialStem": {
             "value": 135,
             "year": 2023,
+            "value2425": 151,
+            "year2425": 2024,
             "meta": {
               "source": {
                 "type": "estimated",
@@ -3600,6 +3672,8 @@
           "coreICT": {
             "value": 76,
             "year": 2023,
+            "value2425": 87,
+            "year2425": 2024,
             "pctOfDigitalStem": {
               "value": 40.9,
               "meta": {
@@ -3792,6 +3866,8 @@
           "officialStem": {
             "value": 929,
             "year": 2023,
+            "value2425": 990,
+            "year2425": 2024,
             "meta": {
               "source": {
                 "type": "estimated",
@@ -3832,6 +3908,8 @@
           "coreICT": {
             "value": 39,
             "year": 2023,
+            "value2425": 47,
+            "year2425": 2024,
             "pctOfDigitalStem": {
               "value": 6.9,
               "meta": {
@@ -4024,6 +4102,8 @@
           "officialStem": {
             "value": 418,
             "year": 2023,
+            "value2425": 445,
+            "year2425": 2024,
             "meta": {
               "source": {
                 "type": "estimated",
@@ -4064,6 +4144,8 @@
           "coreICT": {
             "value": 22,
             "year": 2023,
+            "value2425": 26,
+            "year2425": 2024,
             "pctOfDigitalStem": {
               "value": 8.7,
               "meta": {
@@ -4256,6 +4338,8 @@
           "officialStem": {
             "value": 225,
             "year": 2023,
+            "value2425": 251,
+            "year2425": 2024,
             "meta": {
               "source": {
                 "type": "estimated",
@@ -4296,6 +4380,8 @@
           "coreICT": {
             "value": 73,
             "year": 2023,
+            "value2425": 83,
+            "year2425": 2024,
             "pctOfDigitalStem": {
               "value": 23.3,
               "meta": {
@@ -4488,6 +4574,8 @@
           "officialStem": {
             "value": 72,
             "year": 2023,
+            "value2425": 84,
+            "year2425": 2024,
             "meta": {
               "source": {
                 "type": "estimated",
@@ -4528,6 +4616,8 @@
           "coreICT": {
             "value": 9,
             "year": 2023,
+            "value2425": 9,
+            "year2425": 2024,
             "pctOfDigitalStem": {
               "value": 14.1,
               "meta": {
@@ -4720,6 +4810,8 @@
           "officialStem": {
             "value": 58,
             "year": 2023,
+            "value2425": 67,
+            "year2425": 2024,
             "meta": {
               "source": {
                 "type": "estimated",
@@ -4760,6 +4852,8 @@
           "coreICT": {
             "value": 7,
             "year": 2023,
+            "value2425": 7,
+            "year2425": 2024,
             "pctOfDigitalStem": {
               "value": 13.5,
               "meta": {

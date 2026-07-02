@@ -6,7 +6,7 @@
  */
 
 import { loadDatabases, getStore } from './modules/database.js';
-import { computeAllSalaryIndices, computeAllTechStemPlus } from './modules/calculations.js';
+import { computeAllSalaryIndices, computeAllTechStemPlus, pickCurrentValue } from './modules/calculations.js';
 import { initThemeToggle } from './modules/themeToggle.js';
 import { renderCityTable } from './modules/cityTable.js';
 import { renderCityProfiles } from './modules/cityProfiles.js';
@@ -370,15 +370,17 @@ function initRegionTooltip() {
         tooltipText.innerHTML = `${regionName} <span class="nuts-label">NUTS II</span>`;
         const gradData = regionalTotals[regionName];
         if (gradData && tooltipGrads) {
-          const stem = (gradData.officialStem || gradData.digitalStemPlus || 0).toLocaleString();
-          const ict = (gradData.coreICT || 0).toLocaleString();
-          const ictPct = (gradData.officialStem || gradData.digitalStemPlus) > 0 
-            ? ((gradData.coreICT / (gradData.officialStem || gradData.digitalStemPlus)) * 100).toFixed(1) 
+          const officialStem = pickCurrentValue({ value: gradData.officialStem, value2425: gradData.officialStem2425 });
+          const coreICT = pickCurrentValue({ value: gradData.coreICT, value2425: gradData.coreICT2425 });
+          const stem = (officialStem || gradData.digitalStemPlus || 0).toLocaleString();
+          const ict = (coreICT || 0).toLocaleString();
+          const ictPct = officialStem > 0
+            ? ((coreICT / officialStem) * 100).toFixed(1)
             : '0.0';
           tooltipGrads.innerHTML = `
             <span class="tooltip-grad-line tooltip-official"><i class="fa-solid fa-user-graduate"></i> ${stem} STEM</span>
             <span class="tooltip-grad-line tooltip-ict"><i class="fa-solid fa-user-graduate"></i> ${ict} ICT <span class="ict-highlight">(${ictPct}%)</span></span>
-            <span class="tooltip-source">23/24 · DGEEC</span>`;
+            <span class="tooltip-source">24/25 · DGEEC</span>`;
           tooltipGrads.style.display = 'block';
         } else if (tooltipGrads) {
           tooltipGrads.style.display = 'none';

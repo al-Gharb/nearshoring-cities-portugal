@@ -5,7 +5,7 @@
  */
 
 import { getStore, getCityDisplayOrder, getRegionOrder, getRegionalTotals, getCity } from './database.js';
-import { calculateICTPct, formatNumber, formatRange } from './calculations.js';
+import { calculateICTPct, calculateYoYPct, formatYoY, formatNumber, formatRange } from './calculations.js';
 
 /**
  * Get the region for a given city ID.
@@ -15,6 +15,44 @@ import { calculateICTPct, formatNumber, formatRange } from './calculations.js';
 function getCityRegion(cityId) {
   const city = getCity(cityId);
   return city?.basic?.region?.value ?? 'Unknown';
+}
+
+/**
+ * Build the inner HTML for a 2024/25 DGEEC value cell: the formatted value,
+ * optionally with a colored YoY badge vs. the 2023/24 baseline (or "—" if not yet available).
+ * @param {number|null} value2425
+ * @param {number|null} previousValue — 2023/24 baseline for the same metric
+ * @param {string} [suffix=''] — e.g. '*' for region-wide DGEEC totals
+ * @param {boolean} [showBadge=true] — false to render the value only (no YoY badge)
+ * @returns {string} HTML string
+ */
+function buildYoYCellHTML(value2425, previousValue, suffix = '', showBadge = true) {
+  if (value2425 == null) return '—';
+  const valueText = `${formatNumber(value2425)}${suffix}`;
+  if (!showBadge) return valueText;
+  const yoy = formatYoY(calculateYoYPct(value2425, previousValue));
+  if (yoy.direction === 'flat' && yoy.text === '—') return valueText;
+  const YOY_ICONS = { up: 'fa-arrow-trend-up', down: 'fa-arrow-trend-down', flat: 'fa-minus' };
+  const icon = YOY_ICONS[yoy.direction] ?? YOY_ICONS.flat;
+  return `${valueText} <span class="yoy-badge yoy-${yoy.direction}" title="Year-over-year change vs 2023/24"><i class="fa-solid ${icon}" aria-hidden="true"></i>${yoy.text}</span>`;
+}
+
+/**
+ * Create a <td> for a 2024/25 DGEEC value column (city-level rows show the value only;
+ * YoY badges are reserved for region subtotal and grand-total rows).
+ * @param {number|null} value2425
+ * @param {number|null} previousValue
+ * @param {string[]} classNames
+ * @param {string} title
+ * @returns {HTMLTableCellElement}
+ */
+function createYoYTd(value2425, previousValue, classNames, title) {
+  const td = document.createElement('td');
+  td.classList.add(...classNames, 'col-yoy');
+  td.dataset.promptCore = 'true';
+  td.title = title;
+  td.innerHTML = buildYoYCellHTML(value2425, previousValue, '', false);
+  return td;
 }
 
 /**
@@ -37,9 +75,11 @@ function extractCityRowData(city) {
     featured: city.basic?.featured ?? false,
     universities: talent.universities?.value?.join(', ') ?? '—',
     officialStem,
+    officialStem2425: grads.officialStem?.value2425 ?? null,
     officialStemApprox: grads.officialStem?.approximate === true,
     stemPlus: stemValue,
     ict: ictValue,
+    ict2425: grads.coreICT?.value2425 ?? null,
     ictApprox: grads.coreICT?.approximate === true,
     ictPct: officialStem && ictValue ? calculateICTPct(ictValue, officialStem) : '—',
     salaryIndex: costs.salaryIndex?.value ?? '—',
@@ -51,7 +91,7 @@ function extractCityRowData(city) {
 
 /**
  * Create a city data row <tr>.
- * Columns: City, Universities, Official STEM, ICT, ICT %, STEM+, Salary, Office, Res Rent, COL
+ * Columns: City, Universities, Official STEM (23/24), Official STEM (24/25), ICT (23/24), ICT (24/25), ICT %, STEM+, Salary, Office, Res Rent, COL
  * @param {Object} rowData
  * @returns {HTMLTableRowElement}
  */
@@ -100,6 +140,14 @@ function createCityRow(rowData) {
   }
   tr.appendChild(officialStemCell);
 
+  // Official STEM 24/25 — new DGEEC year, value only (YoY shown at region/total level only)
+  tr.appendChild(createYoYTd(
+    rowData.officialStem2425,
+    rowData.officialStem,
+    ['col-numeric', 'col-stem-official'],
+    'DGEEC 2024/25 — city values are proportional estimates from official DGEEC regional totals. See region subtotal for YoY change vs 2023/24.'
+  ));
+
   // ICT — prompt-core: city generators
   const ictCell = document.createElement('td');
   ictCell.classList.add('col-numeric', 'col-ict');
@@ -114,6 +162,14 @@ function createCityRow(rowData) {
     ictCell.textContent = '—';
   }
   tr.appendChild(ictCell);
+
+  // ICT 24/25 — new DGEEC year, value only (YoY shown at region/total level only)
+  tr.appendChild(createYoYTd(
+    rowData.ict2425,
+    rowData.ict,
+    ['col-numeric', 'col-ict'],
+    'DGEEC 2024/25 — city values are proportional estimates from official DGEEC regional totals. See region subtotal for YoY change vs 2023/24.'
+  ));
 
   // ICT % — derived, NOT in prompts directly
   const ictPctCell = document.createElement('td');
@@ -187,7 +243,7 @@ function createRegionHeaderRow(regionName) {
   const tr = document.createElement('tr');
   tr.classList.add('region-header-row');
   const td = document.createElement('td');
-  td.colSpan = 10;
+  td.colSpan = 12;
   td.textContent = regionName;
   tr.appendChild(td);
   return tr;
@@ -195,7 +251,7 @@ function createRegionHeaderRow(regionName) {
 
 /**
  * Create a region summary row with totals + DGEEC source link.
- * Columns: name, uni(blank), officialStem, ict, ictPct, stemPlus, salary(blank), office(blank), res(blank), col(blank)
+ * Columns: name, uni(blank), officialStem, officialStem2425, ict, ict2425, ictPct, stemPlus, salary(blank), office(blank), res(blank), col(blank)
  * @param {string} regionName
  * @param {Object} totals — from regionalTotals
  * @returns {HTMLTableRowElement}
@@ -207,7 +263,7 @@ function createRegionSummaryRow(regionName, totals) {
   // Name + DGEEC link (* = full-region DGEEC total, not sum of listed cities)
   const nameCell = document.createElement('td');
   nameCell.colSpan = 2;
-  nameCell.innerHTML = `<strong>${regionName} Total</strong> <a href="https://estatisticas-educacao.dgeec.medu.pt/eef/2024/ensino_superior/alunos/diplomados.asp" target="_blank" rel="noopener" class="dgeec-source-link" title="* Full NUTS II region totals from DGEEC — includes all HEIs in region, not only the cities listed above">Official DGEEC 23/24 *</a>`;
+  nameCell.innerHTML = `<strong>${regionName} Total</strong> <a href="https://estatisticas-educacao.dgeec.medu.pt/eef/2024/ensino_superior/alunos/diplomados.asp" target="_blank" rel="noopener" class="dgeec-source-link" title="* Full NUTS II region totals from DGEEC — includes all HEIs in region, not only the cities listed above">Official DGEEC 23/24 &amp; 24/25 *</a>`;
   if (regionName === 'Oeste and Vale do Tejo' && totals?.officialStem && totals?.coreICT) {
     const note = document.createElement('span');
     note.classList.add('region-summary-note');
@@ -224,6 +280,14 @@ function createRegionSummaryRow(regionName, totals) {
   officialStemCell.textContent = totals?.officialStem != null ? `${formatNumber(totals.officialStem)}*` : '—';
   tr.appendChild(officialStemCell);
 
+  // Official STEM 24/25 total (region-wide, official DGEEC figure)
+  const officialStem2425Cell = document.createElement('td');
+  officialStem2425Cell.classList.add('col-numeric', 'col-stem-official', 'col-yoy');
+  officialStem2425Cell.dataset.promptCore = 'true';
+  officialStem2425Cell.title = 'Full NUTS II region total (DGEEC) 2024/25 — includes all HEIs, not only listed cities. YoY vs 2023/24.';
+  officialStem2425Cell.innerHTML = buildYoYCellHTML(totals?.officialStem2425 ?? null, totals?.officialStem ?? null, '*');
+  tr.appendChild(officialStem2425Cell);
+
   // ICT total (* = official DGEEC region-wide figure)
   const ictCell = document.createElement('td');
   ictCell.classList.add('col-numeric', 'col-ict');
@@ -231,6 +295,14 @@ function createRegionSummaryRow(regionName, totals) {
   ictCell.title = 'Full NUTS II region total (DGEEC) — includes all HEIs, not only listed cities';
   ictCell.textContent = totals?.coreICT != null ? `${formatNumber(totals.coreICT)}*` : '—';
   tr.appendChild(ictCell);
+
+  // ICT 24/25 total (region-wide, official DGEEC figure)
+  const ict2425Cell = document.createElement('td');
+  ict2425Cell.classList.add('col-numeric', 'col-ict', 'col-yoy');
+  ict2425Cell.dataset.promptCore = 'true';
+  ict2425Cell.title = 'Full NUTS II region total (DGEEC) 2024/25 — includes all HEIs, not only listed cities. YoY vs 2023/24.';
+  ict2425Cell.innerHTML = buildYoYCellHTML(totals?.coreICT2425 ?? null, totals?.coreICT ?? null, '*');
+  tr.appendChild(ict2425Cell);
 
   // ICT %
   const ictPctCell = document.createElement('td');
@@ -276,11 +348,22 @@ function createGrandTotalsRow(allRegionalTotals) {
   let totalOfficialStem = 0;
   let totalICT = 0;
   let totalStemPlus = 0;
+  let totalOfficialStem2425 = 0;
+  let totalICT2425 = 0;
+  let hasAny2425Data = false;
 
   for (const [, totals] of Object.entries(allRegionalTotals)) {
     totalOfficialStem += totals.officialStem ?? 0;
     totalICT += totals.coreICT ?? 0;
     totalStemPlus += totals.digitalStemPlus ?? 0;
+    if (totals.officialStem2425 != null) {
+      totalOfficialStem2425 += totals.officialStem2425;
+      hasAny2425Data = true;
+    }
+    if (totals.coreICT2425 != null) {
+      totalICT2425 += totals.coreICT2425;
+      hasAny2425Data = true;
+    }
   }
 
   // Name
@@ -297,6 +380,14 @@ function createGrandTotalsRow(allRegionalTotals) {
   officialStemCell.title = 'Sum of official DGEEC regional totals (CNAEF 05+06+07)';
   tr.appendChild(officialStemCell);
 
+  // Official STEM 24/25
+  const officialStem2425Cell = document.createElement('td');
+  officialStem2425Cell.classList.add('col-numeric', 'col-stem-official', 'col-yoy');
+  officialStem2425Cell.id = 'total-official-stem-2425';
+  officialStem2425Cell.title = 'Sum of official DGEEC regional totals (CNAEF 05+06+07), 2024/25. YoY vs 2023/24.';
+  officialStem2425Cell.innerHTML = hasAny2425Data ? buildYoYCellHTML(totalOfficialStem2425, totalOfficialStem) : '—';
+  tr.appendChild(officialStem2425Cell);
+
   // ICT
   const ictCell = document.createElement('td');
   ictCell.classList.add('col-numeric', 'col-ict');
@@ -304,6 +395,14 @@ function createGrandTotalsRow(allRegionalTotals) {
   ictCell.textContent = formatNumber(totalICT);
   ictCell.title = 'Sum of official DGEEC regional totals (CNAEF 481+523)';
   tr.appendChild(ictCell);
+
+  // ICT 24/25
+  const ict2425Cell = document.createElement('td');
+  ict2425Cell.classList.add('col-numeric', 'col-ict', 'col-yoy');
+  ict2425Cell.id = 'total-ict-grads-2425';
+  ict2425Cell.title = 'Sum of official DGEEC regional totals (CNAEF 481+523), 2024/25. YoY vs 2023/24.';
+  ict2425Cell.innerHTML = hasAny2425Data ? buildYoYCellHTML(totalICT2425, totalICT) : '—';
+  tr.appendChild(ict2425Cell);
 
   // ICT %
   const ictPctCell = document.createElement('td');

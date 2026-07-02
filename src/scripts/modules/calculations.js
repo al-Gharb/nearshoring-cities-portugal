@@ -6,6 +6,21 @@
  * Formula: (coreICT / officialStem) × 100
  */
 
+/**
+ * Return the current (most recent) value for a metric that may carry a
+ * prior-year baseline (`.value`) and a newer year (`.value2425`).
+ * This lets downstream consumers stay on the latest DGEEC year without
+ * hard-coding field names across the site.
+ *
+ * @param {Object} metric — e.g. city.talent.graduates.officialStem
+ * @returns {number|null}
+ */
+export function pickCurrentValue(metric) {
+  if (metric == null) return null;
+  if (metric.value2425 != null) return metric.value2425;
+  return metric.value ?? null;
+}
+
 // NOTE: officialStem/coreICT remain source values from MASTER.json.
 // Tech STEM+ is re-derived at runtime from regional totals to avoid stale city allocations.
 
@@ -75,7 +90,7 @@ export function computeAllTechStemPlus(master) {
 
     if (regionCities.length === 0) continue;
 
-    const weights = regionCities.map(({ city }) => city?.talent?.graduates?.officialStem?.value ?? 0);
+    const weights = regionCities.map(({ city }) => pickCurrentValue(city?.talent?.graduates?.officialStem) ?? 0);
     const allocated = allocateIntegerByWeight(regionTotal, weights);
 
     regionCities.forEach(({ city }, idx) => {
@@ -86,12 +101,13 @@ export function computeAllTechStemPlus(master) {
       grads.digitalStemPlus.value = allocated[idx] ?? 0;
       grads.digitalStemPlus.approximate = true;
 
-      const coreICT = grads.coreICT?.value;
-      const stemPlus = grads.digitalStemPlus?.value;
-      if (Number.isFinite(coreICT) && Number.isFinite(stemPlus) && stemPlus > 0) {
-        const pct = Math.round((coreICT / stemPlus) * 1000) / 10;
-        if (!grads.coreICT.pctOfDigitalStem) grads.coreICT.pctOfDigitalStem = { value: pct };
-        grads.coreICT.pctOfDigitalStem.value = pct;
+      // Keep stored ICT % in sync with current values (used as fallback).
+      const coreICT = pickCurrentValue(grads.coreICT);
+      const officialStem = pickCurrentValue(grads.officialStem);
+      if (Number.isFinite(coreICT) && Number.isFinite(officialStem) && officialStem > 0) {
+        const pct = Math.round((coreICT / officialStem) * 10000) / 100;
+        if (!grads.coreICT.pctOfOfficialStem) grads.coreICT.pctOfOfficialStem = { value: pct };
+        grads.coreICT.pctOfOfficialStem.value = pct;
       }
     });
   }
@@ -109,6 +125,29 @@ export function computeAllTechStemPlus(master) {
 export function calculateICTPct(coreICT, officialStem) {
   if (!officialStem || officialStem === 0) return '—';
   return ((coreICT / officialStem) * 100).toFixed(1);
+}
+
+/**
+ * Calculate year-over-year % change between a newer and a prior value.
+ * @param {number|null|undefined} current — newer value (e.g. 2024/25)
+ * @param {number|null|undefined} previous — prior value (e.g. 2023/24)
+ * @returns {number|null} — rounded to 1 decimal, or null if not computable
+ */
+export function calculateYoYPct(current, previous) {
+  if (current == null || previous == null || !previous) return null;
+  return Math.round(((current - previous) / previous) * 1000) / 10;
+}
+
+/**
+ * Format a YoY % change for display as a colored badge.
+ * @param {number|null} pct — from calculateYoYPct
+ * @returns {{text: string, direction: 'up'|'down'|'flat'}}
+ */
+export function formatYoY(pct) {
+  if (pct == null || Number.isNaN(pct)) return { text: '—', direction: 'flat' };
+  if (Math.abs(pct) < 0.05) return { text: '0.0%', direction: 'flat' };
+  const sign = pct > 0 ? '+' : '−';
+  return { text: `${sign}${Math.abs(pct).toFixed(1)}%`, direction: pct > 0 ? 'up' : 'down' };
 }
 
 /**

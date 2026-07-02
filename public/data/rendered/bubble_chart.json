@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "generatedAt": "2026-04-06T00:00:00Z",
+    "generatedAt": "2026-07-02T00:00:00Z",
     "source": "MASTER.json"
   },
   "xAxis": {
@@ -22,8 +22,8 @@
       "region": "Lisbon Metropolitan Area",
       "featured": true,
       "x": 100,
-      "y": 5472,
-      "r": 1103,
+      "y": 5455,
+      "r": 1185,
       "col": 46,
       "labelOffset": {
         "position": "above",
@@ -37,8 +37,8 @@
       "region": "Norte",
       "featured": true,
       "x": 93.1,
-      "y": 3476,
-      "r": 720,
+      "y": 3466,
+      "r": 889,
       "col": 40,
       "labelOffset": {
         "position": "above",
@@ -52,8 +52,8 @@
       "region": "Norte",
       "featured": true,
       "x": 89.8,
-      "y": 970,
-      "r": 219,
+      "y": 967,
+      "r": 271,
       "col": 35,
       "labelOffset": {
         "position": "above",
@@ -67,8 +67,8 @@
       "region": "Norte",
       "featured": true,
       "x": 88.5,
-      "y": 775,
-      "r": 142,
+      "y": 772,
+      "r": 175,
       "col": 33,
       "labelOffset": {
         "position": "below",
@@ -82,8 +82,8 @@
       "region": "Centro",
       "featured": true,
       "x": 84.5,
-      "y": 1063,
-      "r": 146,
+      "y": 1059,
+      "r": 176,
       "col": 34,
       "labelOffset": {
         "position": "above",
@@ -97,8 +97,8 @@
       "region": "Centro",
       "featured": true,
       "x": 86.4,
-      "y": 865,
-      "r": 140,
+      "y": 861,
+      "r": 169,
       "col": 37,
       "labelOffset": {
         "position": "below",
@@ -112,8 +112,8 @@
       "region": "Centro",
       "featured": true,
       "x": 81.9,
-      "y": 748,
-      "r": 63,
+      "y": 746,
+      "r": 76,
       "col": 30,
       "labelOffset": {
         "position": "below",
@@ -127,7 +127,7 @@
       "region": "Alentejo",
       "featured": true,
       "x": 86.5,
-      "y": 237,
+      "y": 236,
       "r": 29,
       "col": 32,
       "labelOffset": {
@@ -142,8 +142,8 @@
       "region": "Algarve",
       "featured": true,
       "x": 86.5,
-      "y": 374,
-      "r": 33,
+      "y": 373,
+      "r": 46,
       "col": 38,
       "labelOffset": {
         "position": "right",
@@ -157,8 +157,8 @@
       "region": "Península de Setúbal",
       "featured": true,
       "x": 92.5,
-      "y": 1194,
-      "r": 195,
+      "y": 1190,
+      "r": 199,
       "col": 36,
       "labelOffset": {
         "position": "below",

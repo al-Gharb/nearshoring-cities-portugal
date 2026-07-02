@@ -10,6 +10,7 @@
 
 import { getStore, getCity, getCityProfile, getCompensationData } from './database.js';
 import { buildConfidenceBarHTML } from '../utils/confidenceBar.js';
+import { pickCurrentValue, calculateICTPct } from './calculations.js';
 
 /**
  * Format a number with locale separators (e.g., 36840 → "36,840").
@@ -118,13 +119,11 @@ function getDbFieldValue(city, field) {
     case 'stem-grads':
       return grads.digitalStemPlus?.value ? fmt(grads.digitalStemPlus.value) : '—';
     case 'official-stem':
-      return grads.officialStem?.value ? fmt(grads.officialStem.value) : '—';
+      return pickCurrentValue(grads.officialStem) != null ? fmt(pickCurrentValue(grads.officialStem)) : '—';
     case 'ict-grads':
-      return grads.coreICT?.value ? fmt(grads.coreICT.value) : '—';
+      return pickCurrentValue(grads.coreICT) != null ? fmt(pickCurrentValue(grads.coreICT)) : '—';
     case 'ict-pct':
-      return grads.coreICT?.pctOfOfficialStem?.value
-        ? `${grads.coreICT.pctOfOfficialStem.value}%`
-        : '—';
+      return `${calculateICTPct(pickCurrentValue(grads.coreICT), pickCurrentValue(grads.officialStem))}%`;
     case 'salary-index':
       return costs.salaryIndex?.value ?? '—';
     case 'col-index':
